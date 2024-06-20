@@ -8,13 +8,17 @@ editor_options:
 ---
 
 # Introduction
-Describe your project.
+In the context of working with biological spatial data, such as spatial sequencing data, which provide information on the location of biological molecules in a sample, the goal is to identify clusters of molecules grouped in specific areas, thus indicating regions of particular biological activity. For example, in immunology, analyzing the spatial distribution of immune cells within tissues can reveal insights into immune responses and disease mechanisms. Techniques like KODAMA and UMAP are valuable tools for this type of analysis. 
+In the domain of immunology, we could simulate spatial data to study the distribution of immune cells within a tissue. For instance, simulating the localization of T cells and B cells within a lymph node can help us understand how these cells are organized spatially, which is critical for understanding their interactions and functions in immune responses.
+
 
 
 # Main simulation study
 ## Scenario 1
 
-Bla bla.
+The simulated data in this example are generated to demonstrate how to use the KODAMA and UMAP techniques for cluster and spatial domain analysis. We create two distinct regions representing areas rich in T cells and B cells within the lymph node.
+We generate x and y coordinates for the two regions, assigning labels to simulate different cell types (T cells and B cells).
+
 
 ```{r, fig.width=10, fig.height=4}
 
