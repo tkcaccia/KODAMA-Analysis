@@ -18,7 +18,7 @@ The primary objective of this study was to integrate multiple tissue sections to
 By combining cutting-edge imaging techniques with advanced analytical methods, our approach significantly enhances the resolution and depth of molecular spatial mapping, setting a new standard in the field of spatial transcriptomics.
 
 # Load necessary libraries
-```{r}
+```{r, fig.width=10, fig.height=4}
 library(Seurat)
 library(KODAMAextra)
 library(ggplot2)
@@ -30,7 +30,7 @@ library(igraph)
 
 # Downloading the Data
 The data is downloaded from this [link](https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248) for the continuation of the work.
-```{r}
+```{r, fig.width=10, fig.height=4}
 # Set working directory
 setwd("~/Merfish giotto/Data/merfish")
 
@@ -40,7 +40,7 @@ data <- as.data.frame(data)
 ```
 
 # Data Pre-processing
-```{r}
+```{r, fig.width=10, fig.height=4}
 # Data cleaning
 colnames_data <- colnames(data)
 blankgenes <- grep("Blank", colnames_data)
@@ -82,8 +82,9 @@ for (i in names(data_list)) {
 #dimensionality reduction BY Principal Component Analysis (PCA)
 
   pca[[i]] <- prcomp(v[[i]], scale. = TRUE)$x[, 1:50]
+```
 KODAMA dimensionality reduction and Graph-based Clustering
---
+```{r, fig.width=10, fig.height=4}
 #  KODAMA clustering
     kk[[i]] <- KODAMA.matrix.parallel(pca[[i]], spatial = xy[[i]], FUN = "PLS", landmarks = 10000, n.cores = 4)
     vis[[i]] <- KODAMA.visualization(kk[[i]], method = "UMAP")
@@ -94,14 +95,16 @@ KODAMA dimensionality reduction and Graph-based Clustering
     g_walk <- igraph::cluster_walktrap(g)
     pred[[i]] <- as.character(igraph::cut_at(g_walk, no = 8))
     refine[[i]] <- refinecluster(pred[[i]], xy[[i]], shape = "hexagon")}
-
+```
 
 Cluster Visualization
 For better visualization of the results, it is essential to import the vis.R FILE at this stage.
+```{r, fig.width=10, fig.height=4}
 # Importing the vis.R code
 source("path_to_vis.R")
-
-Visualizing with CLUSTER KODAMA RESULT, a dimensionality reduction method for better data understanding.
+```
+Visualizing the results of the Kodama clustering, a dimensionality reduction method that enhances data understanding.
+```{r, fig.width=10, fig.height=4}
 # Define colors for visualizations
 cols <- c("#669bbc", "#81b29a", "#f2cc8f", "#adc178",
           "#dde5b6", "#a8dadc", "#e5989b", "#e07a5f")
@@ -140,6 +143,6 @@ plotClustersFacet(xy[1:5], refine[1:5], selected_bregma, size = 0.2) +
   guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))
 
 ![Image5](https://gist.github.com/assets/168087487/36d39921-9e00-48eb-8e7b-55a2546b291a)
-
+```
 This script illustrates a standard approach to Merfish data analysis, showcasing the use of commonly used bioinformatics tools. It provides a comprehensive overview of the Merfish data analysis and visualization process, crucial for understanding the spatial distribution of RNA in cells.
 ```
