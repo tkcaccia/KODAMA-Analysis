@@ -392,7 +392,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -403,8 +403,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -413,13 +413,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-25
+<strong>Last updated:</strong> 2024-06-26
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
@@ -442,21 +442,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -547,15 +544,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreec51521766ceb3c8184aa42c5b4c4660ef328e4d2targetblankc515217a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreec3eee75f5d792665d77cce1691993c8025604892targetblankc3eee75a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/c51521766ceb3c8184aa42c5b4c4660ef328e4d2" target="_blank">c515217</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/c3eee75f5d792665d77cce1691993c8025604892" target="_blank">c3eee75</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreec51521766ceb3c8184aa42c5b4c4660ef328e4d2targetblankc515217a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreec3eee75f5d792665d77cce1691993c8025604892targetblankc3eee75a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -565,7 +562,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/c51521766ceb3c8184aa42c5b4c4660ef328e4d2" target="_blank">c515217</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/c3eee75f5d792665d77cce1691993c8025604892" target="_blank">c3eee75</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -586,7 +583,6 @@ Untracked files:
     Untracked:  .gitignore
 
 Unstaged changes:
-    Modified:   analysis/MERFISH.Rmd
     Modified:   data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
 
 </code></pre>
@@ -633,6 +629,125 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/c3eee75f5d792665d77cce1691993c8025604892/analysis/MERFISH.Rmd" target="_blank">c3eee75</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/e7ddec66f16b8c7bfac6f4175eb87249e0fd2c28/analysis/MERFISH.Rmd" target="_blank">e7ddec6</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/eb29180b902b2329560807513555cbfa36849d1e/analysis/MERFISH.Rmd" target="_blank">eb29180</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/bd1988e34ddc2bb2ef6e4826bd15a1342e7d2f00/analysis/MERFISH.Rmd" target="_blank">bd1988e</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/911564c3294bcefc453a7097a348901b86544728/analysis/MERFISH.Rmd" target="_blank">911564c</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/246f0bdb380bae90145007978345f50c5020d4ee/analysis/MERFISH.Rmd" target="_blank">246f0bd</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-25
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/20a6dacd3051961f479a262b51ceb97224ff1d61/docs/MERFISH.html" target="_blank">20a6dac</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-06-25
+</td>
+<td>
+Update docs with MERFISH.html
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -791,50 +906,13 @@ with specific biological functions.</p>
 </div>
 <div id="load-necessary-libraries" class="section level1">
 <h1>Load necessary libraries</h1>
-<pre class="r"><code>library(Seurat)</code></pre>
-<pre><code>Le chargement a nécessité le package : SeuratObject</code></pre>
-<pre><code>Le chargement a nécessité le package : sp</code></pre>
-<pre><code>
-Attachement du package : &#39;SeuratObject&#39;</code></pre>
-<pre><code>Les objets suivants sont masqués depuis &#39;package:base&#39;:
-
-    intersect, t</code></pre>
-<pre class="r"><code>library(KODAMAextra)</code></pre>
-<pre><code>Le chargement a nécessité le package : KODAMA</code></pre>
-<pre><code>Le chargement a nécessité le package : minerva</code></pre>
-<pre><code>Le chargement a nécessité le package : Rtsne</code></pre>
-<pre><code>Le chargement a nécessité le package : umap</code></pre>
-<pre><code>
-Attachement du package : &#39;KODAMA&#39;</code></pre>
-<pre><code>L&#39;objet suivant est masqué depuis &#39;package:umap&#39;:
-
-    umap.defaults</code></pre>
-<pre><code>Le chargement a nécessité le package : parallel</code></pre>
-<pre><code>Le chargement a nécessité le package : doParallel</code></pre>
-<pre><code>Le chargement a nécessité le package : foreach</code></pre>
-<pre><code>Le chargement a nécessité le package : iterators</code></pre>
-<pre><code>Le chargement a nécessité le package : e1071</code></pre>
-<pre class="r"><code>library(ggplot2)
+<pre class="r"><code>library(Seurat)
+library(KODAMAextra)
+library(ggplot2)
 library(NMI)
-library(mclust)</code></pre>
-<pre><code>Package &#39;mclust&#39; version 6.1.1
-Type &#39;citation(&quot;mclust&quot;)&#39; for citing this R package in publications.</code></pre>
-<pre class="r"><code>library(bluster)
+library(mclust)
+library(bluster)
 library(igraph)</code></pre>
-<pre><code>
-Attachement du package : &#39;igraph&#39;</code></pre>
-<pre><code>L&#39;objet suivant est masqué depuis &#39;package:KODAMA&#39;:
-
-    vertex</code></pre>
-<pre><code>L&#39;objet suivant est masqué depuis &#39;package:Seurat&#39;:
-
-    components</code></pre>
-<pre><code>Les objets suivants sont masqués depuis &#39;package:stats&#39;:
-
-    decompose, spectrum</code></pre>
-<pre><code>L&#39;objet suivant est masqué depuis &#39;package:base&#39;:
-
-    union</code></pre>
 </div>
 <div id="downloading-the-data" class="section level1">
 <h1>Downloading the Data</h1>
@@ -1002,10 +1080,84 @@ plotClustersFacet(xy, pred, selected_bregma, size = 0.2) +
   scale_color_manual(&quot;Domain&quot;, values = cols) +
   guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))</code></pre>
 <p><img src="figure/MERFISH.Rmd/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/20a6dacd3051961f479a262b51ceb97224ff1d61/docs/figure/MERFISH.Rmd/unnamed-chunk-5-1.png" target="_blank">20a6dac</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-06-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plotClustersFacet(xy, refine, selected_bregma, size = 1) +
   scale_color_manual(&quot;Domain&quot;, values = cols) +
   guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))</code></pre>
 <p><img src="figure/MERFISH.Rmd/unnamed-chunk-5-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/20a6dacd3051961f479a262b51ceb97224ff1d61/docs/figure/MERFISH.Rmd/unnamed-chunk-5-2.png" target="_blank">20a6dac</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-06-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This script illustrates a standard approach to Merfish data analysis,
 showcasing the use of commonly used bioinformatics tools. It provides a
 comprehensive overview of the Merfish data analysis and visualization
