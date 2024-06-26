@@ -20,7 +20,7 @@ Our main objective is to integrate multiple tissue sections for unified analysis
 
 # Load necessary libraries
 
-```{r, fig.width=10, fig.height=4,r, warning=FALSE,message=FALSE}
+```{r, fig.width=10, fig.height=4, warning=FALSE,message=FALSE}
 
 library(Seurat)
 library(KODAMAextra)
