@@ -19,7 +19,7 @@ Our focus is on advanced analysis of MERFISH data from biological tissues, intro
 Our main objective is to integrate multiple tissue sections for unified analysis across different samples. We employ data preprocessing, dimension reduction, and advanced clustering techniques to explore the relationship between tissue structure and cellular behavior, highlighting spatial variations and gene expression patterns associated with specific biological functions.
 
 # Load necessary libraries
-
+{r,warning=FALSE,message=FALSE}
 ```{r, fig.width=10, fig.height=4}
 library(Seurat)
 library(KODAMAextra)
