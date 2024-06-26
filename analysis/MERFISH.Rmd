@@ -19,8 +19,9 @@ Our focus is on advanced analysis of MERFISH data from biological tissues, intro
 Our main objective is to integrate multiple tissue sections for unified analysis across different samples. We employ data preprocessing, dimension reduction, and advanced clustering techniques to explore the relationship between tissue structure and cellular behavior, highlighting spatial variations and gene expression patterns associated with specific biological functions.
 
 # Load necessary libraries
-{r,warning=FALSE,message=FALSE}
-```{r, fig.width=10, fig.height=4}
+
+```{r, fig.width=10, fig.height=4, warning=FALSE,message=FALSE}
+
 library(Seurat)
 library(KODAMAextra)
 library(ggplot2)
@@ -34,7 +35,7 @@ library(igraph)
 
 The data is downloaded from this [link](https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248) for the continuation of the work.
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=10, fig.height=4, warning=FALSE,message=FALSE}
 # Load data
 data <- read.csv("data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv")
 data <- as.data.frame(data)
@@ -43,7 +44,7 @@ data <- as.data.frame(data)
 # Data Pre-processing
 In our data preprocessing process, we have undertaken a rigorous approach to ensure the quality and relevance of the information we use in our analysis. With a total of 170 genes initially included in our data, our first step was to eliminate the "Blank" genes, which are control or background genes that do not contribute to our main analysis. This elimination allowed us to reduce our data set to 165 genes. Subsequently, we identified and removed the "Fos" gene, suspected of having an unwanted or disruptive impact on our data, leaving a total of 164 genes for our analysis. These initial cleaning steps are crucial to ensure that the data we use is reliable and suitable for our analysis objectives. By then filtering the data to retain only those corresponding to Animal_ID 1 and specific Bregma values, we ensure that we focus on a subset relevant to our study. This preprocessing process is essential to prepare our data properly, by eliminating unnecessary elements and focusing on the most relevant data for our subsequent analysis.
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=10, fig.height=4, warning=FALSE,message=FALSE}
 # Data cleaning
 colnames_data <- colnames(data)
 blankgenes <- grep("Blank", colnames_data)
@@ -101,7 +102,7 @@ for (i in names(data_list)) {
 #Visualization
 For better visualization of the results, it is essential to import the `vis.R` file at this stage.
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=10, fig.height=4, warning=FALSE,message=FALSE}
 # Importing the vis.R code
 source("data/vis.R")
 ```
