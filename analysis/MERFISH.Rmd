@@ -35,7 +35,7 @@ library(igraph)
 
 The data is downloaded from this [link](https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248) for the continuation of the work.
 
-```{r, fig.width=10, fig.height=4, warning=FALSE,message=FALSE}
+```{r, fig.width=10, fig.height=4,r, warning=FALSE,message=FALSE}
 # Load data
 data <- read.csv("data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv")
 data <- as.data.frame(data)
