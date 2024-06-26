@@ -1,10 +1,79 @@
 ---
-title: "About"
+title: "KODAMA Software Tutorial"
+author: "Stefano Cacciatore"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
 output:
   workflowr::wflow_html:
-    toc: false
+    toc: True
 editor_options:
   chunk_output_type: console
 ---
 
-Describe your project.
+# Introduction
+
+Welcome to the KODAMA software installation tutorial page. This guide will walk you through the steps to install and set up KODAMA, a powerful tool for metabolomics data analysis.
+
+## Installation Steps
+
+### Step 1: Prerequisites
+
+Before installing KODAMA, ensure you have the following:
+
+- **R (>= 4.0.3)**: Make sure you have R installed on your system. You can download it from [CRAN](https://cran.r-project.org/).
+
+- **RStudio (Optional)**: While not required, RStudio provides a convenient interface for working with R projects. You can download it from [RStudio's official site](https://www.rstudio.com/products/rstudio/download/).
+
+### Step 2: Install Required Packages
+
+KODAMA depends on several R packages. Open R or RStudio and install these packages if you haven't already:
+
+```{r, fig.width=10, fig.height=4, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+# Fix CRAN mirror
+if (!require(devtools)) {
+  install.packages("devtools")
+}
+chooseCRANmirror(ind=1)  
+
+# Install required packages
+install.packages(c("devtools", "GIGrvg", "Matrix", "harmony", "label.switching", "mclust", "Rcpp", "RcppArmadillo", "RcppDist", "SPARK", "scran", "scater"))
+```
+
+### Step 3: Install KODAMA Package
+
+Use the following commands to install KODAMA from GitHub using the `devtools` package:
+
+```{r, fig.width=10, fig.height=4, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+if (!require(devtools)) {
+  install.packages("devtools")
+}
+devtools::install_github("tkcaccia/KODAMA")
+```
+
+### Step 4: Load KODAMA Package
+
+Once installed, load the KODAMA package into your R session:
+
+```{r, fig.width=10, fig.height=4, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+library(KODAMA)
+```
+
+### Step 5: Verify Installation
+
+To verify that KODAMA has been installed correctly, you can check its version:
+
+```{r, fig.width=10, fig.height=4, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+packageVersion("KODAMA")
+```
+
+## Additional Resources
+
+For more details on using KODAMA, refer to the following resources:
+
+- [KODAMA Package on CRAN](https://cran.r-project.org/web/packages/KODAMA/index.html)
+- [Documentation and Examples](https://github.com/tkcaccia/KODAMA)
+
+## Support
+
+For any issues or questions related to KODAMA, please [open an issue](https://github.com/tkcaccia/KODAMA/issues) on the GitHub repository.
+```
+
