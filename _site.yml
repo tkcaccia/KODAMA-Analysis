@@ -1,0 +1,39 @@
+name: "KODAMA-Analysis"
+output_dir: ../docs
+navbar:
+  title: "KODAMA-Analysis"
+  left:
+  - text: Home
+    href: index.html
+  - text: About
+    href: about.html
+  - text: Simulation
+    href: simulation.html
+  - text: Installation
+    href: Installation.html
+  - text: Interoperability
+    href: Interoperability.html
+  - text: Real data analyses
+    menu:
+    - text: DLPFC (Maynard et al., 2021)
+      href: DLPFC.html
+    - text: Prostate
+      href: Prostate.html
+    - text: STARmap (Wang et al., 2018)
+      href: STARmap.html
+    - text: MERFISH (Moffitt et al., 2018)
+      href: MERFISH.html
+    - text: Visium HD
+      href: VisiumHD.html
+  - text: License
+    href: license.html
+  right:
+  - icon: fab fa-github
+    text: Source code
+    href: https://github.com/tkcaccia/KODAMA-Analysis
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    theme: cosmo
+    highlight: textmate
