@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: Simulation
     href: simulation.html
+  - text: Installation
+    href: Installation.html
+  - text: Interoperability
+    href: Interoperability.html
   - text: Real data analyses
     menu:
     - text: DLPFC (Maynard et al., 2021)
