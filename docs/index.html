@@ -13,7 +13,7 @@
 
 <title>Home</title>
 
-<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -263,6 +263,12 @@ $(document).ready(function () {
 <li>
   <a href="simulation.html">Simulation</a>
 </li>
+<li>
+  <a href="Installation.html">Installation</a>
+</li>
+<li>
+  <a href="Interoperability.html">Interoperability</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Real data analyses
@@ -337,7 +343,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-18
+<strong>Last updated:</strong> 2024-07-04
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -384,13 +390,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong5266e01">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree62ada1979354e3efcafcb34a57e854092b31fe1ctargetblank62ada19a">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 5266e01
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/62ada1979354e3efcafcb34a57e854092b31fe1c" target="_blank">62ada19</a>
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong5266e01"
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree62ada1979354e3efcafcb34a57e854092b31fe1ctargetblank62ada19a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -399,7 +407,8 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 5266e01.
+The results in this page were generated with repository version
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/62ada1979354e3efcafcb34a57e854092b31fe1c" target="_blank">62ada19</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -413,14 +422,142 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .DS_Store
-    Ignored:    .Rproj.user/
-
-Untracked files:
-    Untracked:  code/Prostate_download.sh
-    Untracked:  code/Prostate_preprocessing.R
-    Untracked:  data/Prostate_data.RData
+Unstaged changes:
+    Deleted:    .DS_Store
+    Deleted:    KODAMA-Analysis.Rproj
+    Modified:   MERFISH.Rmd
+    Deleted:    README.md
+    Deleted:    _workflowr.yml
+    Deleted:    analysis/DLPFC.Rmd
+    Deleted:    analysis/MERFISH.Rmd
+    Deleted:    analysis/Prostate.Rmd
+    Deleted:    analysis/STARmap.Rmd
+    Deleted:    analysis/VisiumHD.Rmd
+    Deleted:    analysis/_site.yml
+    Deleted:    analysis/about.Rmd
+    Deleted:    analysis/index.Rmd
+    Deleted:    analysis/license.Rmd
+    Deleted:    analysis/simulation.Rmd
+    Deleted:    code/Prostate_download.sh
+    Deleted:    code/Prostate_preprocessing.R
+    Deleted:    code/README.md
+    Deleted:    data/.gitattributes
+    Deleted:    data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
+    Deleted:    data/Prostate_data.RData
+    Deleted:    data/README.md
+    Deleted:    data/merfish.Rmd
+    Deleted:    data/vis.R
+    Deleted:    docs/.DS_Store
+    Deleted:    docs/.nojekyll
+    Deleted:    docs/DLPFC.html
+    Deleted:    docs/MERFISH.html
+    Deleted:    docs/Prostate.html
+    Deleted:    docs/STARmap.html
+    Deleted:    docs/VisiumHD.html
+    Deleted:    docs/about.html
+    Deleted:    docs/figure/MERFISH.Rmd/unnamed-chunk-5-1.png
+    Deleted:    docs/figure/MERFISH.Rmd/unnamed-chunk-5-2.png
+    Deleted:    docs/figure/Prostate.Rmd/unnamed-chunk-1-1.png
+    Deleted:    docs/figure/simulation.Rmd/unnamed-chunk-1-1.png
+    Deleted:    docs/figure/simulation.Rmd/unnamed-chunk-2-1.png
+    Deleted:    docs/index.html
+    Deleted:    docs/license.html
+    Deleted:    docs/simulation.html
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap-theme.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap-theme.css.map
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap-theme.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap.css.map
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/cerulean.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/cosmo.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/darkly.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/flatly.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Lato.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/LatoBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/LatoItalic.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/NewsCycle.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/NewsCycleBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSans.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansBoldItalic.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansItalic.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansLight.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansLightItalic.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Raleway.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RalewayBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Roboto.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RobotoBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RobotoLight.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RobotoMedium.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansPro.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansProBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansProItalic.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansProLight.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Ubuntu.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/journal.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/lumen.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/paper.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/readable.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/sandstone.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/simplex.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/spacelab.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/united.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/yeti.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.eot
+    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.svg
+    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff
+    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff2
+    Deleted:    docs/site_libs/bootstrap-3.3.5/js/bootstrap.js
+    Deleted:    docs/site_libs/bootstrap-3.3.5/js/bootstrap.min.js
+    Deleted:    docs/site_libs/bootstrap-3.3.5/js/npm.js
+    Deleted:    docs/site_libs/bootstrap-3.3.5/shim/html5shiv.min.js
+    Deleted:    docs/site_libs/bootstrap-3.3.5/shim/respond.min.js
+    Deleted:    docs/site_libs/font-awesome-6.4.2/css/all.css
+    Deleted:    docs/site_libs/font-awesome-6.4.2/css/all.min.css
+    Deleted:    docs/site_libs/font-awesome-6.4.2/css/v4-shims.css
+    Deleted:    docs/site_libs/font-awesome-6.4.2/css/v4-shims.min.css
+    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-brands-400.ttf
+    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-brands-400.woff2
+    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-regular-400.ttf
+    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-regular-400.woff2
+    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-solid-900.ttf
+    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-solid-900.woff2
+    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-v4compatibility.ttf
+    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-v4compatibility.woff2
+    Deleted:    docs/site_libs/header-attrs-2.26/header-attrs.js
+    Deleted:    docs/site_libs/header-attrs-2.27/header-attrs.js
+    Deleted:    docs/site_libs/highlightjs-9.12.0/default.css
+    Deleted:    docs/site_libs/highlightjs-9.12.0/highlight.js
+    Deleted:    docs/site_libs/highlightjs-9.12.0/textmate.css
+    Deleted:    docs/site_libs/jquery-3.6.0/jquery-3.6.0.js
+    Deleted:    docs/site_libs/jquery-3.6.0/jquery-3.6.0.min.js
+    Deleted:    docs/site_libs/jquery-3.6.0/jquery-3.6.0.min.map
+    Deleted:    docs/site_libs/jqueryui-1.13.2/AUTHORS.txt
+    Deleted:    docs/site_libs/jqueryui-1.13.2/LICENSE.txt
+    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_444444_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_555555_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_777620_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_777777_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_cc0000_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_ffffff_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.13.2/index.html
+    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.css
+    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.js
+    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.min.css
+    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.min.js
+    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.structure.css
+    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.structure.min.css
+    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.theme.css
+    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.theme.min.css
+    Deleted:    docs/site_libs/navigation-1.1/codefolding-lua.css
+    Deleted:    docs/site_libs/navigation-1.1/codefolding.js
+    Deleted:    docs/site_libs/navigation-1.1/sourceembed.js
+    Deleted:    docs/site_libs/navigation-1.1/tabsets.js
+    Deleted:    docs/site_libs/tocify-1.9.1/jquery.tocify.css
+    Deleted:    docs/site_libs/tocify-1.9.1/jquery.tocify.js
+    Deleted:    output/README.md
 
 </code></pre>
 <p>
@@ -438,10 +575,11 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML
-(<code>docs/index.html</code>) files. If you’ve configured a remote Git
-repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
-in the table below to view the files as they were in that past version.
+made to the R Markdown (<code>index.Rmd</code>) and HTML
+(<code>../docs/index.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -467,291 +605,19 @@ Message
 <tbody>
 <tr>
 <td>
-html
-</td>
-<td>
-113adea
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-70e6ab3
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-ced1946
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-f8e2e50
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-a5875ac
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-82ff50a
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-4eae145
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-fe6339e
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-163e950
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-8831c43
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-c8016a9
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-299901b
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-4d57ea9
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-a94ae9e
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-f1649ac
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-5a83969
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
 Rmd
 </td>
 <td>
-b9f3e94
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/62ada1979354e3efcafcb34a57e854092b31fe1c/index.Rmd" target="_blank">62ada19</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
-2024-06-18
+2024-07-04
 </td>
 <td>
-Start workflowr project.
+Ajout des fichiers rmd, html, yml, etc.
 </td>
 </tr>
 </tbody>
