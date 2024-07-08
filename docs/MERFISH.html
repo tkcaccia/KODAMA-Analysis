@@ -334,16 +334,10 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
-</li>
-<li>
-  <a href="simulation.html">Simulation</a>
-</li>
-<li>
   <a href="Installation.html">Installation</a>
 </li>
 <li>
-  <a href="Interoperability.html">Interoperability</a>
+  <a href="simulation.html">Simulation</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -366,6 +360,21 @@ div.tocify {
     </li>
     <li>
       <a href="VisiumHD.html">Visium HD</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Interoperability
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Seurat.html">Seurat</a>
+    </li>
+    <li>
+      <a href="Giotto.html">Giotto</a>
     </li>
   </ul>
 </li>
@@ -398,7 +407,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -409,8 +418,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -423,9 +432,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
@@ -448,21 +457,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -553,15 +559,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree62ada1979354e3efcafcb34a57e854092b31fe1ctargetblank62ada19a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5224b8a21a86baa1d09bc8161d5ea2eb3d93e8f9targetblank5224b8aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/62ada1979354e3efcafcb34a57e854092b31fe1c" target="_blank">62ada19</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5224b8a21a86baa1d09bc8161d5ea2eb3d93e8f9" target="_blank">5224b8a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree62ada1979354e3efcafcb34a57e854092b31fe1ctargetblank62ada19a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5224b8a21a86baa1d09bc8161d5ea2eb3d93e8f9targetblank5224b8aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -571,7 +577,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/62ada1979354e3efcafcb34a57e854092b31fe1c" target="_blank">62ada19</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5224b8a21a86baa1d09bc8161d5ea2eb3d93e8f9" target="_blank">5224b8a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -585,143 +591,15 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  .gitignore
+
 Unstaged changes:
-    Deleted:    .DS_Store
-    Deleted:    KODAMA-Analysis.Rproj
-    Modified:   MERFISH.Rmd
-    Deleted:    README.md
-    Deleted:    _workflowr.yml
-    Deleted:    analysis/DLPFC.Rmd
-    Deleted:    analysis/MERFISH.Rmd
-    Deleted:    analysis/Prostate.Rmd
-    Deleted:    analysis/STARmap.Rmd
-    Deleted:    analysis/VisiumHD.Rmd
-    Deleted:    analysis/_site.yml
-    Deleted:    analysis/about.Rmd
-    Deleted:    analysis/index.Rmd
-    Deleted:    analysis/license.Rmd
-    Deleted:    analysis/simulation.Rmd
-    Deleted:    code/Prostate_download.sh
-    Deleted:    code/Prostate_preprocessing.R
-    Deleted:    code/README.md
-    Deleted:    data/.gitattributes
-    Deleted:    data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
-    Deleted:    data/Prostate_data.RData
-    Deleted:    data/README.md
-    Deleted:    data/merfish.Rmd
-    Deleted:    data/vis.R
-    Deleted:    docs/.DS_Store
-    Deleted:    docs/.nojekyll
-    Deleted:    docs/DLPFC.html
-    Deleted:    docs/MERFISH.html
-    Deleted:    docs/Prostate.html
-    Deleted:    docs/STARmap.html
-    Deleted:    docs/VisiumHD.html
-    Deleted:    docs/about.html
-    Deleted:    docs/figure/MERFISH.Rmd/unnamed-chunk-5-1.png
-    Deleted:    docs/figure/MERFISH.Rmd/unnamed-chunk-5-2.png
-    Deleted:    docs/figure/Prostate.Rmd/unnamed-chunk-1-1.png
-    Deleted:    docs/figure/simulation.Rmd/unnamed-chunk-1-1.png
-    Deleted:    docs/figure/simulation.Rmd/unnamed-chunk-2-1.png
-    Deleted:    docs/index.html
-    Deleted:    docs/license.html
-    Deleted:    docs/simulation.html
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap-theme.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap-theme.css.map
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap-theme.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap.css.map
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/cerulean.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/cosmo.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/darkly.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/flatly.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Lato.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/LatoBold.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/LatoItalic.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/NewsCycle.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/NewsCycleBold.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSans.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansBold.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansBoldItalic.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansItalic.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansLight.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansLightItalic.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Raleway.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RalewayBold.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Roboto.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RobotoBold.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RobotoLight.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RobotoMedium.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansPro.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansProBold.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansProItalic.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansProLight.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Ubuntu.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/journal.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/lumen.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/paper.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/readable.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/sandstone.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/simplex.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/spacelab.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/united.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/css/yeti.min.css
-    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.eot
-    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.svg
-    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.ttf
-    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff
-    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff2
-    Deleted:    docs/site_libs/bootstrap-3.3.5/js/bootstrap.js
-    Deleted:    docs/site_libs/bootstrap-3.3.5/js/bootstrap.min.js
-    Deleted:    docs/site_libs/bootstrap-3.3.5/js/npm.js
-    Deleted:    docs/site_libs/bootstrap-3.3.5/shim/html5shiv.min.js
-    Deleted:    docs/site_libs/bootstrap-3.3.5/shim/respond.min.js
-    Deleted:    docs/site_libs/font-awesome-6.4.2/css/all.css
-    Deleted:    docs/site_libs/font-awesome-6.4.2/css/all.min.css
-    Deleted:    docs/site_libs/font-awesome-6.4.2/css/v4-shims.css
-    Deleted:    docs/site_libs/font-awesome-6.4.2/css/v4-shims.min.css
-    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-brands-400.ttf
-    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-brands-400.woff2
-    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-regular-400.ttf
-    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-regular-400.woff2
-    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-solid-900.ttf
-    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-solid-900.woff2
-    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-v4compatibility.ttf
-    Deleted:    docs/site_libs/font-awesome-6.4.2/webfonts/fa-v4compatibility.woff2
-    Deleted:    docs/site_libs/header-attrs-2.26/header-attrs.js
-    Deleted:    docs/site_libs/header-attrs-2.27/header-attrs.js
-    Deleted:    docs/site_libs/highlightjs-9.12.0/default.css
-    Deleted:    docs/site_libs/highlightjs-9.12.0/highlight.js
-    Deleted:    docs/site_libs/highlightjs-9.12.0/textmate.css
-    Deleted:    docs/site_libs/jquery-3.6.0/jquery-3.6.0.js
-    Deleted:    docs/site_libs/jquery-3.6.0/jquery-3.6.0.min.js
-    Deleted:    docs/site_libs/jquery-3.6.0/jquery-3.6.0.min.map
-    Deleted:    docs/site_libs/jqueryui-1.13.2/AUTHORS.txt
-    Deleted:    docs/site_libs/jqueryui-1.13.2/LICENSE.txt
-    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_444444_256x240.png
-    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_555555_256x240.png
-    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_777620_256x240.png
-    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_777777_256x240.png
-    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_cc0000_256x240.png
-    Deleted:    docs/site_libs/jqueryui-1.13.2/images/ui-icons_ffffff_256x240.png
-    Deleted:    docs/site_libs/jqueryui-1.13.2/index.html
-    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.css
-    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.js
-    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.min.css
-    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.min.js
-    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.structure.css
-    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.structure.min.css
-    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.theme.css
-    Deleted:    docs/site_libs/jqueryui-1.13.2/jquery-ui.theme.min.css
-    Deleted:    docs/site_libs/navigation-1.1/codefolding-lua.css
-    Deleted:    docs/site_libs/navigation-1.1/codefolding.js
-    Deleted:    docs/site_libs/navigation-1.1/sourceembed.js
-    Deleted:    docs/site_libs/navigation-1.1/tabsets.js
-    Deleted:    docs/site_libs/tocify-1.9.1/jquery.tocify.css
-    Deleted:    docs/site_libs/tocify-1.9.1/jquery.tocify.js
-    Deleted:    output/README.md
-    Modified:   simulation.Rmd
+    Deleted:    _site.yml
+    Modified:   data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
 
 </code></pre>
 <p>
@@ -739,8 +617,8 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>MERFISH.Rmd</code>) and HTML
-(<code>../docs/MERFISH.html</code>) files. If you’ve configured a remote
+made to the R Markdown (<code>analysis/MERFISH.Rmd</code>) and HTML
+(<code>docs/MERFISH.html</code>) files. If you’ve configured a remote
 Git repository (see <code>?wflow_git_remote</code>), click on the
 hyperlinks in the table below to view the files as they were in that
 past version.
@@ -769,19 +647,325 @@ Message
 <tbody>
 <tr>
 <td>
-Rmd
+html
 </td>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/62ada1979354e3efcafcb34a57e854092b31fe1c/MERFISH.Rmd" target="_blank">62ada19</a>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/a6a951eb932f98145aa753fe28528f5e495e7534/docs/MERFISH.html" target="_blank">a6a951e</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
+2024-07-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/075a60e6ae60e22e1db89141581ddf586ce3850d/analysis/MERFISH.Rmd" target="_blank">075a60e</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-07-08
+</td>
+<td>
+Start my new project
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/940ec1385b5fac0e259842572da1962def1b36f1/docs/MERFISH.html" target="_blank">940ec13</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
 2024-07-04
 </td>
 <td>
-Ajout des fichiers rmd, html, yml, etc.
+Update MERFISH.html
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/9ee53df126bf1758843f7581538a33d39bd97884/analysis/MERFISH.Rmd" target="_blank">9ee53df</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/35e8f25827e79ca29d8b44970ada451bee48482e/docs/MERFISH.html" target="_blank">35e8f25</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update docs with MERFISH.html
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/c3eee75f5d792665d77cce1691993c8025604892/analysis/MERFISH.Rmd" target="_blank">c3eee75</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/e7ddec66f16b8c7bfac6f4175eb87249e0fd2c28/analysis/MERFISH.Rmd" target="_blank">e7ddec6</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/eb29180b902b2329560807513555cbfa36849d1e/analysis/MERFISH.Rmd" target="_blank">eb29180</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/bd1988e34ddc2bb2ef6e4826bd15a1342e7d2f00/analysis/MERFISH.Rmd" target="_blank">bd1988e</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/911564c3294bcefc453a7097a348901b86544728/analysis/MERFISH.Rmd" target="_blank">911564c</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/246f0bdb380bae90145007978345f50c5020d4ee/analysis/MERFISH.Rmd" target="_blank">246f0bd</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-25
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/20a6dacd3051961f479a262b51ceb97224ff1d61/docs/MERFISH.html" target="_blank">20a6dac</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-06-25
+</td>
+<td>
+Update docs with MERFISH.html
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/e56c4ff46a93e0e36aa1b2ca686bc55e06f1bdff/analysis/MERFISH.Rmd" target="_blank">e56c4ff</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/9df203d58ecad69cfd1e59c1dd8e1c571546628d/analysis/MERFISH.Rmd" target="_blank">9df203d</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/be3cdeb69c835b7428b656238860fc3a01504afc/analysis/MERFISH.Rmd" target="_blank">be3cdeb</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/2e7fa5ea49a52d62b390d184c49f12113aa2f189/analysis/MERFISH.Rmd" target="_blank">2e7fa5e</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/a21b9033dd2c224cd5dfe2f99aef2531cf55fd89/analysis/MERFISH.Rmd" target="_blank">a21b903</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/ee4ee17ff874a26eaf8c1e76e4a85ce3b9de867e/docs/MERFISH.html" target="_blank">ee4ee17</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-19
+</td>
+<td>
+Add files via upload
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/615fc05e05b60aed64683d1204afddc6b8c32f36/analysis/MERFISH.Rmd" target="_blank">615fc05</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-19
+</td>
+<td>
+Add files via upload
 </td>
 </tr>
 </tbody>
@@ -791,6 +975,7 @@ Ajout des fichiers rmd, html, yml, etc.
 </div>
 </div>
 </div>
+<p>Describe your project.</p>
 <div id="merfish-data-analysis" class="section level1">
 <h1>MERFISH Data Analysis</h1>
 <p>The molecular imaging technology MERFISH (Multiplexed Error-Robust
@@ -822,50 +1007,13 @@ with specific biological functions.</p>
 </div>
 <div id="load-necessary-libraries" class="section level1">
 <h1>Load necessary libraries</h1>
-<pre class="r"><code>library(Seurat)</code></pre>
-<pre><code>Loading required package: SeuratObject</code></pre>
-<pre><code>Loading required package: sp</code></pre>
-<pre><code>
-Attaching package: &#39;SeuratObject&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    intersect, t</code></pre>
-<pre class="r"><code>library(KODAMAextra)</code></pre>
-<pre><code>Loading required package: KODAMA</code></pre>
-<pre><code>Loading required package: minerva</code></pre>
-<pre><code>Loading required package: Rtsne</code></pre>
-<pre><code>Loading required package: umap</code></pre>
-<pre><code>
-Attaching package: &#39;KODAMA&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:umap&#39;:
-
-    umap.defaults</code></pre>
-<pre><code>Loading required package: parallel</code></pre>
-<pre><code>Loading required package: doParallel</code></pre>
-<pre><code>Loading required package: foreach</code></pre>
-<pre><code>Loading required package: iterators</code></pre>
-<pre><code>Loading required package: e1071</code></pre>
-<pre class="r"><code>library(ggplot2)
+<pre class="r"><code>library(Seurat)
+library(KODAMAextra)
+library(ggplot2)
 library(NMI)
-library(mclust)</code></pre>
-<pre><code>Package &#39;mclust&#39; version 6.1.1
-Type &#39;citation(&quot;mclust&quot;)&#39; for citing this R package in publications.</code></pre>
-<pre class="r"><code>library(bluster)
+library(mclust)
+library(bluster)
 library(igraph)</code></pre>
-<pre><code>
-Attaching package: &#39;igraph&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:KODAMA&#39;:
-
-    vertex</code></pre>
-<pre><code>The following object is masked from &#39;package:Seurat&#39;:
-
-    components</code></pre>
-<pre><code>The following objects are masked from &#39;package:stats&#39;:
-
-    decompose, spectrum</code></pre>
-<pre><code>The following object is masked from &#39;package:base&#39;:
-
-    union</code></pre>
 </div>
 <div id="downloading-the-data" class="section level1">
 <h1>Downloading the Data</h1>
@@ -931,21 +1079,21 @@ for (i in names(data_list)) {
   cons[[i]] &lt;- t(data_list[[i]][, 10:ncol(data_list[[i]])])
   colnames(cons[[i]]) &lt;- rownames(data_list[[i]])
   v[[i]] &lt;- t(LogNormalize(cons[[i]]))
-  
-  #dimensionality reduction BY Principal Component Analysis (PCA)
-  
+
+#dimensionality reduction BY Principal Component Analysis (PCA)
+
   pca[[i]] &lt;- prcomp(v[[i]], scale. = TRUE)$x[, 1:50]
-  
-  #  KODAMA clustering
-  kk[[i]] &lt;- KODAMA.matrix.parallel(pca[[i]], spatial = xy[[i]], FUN = &quot;PLS&quot;, landmarks = 10000, n.cores = 4)
-  vis[[i]] &lt;- KODAMA.visualization(kk[[i]], method = &quot;UMAP&quot;)
-  names(vis[[i]]) &lt;- names(data_list[[i]])
-  
-  # Graph-based clustering
-  g &lt;- bluster::makeSNNGraph(as.matrix(vis[[i]]), k = 100)
-  g_walk &lt;- igraph::cluster_walktrap(g)
-  pred[[i]] &lt;- as.character(igraph::cut_at(g_walk, no = 8))
-  refine[[i]] &lt;- refinecluster(pred[[i]], xy[[i]], shape = &quot;hexagon&quot;)}</code></pre>
+
+#  KODAMA clustering
+    kk[[i]] &lt;- KODAMA.matrix.parallel(pca[[i]], spatial = xy[[i]], FUN = &quot;PLS&quot;, landmarks = 10000, n.cores = 4)
+    vis[[i]] &lt;- KODAMA.visualization(kk[[i]], method = &quot;UMAP&quot;)
+    names(vis[[i]]) &lt;- names(data_list[[i]])
+    
+    # Graph-based clustering
+    g &lt;- bluster::makeSNNGraph(as.matrix(vis[[i]]), k = 100)
+    g_walk &lt;- igraph::cluster_walktrap(g)
+    pred[[i]] &lt;- as.character(igraph::cut_at(g_walk, no = 8))
+    refine[[i]] &lt;- refinecluster(pred[[i]], xy[[i]], shape = &quot;hexagon&quot;)}</code></pre>
 <pre><code>[1] &quot;0.26&quot;
 socket cluster with 4 nodes on host &#39;localhost&#39;
 ================================================================================[1] &quot;Finished parallel computation&quot;
@@ -1018,11 +1166,8 @@ socket cluster with 4 nodes on host &#39;localhost&#39;
 
 [1] &quot;Calculation of dissimilarity matrix...&quot;
 ================================================================================</code></pre>
-</div>
-<div id="visualization" class="section level1">
-<h1>Visualization</h1>
-<p>For better visualization of the results, it is essential to import
-the <code>vis.R</code> file at this stage.</p>
+<p>#Visualization For better visualization of the results, it is
+essential to import the <code>vis.R</code> file at this stage.</p>
 <pre class="r"><code># Importing the vis.R code
 source(&quot;data/vis.R&quot;)</code></pre>
 <p>Visualizing the results of the Kodama clustering, a dimensionality
@@ -1036,10 +1181,84 @@ plotClustersFacet(xy, pred, selected_bregma, size = 0.2) +
   scale_color_manual(&quot;Domain&quot;, values = cols) +
   guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))</code></pre>
 <p><img src="figure/MERFISH.Rmd/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/20a6dacd3051961f479a262b51ceb97224ff1d61/docs/figure/MERFISH.Rmd/unnamed-chunk-5-1.png" target="_blank">20a6dac</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-06-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plotClustersFacet(xy, refine, selected_bregma, size = 1) +
   scale_color_manual(&quot;Domain&quot;, values = cols) +
   guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))</code></pre>
 <p><img src="figure/MERFISH.Rmd/unnamed-chunk-5-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/20a6dacd3051961f479a262b51ceb97224ff1d61/docs/figure/MERFISH.Rmd/unnamed-chunk-5-2.png" target="_blank">20a6dac</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-06-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This script illustrates a standard approach to Merfish data analysis,
 showcasing the use of commonly used bioinformatics tools. It provides a
 comprehensive overview of the Merfish data analysis and visualization
@@ -1080,7 +1299,7 @@ other attached packages:
  [5] ggplot2_3.5.1      KODAMAextra_1.0    e1071_1.7-14       doParallel_1.0.17 
  [9] iterators_1.0.14   foreach_1.5.2      KODAMA_3.1         umap_0.2.10.0     
 [13] Rtsne_0.17         minerva_1.5.10     Seurat_5.1.0       SeuratObject_5.0.2
-[17] sp_2.1-4           workflowr_1.7.1   
+[17] sp_2.1-4          
 
 loaded via a namespace (and not attached):
   [1] RColorBrewer_1.1-3     rstudioapi_0.16.0      jsonlite_1.8.8        
@@ -1096,37 +1315,36 @@ loaded via a namespace (and not attached):
  [31] R6_2.5.1               fastmap_1.2.0          fitdistrplus_1.1-11   
  [34] future_1.33.2          shiny_1.8.1.1          digest_0.6.36         
  [37] colorspace_2.1-0       S4Vectors_0.40.2       patchwork_1.2.0       
- [40] ps_1.7.6               rprojroot_2.0.4        tensor_1.5            
- [43] RSpectra_0.16-1        irlba_2.3.5.1          labeling_0.4.3        
- [46] progressr_0.14.0       fansi_1.0.6            spatstat.sparse_3.0-3 
- [49] httr_1.4.7             polyclip_1.10-6        abind_1.4-5           
- [52] compiler_4.3.3         proxy_0.4-27           withr_3.0.0           
- [55] BiocParallel_1.36.0    fastDummies_1.7.3      highr_0.11            
- [58] MASS_7.3-60.0.1        openssl_2.2.0          tools_4.3.3           
- [61] lmtest_0.9-40          httpuv_1.6.15          future.apply_1.11.2   
- [64] goftest_1.2-3          glue_1.7.0             callr_3.7.6           
- [67] nlme_3.1-165           promises_1.3.0         grid_4.3.3            
- [70] getPass_0.2-4          cluster_2.1.6          reshape2_1.4.4        
- [73] snow_0.4-4             generics_0.1.3         gtable_0.3.5          
- [76] spatstat.data_3.1-2    class_7.3-22           tidyr_1.3.1           
- [79] data.table_1.15.4      utf8_1.2.4             BiocGenerics_0.48.1   
- [82] spatstat.geom_3.2-9    RcppAnnoy_0.0.22       ggrepel_0.9.5         
- [85] RANN_2.6.1             pillar_1.9.0           stringr_1.5.1         
- [88] spam_2.10-0            RcppHNSW_0.6.0         later_1.3.2           
- [91] splines_4.3.3          dplyr_1.1.4            lattice_0.22-6        
- [94] survival_3.7-0         deldir_2.0-4           tidyselect_1.2.1      
- [97] miniUI_0.1.1.1         pbapply_1.7-2          knitr_1.47            
-[100] git2r_0.33.0           gridExtra_2.3          scattermore_1.2       
-[103] stats4_4.3.3           xfun_0.45              matrixStats_1.3.0     
-[106] stringi_1.8.4          lazyeval_0.2.2         yaml_2.3.8            
-[109] evaluate_0.24.0        codetools_0.2-20       tibble_3.2.1          
-[112] cli_3.6.2              uwot_0.2.2             xtable_1.8-4          
-[115] reticulate_1.38.0      munsell_0.5.1          processx_3.8.4        
-[118] jquerylib_0.1.4        Rcpp_1.0.12            doSNOW_1.0.20         
-[121] globals_0.16.3         spatstat.random_3.2-3  png_0.1-8             
-[124] dotCall64_1.1-1        listenv_0.9.1          viridisLite_0.4.2     
-[127] scales_1.3.0           ggridges_0.5.6         leiden_0.4.3.1        
-[130] purrr_1.0.2            rlang_1.1.4            cowplot_1.1.3         </code></pre>
+ [40] rprojroot_2.0.4        tensor_1.5             RSpectra_0.16-1       
+ [43] irlba_2.3.5.1          labeling_0.4.3         progressr_0.14.0      
+ [46] fansi_1.0.6            spatstat.sparse_3.0-3  httr_1.4.7            
+ [49] polyclip_1.10-6        abind_1.4-5            compiler_4.3.3        
+ [52] proxy_0.4-27           withr_3.0.0            BiocParallel_1.36.0   
+ [55] fastDummies_1.7.3      highr_0.11             MASS_7.3-60.0.1       
+ [58] openssl_2.2.0          tools_4.3.3            lmtest_0.9-40         
+ [61] httpuv_1.6.15          future.apply_1.11.2    goftest_1.2-3         
+ [64] glue_1.7.0             nlme_3.1-165           promises_1.3.0        
+ [67] grid_4.3.3             cluster_2.1.6          reshape2_1.4.4        
+ [70] snow_0.4-4             generics_0.1.3         gtable_0.3.5          
+ [73] spatstat.data_3.1-2    class_7.3-22           tidyr_1.3.1           
+ [76] data.table_1.15.4      utf8_1.2.4             BiocGenerics_0.48.1   
+ [79] spatstat.geom_3.2-9    RcppAnnoy_0.0.22       ggrepel_0.9.5         
+ [82] RANN_2.6.1             pillar_1.9.0           stringr_1.5.1         
+ [85] spam_2.10-0            RcppHNSW_0.6.0         later_1.3.2           
+ [88] splines_4.3.3          dplyr_1.1.4            lattice_0.22-6        
+ [91] survival_3.7-0         deldir_2.0-4           tidyselect_1.2.1      
+ [94] miniUI_0.1.1.1         pbapply_1.7-2          knitr_1.47            
+ [97] git2r_0.33.0           gridExtra_2.3          scattermore_1.2       
+[100] stats4_4.3.3           xfun_0.45              matrixStats_1.3.0     
+[103] stringi_1.8.4          workflowr_1.7.1        lazyeval_0.2.2        
+[106] yaml_2.3.8             evaluate_0.24.0        codetools_0.2-20      
+[109] tibble_3.2.1           cli_3.6.2              uwot_0.2.2            
+[112] xtable_1.8-4           reticulate_1.38.0      munsell_0.5.1         
+[115] jquerylib_0.1.4        Rcpp_1.0.12            doSNOW_1.0.20         
+[118] globals_0.16.3         spatstat.random_3.2-3  png_0.1-8             
+[121] dotCall64_1.1-1        listenv_0.9.1          viridisLite_0.4.2     
+[124] scales_1.3.0           ggridges_0.5.6         leiden_0.4.3.1        
+[127] purrr_1.0.2            rlang_1.1.4            cowplot_1.1.3         </code></pre>
 </div>
 </div>
 
