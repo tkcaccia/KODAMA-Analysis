@@ -41,7 +41,7 @@ Begin by loading the necessary libraries for the analysis. Next, define the diff
 #### Reading Visium Data
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-dir <- "C:/Users/T0087231/Documents/Prostate/"
+dir <- "../Prostate/"
 address <- file.path(dir, tissues, "")
 
 spe <- read10xVisium(address, tissues,
@@ -55,17 +55,13 @@ Specify the directory where the data is saved and load the Visium data for the d
 
 To facilitate access to the preprocessed data and avoid repeating the preprocessing each time, save the `spe` object in an RData file.
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# Saving the preprocessed data in an RData file
-save(spe, file = "C:/Users/T0087231/Documents/data/prostate.RData")
-```
+
 
 This allows loading the preprocessed data directly without having to redo the preprocessing each time.
 
 #### Loading Preprocessed Data
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-load("C:/Users/T0087231/Documents/data/prostate.RData")
 
 metaData <- SingleCellExperiment::colData(spe)
 expr <- SingleCellExperiment::counts(spe)
@@ -170,7 +166,7 @@ for (i in 1:length(sample_names)) {
   sel <- colData(spe)$sample_id == sample_names[i]
   spe_sub <- spe[, sel]
   
-  sparkX <- sparkx(logcounts(spe_sub), spatialCoords(spe_sub), numCores = 1, option = "mixture")
+  sparkX <- sparkx(logcounts(spe_sub), spatialCoords(spe_sub), numCores = 1, option = "mixture",verbose=FALSE)
   
   pvalue_mat[rownames(sparkX$res_mtest), i] <- sparkX$res_mtest$combinedPval
   print(sample_names[i])
@@ -215,7 +211,7 @@ data=t(logcounts(spe))
 To begin the pathology data analysis, load the corresponding pathology data for adenocarcinoma samples. Ensure to replace the file path with the correct location of your data.
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-patho <- read.csv("C:/Users/T0087231/Documents/Prostate/Adenocarcinoma/outs/Pathology.csv")
+patho <- read.csv("../Prostate/Adenocarcinoma/outs/Pathology.csv")
 ```
 
 ### Processing Pathology Data
@@ -263,10 +259,10 @@ spe <- RunKODAMAmatrix(spe,
                        splitting = 300,
                        f.par.pls = 50,
                        spatial.resolution = 0.4,
-                       n.cores = 4)
+                       n.cores = 10)
 
 config <- umap.defaults
-config$n_threads = 4
+config$n_threads = 10
 config$n_sgd_threads = "auto"
 
 spe=RunKODAMAvisualization(spe,method="UMAP",config=config)
@@ -291,33 +287,5 @@ We start by loading the necessary packages and preparing our gene data for analy
 library("GSVA")
 library("GSA")
 
-genes <- as.matrix(logcounts(spe))
-
-t <- rowData(spe)$gene_name
-selt <- ave(1:length(t), t, FUN = length)
-genes <- genes[selt == 1, ]
-rownames(genes) <- t[selt == 1]
 ```
-
-#### Loading MSigDB Gene Sets
-
-Next, we load gene sets from the MSigDB database to identify relevant biological pathways and cellular processes:
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-geneset <- GSA.read.gmt("C:/Users/T0087231/Documents/Genesets/msigdb_v2023.2.Hs_GMTs/h.all.v2023.2.Hs.symbols.gmt")
-names(geneset$genesets) <- geneset$geneset.names
-genesets = geneset$genesets
-```
-
-#### GSVA Parameters and Enrichment Score Calculation
-
-Finally, we define parameters for GSVA analysis and calculate enrichment scores for each MSigDB gene set:
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-gsvapar <- gsvaParam(genes, genesets, maxDiff = TRUE)
-gsva_es <- gsva(gsvapar)
-```
-
-
-
 
