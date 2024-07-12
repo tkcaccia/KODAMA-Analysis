@@ -484,7 +484,7 @@ aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 <div class="panel-body">
 <p>Great job! The global environment was empty. Objects defined in the
 global environment can affect the analysis in your R Markdown file in
-unknown ways. For reproduciblity itâ€™s best to always run the code in an
+unknown ways. For reproduciblity it’s best to always run the code in an
 empty environment.</p>
 </div>
 </div>
@@ -559,15 +559,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree6b5cc3ce5f2b9ec74c7a634adbc83af475737ad1targetblank6b5cc3ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree501301d9d1cd859e9fbc48062b22957e9305440atargetblank501301da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/6b5cc3ce5f2b9ec74c7a634adbc83af475737ad1" target="_blank">6b5cc3c</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/501301d9d1cd859e9fbc48062b22957e9305440a" target="_blank">501301d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree6b5cc3ce5f2b9ec74c7a634adbc83af475737ad1targetblank6b5cc3ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree501301d9d1cd859e9fbc48062b22957e9305440atargetblank501301da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -577,7 +577,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/6b5cc3ce5f2b9ec74c7a634adbc83af475737ad1" target="_blank">6b5cc3c</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/501301d9d1cd859e9fbc48062b22957e9305440a" target="_blank">501301d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -591,10 +591,14 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-working directory clean
+Unstaged changes:
+    Deleted:    analysis/figure/Prostate.Rmd/unnamed-chunk-10-1.png
+    Deleted:    analysis/figure/Prostate.Rmd/unnamed-chunk-10-2.png
+    Deleted:    analysis/figure/Prostate.Rmd/unnamed-chunk-13-1.png
+
 </code></pre>
 <p>
-Note that any generated files, e.g.Â HTML, png, CSS, etc., are not
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
 included in this status report because it is ok for generated content to
 have uncommitted changes.
 </p>
@@ -608,7 +612,7 @@ have uncommitted changes.
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown (<code>analysis/Prostate.Rmd</code>) and HTML
-(<code>docs/Prostate.html</code>) files. If youâ€™ve configured a remote
+(<code>docs/Prostate.html</code>) files. If you’ve configured a remote
 Git repository (see <code>?wflow_git_remote</code>), click on the
 hyperlinks in the table below to view the files as they were in that
 past version.
@@ -1128,6 +1132,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/c8a8d5e0e385bc621693b69536167b72bee1fff0/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">c8a8d5e</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/fe5a2ba3ad736099b8b1fce2a4cd08711f6ef09c/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">fe5a2ba</a>
 </td>
 <td>
@@ -1143,6 +1158,43 @@ GitHub
 </div>
 <pre class="r"><code>plot(reducedDim(spe,type = &quot;KODAMA&quot;),col=pathology)</code></pre>
 <p><img src="figure/Prostate.Rmd/unnamed-chunk-14-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-2">
+Past versions of unnamed-chunk-14-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/c8a8d5e0e385bc621693b69536167b72bee1fff0/docs/figure/Prostate.Rmd/unnamed-chunk-14-2.png" target="_blank">c8a8d5e</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This extended analysis includes principal component analysis (PCA),
 pathology data analysis, and the application of KODAMA for
 dimensionality reduction and visualization, enhancing the understanding
