@@ -407,7 +407,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -418,8 +418,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -428,13 +428,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-07-11
+<strong>Last updated:</strong> 2024-07-12
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
@@ -457,18 +457,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, youâ€™ll want to first commit
+it to the Git repo. If youâ€™re still working on the analysis, you can
+ignore this warning. When youâ€™re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -484,7 +487,7 @@ aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 <div class="panel-body">
 <p>Great job! The global environment was empty. Objects defined in the
 global environment can affect the analysis in your R Markdown file in
-unknown ways. For reproduciblity it’s best to always run the code in an
+unknown ways. For reproduciblity itâ€™s best to always run the code in an
 empty environment.</p>
 </div>
 </div>
@@ -559,15 +562,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree8f64901403d6f1dddf0a8c157a11e5e9ae935fa1targetblank8f64901a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree930428955e4ede1b1653c2567ca98f3f57edd33ctargetblank9304289a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/8f64901403d6f1dddf0a8c157a11e5e9ae935fa1" target="_blank">8f64901</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/930428955e4ede1b1653c2567ca98f3f57edd33c" target="_blank">9304289</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree8f64901403d6f1dddf0a8c157a11e5e9ae935fa1targetblank8f64901a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree930428955e4ede1b1653c2567ca98f3f57edd33ctargetblank9304289a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -577,7 +580,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/8f64901403d6f1dddf0a8c157a11e5e9ae935fa1" target="_blank">8f64901</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/930428955e4ede1b1653c2567ca98f3f57edd33c" target="_blank">9304289</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -591,16 +594,16 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .Rhistory
-    Ignored:    .Rproj.user/
+Untracked files:
+    Untracked:  analysis/figure/
 
 Unstaged changes:
-    Deleted:    data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
+    Modified:   analysis/MERFISH.Rmd
+    Modified:   analysis/Prostate.Rmd
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not
+Note that any generated files, e.g.Â HTML, png, CSS, etc., are not
 included in this status report because it is ok for generated content to
 have uncommitted changes.
 </p>
@@ -611,11 +614,10 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown (<code>analysis/Prostate.Rmd</code>) and HTML
-(<code>docs/Prostate.html</code>) files. If you’ve configured a remote
+(<code>docs/Prostate.html</code>) files. If youâ€™ve configured a remote
 Git repository (see <code>?wflow_git_remote</code>), click on the
 hyperlinks in the table below to view the files as they were in that
 past version.
@@ -644,19 +646,19 @@ Message
 <tbody>
 <tr>
 <td>
-Rmd
+html
 </td>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/8f64901403d6f1dddf0a8c157a11e5e9ae935fa1/analysis/Prostate.Rmd" target="_blank">8f64901</a>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/9b0bdad766b8342e6849ff967399777b230da94f/docs/Prostate.html" target="_blank">9b0bdad</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-07-11
+2024-07-12
 </td>
 <td>
-Start my new project
+Update Prostate.html
 </td>
 </tr>
 <tr>
@@ -664,16 +666,16 @@ Start my new project
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/3828e8cc1c2c879837faabfcf6acd81c588db0d0/docs/Prostate.html" target="_blank">3828e8c</a>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/4c71aaa3926d6cab26f2d762535adc7f23a782c5/docs/Prostate.html" target="_blank">4c71aaa</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-07-11
+2024-07-12
 </td>
 <td>
-Build site.
+Update Prostate.html
 </td>
 </tr>
 <tr>
@@ -681,16 +683,16 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/31ff3c402a1371907804307430ec4c9a167f514c/analysis/Prostate.Rmd" target="_blank">31ff3c4</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/4a7b4cae32e4d1297c8ad2013dab64f0d7a78a6e/analysis/Prostate.Rmd" target="_blank">4a7b4ca</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-07-11
+2024-07-12
 </td>
 <td>
-Start my new project
+Update Prostate.Rmd
 </td>
 </tr>
 <tr>
@@ -811,7 +813,7 @@ adenocarcinoma.</p>
 </div>
 <div id="reading-visium-data" class="section level4">
 <h4>Reading Visium Data</h4>
-<pre class="r"><code>dir &lt;- &quot;C:/Users/T0087231/Documents/Prostate/&quot;
+<pre class="r"><code>dir &lt;- &quot;../Prostate/&quot;
 address &lt;- file.path(dir, tissues, &quot;&quot;)
 
 spe &lt;- read10xVisium(address, tissues,
@@ -826,16 +828,12 @@ matrices, with low-resolution images.</p>
 <p>To facilitate access to the preprocessed data and avoid repeating the
 preprocessing each time, save the <code>spe</code> object in an RData
 file.</p>
-<pre class="r"><code># Saving the preprocessed data in an RData file
-save(spe, file = &quot;C:/Users/T0087231/Documents/data/prostate.RData&quot;)</code></pre>
 <p>This allows loading the preprocessed data directly without having to
 redo the preprocessing each time.</p>
 </div>
 <div id="loading-preprocessed-data" class="section level4">
 <h4>Loading Preprocessed Data</h4>
-<pre class="r"><code>load(&quot;C:/Users/T0087231/Documents/data/prostate.RData&quot;)
-
-metaData &lt;- SingleCellExperiment::colData(spe)
+<pre class="r"><code>metaData &lt;- SingleCellExperiment::colData(spe)
 expr &lt;- SingleCellExperiment::counts(spe)
 sample_names &lt;- unique(colData(spe)$sample_id)</code></pre>
 <p>Load the preprocessed data and extract the metadata and gene
@@ -937,7 +935,7 @@ for (i in 1:length(sample_names)) {
   sel &lt;- colData(spe)$sample_id == sample_names[i]
   spe_sub &lt;- spe[, sel]
   
-  sparkX &lt;- sparkx(logcounts(spe_sub), spatialCoords(spe_sub), numCores = 1, option = &quot;mixture&quot;)
+  sparkX &lt;- sparkx(logcounts(spe_sub), spatialCoords(spe_sub), numCores = 1, option = &quot;mixture&quot;,verbose=FALSE)
   
   pvalue_mat[rownames(sparkX$res_mtest), i] &lt;- sparkX$res_mtest$combinedPval
   print(sample_names[i])
@@ -1027,83 +1025,9 @@ spe &lt;- RunHarmony(spe, group.by.vars = &quot;sample_id&quot;, lambda = NULL)
 
 # Visualize PCA and Harmony results
 plot(reducedDim(spe, type = &quot;PCA&quot;), col = as.factor(colData(spe)$sample_id), main = &quot;PCA&quot;)</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/3828e8cc1c2c879837faabfcf6acd81c588db0d0/docs/figure/Prostate.Rmd/unnamed-chunk-11-1.png" target="_blank">3828e8c</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-07-11
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(reducedDim(spe, type = &quot;HARMONY&quot;), col = as.factor(colData(spe)$sample_id), main = &quot;Harmony&quot;)</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-11-2.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
-Past versions of unnamed-chunk-11-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/3828e8cc1c2c879837faabfcf6acd81c588db0d0/docs/figure/Prostate.Rmd/unnamed-chunk-11-2.png" target="_blank">3828e8c</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-07-11
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-10-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>pca=reducedDim(spe,type = &quot;HARMONY&quot;)[,1:50]
 samples=as.factor(colData(spe)$sample_id)
 xy=as.matrix(spatialCoords(spe))
@@ -1117,7 +1041,7 @@ data=t(logcounts(spe))</code></pre>
 <p>To begin the pathology data analysis, load the corresponding
 pathology data for adenocarcinoma samples. Ensure to replace the file
 path with the correct location of your data.</p>
-<pre class="r"><code>patho &lt;- read.csv(&quot;C:/Users/T0087231/Documents/Prostate/Adenocarcinoma/outs/Pathology.csv&quot;)</code></pre>
+<pre class="r"><code>patho &lt;- read.csv(&quot;../Prostate/Adenocarcinoma/outs/Pathology.csv&quot;)</code></pre>
 </div>
 <div id="processing-pathology-data" class="section level3">
 <h3>Processing Pathology Data</h3>
@@ -1143,7 +1067,7 @@ samples on a reduced dimension map (HARMONY), with each point colored
 according to its pathology category.</p>
 <pre class="r"><code>col_pathology &lt;- c(&quot;#0000ff&quot;, &quot;#e41a1c&quot;, &quot;#006400&quot;, &quot;#000000&quot;, &quot;#ffd700&quot;, &quot;#00ff00&quot;, &quot;#b2dfee&quot;)
 plot(reducedDim(spe, type = &quot;HARMONY&quot;), pch = 20, col = col_pathology[pathology])</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="running-kodama-for-analysis" class="section level3">
 <h3>Running KODAMA for Analysis</h3>
@@ -1158,22 +1082,59 @@ spe &lt;- RunKODAMAmatrix(spe,
                        splitting = 300,
                        f.par.pls = 50,
                        spatial.resolution = 0.4,
-                       n.cores = 4)</code></pre>
-<pre><code>socket cluster with 4 nodes on host &#39;localhost&#39;
+                       n.cores = 10)</code></pre>
+<pre><code>socket cluster with 10 nodes on host &#39;localhost&#39;
 ================================================================================[1] &quot;Finished parallel computation&quot;
 
 [1] &quot;Calculation of dissimilarity matrix...&quot;
 ================================================================================</code></pre>
 <pre class="r"><code>config &lt;- umap.defaults
-config$n_threads = 4
+config$n_threads = 10
 config$n_sgd_threads = &quot;auto&quot;
 
 spe=RunKODAMAvisualization(spe,method=&quot;UMAP&quot;,config=config)
 
 plot(reducedDim(spe,type = &quot;KODAMA&quot;),col=as.factor(colData(spe)$sample_id))</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/fe5a2ba3ad736099b8b1fce2a4cd08711f6ef09c/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">fe5a2ba</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(reducedDim(spe,type = &quot;KODAMA&quot;),col=pathology)</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-15-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-14-2.png" width="960" style="display: block; margin: auto;" /></p>
 <p>This extended analysis includes principal component analysis (PCA),
 pathology data analysis, and the application of KODAMA for
 dimensionality reduction and visualization, enhancing the understanding
@@ -1192,82 +1153,7 @@ an account if required.</p>
 <p>We start by loading the necessary packages and preparing our gene
 data for analysis:</p>
 <pre class="r"><code>library(&quot;GSVA&quot;)
-library(&quot;GSA&quot;)
-
-genes &lt;- as.matrix(logcounts(spe))
-
-t &lt;- rowData(spe)$gene_name
-selt &lt;- ave(1:length(t), t, FUN = length)
-genes &lt;- genes[selt == 1, ]
-rownames(genes) &lt;- t[selt == 1]</code></pre>
-</div>
-<div id="loading-msigdb-gene-sets" class="section level4">
-<h4>Loading MSigDB Gene Sets</h4>
-<p>Next, we load gene sets from the MSigDB database to identify relevant
-biological pathways and cellular processes:</p>
-<pre class="r"><code>geneset &lt;- GSA.read.gmt(&quot;C:/Users/T0087231/Documents/Genesets/msigdb_v2023.2.Hs_GMTs/h.all.v2023.2.Hs.symbols.gmt&quot;)</code></pre>
-<pre><code>12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849501
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49</code></pre>
-<pre class="r"><code>names(geneset$genesets) &lt;- geneset$geneset.names
-genesets = geneset$genesets</code></pre>
-</div>
-<div id="gsva-parameters-and-enrichment-score-calculation"
-class="section level4">
-<h4>GSVA Parameters and Enrichment Score Calculation</h4>
-<p>Finally, we define parameters for GSVA analysis and calculate
-enrichment scores for each MSigDB gene set:</p>
-<pre class="r"><code>gsvapar &lt;- gsvaParam(genes, genesets, maxDiff = TRUE)
-gsva_es &lt;- gsva(gsvapar)</code></pre>
-<pre><code>Estimating GSVA scores for 50 gene sets.
-Estimating ECDFs with Gaussian kernels
-  |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   2%  |                                                                              |===                                                                   |   4%  |                                                                              |====                                                                  |   6%  |                                                                              |======                                                                |   8%  |                                                                              |=======                                                               |  10%  |                                                                              |========                                                              |  12%  |                                                                              |==========                                                            |  14%  |                                                                              |===========                                                           |  16%  |                                                                              |=============                                                         |  18%  |                                                                              |==============                                                        |  20%  |                                                                              |===============                                                       |  22%  |                                                                              |=================                                                     |  24%  |                                                                              |==================                                                    |  26%  |                                                                              |====================                                                  |  28%  |                                                                              |=====================                                                 |  30%  |                                                                              |======================                                                |  32%  |                                                                              |========================                                              |  34%  |                                                                              |=========================                                             |  36%  |                                                                              |===========================                                           |  38%  |                                                                              |============================                                          |  40%  |                                                                              |=============================                                         |  42%  |                                                                              |===============================                                       |  44%  |                                                                              |================================                                      |  46%  |                                                                              |==================================                                    |  48%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  52%  |                                                                              |======================================                                |  54%  |                                                                              |=======================================                               |  56%  |                                                                              |=========================================                             |  58%  |                                                                              |==========================================                            |  60%  |                                                                              |===========================================                           |  62%  |                                                                              |=============================================                         |  64%  |                                                                              |==============================================                        |  66%  |                                                                              |================================================                      |  68%  |                                                                              |=================================================                     |  70%  |                                                                              |==================================================                    |  72%  |                                                                              |====================================================                  |  74%  |                                                                              |=====================================================                 |  76%  |                                                                              |=======================================================               |  78%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  82%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  86%  |                                                                              |==============================================================        |  88%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  92%  |                                                                              |==================================================================    |  94%  |                                                                              |===================================================================   |  96%  |                                                                              |===================================================================== |  98%  |                                                                              |======================================================================| 100%</code></pre>
+library(&quot;GSA&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1277,110 +1163,113 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.3.3 (2024-02-29 ucrt)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 19045)
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 20.04.6 LTS
 
 Matrix products: default
-
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0 
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
 
 locale:
-[1] LC_COLLATE=English_United States.utf8 
-[2] LC_CTYPE=English_United States.utf8   
-[3] LC_MONETARY=English_United States.utf8
-[4] LC_NUMERIC=C                          
-[5] LC_TIME=English_United States.utf8    
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
-time zone: Africa/Johannesburg
-tzcode source: internal
+time zone: Etc/UTC
+tzcode source: system (glibc)
 
 attached base packages:
 [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
 [8] methods   base     
 
 other attached packages:
- [1] GSA_1.03.3                  GSVA_1.50.5                
+ [1] GSA_1.03.3                  GSVA_1.52.3                
  [3] KODAMAextra_1.0             e1071_1.7-14               
  [5] doParallel_1.0.17           iterators_1.0.14           
  [7] foreach_1.5.2               KODAMA_3.1                 
  [9] umap_0.2.10.0               Rtsne_0.17                 
-[11] minerva_1.5.10              BiocSingular_1.18.0        
+[11] minerva_1.5.10              BiocSingular_1.20.0        
 [13] harmony_1.2.0               Rcpp_1.0.12                
-[15] SPARK_1.1.1                 nnSVG_1.6.4                
-[17] scater_1.30.1               ggplot2_3.5.1              
-[19] scuttle_1.12.0              SpatialExperiment_1.12.0   
-[21] SingleCellExperiment_1.24.0 SummarizedExperiment_1.32.0
-[23] Biobase_2.62.0              GenomicRanges_1.54.1       
-[25] GenomeInfoDb_1.38.8         IRanges_2.36.0             
-[27] S4Vectors_0.40.2            BiocGenerics_0.48.1        
-[29] MatrixGenerics_1.14.0       matrixStats_1.3.0          
-[31] workflowr_1.7.1            
+[15] SPARK_1.1.1                 nnSVG_1.8.0                
+[17] scater_1.32.0               ggplot2_3.5.1              
+[19] scuttle_1.14.0              SpatialExperiment_1.14.0   
+[21] SingleCellExperiment_1.26.0 SummarizedExperiment_1.34.0
+[23] Biobase_2.64.0              GenomicRanges_1.56.1       
+[25] GenomeInfoDb_1.40.1         IRanges_2.38.1             
+[27] S4Vectors_0.42.1            BiocGenerics_0.50.0        
+[29] MatrixGenerics_1.16.0       matrixStats_1.3.0          
 
 loaded via a namespace (and not attached):
-  [1] later_1.3.2               bitops_1.0-7             
-  [3] tibble_3.2.1              R.oo_1.26.0              
-  [5] graph_1.80.0              matlab_1.0.4.1           
-  [7] XML_3.99-0.17             lifecycle_1.0.4          
-  [9] edgeR_4.0.16              rprojroot_2.0.4          
- [11] processx_3.8.4            lattice_0.22-6           
- [13] magrittr_2.0.3            limma_3.58.1             
- [15] sass_0.4.9                rmarkdown_2.27           
- [17] jquerylib_0.1.4           yaml_2.3.8               
- [19] httpuv_1.6.15             askpass_1.2.0            
- [21] reticulate_1.38.0         cowplot_1.1.3            
- [23] pbapply_1.7-2             DBI_1.2.3                
- [25] abind_1.4-5               zlibbioc_1.48.2          
- [27] R.utils_2.12.3            RCurl_1.98-1.14          
- [29] pracma_2.4.4              git2r_0.33.0             
- [31] GenomeInfoDbData_1.2.11   ggrepel_0.9.5            
- [33] irlba_2.3.5.1             RSpectra_0.16-1          
- [35] annotate_1.80.0           dqrng_0.4.1              
- [37] DelayedMatrixStats_1.24.0 codetools_0.2-20         
- [39] DropletUtils_1.22.0       DelayedArray_0.28.0      
- [41] tidyselect_1.2.1          ScaledMatrix_1.10.0      
- [43] viridis_0.6.5             jsonlite_1.8.8           
- [45] BiocNeighbors_1.20.2      tools_4.3.3              
- [47] snow_0.4-4                glue_1.7.0               
- [49] gridExtra_2.3             SparseArray_1.2.4        
- [51] xfun_0.45                 dplyr_1.1.4              
- [53] HDF5Array_1.30.1          withr_3.0.0              
- [55] fastmap_1.2.0             rhdf5filters_1.14.1      
- [57] fansi_1.0.6               openssl_2.2.0            
- [59] callr_3.7.6               digest_0.6.36            
- [61] rsvd_1.0.5                R6_2.5.1                 
- [63] colorspace_2.1-0          RSQLite_2.3.7            
- [65] R.methodsS3_1.8.2         RhpcBLASctl_0.23-42      
- [67] utf8_1.2.4                generics_0.1.3           
- [69] class_7.3-22              httr_1.4.7               
- [71] S4Arrays_1.2.1            whisker_0.4.1            
- [73] pkgconfig_2.0.3           gtable_0.3.5             
- [75] rdist_0.0.5               blob_1.2.4               
- [77] BRISC_1.0.5               XVector_0.42.0           
- [79] htmltools_0.5.8.1         GSEABase_1.64.0          
- [81] scales_1.3.0              png_0.1-8                
- [83] doSNOW_1.0.20             knitr_1.48               
- [85] rstudioapi_0.16.0         rjson_0.2.21             
- [87] proxy_0.4-27              cachem_1.1.0             
- [89] rhdf5_2.46.1              stringr_1.5.1            
- [91] vipor_0.4.7               AnnotationDbi_1.64.1     
- [93] pillar_1.9.0              grid_4.3.3               
- [95] vctrs_0.6.5               RANN_2.6.1               
- [97] promises_1.3.0            beachmat_2.18.1          
- [99] xtable_1.8-4              beeswarm_0.4.0           
-[101] evaluate_0.24.0           magick_2.8.3             
-[103] cli_3.6.2                 locfit_1.5-9.10          
-[105] compiler_4.3.3            rlang_1.1.4              
-[107] crayon_1.5.3              ps_1.7.7                 
-[109] getPass_0.2-4             fs_1.6.4                 
-[111] ggbeeswarm_0.7.2          stringi_1.8.4            
-[113] viridisLite_0.4.2         BiocParallel_1.36.0      
-[115] Biostrings_2.70.3         munsell_0.5.1            
-[117] CompQuadForm_1.4.3        Matrix_1.6-5             
-[119] sparseMatrixStats_1.14.0  bit64_4.0.5              
-[121] Rhdf5lib_1.24.2           KEGGREST_1.42.0          
-[123] statmod_1.5.0             highr_0.11               
-[125] memoise_2.0.1             bslib_0.7.0              
-[127] bit_4.0.5                </code></pre>
+  [1] jsonlite_1.8.8            magrittr_2.0.3           
+  [3] ggbeeswarm_0.7.2          magick_2.8.3             
+  [5] rmarkdown_2.27            fs_1.6.4                 
+  [7] zlibbioc_1.50.0           vctrs_0.6.5              
+  [9] memoise_2.0.1             DelayedMatrixStats_1.26.0
+ [11] askpass_1.2.0             CompQuadForm_1.4.3       
+ [13] htmltools_0.5.8.1         S4Arrays_1.4.1           
+ [15] BiocNeighbors_1.22.0      Rhdf5lib_1.26.0          
+ [17] SparseArray_1.4.8         rhdf5_2.48.0             
+ [19] sass_0.4.9                pracma_2.4.4             
+ [21] bslib_0.7.0               cachem_1.1.0             
+ [23] whisker_0.4.1             lifecycle_1.0.4          
+ [25] pkgconfig_2.0.3           rsvd_1.0.5               
+ [27] Matrix_1.7-0              R6_2.5.1                 
+ [29] fastmap_1.2.0             GenomeInfoDbData_1.2.12  
+ [31] digest_0.6.36             colorspace_2.1-0         
+ [33] AnnotationDbi_1.66.0      rprojroot_2.0.4          
+ [35] dqrng_0.4.1               RSpectra_0.16-1          
+ [37] irlba_2.3.5.1             RSQLite_2.3.7            
+ [39] beachmat_2.20.0           fansi_1.0.6              
+ [41] httr_1.4.7                abind_1.4-5              
+ [43] compiler_4.4.0            proxy_0.4-27             
+ [45] BRISC_1.0.5               bit64_4.0.5              
+ [47] withr_3.0.0               BiocParallel_1.38.0      
+ [49] DBI_1.2.3                 viridis_0.6.5            
+ [51] highr_0.11                HDF5Array_1.32.0         
+ [53] R.utils_2.12.3            openssl_2.2.0            
+ [55] DelayedArray_0.30.1       rjson_0.2.21             
+ [57] rdist_0.0.5               tools_4.4.0              
+ [59] vipor_0.4.7               beeswarm_0.4.0           
+ [61] httpuv_1.6.15             R.oo_1.26.0              
+ [63] glue_1.7.0                rhdf5filters_1.16.0      
+ [65] promises_1.3.0            grid_4.4.0               
+ [67] snow_0.4-4                generics_0.1.3           
+ [69] gtable_0.3.5              class_7.3-22             
+ [71] R.methodsS3_1.8.2         ScaledMatrix_1.12.0      
+ [73] utf8_1.2.4                XVector_0.44.0           
+ [75] ggrepel_0.9.5             RANN_2.6.1               
+ [77] pillar_1.9.0              stringr_1.5.1            
+ [79] limma_3.60.3              later_1.3.2              
+ [81] dplyr_1.1.4               lattice_0.22-6           
+ [83] bit_4.0.5                 annotate_1.82.0          
+ [85] tidyselect_1.2.1          locfit_1.5-9.10          
+ [87] Biostrings_2.72.1         pbapply_1.7-2            
+ [89] knitr_1.48                git2r_0.33.0             
+ [91] gridExtra_2.3             edgeR_4.2.0              
+ [93] RhpcBLASctl_0.23-42       xfun_0.45                
+ [95] statmod_1.5.0             DropletUtils_1.24.0      
+ [97] stringi_1.8.4             UCSC.utils_1.0.0         
+ [99] workflowr_1.7.1           yaml_2.3.9               
+[101] evaluate_0.24.0           codetools_0.2-20         
+[103] tibble_3.2.1              graph_1.82.0             
+[105] cli_3.6.3                 matlab_1.0.4.1           
+[107] xtable_1.8-4              reticulate_1.38.0        
+[109] munsell_0.5.1             jquerylib_0.1.4          
+[111] doSNOW_1.0.20             png_0.1-8                
+[113] XML_3.99-0.17             blob_1.2.4               
+[115] sparseMatrixStats_1.16.0  GSEABase_1.66.0          
+[117] viridisLite_0.4.2         scales_1.3.0             
+[119] crayon_1.5.3              rlang_1.1.4              
+[121] KEGGREST_1.44.1           cowplot_1.1.3            </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
