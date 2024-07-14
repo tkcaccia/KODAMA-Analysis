@@ -13,7 +13,7 @@
 
 <title>About</title>
 
-<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -334,7 +334,7 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="Installation.html">Installation</a>
 </li>
 <li>
   <a href="simulation.html">Simulation</a>
@@ -360,6 +360,21 @@ div.tocify {
     </li>
     <li>
       <a href="VisiumHD.html">Visium HD</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Interoperability
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Seurat.html">Seurat</a>
+    </li>
+    <li>
+      <a href="Giotto.html">Giotto</a>
     </li>
   </ul>
 </li>
@@ -392,7 +407,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -403,8 +418,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -413,13 +428,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-18
+<strong>Last updated:</strong> 2024-07-14
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
@@ -442,18 +457,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -544,13 +562,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong5266e01">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreeb832174e4403026911b4838abdb5b8853f5071c8targetblankb832174a">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 5266e01
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/b832174e4403026911b4838abdb5b8853f5071c8" target="_blank">b832174</a>
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong5266e01"
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreeb832174e4403026911b4838abdb5b8853f5071c8targetblankb832174a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -559,7 +579,8 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 5266e01.
+The results in this page were generated with repository version
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/b832174e4403026911b4838abdb5b8853f5071c8" target="_blank">b832174</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -574,13 +595,19 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .DS_Store
-    Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
 
 Untracked files:
-    Untracked:  code/Prostate_download.sh
-    Untracked:  code/Prostate_preprocessing.R
-    Untracked:  data/Prostate_data.RData
+    Untracked:  analysis/DLPFC-4slides.Rmd
+    Untracked:  code/VisiumHD_CRC_download.sh
+    Untracked:  data/Pathology.csv
+
+Unstaged changes:
+    Deleted:    _site.yml
+    Modified:   analysis/DLPFC.Rmd
+    Modified:   analysis/MERFISH.Rmd
+    Modified:   analysis/Prostate.Rmd
+    Deleted:    data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
 
 </code></pre>
 <p>
@@ -595,7 +622,6 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown (<code>analysis/Prostate.Rmd</code>) and HTML
@@ -631,16 +657,16 @@ Message
 Rmd
 </td>
 <td>
-5266e01
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/39586a6bbd58e96b5d3807c3306ebfb6d73f8c2f/analysis/Prostate.Rmd" target="_blank">39586a6</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-06-18
+2024-07-12
 </td>
 <td>
-Start my new project
+Update Prostate.Rmd
 </td>
 </tr>
 <tr>
@@ -648,16 +674,84 @@ Start my new project
 html
 </td>
 <td>
-113adea
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/60a4b0df80b162d618152c4576e8f4e8cb70a619/docs/Prostate.html" target="_blank">60a4b0d</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-06-18
+2024-07-12
 </td>
 <td>
-Build site.
+Update Prostate.html
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/6660a41b89077b3a07e1a389e6de1636110498c5/docs/Prostate.html" target="_blank">6660a41</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+<td>
+Update Prostate.html
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/b9679c83a32329084d4080d740ed7f5eb613d2d1/docs/Prostate.html" target="_blank">b9679c8</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+<td>
+Update Prostate.html
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/9b0bdad766b8342e6849ff967399777b230da94f/docs/Prostate.html" target="_blank">9b0bdad</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+<td>
+Update Prostate.html
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/4c71aaa3926d6cab26f2d762535adc7f23a782c5/docs/Prostate.html" target="_blank">4c71aaa</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+<td>
+Update Prostate.html
 </td>
 </tr>
 <tr>
@@ -665,16 +759,16 @@ Build site.
 Rmd
 </td>
 <td>
-a6466af
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/4a7b4cae32e4d1297c8ad2013dab64f0d7a78a6e/analysis/Prostate.Rmd" target="_blank">4a7b4ca</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-06-18
+2024-07-12
 </td>
 <td>
-Start my new project
+Update Prostate.Rmd
 </td>
 </tr>
 <tr>
@@ -682,16 +776,50 @@ Start my new project
 html
 </td>
 <td>
-70e6ab3
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/d652bc631cf3de79434fe1b987c2ef65f2a80f38/docs/Prostate.html" target="_blank">d652bc6</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-06-18
+2024-07-08
 </td>
 <td>
-Build site.
+Update Prostate.html
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/cac859cee47ee0b941d957bd9ed75959e15bc24a/docs/Prostate.html" target="_blank">cac859c</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-04
+</td>
+<td>
+Update Prostate.html
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/ee4ee17ff874a26eaf8c1e76e4a85ce3b9de867e/docs/Prostate.html" target="_blank">ee4ee17</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-19
+</td>
+<td>
+Add files via upload
 </td>
 </tr>
 <tr>
@@ -699,169 +827,16 @@ Build site.
 Rmd
 </td>
 <td>
-1ca945e
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/615fc05e05b60aed64683d1204afddc6b8c32f36/analysis/Prostate.Rmd" target="_blank">615fc05</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-06-18
+2024-06-19
 </td>
 <td>
-Start my new project
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-ced1946
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-21bfe60
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Start my new project
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-f8e2e50
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-bd05862
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Start my new project
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-a5875ac
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-2e98607
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Start my new project
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-82ff50a
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-4eae145
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-344c155
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Start my new project
+Add files via upload
 </td>
 </tr>
 </tbody>
@@ -871,22 +846,569 @@ Start my new project
 </div>
 </div>
 </div>
-<p>Describe your project.</p>
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
-<p>Here we must describe the data!!! The data can be downloaded using
-the following <a href="../code/Prostate_download.sh">script</a>.</p>
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
+<p>The data used in this analysis come from the Visium database, a
+reference resource for spatial transcriptomics data. This database
+provides detailed information on gene expression in various tissue
+contexts, offering high-resolution spatial data.</p>
+<p>For this tutorial, we focus on different types of prostate tissues,
+including normal prostate, adenocarcinoma, acinar cell carcinoma, and
+adjacent normal sections. These data are crucial for understanding the
+variations in gene expression between healthy and cancerous tissues and
+for identifying potential diagnostic and therapeutic markers.</p>
+<p>The data can be downloaded using the following script: <a
+href="https://github.com/tkcaccia/KODAMA-Analysis/blob/main/code/Prostate_download.sh">Prostate_download.sh</a>.
+This script facilitates access to the raw data, which will then be
+preprocessed and analyzed in the subsequent steps of our pipeline.</p>
 </div>
-<div id="preprocessing" class="section level1">
-<h1>Preprocessing</h1>
-<p>Here we must describe the preproccessing The R script to
-preprocessing the data is <a
-href="../code/Prostate_preprocessing.R">here</a>.</p>
-<pre class="r"><code>load(&quot;data/Prostate_data.RData&quot;)
+<div id="preprocessing" class="section level3">
+<h3>Preprocessing</h3>
+<p>This section details the preprocessing of spatial transcriptomics
+data, which is a crucial step for cleaning and preparing the data for
+further analysis.</p>
+<div id="loading-libraries-and-defining-tissue-types"
+class="section level4">
+<h4>Loading Libraries and Defining Tissue Types</h4>
+<pre class="r"><code>library(SpatialExperiment)
+library(scater)
+library(nnSVG)
+library(SPARK)
+library(harmony)
+library(scuttle)
+library(BiocSingular)
 
-sel=samples==&quot;Adenocarcinoma&quot;
-plot(pca[sel,],col=col_pathology[pathology[sel]])</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-1-1.png" width="960" style="display: block; margin: auto;" /></p>
+tissues &lt;- c(&quot;Normal_prostate&quot;,
+             &quot;Acinar_Cell_Carcinoma&quot;,
+             &quot;Adjacent_normal_section&quot;,
+             &quot;Adenocarcinoma&quot;)</code></pre>
+<p>Begin by loading the necessary libraries for the analysis. Next,
+define the different types of prostate tissues to be studied: normal
+prostate, acinar cell carcinoma, adjacent normal sections, and
+adenocarcinoma.</p>
+</div>
+<div id="reading-visium-data" class="section level4">
+<h4>Reading Visium Data</h4>
+<pre class="r"><code>dir &lt;- &quot;../Prostate/&quot;
+address &lt;- file.path(dir, tissues, &quot;&quot;)
+
+spe &lt;- read10xVisium(address, tissues,
+                     type = &quot;sparse&quot;, data = &quot;raw&quot;,
+                     images = &quot;lowres&quot;, load = FALSE)</code></pre>
+<p>xxx</p>
+</div>
+</div>
+<div id="loading-pathology-data" class="section level3">
+<h3>Loading Pathology Data</h3>
+<p>To begin the pathology data analysis, load the corresponding
+pathology data for adenocarcinoma samples. Ensure to replace the file
+path with the correct location of your data.</p>
+<pre class="r"><code>patho &lt;- read.csv(&quot;data/Pathology.csv&quot;)</code></pre>
+<div id="loading-preprocessed-data" class="section level4">
+<h4>Loading Preprocessed Data</h4>
+<pre class="r"><code>metaData &lt;- SingleCellExperiment::colData(spe)
+expr &lt;- SingleCellExperiment::counts(spe)
+sample_names &lt;- unique(colData(spe)$sample_id)</code></pre>
+<p>Load the preprocessed data and extract the metadata and gene
+expression counts.</p>
+</div>
+<div id="filtering-tissue-spots-and-identifying-mitochondrial-genes"
+class="section level4">
+<h4>Filtering Tissue Spots and Identifying Mitochondrial Genes</h4>
+<pre class="r"><code>spe &lt;- spe[, colData(spe)$in_tissue]
+
+# Identify mitochondrial genes
+is_mito &lt;- grepl(&quot;(^MT-)|(^mt-)&quot;, rowData(spe)$gene_name)
+table(is_mito)</code></pre>
+<pre><code>&lt; table of extent 0 &gt;</code></pre>
+<p>Filter the spots located in the tissue and identify mitochondrial
+genes, which are often used as quality indicators.</p>
+</div>
+<div id="calculating-quality-control-qc-metrics-per-spot"
+class="section level4">
+<h4>Calculating Quality Control (QC) Metrics per Spot</h4>
+<pre class="r"><code># Calculate per-spot QC metrics
+spe &lt;- addPerCellQC(spe, subsets = list(mito = is_mito))
+
+# Select QC thresholds
+qc_lib_size &lt;- colData(spe)$sum &lt; 500
+qc_detected &lt;- colData(spe)$detected &lt; 250
+qc_mito &lt;- colData(spe)$subsets_mito_percent &gt; 30
+qc_cell_count &lt;- colData(spe)$cell_count &gt; 12
+
+# Spots to discard
+discard &lt;- qc_lib_size | qc_detected | qc_mito | qc_cell_count
+
+if (length(discard) &gt; 0) {
+  table(discard)
+  colData(spe)$discard &lt;- discard
+  
+  # Filter low-quality spots
+  spe &lt;- spe[, !colData(spe)$discard]
+}
+dim(spe)</code></pre>
+<pre><code>[1] 36945 13417</code></pre>
+<p>Calculate several QC metrics per spot, such as library size, number
+of detected genes, percentage of mitochondrial genes, and cell count.
+Define thresholds for these metrics and filter out low-quality
+spots.</p>
+</div>
+<div id="filtering-genes" class="section level4">
+<h4>Filtering Genes</h4>
+<pre class="r"><code>colnames(rowData(spe)) &lt;- &quot;gene_name&quot;
+
+spe &lt;- filter_genes(
+  spe,
+  filter_genes_ncounts = 2,   # Minimum counts
+  filter_genes_pcspots = 0.5, # Minimum percentage of spots
+  filter_mito = TRUE          # Filter mitochondrial genes
+)
+
+dim(spe)</code></pre>
+<pre><code>[1] 12527 13417</code></pre>
+<p>Filter genes based on the number of counts and the percentage of
+spots in which they are present. Mitochondrial genes are also filtered
+out.</p>
+</div>
+<div id="adjusting-spatial-coordinates" class="section level4">
+<h4>Adjusting Spatial Coordinates</h4>
+<pre class="r"><code>xy &lt;- spatialCoords(spe)
+samples &lt;- unique(colData(spe)$sample_id)
+
+for (j in 1:length(samples)) {
+  sel &lt;- samples[j] == colData(spe)$sample_id
+  xy[sel, 1] &lt;- spatialCoords(spe)[sel, 1] + 25000 * (j - 1)
+}
+spatialCoords(spe) &lt;- xy</code></pre>
+<p>Adjust the spatial coordinates of each sample to separate them
+visually, facilitating data analysis and visualization.</p>
+</div>
+<div id="normalizing-counts" class="section level4">
+<h4>Normalizing Counts</h4>
+<pre class="r"><code>spe &lt;- computeLibraryFactors(spe)
+spe &lt;- logNormCounts(spe)</code></pre>
+<p>normalize the counts using library size factors and apply a
+logarithmic transformation to obtain data ready for more precise
+analysis.</p>
+<p>This preprocessing process cleans and normalizes the spatial
+transcriptomics data, ensuring high-quality data ready for subsequent
+analyses.</p>
+</div>
+</div>
+<div id="feature-selection-with-spark" class="section level3">
+<h3>Feature Selection with SPARK</h3>
+<p>After preprocessing the data, the next step involves feature
+selection using SPARK, which is crucial for identifying significant
+genes across different tissue samples.</p>
+<pre class="r"><code>pvalue_mat &lt;- matrix(NA, nrow = nrow(spe), ncol = length(sample_names))
+rownames(pvalue_mat) &lt;- rownames(rowData(spe))
+
+# Perform SPARK analysis for each sample
+for (i in 1:length(sample_names)) {
+  sel &lt;- colData(spe)$sample_id == sample_names[i]
+  spe_sub &lt;- spe[, sel]
+  
+  sparkX &lt;- sparkx(logcounts(spe_sub), spatialCoords(spe_sub), numCores = 1, option = &quot;mixture&quot;,verbose=FALSE)
+  
+  pvalue_mat[rownames(sparkX$res_mtest), i] &lt;- sparkX$res_mtest$combinedPval
+  print(sample_names[i])
+}</code></pre>
+<pre><code>## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 2543 
+## number of total genes: 12519 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5
+[1] &quot;Normal_prostate&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 3043 
+## number of total genes: 12524 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5
+[1] &quot;Acinar_Cell_Carcinoma&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 3460 
+## number of total genes: 12521 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5
+[1] &quot;Adjacent_normal_section&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 4371 
+## number of total genes: 12525 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5
+[1] &quot;Adenocarcinoma&quot;</code></pre>
+<pre class="r"><code>pvalue_mat=pvalue_mat[!is.na(rowSums(pvalue_mat)),]
+
+oo=order(apply(pvalue_mat,1,function(x) mean(-log(x))),decreasing = TRUE)
+top=rownames(pvalue_mat)[oo]</code></pre>
+</div>
+<div id="principal-component-analysis-pca" class="section level3">
+<h3>Principal Component Analysis (PCA)</h3>
+<p>After feature selection, principal component analysis (PCA) is
+performed to explore the variance in the dataset and visualize sample
+relationships.</p>
+<p>sample_id=colData(spe)$sample_id</p>
+<pre class="r"><code>library(ggplot2)
+
+# Run PCA with top selected genes
+spe &lt;- runPCA(spe, subset_row = top[1:3000], scale = TRUE)
+
+# Run Harmony to adjust for batch effects
+spe &lt;- RunHarmony(spe, group.by.vars = &quot;sample_id&quot;, lambda = NULL)
+
+# Visualize PCA and Harmony results
+plot(reducedDim(spe, type = &quot;PCA&quot;), col = as.factor(colData(spe)$sample_id), main = &quot;PCA&quot;)</code></pre>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/4c3b887c19649034f2bef550df62b42791818738/docs/figure/Prostate.Rmd/unnamed-chunk-11-1.png" target="_blank">4c3b887</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/fe5a2ba3ad736099b8b1fce2a4cd08711f6ef09c/docs/figure/Prostate.Rmd/unnamed-chunk-11-1.png" target="_blank">fe5a2ba</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot(reducedDim(spe, type = &quot;HARMONY&quot;), col = as.factor(colData(spe)$sample_id), main = &quot;Harmony&quot;)</code></pre>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-11-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
+Past versions of unnamed-chunk-11-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/3bb99e37a11ec3731c956ad9e4312581f93a5c78/docs/figure/Prostate.Rmd/unnamed-chunk-11-2.png" target="_blank">3bb99e3</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/fe5a2ba3ad736099b8b1fce2a4cd08711f6ef09c/docs/figure/Prostate.Rmd/unnamed-chunk-11-2.png" target="_blank">fe5a2ba</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>pca=reducedDim(spe,type = &quot;HARMONY&quot;)[,1:50]
+samples=as.factor(colData(spe)$sample_id)
+xy=as.matrix(spatialCoords(spe))
+data=t(logcounts(spe))</code></pre>
+</div>
+<div id="processing-pathology-data" class="section level3">
+<h3>Processing Pathology Data</h3>
+<p>The processing involves creating row names and associating pathology
+information with the corresponding columns in the spe object.</p>
+<pre class="r"><code>rownames(patho) &lt;- patho[,1]
+pathology &lt;- rep(NA, ncol(spe))
+sel &lt;- colData(spe)$sample_id == &quot;Adenocarcinoma&quot;
+pathology[sel] &lt;- patho[rownames(colData(spe))[sel], &quot;Pathology&quot;]
+pathology[pathology == &quot;&quot;] &lt;- NA
+pathology &lt;- factor(pathology, levels = c(&quot;Invasive carcinoma&quot;,
+                                          &quot;Blood vessel&quot;,
+                                          &quot;Fibro-muscular tissue&quot;,
+                                          &quot;Fibrous tissue&quot;,
+                                          &quot;Immune Cells&quot;,
+                                          &quot;Nerve&quot;,
+                                          &quot;Normal gland&quot;))</code></pre>
+</div>
+<div id="visualization-of-pathology-data" class="section level3">
+<h3>Visualization of Pathology Data</h3>
+<p>Assign specific colors to each pathology category and visualize the
+samples on a reduced dimension map (HARMONY), with each point colored
+according to its pathology category.</p>
+<pre class="r"><code>col_pathology &lt;- c(&quot;#0000ff&quot;, &quot;#e41a1c&quot;, &quot;#006400&quot;, &quot;#000000&quot;, &quot;#ffd700&quot;, &quot;#00ff00&quot;, &quot;#b2dfee&quot;)
+plot(reducedDim(spe, type = &quot;HARMONY&quot;), pch = 20, col = col_pathology[pathology])</code></pre>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/c4d73d405ebc511eb38e54bb2b405561bd8e55fe/docs/figure/Prostate.Rmd/unnamed-chunk-13-1.png" target="_blank">c4d73d4</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="running-kodama-for-analysis" class="section level3">
+<h3>Running KODAMA for Analysis</h3>
+<p>The next step is running KODAMA, a method for dimensionality
+reduction and visualization.</p>
+<pre class="r"><code>library(KODAMAextra)
+
+spe &lt;- RunKODAMAmatrix(spe,
+                       reduction = &quot;HARMONY&quot;,
+                       FUN = &quot;PLS&quot;,
+                       landmarks = 100000,
+                       splitting = 300,
+                       f.par.pls = 50,
+                       spatial.resolution = 0.4,
+                       n.cores = 4)</code></pre>
+<pre><code>socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================</code></pre>
+<pre class="r"><code>config &lt;- umap.defaults
+config$n_threads = 4
+config$n_sgd_threads = &quot;auto&quot;
+
+spe=RunKODAMAvisualization(spe,method=&quot;UMAP&quot;,config=config)
+
+plot(reducedDim(spe,type = &quot;KODAMA&quot;),col=as.factor(colData(spe)$sample_id))</code></pre>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/c4d73d405ebc511eb38e54bb2b405561bd8e55fe/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">c4d73d4</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/e20ceb25b4d4fa38fdca8470165d44317466a2e1/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">e20ceb2</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/fe5a2ba3ad736099b8b1fce2a4cd08711f6ef09c/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">fe5a2ba</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot(reducedDim(spe,type = &quot;KODAMA&quot;),col=pathology)</code></pre>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-14-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-2">
+Past versions of unnamed-chunk-14-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/c4d73d405ebc511eb38e54bb2b405561bd8e55fe/docs/figure/Prostate.Rmd/unnamed-chunk-14-2.png" target="_blank">c4d73d4</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This extended analysis includes principal component analysis (PCA),
+pathology data analysis, and the application of KODAMA for
+dimensionality reduction and visualization, enhancing the understanding
+of spatial transcriptomics data in different prostate tissue types.</p>
+</div>
+<div id="gsva-enrichment-analysis-with-msigdb" class="section level3">
+<h3>GSVA Enrichment Analysis with MSigDB</h3>
+<p>To explore enriched biological processes in our spatial
+transcriptomics data, we employ Gene Set Variation Analysis (GSVA) using
+MSigDB gene sets as a reference. To download the necessary data, please
+follow the steps provided at <a
+href="https://www.gsea-msigdb.org/gsea/msigdb">this link</a> and create
+an account if required.</p>
+<div id="loading-packages-and-data" class="section level4">
+<h4>Loading Packages and Data</h4>
+<p>We start by loading the necessary packages and preparing our gene
+data for analysis:</p>
+<pre class="r"><code>library(&quot;GSVA&quot;)
+library(&quot;GSA&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -896,38 +1418,117 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.3.3 (2024-02-29)
-Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Sonoma 14.5
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 20.04.6 LTS
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
-LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0 
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
 
 locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
-time zone: America/Sao_Paulo
-tzcode source: internal
+time zone: Etc/UTC
+tzcode source: system (glibc)
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
 
 other attached packages:
-[1] workflowr_1.7.1
+ [1] GSA_1.03.3                  GSVA_1.52.3                
+ [3] KODAMAextra_1.0             e1071_1.7-14               
+ [5] doParallel_1.0.17           iterators_1.0.14           
+ [7] foreach_1.5.2               KODAMA_3.1                 
+ [9] umap_0.2.10.0               Rtsne_0.17                 
+[11] minerva_1.5.10              BiocSingular_1.20.0        
+[13] harmony_1.2.0               Rcpp_1.0.12                
+[15] SPARK_1.1.1                 nnSVG_1.8.0                
+[17] scater_1.32.0               ggplot2_3.5.1              
+[19] scuttle_1.14.0              SpatialExperiment_1.14.0   
+[21] SingleCellExperiment_1.26.0 SummarizedExperiment_1.34.0
+[23] Biobase_2.64.0              GenomicRanges_1.56.1       
+[25] GenomeInfoDb_1.40.1         IRanges_2.38.1             
+[27] S4Vectors_0.42.1            BiocGenerics_0.50.0        
+[29] MatrixGenerics_1.16.0       matrixStats_1.3.0          
+[31] workflowr_1.7.1            
 
 loaded via a namespace (and not attached):
- [1] jsonlite_1.8.8    compiler_4.3.3    highr_0.10        promises_1.3.0   
- [5] Rcpp_1.0.12       stringr_1.5.1     git2r_0.33.0      callr_3.7.6      
- [9] later_1.3.2       jquerylib_0.1.4   yaml_2.3.8        fastmap_1.1.1    
-[13] R6_2.5.1          knitr_1.45        tibble_3.2.1      rprojroot_2.0.4  
-[17] bslib_0.7.0       pillar_1.9.0      rlang_1.1.3       utf8_1.2.4       
-[21] cachem_1.0.8      stringi_1.8.3     httpuv_1.6.15     xfun_0.43        
-[25] getPass_0.2-4     fs_1.6.3          sass_0.4.9        cli_3.6.2        
-[29] magrittr_2.0.3    ps_1.7.6          digest_0.6.35     processx_3.8.4   
-[33] rstudioapi_0.16.0 lifecycle_1.0.4   vctrs_0.6.5       evaluate_0.23    
-[37] glue_1.7.0        whisker_0.4.1     fansi_1.0.6       rmarkdown_2.26   
-[41] httr_1.4.7        tools_4.3.3       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
+  [1] later_1.3.2               tibble_3.2.1             
+  [3] R.oo_1.26.0               graph_1.82.0             
+  [5] matlab_1.0.4.1            XML_3.99-0.17            
+  [7] lifecycle_1.0.4           edgeR_4.2.0              
+  [9] rprojroot_2.0.4           processx_3.8.4           
+ [11] lattice_0.22-6            magrittr_2.0.3           
+ [13] limma_3.60.3              sass_0.4.9               
+ [15] rmarkdown_2.27            jquerylib_0.1.4          
+ [17] yaml_2.3.9                httpuv_1.6.15            
+ [19] askpass_1.2.0             reticulate_1.38.0        
+ [21] cowplot_1.1.3             pbapply_1.7-2            
+ [23] DBI_1.2.3                 abind_1.4-5              
+ [25] zlibbioc_1.50.0           R.utils_2.12.3           
+ [27] pracma_2.4.4              git2r_0.33.0             
+ [29] GenomeInfoDbData_1.2.12   ggrepel_0.9.5            
+ [31] irlba_2.3.5.1             RSpectra_0.16-1          
+ [33] annotate_1.82.0           dqrng_0.4.1              
+ [35] DelayedMatrixStats_1.26.0 codetools_0.2-20         
+ [37] DropletUtils_1.24.0       DelayedArray_0.30.1      
+ [39] tidyselect_1.2.1          UCSC.utils_1.0.0         
+ [41] ScaledMatrix_1.12.0       viridis_0.6.5            
+ [43] jsonlite_1.8.8            BiocNeighbors_1.22.0     
+ [45] tools_4.4.0               snow_0.4-4               
+ [47] glue_1.7.0                gridExtra_2.3            
+ [49] SparseArray_1.4.8         xfun_0.45                
+ [51] dplyr_1.1.4               HDF5Array_1.32.0         
+ [53] withr_3.0.0               fastmap_1.2.0            
+ [55] rhdf5filters_1.16.0       fansi_1.0.6              
+ [57] openssl_2.2.0             callr_3.7.6              
+ [59] digest_0.6.36             rsvd_1.0.5               
+ [61] R6_2.5.1                  colorspace_2.1-0         
+ [63] RSQLite_2.3.7             R.methodsS3_1.8.2        
+ [65] RhpcBLASctl_0.23-42       utf8_1.2.4               
+ [67] generics_0.1.3            class_7.3-22             
+ [69] httr_1.4.7                S4Arrays_1.4.1           
+ [71] whisker_0.4.1             pkgconfig_2.0.3          
+ [73] gtable_0.3.5              rdist_0.0.5              
+ [75] blob_1.2.4                BRISC_1.0.5              
+ [77] XVector_0.44.0            htmltools_0.5.8.1        
+ [79] GSEABase_1.66.0           scales_1.3.0             
+ [81] png_0.1-8                 doSNOW_1.0.20            
+ [83] knitr_1.48                rstudioapi_0.16.0        
+ [85] rjson_0.2.21              proxy_0.4-27             
+ [87] cachem_1.1.0              rhdf5_2.48.0             
+ [89] stringr_1.5.1             vipor_0.4.7              
+ [91] AnnotationDbi_1.66.0      pillar_1.9.0             
+ [93] grid_4.4.0                vctrs_0.6.5              
+ [95] RANN_2.6.1                promises_1.3.0           
+ [97] beachmat_2.20.0           xtable_1.8-4             
+ [99] beeswarm_0.4.0            evaluate_0.24.0          
+[101] magick_2.8.3              cli_3.6.3                
+[103] locfit_1.5-9.10           compiler_4.4.0           
+[105] rlang_1.1.4               crayon_1.5.3             
+[107] ps_1.7.7                  getPass_0.2-4            
+[109] fs_1.6.4                  ggbeeswarm_0.7.2         
+[111] stringi_1.8.4             viridisLite_0.4.2        
+[113] BiocParallel_1.38.0       Biostrings_2.72.1        
+[115] munsell_0.5.1             CompQuadForm_1.4.3       
+[117] Matrix_1.7-0              sparseMatrixStats_1.16.0 
+[119] bit64_4.0.5               Rhdf5lib_1.26.0          
+[121] KEGGREST_1.44.1           statmod_1.5.0            
+[123] highr_0.11                memoise_2.0.1            
+[125] bslib_0.7.0               bit_4.0.5                </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 

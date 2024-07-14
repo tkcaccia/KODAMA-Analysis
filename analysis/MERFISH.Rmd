@@ -6,5 +6,123 @@ output:
 editor_options:
   chunk_output_type: console
 ---
-
 Describe your project.
+
+# MERFISH Data Analysis
+
+The molecular imaging technology MERFISH (Multiplexed Error-Robust Fluorescence In Situ Hybridization) has revolutionized RNA mapping at the cellular level with unmatched spatial precision. This technique enables the simultaneous visualization of numerous genes within individual cells, offering unique insights into molecular processes in biological tissues. MERFISH data provides detailed information on cell structure and function, paving the way for new discoveries in cellular and molecular biology.
+
+The dataset analyzed, as presented in [this article](https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248), includes information on 36 mice from the hypothalamic preoptic region of the brain, derived from samples taken from various regions of the same animal. The "Bregma" column indicates the slice location in Bregma coordinates, an anatomical reference point used in neuroscience.
+
+Our focus is on advanced analysis of MERFISH data from biological tissues, introducing key advancements such as a 12 Extended Layer Analysis method for detailed tissue structure understanding and a 3D clustering feature for accurately representing the spatial relationships and RNA interactions within cells.
+
+Our main objective is to integrate multiple tissue sections for unified analysis across different samples. We employ data preprocessing, dimension reduction, and advanced clustering techniques to explore the relationship between tissue structure and cellular behavior, highlighting spatial variations and gene expression patterns associated with specific biological functions.
+
+# Load necessary libraries
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+
+library(Seurat)
+library(KODAMAextra)
+library(ggplot2)
+library(NMI)
+library(mclust)
+library(bluster)
+library(igraph)
+```
+
+# Downloading the Data
+
+The data is downloaded from this [link](https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248) for the continuation of the work.
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+# Load data
+data <- read.csv("../Merfish/hypothalamic_preoptic_region/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv")
+data <- as.data.frame(data)
+```
+
+# Data Pre-processing
+In our data preprocessing process, we have undertaken a rigorous approach to ensure the quality and relevance of the information we use in our analysis. With a total of 170 genes initially included in our data, our first step was to eliminate the "Blank" genes, which are control or background genes that do not contribute to our main analysis. This elimination allowed us to reduce our data set to 165 genes. Subsequently, we identified and removed the "Fos" gene, suspected of having an unwanted or disruptive impact on our data, leaving a total of 164 genes for our analysis. These initial cleaning steps are crucial to ensure that the data we use is reliable and suitable for our analysis objectives. By then filtering the data to retain only those corresponding to Animal_ID 1 and specific Bregma values, we ensure that we focus on a subset relevant to our study. This preprocessing process is essential to prepare our data properly, by eliminating unnecessary elements and focusing on the most relevant data for our subsequent analysis.
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+# Data cleaning
+colnames_data <- colnames(data)
+blankgenes <- grep("Blank", colnames_data)
+fos_index <- which(colnames(data) == "Fos")
+df <- data[, -c(fos_index, blankgenes)]
+selected_bregma <- unique(df$Bregma)
+
+# Filter data for Animal_ID 1 and specific Bregma values
+exp <- subset(df, Animal_ID == 1 & Bregma %in% selected_bregma)
+rownames(exp) <- exp$Cell_ID
+data_list <- split(exp, exp$Bregma)
+data_list <- data_list[match(selected_bregma, names(data_list))]
+
+
+# Initialize lists 
+xy <- list()
+pca <- list()
+v <- list()
+kk <- list()
+vis <- list()
+pred <- list()
+refine <- list()
+cons <- list()
+ARI <- list()
+NMI <- list()
+
+
+# Normalization and dimension reduction by PCA
+for (i in names(data_list)) {
+  print(i)
+  x <- data_list[[i]]$Centroid_X - min(data_list[[i]]$Centroid_X)
+  y <- data_list[[i]]$Centroid_Y - min(data_list[[i]]$Centroid_Y)
+  xy[[i]] <- cbind(x, y)
+  rownames(xy[[i]]) <- rownames(data_list[[i]])
+  cons[[i]] <- t(data_list[[i]][, 10:ncol(data_list[[i]])])
+  colnames(cons[[i]]) <- rownames(data_list[[i]])
+  v[[i]] <- t(LogNormalize(cons[[i]]))
+
+#dimensionality reduction BY Principal Component Analysis (PCA)
+
+  pca[[i]] <- prcomp(v[[i]], scale. = TRUE)$x[, 1:50]
+
+#  KODAMA clustering
+    kk[[i]] <- KODAMA.matrix.parallel(pca[[i]], spatial = xy[[i]], FUN = "PLS", landmarks = 10000, n.cores = 4)
+    vis[[i]] <- KODAMA.visualization(kk[[i]], method = "UMAP")
+    names(vis[[i]]) <- names(data_list[[i]])
+    
+    # Graph-based clustering
+    g <- bluster::makeSNNGraph(as.matrix(vis[[i]]), k = 100)
+    g_walk <- igraph::cluster_walktrap(g)
+    pred[[i]] <- as.character(igraph::cut_at(g_walk, no = 8))
+    refine[[i]] <- refinecluster(pred[[i]], xy[[i]], shape = "hexagon")}
+```
+
+#Visualization
+For better visualization of the results, it is essential to import the `vis.R` file at this stage.
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+# Importing the vis.R code
+source("data/vis.R")
+```
+
+Visualizing the results of the Kodama clustering, a dimensionality reduction method that enhances data understanding.
+
+```{r, fig.width=10, fig.height=4}
+# Define colors for visualizations
+cols <- c("#669bbc", "#81b29a", "#f2cc8f", "#adc178",
+          "#dde5b6", "#a8dadc", "#e5989b", "#e07a5f")
+
+# Visualize clusters
+plotClustersFacet(xy, pred, selected_bregma, size = 0.2) +
+  scale_color_manual("Domain", values = cols) +
+  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))
+
+plotClustersFacet(xy, refine, selected_bregma, size = 1) +
+  scale_color_manual("Domain", values = cols) +
+  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))
+
+```
+
+This script illustrates a standard approach to Merfish data analysis, showcasing the use of commonly used bioinformatics tools. It provides a comprehensive overview of the Merfish data analysis and visualization process, crucial for understanding the spatial distribution of RNA in cells.

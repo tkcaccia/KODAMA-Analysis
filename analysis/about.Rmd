@@ -1,8 +1,10 @@
 ---
-title: "About"
+title: "KODAMA Software Tutorial"
+author: "Stefano Cacciatore"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
 output:
   workflowr::wflow_html:
-    toc: false
+    toc: true
 editor_options:
   chunk_output_type: console
 ---

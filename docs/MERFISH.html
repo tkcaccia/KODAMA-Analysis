@@ -13,7 +13,7 @@
 
 <title>About</title>
 
-<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -334,7 +334,7 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="Installation.html">Installation</a>
 </li>
 <li>
   <a href="simulation.html">Simulation</a>
@@ -360,6 +360,21 @@ div.tocify {
     </li>
     <li>
       <a href="VisiumHD.html">Visium HD</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Interoperability
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Seurat.html">Seurat</a>
+    </li>
+    <li>
+      <a href="Giotto.html">Giotto</a>
     </li>
   </ul>
 </li>
@@ -392,7 +407,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -403,8 +418,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -413,13 +428,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-18
+<strong>Last updated:</strong> 2024-07-13
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
@@ -442,31 +457,120 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong5266e01">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 5266e01
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240618code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240618)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240618code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240618)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreeb832174e4403026911b4838abdb5b8853f5071c8targetblankb832174a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/b832174e4403026911b4838abdb5b8853f5071c8" target="_blank">b832174</a>
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong5266e01"
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreeb832174e4403026911b4838abdb5b8853f5071c8targetblankb832174a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -475,7 +579,8 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 5266e01.
+The results in this page were generated with repository version
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/b832174e4403026911b4838abdb5b8853f5071c8" target="_blank">b832174</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -490,13 +595,18 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .DS_Store
-    Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
 
 Untracked files:
-    Untracked:  code/Prostate_download.sh
-    Untracked:  code/Prostate_preprocessing.R
-    Untracked:  data/Prostate_data.RData
+    Untracked:  analysis/DLPFC-4slides.Rmd
+    Untracked:  code/VisiumHD_CRC_download.sh
+
+Unstaged changes:
+    Deleted:    _site.yml
+    Modified:   analysis/DLPFC.Rmd
+    Modified:   analysis/MERFISH.Rmd
+    Modified:   analysis/Prostate.Rmd
+    Deleted:    data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
 
 </code></pre>
 <p>
@@ -511,7 +621,6 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown (<code>analysis/MERFISH.Rmd</code>) and HTML
@@ -544,19 +653,70 @@ Message
 <tbody>
 <tr>
 <td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/0638f9320233629c838d11f98cc4c9ef4b9137ad/analysis/MERFISH.Rmd" target="_blank">0638f93</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-08
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
 html
 </td>
 <td>
-113adea
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/d3de9e1bf63e1e35f3d967eaa80f3c8735ee32bf/docs/MERFISH.html" target="_blank">d3de9e1</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-06-18
+2024-07-08
 </td>
 <td>
-Build site.
+Update MERFISH.html
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/32f206ec6291cf1653fd45eb12008b97207ec96c/docs/MERFISH.html" target="_blank">32f206e</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-08
+</td>
+<td>
+Update MERFISH.html
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/940ec1385b5fac0e259842572da1962def1b36f1/docs/MERFISH.html" target="_blank">940ec13</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-04
+</td>
+<td>
+Update MERFISH.html
 </td>
 </tr>
 <tr>
@@ -564,33 +724,16 @@ Build site.
 Rmd
 </td>
 <td>
-a6466af
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/9ee53df126bf1758843f7581538a33d39bd97884/analysis/MERFISH.Rmd" target="_blank">9ee53df</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-06-18
+2024-06-26
 </td>
 <td>
-Start my new project
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-70e6ab3
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
+Update MERFISH.Rmd
 </td>
 </tr>
 <tr>
@@ -598,237 +741,16 @@ Build site.
 html
 </td>
 <td>
-ced1946
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/35e8f25827e79ca29d8b44970ada451bee48482e/docs/MERFISH.html" target="_blank">35e8f25</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
-2024-06-18
+2024-06-26
 </td>
 <td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-f8e2e50
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-a5875ac
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-82ff50a
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-4eae145
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-fe6339e
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-163e950
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-8831c43
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-c8016a9
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-299901b
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-4d57ea9
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-a94ae9e
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-f1649ac
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-5a83969
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
+Update docs with MERFISH.html
 </td>
 </tr>
 <tr>
@@ -836,16 +758,237 @@ Build site.
 Rmd
 </td>
 <td>
-20d7f78
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/c3eee75f5d792665d77cce1691993c8025604892/analysis/MERFISH.Rmd" target="_blank">c3eee75</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/e7ddec66f16b8c7bfac6f4175eb87249e0fd2c28/analysis/MERFISH.Rmd" target="_blank">e7ddec6</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/eb29180b902b2329560807513555cbfa36849d1e/analysis/MERFISH.Rmd" target="_blank">eb29180</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/bd1988e34ddc2bb2ef6e4826bd15a1342e7d2f00/analysis/MERFISH.Rmd" target="_blank">bd1988e</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/911564c3294bcefc453a7097a348901b86544728/analysis/MERFISH.Rmd" target="_blank">911564c</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-26
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/246f0bdb380bae90145007978345f50c5020d4ee/analysis/MERFISH.Rmd" target="_blank">246f0bd</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-25
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/20a6dacd3051961f479a262b51ceb97224ff1d61/docs/MERFISH.html" target="_blank">20a6dac</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
-2024-06-18
+2024-06-25
 </td>
 <td>
-Start my new project
+Update docs with MERFISH.html
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/e56c4ff46a93e0e36aa1b2ca686bc55e06f1bdff/analysis/MERFISH.Rmd" target="_blank">e56c4ff</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/9df203d58ecad69cfd1e59c1dd8e1c571546628d/analysis/MERFISH.Rmd" target="_blank">9df203d</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/be3cdeb69c835b7428b656238860fc3a01504afc/analysis/MERFISH.Rmd" target="_blank">be3cdeb</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/2e7fa5ea49a52d62b390d184c49f12113aa2f189/analysis/MERFISH.Rmd" target="_blank">2e7fa5e</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/a21b9033dd2c224cd5dfe2f99aef2531cf55fd89/analysis/MERFISH.Rmd" target="_blank">a21b903</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+Update MERFISH.Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/ee4ee17ff874a26eaf8c1e76e4a85ce3b9de867e/docs/MERFISH.html" target="_blank">ee4ee17</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-19
+</td>
+<td>
+Add files via upload
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/615fc05e05b60aed64683d1204afddc6b8c32f36/analysis/MERFISH.Rmd" target="_blank">615fc05</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-19
+</td>
+<td>
+Add files via upload
 </td>
 </tr>
 </tbody>
@@ -856,6 +999,385 @@ Start my new project
 </div>
 </div>
 <p>Describe your project.</p>
+<div id="merfish-data-analysis" class="section level1">
+<h1>MERFISH Data Analysis</h1>
+<p>The molecular imaging technology MERFISH (Multiplexed Error-Robust
+Fluorescence In Situ Hybridization) has revolutionized RNA mapping at
+the cellular level with unmatched spatial precision. This technique
+enables the simultaneous visualization of numerous genes within
+individual cells, offering unique insights into molecular processes in
+biological tissues. MERFISH data provides detailed information on cell
+structure and function, paving the way for new discoveries in cellular
+and molecular biology.</p>
+<p>The dataset analyzed, as presented in <a
+href="https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248">this
+article</a>, includes information on 36 mice from the hypothalamic
+preoptic region of the brain, derived from samples taken from various
+regions of the same animal. The “Bregma” column indicates the slice
+location in Bregma coordinates, an anatomical reference point used in
+neuroscience.</p>
+<p>Our focus is on advanced analysis of MERFISH data from biological
+tissues, introducing key advancements such as a 12 Extended Layer
+Analysis method for detailed tissue structure understanding and a 3D
+clustering feature for accurately representing the spatial relationships
+and RNA interactions within cells.</p>
+<p>Our main objective is to integrate multiple tissue sections for
+unified analysis across different samples. We employ data preprocessing,
+dimension reduction, and advanced clustering techniques to explore the
+relationship between tissue structure and cellular behavior,
+highlighting spatial variations and gene expression patterns associated
+with specific biological functions.</p>
+</div>
+<div id="load-necessary-libraries" class="section level1">
+<h1>Load necessary libraries</h1>
+<pre class="r"><code>library(Seurat)
+library(KODAMAextra)
+library(ggplot2)
+library(NMI)
+library(mclust)
+library(bluster)
+library(igraph)</code></pre>
+</div>
+<div id="downloading-the-data" class="section level1">
+<h1>Downloading the Data</h1>
+<p>The data is downloaded from this <a
+href="https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248">link</a>
+for the continuation of the work.</p>
+<pre class="r"><code># Load data
+data &lt;- read.csv(&quot;../Merfish/hypothalamic_preoptic_region/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv&quot;)
+data &lt;- as.data.frame(data)</code></pre>
+</div>
+<div id="data-pre-processing" class="section level1">
+<h1>Data Pre-processing</h1>
+<p>In our data preprocessing process, we have undertaken a rigorous
+approach to ensure the quality and relevance of the information we use
+in our analysis. With a total of 170 genes initially included in our
+data, our first step was to eliminate the “Blank” genes, which are
+control or background genes that do not contribute to our main analysis.
+This elimination allowed us to reduce our data set to 165 genes.
+Subsequently, we identified and removed the “Fos” gene, suspected of
+having an unwanted or disruptive impact on our data, leaving a total of
+164 genes for our analysis. These initial cleaning steps are crucial to
+ensure that the data we use is reliable and suitable for our analysis
+objectives. By then filtering the data to retain only those
+corresponding to Animal_ID 1 and specific Bregma values, we ensure that
+we focus on a subset relevant to our study. This preprocessing process
+is essential to prepare our data properly, by eliminating unnecessary
+elements and focusing on the most relevant data for our subsequent
+analysis.</p>
+<pre class="r"><code># Data cleaning
+colnames_data &lt;- colnames(data)
+blankgenes &lt;- grep(&quot;Blank&quot;, colnames_data)
+fos_index &lt;- which(colnames(data) == &quot;Fos&quot;)
+df &lt;- data[, -c(fos_index, blankgenes)]
+selected_bregma &lt;- unique(df$Bregma)
+
+# Filter data for Animal_ID 1 and specific Bregma values
+exp &lt;- subset(df, Animal_ID == 1 &amp; Bregma %in% selected_bregma)
+rownames(exp) &lt;- exp$Cell_ID
+data_list &lt;- split(exp, exp$Bregma)
+data_list &lt;- data_list[match(selected_bregma, names(data_list))]
+
+
+# Initialize lists 
+xy &lt;- list()
+pca &lt;- list()
+v &lt;- list()
+kk &lt;- list()
+vis &lt;- list()
+pred &lt;- list()
+refine &lt;- list()
+cons &lt;- list()
+ARI &lt;- list()
+NMI &lt;- list()
+
+
+# Normalization and dimension reduction by PCA
+for (i in names(data_list)) {
+  print(i)
+  x &lt;- data_list[[i]]$Centroid_X - min(data_list[[i]]$Centroid_X)
+  y &lt;- data_list[[i]]$Centroid_Y - min(data_list[[i]]$Centroid_Y)
+  xy[[i]] &lt;- cbind(x, y)
+  rownames(xy[[i]]) &lt;- rownames(data_list[[i]])
+  cons[[i]] &lt;- t(data_list[[i]][, 10:ncol(data_list[[i]])])
+  colnames(cons[[i]]) &lt;- rownames(data_list[[i]])
+  v[[i]] &lt;- t(LogNormalize(cons[[i]]))
+
+#dimensionality reduction BY Principal Component Analysis (PCA)
+
+  pca[[i]] &lt;- prcomp(v[[i]], scale. = TRUE)$x[, 1:50]
+
+#  KODAMA clustering
+    kk[[i]] &lt;- KODAMA.matrix.parallel(pca[[i]], spatial = xy[[i]], FUN = &quot;PLS&quot;, landmarks = 10000, n.cores = 4)
+    vis[[i]] &lt;- KODAMA.visualization(kk[[i]], method = &quot;UMAP&quot;)
+    names(vis[[i]]) &lt;- names(data_list[[i]])
+    
+    # Graph-based clustering
+    g &lt;- bluster::makeSNNGraph(as.matrix(vis[[i]]), k = 100)
+    g_walk &lt;- igraph::cluster_walktrap(g)
+    pred[[i]] &lt;- as.character(igraph::cut_at(g_walk, no = 8))
+    refine[[i]] &lt;- refinecluster(pred[[i]], xy[[i]], shape = &quot;hexagon&quot;)}</code></pre>
+<pre><code>[1] &quot;0.26&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================
+[1] &quot;0.21&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================
+[1] &quot;0.16&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================
+[1] &quot;0.11&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================
+[1] &quot;0.06&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================
+[1] &quot;0.01&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================
+[1] &quot;-0.04&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================
+[1] &quot;-0.09&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================
+[1] &quot;-0.14&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================
+[1] &quot;-0.19&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================
+[1] &quot;-0.24&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================
+[1] &quot;-0.29&quot;
+socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================</code></pre>
+<p>#Visualization For better visualization of the results, it is
+essential to import the <code>vis.R</code> file at this stage.</p>
+<pre class="r"><code># Importing the vis.R code
+source(&quot;data/vis.R&quot;)</code></pre>
+<p>Visualizing the results of the Kodama clustering, a dimensionality
+reduction method that enhances data understanding.</p>
+<pre class="r"><code># Define colors for visualizations
+cols &lt;- c(&quot;#669bbc&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quot;, &quot;#adc178&quot;,
+          &quot;#dde5b6&quot;, &quot;#a8dadc&quot;, &quot;#e5989b&quot;, &quot;#e07a5f&quot;)
+
+# Visualize clusters
+plotClustersFacet(xy, pred, selected_bregma, size = 0.2) +
+  scale_color_manual(&quot;Domain&quot;, values = cols) +
+  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))</code></pre>
+<p><img src="figure/MERFISH.Rmd/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/20a6dacd3051961f479a262b51ceb97224ff1d61/docs/figure/MERFISH.Rmd/unnamed-chunk-5-1.png" target="_blank">20a6dac</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-06-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plotClustersFacet(xy, refine, selected_bregma, size = 1) +
+  scale_color_manual(&quot;Domain&quot;, values = cols) +
+  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))</code></pre>
+<p><img src="figure/MERFISH.Rmd/unnamed-chunk-5-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/20a6dacd3051961f479a262b51ceb97224ff1d61/docs/figure/MERFISH.Rmd/unnamed-chunk-5-2.png" target="_blank">20a6dac</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-06-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This script illustrates a standard approach to Merfish data analysis,
+showcasing the use of commonly used bioinformatics tools. It provides a
+comprehensive overview of the Merfish data analysis and visualization
+process, crucial for understanding the spatial distribution of RNA in
+cells.</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 20.04.6 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0 
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: Etc/UTC
+tzcode source: system (glibc)
+
+attached base packages:
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] igraph_2.0.3       bluster_1.14.0     mclust_6.1.1       NMI_2.0           
+ [5] ggplot2_3.5.1      KODAMAextra_1.0    e1071_1.7-14       doParallel_1.0.17 
+ [9] iterators_1.0.14   foreach_1.5.2      KODAMA_3.1         umap_0.2.10.0     
+[13] Rtsne_0.17         minerva_1.5.10     Seurat_5.0.0       SeuratObject_5.0.2
+[17] sp_2.1-4           workflowr_1.7.1   
+
+loaded via a namespace (and not attached):
+  [1] RColorBrewer_1.1-3     rstudioapi_0.16.0      jsonlite_1.8.8        
+  [4] magrittr_2.0.3         spatstat.utils_3.0-5   farver_2.1.2          
+  [7] rmarkdown_2.27         fs_1.6.4               vctrs_0.6.5           
+ [10] ROCR_1.0-11            spatstat.explore_3.2-7 askpass_1.2.0         
+ [13] htmltools_0.5.8.1      BiocNeighbors_1.22.0   sass_0.4.9            
+ [16] sctransform_0.4.1      parallelly_1.37.1      KernSmooth_2.23-24    
+ [19] bslib_0.7.0            htmlwidgets_1.6.4      ica_1.0-3             
+ [22] plyr_1.8.9             plotly_4.10.4          zoo_1.8-12            
+ [25] cachem_1.1.0           whisker_0.4.1          mime_0.12             
+ [28] lifecycle_1.0.4        pkgconfig_2.0.3        Matrix_1.7-0          
+ [31] R6_2.5.1               fastmap_1.2.0          fitdistrplus_1.1-11   
+ [34] future_1.33.2          shiny_1.8.1.1          digest_0.6.36         
+ [37] colorspace_2.1-0       S4Vectors_0.42.1       patchwork_1.2.0       
+ [40] ps_1.7.7               rprojroot_2.0.4        tensor_1.5            
+ [43] RSpectra_0.16-1        irlba_2.3.5.1          labeling_0.4.3        
+ [46] progressr_0.14.0       fansi_1.0.6            spatstat.sparse_3.1-0 
+ [49] httr_1.4.7             polyclip_1.10-6        abind_1.4-5           
+ [52] compiler_4.4.0         proxy_0.4-27           withr_3.0.0           
+ [55] BiocParallel_1.38.0    fastDummies_1.7.3      highr_0.11            
+ [58] MASS_7.3-61            openssl_2.2.0          tools_4.4.0           
+ [61] lmtest_0.9-40          httpuv_1.6.15          future.apply_1.11.2   
+ [64] goftest_1.2-3          glue_1.7.0             callr_3.7.6           
+ [67] nlme_3.1-165           promises_1.3.0         grid_4.4.0            
+ [70] getPass_0.2-4          cluster_2.1.6          reshape2_1.4.4        
+ [73] snow_0.4-4             generics_0.1.3         gtable_0.3.5          
+ [76] spatstat.data_3.1-2    class_7.3-22           tidyr_1.3.1           
+ [79] data.table_1.15.4      utf8_1.2.4             BiocGenerics_0.50.0   
+ [82] spatstat.geom_3.2-9    RcppAnnoy_0.0.22       ggrepel_0.9.5         
+ [85] RANN_2.6.1             pillar_1.9.0           stringr_1.5.1         
+ [88] spam_2.10-0            RcppHNSW_0.6.0         later_1.3.2           
+ [91] splines_4.4.0          dplyr_1.1.4            lattice_0.22-6        
+ [94] survival_3.7-0         deldir_2.0-4           tidyselect_1.2.1      
+ [97] miniUI_0.1.1.1         pbapply_1.7-2          knitr_1.48            
+[100] git2r_0.33.0           gridExtra_2.3          scattermore_1.2       
+[103] stats4_4.4.0           xfun_0.45              matrixStats_1.3.0     
+[106] stringi_1.8.4          lazyeval_0.2.2         yaml_2.3.9            
+[109] evaluate_0.24.0        codetools_0.2-20       tibble_3.2.1          
+[112] cli_3.6.3              uwot_0.2.2             xtable_1.8-4          
+[115] reticulate_1.38.0      munsell_0.5.1          processx_3.8.4        
+[118] jquerylib_0.1.4        Rcpp_1.0.12            doSNOW_1.0.20         
+[121] globals_0.16.3         spatstat.random_3.2-3  png_0.1-8             
+[124] dotCall64_1.1-1        listenv_0.9.1          viridisLite_0.4.2     
+[127] scales_1.3.0           ggridges_0.5.6         leiden_0.4.3.1        
+[130] purrr_1.0.2            rlang_1.1.4            cowplot_1.1.3         </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

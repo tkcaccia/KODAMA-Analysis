@@ -13,7 +13,7 @@
 
 <title>DLPFC</title>
 
-<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -334,7 +334,7 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="Installation.html">Installation</a>
 </li>
 <li>
   <a href="simulation.html">Simulation</a>
@@ -360,6 +360,21 @@ div.tocify {
     </li>
     <li>
       <a href="VisiumHD.html">Visium HD</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Interoperability
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Seurat.html">Seurat</a>
+    </li>
+    <li>
+      <a href="Giotto.html">Giotto</a>
     </li>
   </ul>
 </li>
@@ -392,7 +407,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -403,8 +418,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -413,13 +428,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-18
+<strong>Last updated:</strong> 2024-07-13
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
@@ -442,31 +457,120 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong5266e01">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 5266e01
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240618code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240618)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240618code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240618)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreeb832174e4403026911b4838abdb5b8853f5071c8targetblankb832174a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/b832174e4403026911b4838abdb5b8853f5071c8" target="_blank">b832174</a>
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong5266e01"
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreeb832174e4403026911b4838abdb5b8853f5071c8targetblankb832174a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -475,7 +579,8 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 5266e01.
+The results in this page were generated with repository version
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/b832174e4403026911b4838abdb5b8853f5071c8" target="_blank">b832174</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -489,14 +594,13 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .DS_Store
-    Ignored:    .Rproj.user/
-
 Untracked files:
-    Untracked:  code/Prostate_download.sh
-    Untracked:  code/Prostate_preprocessing.R
-    Untracked:  data/Prostate_data.RData
+    Untracked:  analysis/DLPFC-4slides.Rmd
+    Untracked:  code/VisiumHD_CRC_download.sh
+
+Unstaged changes:
+    Modified:   analysis/DLPFC.Rmd
+    Modified:   analysis/MERFISH.Rmd
 
 </code></pre>
 <p>
@@ -511,7 +615,6 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown (<code>analysis/DLPFC.Rmd</code>) and HTML
@@ -546,33 +649,16 @@ Message
 html
 </td>
 <td>
-113adea
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/3ea09a699f0476bb6ca620f6aa6d7e88b7d4a1b5/docs/DLPFC.html" target="_blank">3ea09a6</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-06-18
+2024-07-08
 </td>
 <td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-70e6ab3
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
+Update DLPFC.html
 </td>
 </tr>
 <tr>
@@ -580,16 +666,33 @@ Build site.
 html
 </td>
 <td>
-ced1946
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/93915d8a77bf92f678416206af1f8613dd2aabe4/docs/DLPFC.html" target="_blank">93915d8</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-06-18
+2024-07-04
 </td>
 <td>
-Build site.
+Update DLPFC.html
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/ee4ee17ff874a26eaf8c1e76e4a85ce3b9de867e/docs/DLPFC.html" target="_blank">ee4ee17</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-06-19
+</td>
+<td>
+Add files via upload
 </td>
 </tr>
 <tr>
@@ -597,254 +700,16 @@ Build site.
 Rmd
 </td>
 <td>
-21bfe60
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/615fc05e05b60aed64683d1204afddc6b8c32f36/analysis/DLPFC.Rmd" target="_blank">615fc05</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
-2024-06-18
+2024-06-19
 </td>
 <td>
-Start my new project
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-f8e2e50
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-a5875ac
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-82ff50a
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-4eae145
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-fe6339e
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-163e950
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-8831c43
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-c8016a9
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-299901b
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-4d57ea9
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-a94ae9e
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-f1649ac
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-5a83969
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-20d7f78
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-18
-</td>
-<td>
-Start my new project
+Add files via upload
 </td>
 </tr>
 </tbody>
@@ -854,7 +719,585 @@ Start my new project
 </div>
 </div>
 </div>
-<p>Describe your project.</p>
+<p>We will analyze all 12 slides</p>
+<pre class="r"><code>library(&quot;nnSVG&quot;)
+library(&quot;scater&quot;)
+library(&quot;scran&quot;)
+library(&quot;scry&quot;)
+library(&quot;SPARK&quot;)
+library(&quot;harmony&quot;)
+library(&quot;Seurat&quot;)
+library(&quot;spatialLIBD&quot;)
+library(&quot;KODAMA&quot;)
+library(&quot;KODAMAextra&quot;)
+
+
+sample_names=c(&quot;151507&quot;,
+               &quot;151508&quot;,
+               &quot;151509&quot;,
+               &quot;151510&quot;,
+               &quot;151669&quot;,
+               &quot;151670&quot;,
+               &quot;151671&quot;,
+               &quot;151672&quot;,
+               &quot;151673&quot;,
+               &quot;151674&quot;,
+               &quot;151675&quot;,
+               &quot;151676&quot;)
+
+subject_names= c(&quot;Br5292&quot;,&quot;Br5595&quot;, &quot;Br8100&quot;)
+
+#spe &lt;- fetch_data(type = &#39;spe&#39;,destdir=&quot;../Temporary&quot;)
+load(&quot;../DLFPC.RData&quot;)
+
+metaData = SingleCellExperiment::colData(spe)
+expr = SingleCellExperiment::counts(spe)
+sample_names &lt;- paste0(&quot;sample_&quot;, unique(colData(spe)$sample_id))
+sample_names &lt;-  unique(colData(spe)$sample_id)
+dim(spe)</code></pre>
+<pre><code>[1] 33538 47681</code></pre>
+<p>identify mitochondrial genes</p>
+<pre class="r"><code>is_mito &lt;- grepl(&quot;(^MT-)|(^mt-)&quot;, rowData(spe)$gene_name)
+table(is_mito)</code></pre>
+<pre><code>is_mito
+FALSE  TRUE 
+33525    13 </code></pre>
+<p>calculate per-spot QC metrics and select the QC threshoulds</p>
+<pre class="r"><code>spe &lt;- addPerCellQC(spe, subsets = list(mito = is_mito))
+
+# select QC thresholds
+qc_lib_size &lt;- colData(spe)$sum &lt; 500
+qc_detected &lt;- colData(spe)$detected &lt; 250
+qc_mito &lt;- colData(spe)$subsets_mito_percent &gt; 30
+qc_cell_count &lt;- colData(spe)$cell_count &gt; 12</code></pre>
+<p>Spot to discard and filter low-quality</p>
+<pre class="r"><code>discard &lt;- qc_lib_size | qc_detected | qc_mito | qc_cell_count
+table(discard)</code></pre>
+<pre><code>discard
+FALSE  TRUE 
+46653  1028 </code></pre>
+<pre class="r"><code>colData(spe)$discard &lt;- discard
+
+spe &lt;- spe[, !colData(spe)$discard]
+dim(spe)</code></pre>
+<pre><code>[1] 33538 46653</code></pre>
+<p>Horizontalization</p>
+<pre class="r"><code># readjust xy
+xy=spatialCoords(spe)
+samples=unique(colData(spe)$sample_id)
+for(j in 1:length(samples)){
+  sel=samples[j]==colData(spe)$sample_id
+  xy[sel,1]=spatialCoords(spe)[sel,1]+12000*(j-1)
+}
+spatialCoords(spe)=xy</code></pre>
+<p>Gene filtering</p>
+<pre class="r"><code>spe &lt;- filter_genes(
+  spe,
+  filter_genes_ncounts = 2,   #ncounts
+  filter_genes_pcspots = 0.5,
+  filter_mito = TRUE
+)
+
+dim(spe)</code></pre>
+<pre><code>[1]  6623 46653</code></pre>
+<p>REmove the spots that have not been manually assigned</p>
+<pre class="r"><code>sel= !is.na(colData(spe)$layer_guess_reordered)
+spe = spe[,sel]
+dim(spe)</code></pre>
+<pre><code>[1]  6623 46318</code></pre>
+<p>normalization</p>
+<pre class="r"><code>spe &lt;- computeLibraryFactors(spe)
+spe &lt;- logNormCounts(spe)</code></pre>
+<p>Identification of the gene spatially relevvant</p>
+<pre class="r"><code>gene_i=NULL
+pvalue_i=NULL
+pvalue_mat=matrix(nrow=nrow(spe),ncol=length(sample_names))
+for(i in 1:length(sample_names)){
+  sel=colData(spe)$sample_id==sample_names[i]
+  spe_sub= spe[,sel]
+
+  sparkX &lt;- sparkx(logcounts(spe_sub),spatialCoords(spe_sub),numCores=1,option=&quot;mixture&quot;)
+
+  gene_i=c(gene_i,rowData(spe)$gene_id)
+  pvalue_i=c(pvalue_i,sparkX$res_mtest$combinedPval)
+  pvalue_mat[,i]=sparkX$res_mtest$combinedPval
+  print(sample_names[i])
+}</code></pre>
+<pre><code>## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 4170 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5
+[1] &quot;151507&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 4285 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5</code></pre>
+<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!
+Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
+<pre><code>[1] &quot;151508&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 4708 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5
+[1] &quot;151509&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 4571 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5</code></pre>
+<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!
+Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
+<pre><code>[1] &quot;151510&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 3587 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5</code></pre>
+<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
+<pre><code>[1] &quot;151669&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 3274 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5</code></pre>
+<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
+<pre><code>[1] &quot;151670&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 4013 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5
+[1] &quot;151671&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 3772 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5</code></pre>
+<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
+<pre><code>[1] &quot;151672&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 3568 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5
+[1] &quot;151673&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 3576 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5
+[1] &quot;151674&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 3468 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5</code></pre>
+<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
+<pre><code>[1] &quot;151675&quot;
+## ===== SPARK-X INPUT INFORMATION ==== 
+## number of total samples: 3326 
+## number of total genes: 6623 
+## Running with single core, may take some time 
+## Testing With Projection Kernel
+## Testing With Gaussian Kernel 1
+## Testing With Gaussian Kernel 2
+## Testing With Gaussian Kernel 3
+## Testing With Gaussian Kernel 4
+## Testing With Gaussian Kernel 5
+## Testing With Cosine Kernel 1
+## Testing With Cosine Kernel 2
+## Testing With Cosine Kernel 3
+## Testing With Cosine Kernel 4
+## Testing With Cosine Kernel 5</code></pre>
+<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
+<pre><code>[1] &quot;151676&quot;</code></pre>
+<pre class="r"><code>oo=order(pvalue_i)
+top_genes=gene_i[oo]
+n=ave(1:length(top_genes), top_genes, FUN = seq_along)
+top_genes=top_genes[n==1]
+
+oo=order(apply(pvalue_mat,1,function(x) median(-log(x))),decreasing = TRUE)
+top=gene_i[oo]</code></pre>
+<p>PCA and HARMONY</p>
+<pre class="r"><code> data=t(logcounts(spe)[top[1:2000],])
+
+ subjects=colData(spe)$subject
+ dim(spe_sub)</code></pre>
+<pre><code>[1] 6623 3326</code></pre>
+<pre class="r"><code> spe &lt;- runPCA(spe, 50,subset_row = top[1:2000], scale=TRUE)
+
+ #pca=irlba(scale(data),50)$u
+
+ labels=as.factor(colData(spe)$layer_guess_reordered)
+ xy=as.matrix(spatialCoords(spe))
+ samples=colData(spe)$sample_id
+
+ spe &lt;- RunHarmony(spe, &quot;subject&quot;,lambda=NULL)
+# pca &lt;- RunHarmony(pca, subjects,lambda=NULL)
+ pca=reducedDim(spe,type = &quot;HARMONY&quot;)[,1:50]
+plot(pca)</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>KODAMA</p>
+<pre class="r"><code>kk=KODAMA.matrix.parallel(pca,
+                            spatial = xy,
+                            FUN= &quot;PLS&quot; ,
+                            landmarks = 100000,
+                            splitting = 100,
+                            f.par.pls = 50,
+                            spatial.resolution = 0.4,
+                            n.cores=4)</code></pre>
+<pre><code>socket cluster with 4 nodes on host &#39;localhost&#39;
+================================================================================[1] &quot;Finished parallel computation&quot;
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================</code></pre>
+<pre class="r"><code>  print(&quot;KODAMA finished&quot;)</code></pre>
+<pre><code>[1] &quot;KODAMA finished&quot;</code></pre>
+<pre class="r"><code>     config=umap.defaults
+     config$n_threads = 4
+     config$n_sgd_threads = &quot;auto&quot;
+     kk_UMAP=KODAMA.visualization(kk,method=&quot;UMAP&quot;,config=config)</code></pre>
+<p>CLUSTER</p>
+<pre class="r"><code>library(&quot;mclust&quot;)
+
+  clu=kmeans(kk_UMAP,7,nstart = 100)$cluster
+  plot(kk_UMAP,col=labels,pch=20)</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>  plot(kk_UMAP,col=clu,pch=20)</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(xy,col=clu,pch=20)</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-12-3.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>u=unique(samples)
+for(i in 1:length(u)){
+  sel=samples==u[i]
+  print(adjustedRandIndex(labels[sel],clu[sel]))
+}</code></pre>
+<pre><code>[1] 0.5508229
+[1] 0.4872925
+[1] 0.5052779
+[1] 0.494307
+[1] 0.3409199
+[1] 0.3167812
+[1] 0.3902892
+[1] 0.4299399
+[1] 0.556732
+[1] 0.5887864
+[1] 0.5407068
+[1] 0.5263028</code></pre>
+<pre class="r"><code>ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
+<pre><code>[1] &quot;151507&quot;
+[1] &quot;151508&quot;
+[1] &quot;151509&quot;
+[1] &quot;151510&quot;
+[1] &quot;151669&quot;
+[1] &quot;151670&quot;
+[1] &quot;151671&quot;
+[1] &quot;151672&quot;
+[1] &quot;151673&quot;
+[1] &quot;151674&quot;
+[1] &quot;151675&quot;
+[1] &quot;151676&quot;</code></pre>
+<pre class="r"><code>u=unique(samples)
+for(i in 1:length(u)){
+  sel=samples==u[i]
+  print(adjustedRandIndex(labels[sel],ref[sel]))
+}</code></pre>
+<pre><code>[1] 0.5866949
+[1] 0.5195753
+[1] 0.5188101
+[1] 0.5143312
+[1] 0.3850269
+[1] 0.3693473
+[1] 0.4572459
+[1] 0.5679025
+[1] 0.6151074
+[1] 0.6426947
+[1] 0.6247849
+[1] 0.6034484</code></pre>
+<pre class="r"><code>plot(xy,col=ref,pch=20)</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-12-4.png" width="960" style="display: block; margin: auto;" /></p>
+<p>TRAJECTORY</p>
+<pre class="r"><code>library(&quot;slingshot&quot;)
+
+d &lt;- slingshot(kk_UMAP, clusterLabels = clu)
+trajectory=d@metadata$curves$Lineage1$s
+k=knn_Armadillo(trajectory,kk_UMAP,1)
+
+map_color=rainbow(nrow(trajectory))[k$nn_index]
+plot(kk_UMAP,col=map_color)</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 20.04.6 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0 
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: Etc/UTC
+tzcode source: system (glibc)
+
+attached base packages:
+[1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] slingshot_2.12.0            TrajectoryUtils_1.12.0     
+ [3] princurve_2.1.6             mclust_6.1.1               
+ [5] KODAMAextra_1.0             e1071_1.7-14               
+ [7] doParallel_1.0.17           iterators_1.0.14           
+ [9] foreach_1.5.2               KODAMA_3.1                 
+[11] umap_0.2.10.0               Rtsne_0.17                 
+[13] minerva_1.5.10              spatialLIBD_1.16.2         
+[15] SpatialExperiment_1.14.0    Seurat_5.0.0               
+[17] SeuratObject_5.0.2          sp_2.1-4                   
+[19] harmony_1.2.0               Rcpp_1.0.12                
+[21] SPARK_1.1.1                 scry_1.16.0                
+[23] scran_1.32.0                scater_1.32.0              
+[25] ggplot2_3.5.1               scuttle_1.14.0             
+[27] SingleCellExperiment_1.26.0 SummarizedExperiment_1.34.0
+[29] Biobase_2.64.0              GenomicRanges_1.56.1       
+[31] GenomeInfoDb_1.40.1         IRanges_2.38.1             
+[33] S4Vectors_0.42.1            BiocGenerics_0.50.0        
+[35] MatrixGenerics_1.16.0       matrixStats_1.3.0          
+[37] nnSVG_1.8.0                 workflowr_1.7.1            
+
+loaded via a namespace (and not attached):
+  [1] goftest_1.2-3             DT_0.33                  
+  [3] Biostrings_2.72.1         vctrs_0.6.5              
+  [5] spatstat.random_3.2-3     digest_0.6.36            
+  [7] png_0.1-8                 proxy_0.4-27             
+  [9] git2r_0.33.0              ggrepel_0.9.5            
+ [11] deldir_2.0-4              parallelly_1.37.1        
+ [13] magick_2.8.3              MASS_7.3-61              
+ [15] reshape2_1.4.4            httpuv_1.6.15            
+ [17] withr_3.0.0               xfun_0.45                
+ [19] survival_3.7-0            memoise_2.0.1            
+ [21] benchmarkme_1.0.8         ggbeeswarm_0.7.2         
+ [23] zoo_1.8-12                pbapply_1.7-2            
+ [25] rematch2_2.1.2            KEGGREST_1.44.1          
+ [27] promises_1.3.0            httr_1.4.7               
+ [29] restfulr_0.0.15           globals_0.16.3           
+ [31] fitdistrplus_1.1-11       ps_1.7.7                 
+ [33] rstudioapi_0.16.0         UCSC.utils_1.0.0         
+ [35] miniUI_0.1.1.1            generics_0.1.3           
+ [37] processx_3.8.4            curl_5.2.1               
+ [39] fields_16.2               zlibbioc_1.50.0          
+ [41] ScaledMatrix_1.12.0       polyclip_1.10-6          
+ [43] doSNOW_1.0.20             GenomeInfoDbData_1.2.12  
+ [45] ExperimentHub_2.12.0      SparseArray_1.4.8        
+ [47] golem_0.4.1               xtable_1.8-4             
+ [49] stringr_1.5.1             pracma_2.4.4             
+ [51] evaluate_0.24.0           S4Arrays_1.4.1           
+ [53] BiocFileCache_2.12.0      irlba_2.3.5.1            
+ [55] colorspace_2.1-0          filelock_1.0.3           
+ [57] ROCR_1.0-11               reticulate_1.38.0        
+ [59] spatstat.data_3.1-2       shinyWidgets_0.8.6       
+ [61] magrittr_2.0.3            lmtest_0.9-40            
+ [63] later_1.3.2               viridis_0.6.5            
+ [65] lattice_0.22-6            spatstat.geom_3.2-9      
+ [67] future.apply_1.11.2       getPass_0.2-4            
+ [69] scattermore_1.2           XML_3.99-0.17            
+ [71] cowplot_1.1.3             RcppAnnoy_0.0.22         
+ [73] class_7.3-22              pillar_1.9.0             
+ [75] nlme_3.1-165              compiler_4.4.0           
+ [77] beachmat_2.20.0           RSpectra_0.16-1          
+ [79] stringi_1.8.4             tensor_1.5               
+ [81] GenomicAlignments_1.40.0  plyr_1.8.9               
+ [83] crayon_1.5.3              abind_1.4-5              
+ [85] BiocIO_1.14.0             locfit_1.5-9.10          
+ [87] bit_4.0.5                 dplyr_1.1.4              
+ [89] whisker_0.4.1             codetools_0.2-20         
+ [91] BiocSingular_1.20.0       openssl_2.2.0            
+ [93] bslib_0.7.0               paletteer_1.6.0          
+ [95] plotly_4.10.4             mime_0.12                
+ [97] splines_4.4.0             fastDummies_1.7.3        
+ [99] dbplyr_2.5.0              sparseMatrixStats_1.16.0 
+[101] attempt_0.3.1             knitr_1.48               
+[103] blob_1.2.4                utf8_1.2.4               
+[105] BiocVersion_3.19.1        fs_1.6.4                 
+[107] listenv_0.9.1             DelayedMatrixStats_1.26.0
+[109] rdist_0.0.5               tibble_3.2.1             
+[111] Matrix_1.7-0              callr_3.7.6              
+[113] statmod_1.5.0             pkgconfig_2.0.3          
+[115] tools_4.4.0               BRISC_1.0.5              
+[117] cachem_1.1.0              RhpcBLASctl_0.23-42      
+[119] RSQLite_2.3.7             viridisLite_0.4.2        
+[121] DBI_1.2.3                 fastmap_1.2.0            
+[123] rmarkdown_2.27            scales_1.3.0             
+[125] grid_4.4.0                ica_1.0-3                
+[127] Rsamtools_2.20.0          AnnotationHub_3.12.0     
+[129] sass_0.4.9                patchwork_1.2.0          
+[131] BiocManager_1.30.23       dotCall64_1.1-1          
+[133] RANN_2.6.1                snow_0.4-4               
+[135] yaml_2.3.9                rtracklayer_1.64.0       
+[137] cli_3.6.3                 purrr_1.0.2              
+[139] leiden_0.4.3.1            lifecycle_1.0.4          
+[141] askpass_1.2.0             uwot_0.2.2               
+[143] bluster_1.14.0            sessioninfo_1.2.2        
+[145] BiocParallel_1.38.0       gtable_0.3.5             
+[147] rjson_0.2.21              ggridges_0.5.6           
+[149] progressr_0.14.0          limma_3.60.3             
+[151] jsonlite_1.8.8            edgeR_4.2.0              
+[153] RcppHNSW_0.6.0            bitops_1.0-7             
+[155] benchmarkmeData_1.0.4     bit64_4.0.5              
+[157] spatstat.utils_3.0-5      BiocNeighbors_1.22.0     
+[159] matlab_1.0.4.1            jquerylib_0.1.4          
+[161] highr_0.11                metapod_1.12.0           
+[163] config_0.3.2              dqrng_0.4.1              
+[165] lazyeval_0.2.2            shiny_1.8.1.1            
+[167] htmltools_0.5.8.1         sctransform_0.4.1        
+[169] rappdirs_0.3.3            glue_1.7.0               
+[171] spam_2.10-0               XVector_0.44.0           
+[173] RCurl_1.98-1.14           rprojroot_2.0.4          
+[175] gridExtra_2.3             igraph_2.0.3             
+[177] R6_2.5.1                  tidyr_1.3.1              
+[179] CompQuadForm_1.4.3        cluster_2.1.6            
+[181] DelayedArray_0.30.1       tidyselect_1.2.1         
+[183] vipor_0.4.7               maps_3.4.2               
+[185] AnnotationDbi_1.66.0      future_1.33.2            
+[187] rsvd_1.0.5                munsell_0.5.1            
+[189] KernSmooth_2.23-24        data.table_1.15.4        
+[191] htmlwidgets_1.6.4         RColorBrewer_1.1-3       
+[193] rlang_1.1.4               spatstat.sparse_3.1-0    
+[195] spatstat.explore_3.2-7    fansi_1.0.6              
+[197] beeswarm_0.4.0           </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

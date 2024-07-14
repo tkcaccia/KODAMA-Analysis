@@ -8,15 +8,19 @@ editor_options:
 ---
 
 # Introduction
-Describe your project.
+In the context of working with biological spatial data, such as spatial sequencing data, which provide information on the location of biological molecules in a sample, the goal is to identify clusters of molecules grouped in specific areas, thus indicating regions of particular biological activity. For example, in immunology, analyzing the spatial distribution of immune cells within tissues can reveal insights into immune responses and disease mechanisms. Techniques like KODAMA and UMAP are valuable tools for this type of analysis. 
+In the domain of immunology, we could simulate spatial data to study the distribution of immune cells within a tissue. For instance, simulating the localization of T cells and B cells within a lymph node can help us understand how these cells are organized spatially, which is critical for understanding their interactions and functions in immune responses.
+
 
 
 # Main simulation study
 ## Scenario 1
 
-Bla bla.
+The simulated data in this example are generated to demonstrate how to use the KODAMA and UMAP techniques for cluster and spatial domain analysis. We create two distinct regions representing areas rich in T cells and B cells within the lymph node.
+We generate x and y coordinates for the two regions, assigning labels to simulate different cell types (T cells and B cells).
 
-```{r, fig.width=10, fig.height=4}
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
 library("KODAMA")
 library("KODAMAextra")
@@ -38,8 +42,13 @@ data=cbind(rnorm(200,mean=labels,sd=0.1),
            rnorm(200,mean=labels,sd=0.1))
 
 color.code=c("#1d79d0aa","#53ca3eaa")
+```
 
+###Visualization with KODAMA and UMAP
 
+We use KODAMA and UMAP methods to analyze and visualize the data, applying dimensionality reduction and identifying clusters and spatial domains.
+
+```{r, fig.width=10, fig.height=4}
 
 kk <- KODAMA.matrix.parallel(data,spatial=xy,spatial.resolution=0.1,M=100,
                       FUN="PLS",
@@ -74,12 +83,18 @@ points(u[!labels,],bg=color.code[region+1][!labels],pch=21+2,cex=1+1.5*region[!l
 points(u[labels,],bg=color.code[region+1][labels],pch=21+2*0,cex=1+1.5*region[labels])
 ```
 
+The generated visualizations show the position of the points, as well as the results of the KODAMA and UMAP analyses. The visualizations indicate the molecular positions and identified clusters, providing a better understanding of the spatial structure of the immune cells within the lymph node. This can help identify regions of interest for further analysis, with significant implications for research in immunology and the development of targeted therapies.
 
 ## Scenario 2
 
-Bla bla.
+In this section, we build upon the previous data generation and visualization methods to demonstrate advanced manipulations and visualizations using KODAMA and UMAP techniques.
 
-```{r, fig.width=10, fig.height=4}
+###Data Generation and Setting the Random Seed
+
+Continuing from the previous section, we set the random seed and generate data for two distinct regions, assigning labels and specific regions to each data point.
+
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
 x1=runif(100,min=-1,max=0)
 x2=runif(100,min=0,max=1)
@@ -117,6 +132,13 @@ labels=labels[,1]+
   labels[,3]*4+
   labels[,4]*8
 labels=as.numeric(as.factor(labels))+1
+```
+
+###Visualization with KODAMA and UMAP
+
+We apply Principal Component Analysis (PCA) on the filtered data and use KODAMA and UMAP methods to analyze and visualize the data, applying dimensionality reduction and identifying clusters and spatial domains
+
+```{r, fig.width=10, fig.height=4}
 
 pca=prcomp(scale(data))$x
 
@@ -151,3 +173,4 @@ axis(2,las=2)
 box()
 par(old.par)
 ```
+By integrating advanced manipulations and visualizations, we gain deeper insights into spatial data analysis, providing a foundation for further exploration and research in complex biological systems.

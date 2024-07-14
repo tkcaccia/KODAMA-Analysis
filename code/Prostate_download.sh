@@ -1,3 +1,6 @@
+mkdir Prostate
+cd Prostate
+
 mkdir Acinar_Cell_Carcinoma
 cd Acinar_Cell_Carcinoma
 
@@ -144,6 +147,7 @@ rm Visium_FFPE_Human_Prostate_Cancer_raw_feature_bc_matrix.tar.gz
 rm Visium_FFPE_Human_Prostate_Cancer_spatial.tar.gz
 rm Visium_FFPE_Human_Prostate_Cancer_filtered_feature_bc_matrix.tar.gz
 
+cd ..
 cd ..
 cd ..
 
