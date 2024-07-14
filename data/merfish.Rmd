@@ -1,0 +1,150 @@
+---
+title: "About"
+output:
+  workflowr::wflow_html:
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+Describe your project.
+
+# MERFISH Data Analysis
+
+Discover an advanced approach to analyzing MERFISH data, a revolutionary molecular imaging technique that maps RNA in cells with unparalleled spatial precision. The data originate from this article: [MERFISH Data](https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248).
+The dataset comprises 12 tissue samples collected from three different subjects, with each subject providing four tissue samples. The tissues analyzed include the dorsolateral prefrontal cortex (DLPFC). Separate analyses were performed for each of the three subjects, followed by a comprehensive analysis of all 12 tissues simultaneously.
+Our analysis introduces several groundbreaking advancements:
+- Extended Layer Analysis: Unlike previous studies that were limited to 6 layers, our approach spans 12 distinct layers, providing a more detailed and comprehensive understanding of tissue structure. The last significant study, conducted by Bass, was limited to 6 layers.
+- 3D Clustering Functionality: We have implemented a novel function that generates clustering results in a 3D structure. This allows for a more precise representation of the spatial relationships and interactions between RNA molecules within cells.
+The primary objective of this study was to integrate multiple tissue sections to achieve a unified analysis across different samples. This integration revealed three new sections, demonstrating our method's capability to uncover previously undetected layers of biological information.
+By combining cutting-edge imaging techniques with advanced analytical methods, our approach significantly enhances the resolution and depth of molecular spatial mapping, setting a new standard in the field of spatial transcriptomics.
+
+# Load necessary libraries
+```{r, fig.width=10, fig.height=4}
+library(Seurat)
+library(KODAMAextra)
+library(ggplot2)
+library(NMI)
+library(mclust)
+library(bluster)
+library(igraph)
+```
+
+# Downloading the Data
+The data is downloaded from this [link](https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248) for the continuation of the work.
+```{r, fig.width=10, fig.height=4}
+# Set working directory
+setwd("~/Merfish giotto/Data/merfish")
+
+# Load data
+data <- read.csv("C:/Users/T0087231/Videos/EBTESSAM/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv")
+data <- as.data.frame(data)
+```
+
+# Data Pre-processing
+```{r, fig.width=10, fig.height=4}
+# Data cleaning
+colnames_data <- colnames(data)
+blankgenes <- grep("Blank", colnames_data)
+fos_index <- which(colnames(data) == "Fos")
+df <- data[, -c(fos_index, blankgenes)]
+selected_bregma <- unique(df$Bregma)
+
+# Filter data for Animal_ID 1 and specific Bregma values
+exp <- subset(df, Animal_ID == 1 & Bregma %in% selected_bregma)
+rownames(exp) <- exp$Cell_ID
+data_list <- split(exp, exp$Bregma)
+data_list <- data_list[match(selected_bregma, names(data_list))]
+
+
+# Initialize lists 
+xy <- list()
+pca <- list()
+v <- list()
+kk <- list()
+vis <- list()
+pred <- list()
+refine <- list()
+cons <- list()
+ARI <- list()
+NMI <- list()
+
+
+# Normalization and dimension reduction by PCA
+for (i in names(data_list)) {
+  print(i)
+  x <- data_list[[i]]$Centroid_X - min(data_list[[i]]$Centroid_X)
+  y <- data_list[[i]]$Centroid_Y - min(data_list[[i]]$Centroid_Y)
+  xy[[i]] <- cbind(x, y)
+  rownames(xy[[i]]) <- rownames(data_list[[i]])
+  cons[[i]] <- t(data_list[[i]][, 10:ncol(data_list[[i]])])
+  colnames(cons[[i]]) <- rownames(data_list[[i]])
+  v[[i]] <- t(LogNormalize(cons[[i]]))
+
+#dimensionality reduction BY Principal Component Analysis (PCA)
+
+  pca[[i]] <- prcomp(v[[i]], scale. = TRUE)$x[, 1:50]
+```
+KODAMA dimensionality reduction and Graph-based Clustering
+```{r, fig.width=10, fig.height=4}
+#  KODAMA clustering
+    kk[[i]] <- KODAMA.matrix.parallel(pca[[i]], spatial = xy[[i]], FUN = "PLS", landmarks = 10000, n.cores = 4)
+    vis[[i]] <- KODAMA.visualization(kk[[i]], method = "UMAP")
+    names(vis[[i]]) <- names(data_list[[i]])
+    
+    # Graph-based clustering
+    g <- bluster::makeSNNGraph(as.matrix(vis[[i]]), k = 100)
+    g_walk <- igraph::cluster_walktrap(g)
+    pred[[i]] <- as.character(igraph::cut_at(g_walk, no = 8))
+    refine[[i]] <- refinecluster(pred[[i]], xy[[i]], shape = "hexagon")}
+```
+
+Cluster Visualization
+For better visualization of the results, it is essential to import the vis.R FILE at this stage.
+```{r, fig.width=10, fig.height=4}
+# Importing the vis.R code
+source("path_to_vis.R")
+```
+Visualizing the results of the Kodama clustering, a dimensionality reduction method that enhances data understanding.
+```{r, fig.width=10, fig.height=4}
+# Define colors for visualizations
+cols <- c("#669bbc", "#81b29a", "#f2cc8f", "#adc178",
+          "#dde5b6", "#a8dadc", "#e5989b", "#e07a5f")
+
+# Visualize clusters
+plotClustersFacet(xy, pred, selected_bregma, size = 0.2) +
+  scale_color_manual("Domain", values = cols) +
+  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))
+
+![Image1](https://gist.github.com/assets/168087487/f58086ea-d11b-4498-a4f6-fa42011c75c6)
+
+plotClustersFacet(xy, refine, selected_bregma, size = 1) +
+  scale_color_manual("Domain", values = cols) +
+  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))
+
+![Image2](https://gist.github.com/assets/168087487/75db64f0-c96f-426c-87f4-fdfee32d8c73)
+
+# Select specific Bregma for visualization
+selected_bregma_subset <- which(selected_bregma %in% c(0.26, 0.16, 0.06, -0.04, -0.14, -0.24))
+
+plotClustersFacet(xy[selected_bregma_subset], refine[selected_bregma_subset], selected_bregma[selected_bregma_subset], size = 0.2) +
+  scale_color_manual("Domain", values = cols) +
+  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))
+
+![Image3](https://gist.github.com/assets/168087487/4ce6958f-3f54-4c09-914a-b3667b7ec905)
+
+# Visualize clusters for the first Bregma values
+plotClustersFacet(xy[1:5], pred[1:5], selected_bregma, size = 0.2) +
+  scale_color_manual("Domain", values = cols) +
+  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))
+
+![Image4](https://gist.github.com/assets/168087487/c8ffc1a2-ec77-44ed-b659-2a05c5589427)
+
+plotClustersFacet(xy[1:5], refine[1:5], selected_bregma, size = 0.2) +
+  scale_color_manual("Domain", values = cols) +
+  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))
+
+![Image5](https://gist.github.com/assets/168087487/36d39921-9e00-48eb-8e7b-55a2546b291a)
+```
+This script illustrates a standard approach to Merfish data analysis, showcasing the use of commonly used bioinformatics tools. It provides a comprehensive overview of the Merfish data analysis and visualization process, crucial for understanding the spatial distribution of RNA in cells.
+```
+
