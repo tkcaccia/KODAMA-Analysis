@@ -337,7 +337,7 @@ $(document).ready(function () {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -348,8 +348,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -362,9 +362,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
@@ -387,33 +387,36 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree99f86f22bfe34ccd2d22b572c48f4c2cf0763602targetblank99f86f2a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree1e3a00d252376ded55d63407f000ee45a03137f1targetblank1e3a00da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/99f86f22bfe34ccd2d22b572c48f4c2cf0763602" target="_blank">99f86f2</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/1e3a00d252376ded55d63407f000ee45a03137f1" target="_blank">1e3a00d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree99f86f22bfe34ccd2d22b572c48f4c2cf0763602targetblank99f86f2a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree1e3a00d252376ded55d63407f000ee45a03137f1targetblank1e3a00da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -423,7 +426,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/99f86f22bfe34ccd2d22b572c48f4c2cf0763602" target="_blank">99f86f2</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/1e3a00d252376ded55d63407f000ee45a03137f1" target="_blank">1e3a00d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -443,6 +446,7 @@ Ignored files:
 
 Untracked files:
     Untracked:  .h5seurat
+    Untracked:  analysis/Single-cell.Rmd
     Untracked:  code/VisiumHD_CRC_download.sh
     Untracked:  data/Pathology.csv
 
@@ -465,190 +469,9 @@ have uncommitted changes.
 </div>
 <div id="versions" class="tab-pane fade">
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/about.Rmd</code>) and HTML
-(<code>docs/about.html</code>) files. If you’ve configured a remote Git
-repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
-in the table below to view the files as they were in that past version.
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/1e3a00d252376ded55d63407f000ee45a03137f1/docs/about.html" target="_blank">1e3a00d</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-07-14
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/2e848853916b925bfb1f704bce06428aefc08b6e/analysis/about.Rmd" target="_blank">2e84885</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-07-14
-</td>
-<td>
-Start workflowr project.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/824502d337d008a9c0cecbd26a66af7916d3da54/docs/about.html" target="_blank">824502d</a>
-</td>
-<td>
-GitHub
-</td>
-<td>
-2024-07-04
-</td>
-<td>
-Update about.html
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/8d43c307c42608e0e6e529ed61ec2fe0ff1122d8/analysis/about.Rmd" target="_blank">8d43c30</a>
-</td>
-<td>
-GitHub
-</td>
-<td>
-2024-07-04
-</td>
-<td>
-Update about.Rmd
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/e3497be5f18e5621bc8b649d5969f1f37e6ddf87/docs/about.html" target="_blank">e3497be</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-26
-</td>
-<td>
-Update about.html with latest changes
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/ab26d3331e825f91bd39c8c86801fad1b93899c3/analysis/about.Rmd" target="_blank">ab26d33</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-26
-</td>
-<td>
-Update about.Rmd l with latest content
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/619fe45bf51ebadcbf2b5fafab840d30f6643a15/docs/about.html" target="_blank">619fe45</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-06-26
-</td>
-<td>
-Update about.html with latest content
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/ee4ee17ff874a26eaf8c1e76e4a85ce3b9de867e/docs/about.html" target="_blank">ee4ee17</a>
-</td>
-<td>
-GitHub
-</td>
-<td>
-2024-06-19
-</td>
-<td>
-Add files via upload
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/615fc05e05b60aed64683d1204afddc6b8c32f36/analysis/about.Rmd" target="_blank">615fc05</a>
-</td>
-<td>
-GitHub
-</td>
-<td>
-2024-06-19
-</td>
-<td>
-Add files via upload
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>

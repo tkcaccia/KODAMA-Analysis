@@ -1,5 +1,5 @@
 ---
-title: "Home"
+title: "KODAMA"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -8,4 +8,8 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+
+
+![](KODAMA.svg)
+
+The KODAMA algorithm represents a pioneering approach in unsupervised machine learning, designed to effectively handle the challenges posed by noisy and high-dimensional datasets. This method distinguishes itself through its novel use of iterative refinement of clustering based on cross-validation results. By dynamically adjusting the class labels of samples that were not correctly predicted, KODAMA enhances the accuracy and reliability of the clustering outcome. This process not only improves the segmentation of data but also ensures that the final model reflects a more accurate representation of the underlying patterns and relationships within the dataset. The flexibility of KODAMA to incorporate various validation methods, such as Partial Least Squares (PLS), further adds to its robustness, making it a versatile tool for data scientists facing complex analytical challenges.

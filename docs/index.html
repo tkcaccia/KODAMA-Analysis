@@ -11,7 +11,7 @@
 
 
 
-<title>Home</title>
+<title>KODAMA</title>
 
 <script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -261,6 +261,9 @@ $(document).ready(function () {
   <a href="Installation.html">Installation</a>
 </li>
 <li>
+  <a href="single-cell.html">Single-cell</a>
+</li>
+<li>
   <a href="simulation.html">Simulation</a>
 </li>
 <li class="dropdown">
@@ -271,7 +274,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="DLPFC.html">DLPFC (Maynard et al., 2021)</a>
+      <a href="DLPFC-4.html">DLPFC (4 slides)</a>
+    </li>
+    <li>
+      <a href="DLPFC-12.html">DLPFC (12 slides)</a>
     </li>
     <li>
       <a href="Prostate.html">Prostate</a>
@@ -289,7 +295,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Interoperability
+    Wrapper
      
     <span class="caret"></span>
   </a>
@@ -323,7 +329,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">KODAMA</h1>
 
 </div>
 
@@ -352,7 +358,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-07-08
+<strong>Last updated:</strong> 2024-07-14
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -399,15 +405,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5224b8a21a86baa1d09bc8161d5ea2eb3d93e8f9targetblank5224b8aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree0051854b6093e26617fe534e1deab4ef02cb96d1targetblank0051854a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5224b8a21a86baa1d09bc8161d5ea2eb3d93e8f9" target="_blank">5224b8a</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/0051854b6093e26617fe534e1deab4ef02cb96d1" target="_blank">0051854</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5224b8a21a86baa1d09bc8161d5ea2eb3d93e8f9targetblank5224b8aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree0051854b6093e26617fe534e1deab4ef02cb96d1targetblank0051854a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -417,7 +423,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5224b8a21a86baa1d09bc8161d5ea2eb3d93e8f9" target="_blank">5224b8a</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/0051854b6093e26617fe534e1deab4ef02cb96d1" target="_blank">0051854</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -432,14 +438,20 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .Rproj.user/
+    Ignored:    .RData
+    Ignored:    .Rhistory
 
 Untracked files:
-    Untracked:  .gitignore
+    Untracked:  .h5seurat
+    Untracked:  analysis/Single-cell.Rmd
+    Untracked:  code/VisiumHD_CRC_download.sh
+    Untracked:  data/Pathology.csv
 
 Unstaged changes:
     Deleted:    _site.yml
-    Modified:   data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
+    Deleted:    analysis/DLPFC.Rmd
+    Deleted:    analysis/about.Rmd
+    Deleted:    data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
 
 </code></pre>
 <p>
@@ -454,7 +466,6 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML
@@ -486,19 +497,36 @@ Message
 <tbody>
 <tr>
 <td>
-html
+Rmd
 </td>
 <td>
-<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/a6a951eb932f98145aa753fe28528f5e495e7534/docs/index.html" target="_blank">a6a951e</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/2e848853916b925bfb1f704bce06428aefc08b6e/analysis/index.Rmd" target="_blank">2e84885</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
+2024-07-14
+</td>
+<td>
+Start workflowr project.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/f4d8faae514021250daa4e23ea6b5056d2d213c3/docs/index.html" target="_blank">f4d8faa</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
 2024-07-08
 </td>
 <td>
-Build site.
+Update index.html
 </td>
 </tr>
 <tr>
@@ -559,7 +587,25 @@ Add files via upload
 </div>
 </div>
 </div>
-<p>Welcome to my research website.</p>
+<p><img src="KODAMA.svg" /></p>
+<p>The KODAMA algorithm represents a pioneering approach in unsupervised
+machine learning, designed to effectively handle the challenges posed by
+noisy and high-dimensional datasets. This method distinguishes itself
+through its novel use of iterative refinement of clustering based on
+cross-validation results. By dynamically adjusting the class labels of
+samples that were not correctly predicted, KODAMA enhances the accuracy
+and reliability of the clustering outcome. This process not only
+improves the segmentation of data but also ensures that the final model
+reflects a more accurate representation of the underlying patterns and
+relationships within the dataset. The flexibility of KODAMA to
+incorporate various validation methods, such as Partial Least Squares
+(PLS), further adds to its robustness, making it a versatile tool for
+data scientists facing complex analytical challenges.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

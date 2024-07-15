@@ -337,6 +337,9 @@ div.tocify {
   <a href="Installation.html">Installation</a>
 </li>
 <li>
+  <a href="single-cell.html">Single-cell</a>
+</li>
+<li>
   <a href="simulation.html">Simulation</a>
 </li>
 <li class="dropdown">
@@ -347,7 +350,10 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="DLPFC.html">DLPFC (Maynard et al., 2021)</a>
+      <a href="DLPFC-4.html">DLPFC (4 slides)</a>
+    </li>
+    <li>
+      <a href="DLPFC-12.html">DLPFC (12 slides)</a>
     </li>
     <li>
       <a href="Prostate.html">Prostate</a>
@@ -365,7 +371,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Interoperability
+    Wrapper
      
     <span class="caret"></span>
   </a>
@@ -428,7 +434,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-07-08
+<strong>Last updated:</strong> 2024-07-14
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -559,15 +565,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree05f1ee163364c7e5eba7a8cee12ef46ee8cd3ea7targetblank05f1ee1a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree0051854b6093e26617fe534e1deab4ef02cb96d1targetblank0051854a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/05f1ee163364c7e5eba7a8cee12ef46ee8cd3ea7" target="_blank">05f1ee1</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/0051854b6093e26617fe534e1deab4ef02cb96d1" target="_blank">0051854</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree05f1ee163364c7e5eba7a8cee12ef46ee8cd3ea7targetblank05f1ee1a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree0051854b6093e26617fe534e1deab4ef02cb96d1targetblank0051854a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -577,7 +583,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/05f1ee163364c7e5eba7a8cee12ef46ee8cd3ea7" target="_blank">05f1ee1</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/0051854b6093e26617fe534e1deab4ef02cb96d1" target="_blank">0051854</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -592,14 +598,20 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .Rproj.user/
+    Ignored:    .RData
+    Ignored:    .Rhistory
 
 Untracked files:
-    Untracked:  .gitignore
+    Untracked:  .h5seurat
+    Untracked:  analysis/Single-cell.Rmd
+    Untracked:  code/VisiumHD_CRC_download.sh
+    Untracked:  data/Pathology.csv
 
 Unstaged changes:
     Deleted:    _site.yml
-    Modified:   data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
+    Deleted:    analysis/DLPFC.Rmd
+    Deleted:    analysis/about.Rmd
+    Deleted:    data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
 
 </code></pre>
 <p>
@@ -614,7 +626,6 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown (<code>analysis/Installation.Rmd</code>) and HTML
@@ -647,53 +658,19 @@ Message
 <tbody>
 <tr>
 <td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/05f1ee163364c7e5eba7a8cee12ef46ee8cd3ea7/analysis/Installation.Rmd" target="_blank">05f1ee1</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-07-08
-</td>
-<td>
-Start my new project
-</td>
-</tr>
-<tr>
-<td>
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/8d272e748c6cff23ccbc2695e34076c273fdc007/docs/Installation.html" target="_blank">8d272e7</a>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/51acb3a9837e45691343039942bf82b4c6741304/docs/Installation.html" target="_blank">51acb3a</a>
 </td>
 <td>
-Stefano Cacciatore
-</td>
-<td>
-2024-07-08
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/a6a951eb932f98145aa753fe28528f5e495e7534/docs/Installation.html" target="_blank">a6a951e</a>
-</td>
-<td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
 2024-07-08
 </td>
 <td>
-Build site.
+Update Installation.html
 </td>
 </tr>
 <tr>
@@ -701,16 +678,33 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/075a60e6ae60e22e1db89141581ddf586ce3850d/analysis/Installation.Rmd" target="_blank">075a60e</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/fb9ca6ed5899c857a27af7bcc565971be3339c3c/analysis/Installation.Rmd" target="_blank">fb9ca6e</a>
 </td>
 <td>
-Stefano Cacciatore
+GitHub
 </td>
 <td>
 2024-07-08
 </td>
 <td>
-Start my new project
+Update Installation.Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/bfeb48a59aeef41b414223c7cdfcef050ae732ca/docs/Installation.html" target="_blank">bfeb48a</a>
+</td>
+<td>
+GitHub
+</td>
+<td>
+2024-07-08
+</td>
+<td>
+Update Installation.html
 </td>
 </tr>
 <tr>
@@ -788,8 +782,7 @@ devtools::install_github(&quot;tkcaccia/KODAMAextra&quot;)</code></pre>
 <div id="step-3-load-kodama-package" class="section level3">
 <h3>Step 3: Load KODAMA Package</h3>
 <p>Once installed, load the KODAMA package into your R session:</p>
-<pre class="r"><code>library(KODAMA)
-library(KODAMAextra)</code></pre>
+<pre class="r"><code>library(KODAMA)</code></pre>
 </div>
 <div id="step-5-verify-installation" class="section level3">
 <h3>Step 5: Verify Installation</h3>
@@ -812,37 +805,48 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.3.3 (2024-02-29 ucrt)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 19045)
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 20.04.6 LTS
 
 Matrix products: default
-
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0 
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
 
 locale:
-[1] LC_COLLATE=English_United States.utf8 
-[2] LC_CTYPE=English_United States.utf8   
-[3] LC_MONETARY=English_United States.utf8
-[4] LC_NUMERIC=C                          
-[5] LC_TIME=English_United States.utf8    
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
-time zone: Africa/Johannesburg
-tzcode source: internal
+time zone: Etc/UTC
+tzcode source: system (glibc)
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+[1] workflowr_1.7.1
+
 loaded via a namespace (and not attached):
- [1] vctrs_0.6.5       cli_3.6.2         knitr_1.47        rlang_1.1.4      
- [5] xfun_0.45         stringi_1.8.4     promises_1.3.0    jsonlite_1.8.8   
- [9] workflowr_1.7.1   glue_1.7.0        rprojroot_2.0.4   git2r_0.33.0     
-[13] htmltools_0.5.8.1 httpuv_1.6.15     sass_0.4.9        fansi_1.0.6      
-[17] rmarkdown_2.27    jquerylib_0.1.4   evaluate_0.24.0   tibble_3.2.1     
-[21] fastmap_1.2.0     yaml_2.3.8        lifecycle_1.0.4   whisker_0.4.1    
-[25] stringr_1.5.1     compiler_4.3.3    fs_1.6.4          Rcpp_1.0.12      
-[29] pkgconfig_2.0.3   rstudioapi_0.16.0 later_1.3.2       digest_0.6.36    
-[33] R6_2.5.1          utf8_1.2.4        pillar_1.9.0      magrittr_2.0.3   
-[37] bslib_0.7.0       tools_4.3.3       cachem_1.1.0     </code></pre>
+ [1] jsonlite_1.8.8    compiler_4.4.0    promises_1.3.0    Rcpp_1.0.12      
+ [5] stringr_1.5.1     git2r_0.33.0      callr_3.7.6       later_1.3.2      
+ [9] jquerylib_0.1.4   yaml_2.3.9        fastmap_1.2.0     R6_2.5.1         
+[13] knitr_1.48        tibble_3.2.1      rprojroot_2.0.4   bslib_0.7.0      
+[17] pillar_1.9.0      rlang_1.1.4       utf8_1.2.4        cachem_1.1.0     
+[21] stringi_1.8.4     httpuv_1.6.15     xfun_0.45         getPass_0.2-4    
+[25] fs_1.6.4          sass_0.4.9        cli_3.6.3         magrittr_2.0.3   
+[29] ps_1.7.7          digest_0.6.36     processx_3.8.4    rstudioapi_0.16.0
+[33] lifecycle_1.0.4   vctrs_0.6.5       evaluate_0.24.0   glue_1.7.0       
+[37] whisker_0.4.1     fansi_1.0.6       rmarkdown_2.27    httr_1.4.7       
+[41] tools_4.4.0       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
