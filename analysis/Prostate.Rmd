@@ -304,8 +304,24 @@ To explore enriched biological processes in our spatial transcriptomics data, we
 We start by loading the necessary packages and preparing our gene data for analysis:
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-library("GSVA")
-library("GSA")
+
+# library("GSVA")
+# library("GSA")
+# library("gprofiler2")
+# library("VAM")
+# geneset=GSA.read.gmt("../Genesets/msigdb_v2023.2.Hs_GMTs/h.all.v2023.2.Hs.symbols.gmt")
+# names(geneset$genesets)=geneset$geneset.names
+# genesets=geneset$genesets
+
+# countdata <- t(as.matrix(logcounts(spe)))
+# genes=gconvert(rownames(spe),organism="hsapiens",target="GENECARDS",filter_na = F)$target
+# colnames(countdata)=genes
+# rownames(countdata)=paste(gsub("-1","",colnames(spe)),spe$sample_id,sep="-")
+
+# li=lapply(genesets,function(x) which(genes %in% x))
+
+# VAM=vamForCollection(gene.expr=countdata, gene.set.collection=li)
+# VAM$distance.sq
 
 ```
 
