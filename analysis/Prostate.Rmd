@@ -15,6 +15,9 @@ For this tutorial, we focus on different types of prostate tissues, including no
 
 The data can be downloaded using the following script: [Prostate_download.sh](https://github.com/tkcaccia/KODAMA-Analysis/blob/main/code/Prostate_download.sh). This script facilitates access to the raw data, which will then be preprocessed and analyzed in the subsequent steps of our pipeline.
 
+
+
+
 ### Preprocessing
 
 This section details the preprocessing of spatial transcriptomics data, which is a crucial step for cleaning and preparing the data for further analysis.
@@ -49,7 +52,32 @@ spe <- read10xVisium(address, tissues,
                      images = "lowres", load = FALSE)
 ```
 
-xxx
+Visualization
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+par(mfrow = c(1, 4),mar=c(0,0,0,0),pin=c(3,3))
+
+img=as.raster(getImg(spe, sample_id = "Normal_prostate" , image_id = NULL))
+plot(img)
+box(col="#77cc66",lwd=3)
+mtext("Normal prostate")
+
+img=as.raster(getImg(spe, sample_id = "Acinar_Cell_Carcinoma" , image_id = NULL))
+plot(img)
+box(col="#77cc66",lwd=3)
+mtext("Acinar cell carcinoma")
+
+img=as.raster(getImg(spe, sample_id = "Adenocarcinoma" , image_id = NULL))
+plot(img)
+box(col="#77cc66",lwd=3)
+mtext("Adenocarcinoma")
+
+img=as.raster(getImg(spe, sample_id = "Adjacent_normal_section" , image_id = NULL))
+plot(img)
+box(col="#77cc66",lwd=3)
+mtext("Adjacent Normal section with IF")
+```
+
 
 ### Loading Pathology Data
 
