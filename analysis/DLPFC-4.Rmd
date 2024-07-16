@@ -155,7 +155,7 @@ Selection of the patient Br5595
 
 ```{r, fig.width=10, fig.height=4}
 
-subject_names=="Br5595"
+subject_names="Br5595"
 
   spe_sub <- spe[, colData(spe)$subject ==  subject_names]
   subjects=colData(spe_sub)$subject
