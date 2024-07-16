@@ -44,7 +44,7 @@ data=cbind(rnorm(200,mean=labels,sd=0.1),
 color.code=c("#1d79d0aa","#53ca3eaa")
 ```
 
-###Visualization with KODAMA and UMAP
+### Visualization with KODAMA and UMAP
 
 We use KODAMA and UMAP methods to analyze and visualize the data, applying dimensionality reduction and identifying clusters and spatial domains.
 
@@ -89,7 +89,7 @@ The generated visualizations show the position of the points, as well as the res
 
 In this section, we build upon the previous data generation and visualization methods to demonstrate advanced manipulations and visualizations using KODAMA and UMAP techniques.
 
-###Data Generation and Setting the Random Seed
+### Data Generation and Setting the Random Seed
 
 Continuing from the previous section, we set the random seed and generate data for two distinct regions, assigning labels and specific regions to each data point.
 
@@ -134,7 +134,7 @@ labels=labels[,1]+
 labels=as.numeric(as.factor(labels))+1
 ```
 
-###Visualization with KODAMA and UMAP
+### Visualization with KODAMA and UMAP
 
 We apply Principal Component Analysis (PCA) on the filtered data and use KODAMA and UMAP methods to analyze and visualize the data, applying dimensionality reduction and identifying clusters and spatial domains
 
