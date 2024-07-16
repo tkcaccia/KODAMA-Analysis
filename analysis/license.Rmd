@@ -7,6 +7,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-KODAMA algoritm is covered by the [GPL-3] licence.
+KODAMA algorithm is covered by the [GPL-3] licence.
 
 [GPL-3]: https://cran.r-project.org/web/licenses/GPL-3
