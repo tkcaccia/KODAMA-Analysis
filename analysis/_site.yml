@@ -32,6 +32,8 @@ navbar:
           href: "Seurat.html"
         - text: "Giotto"
           href: "Giotto.html"
+        - text: "SpatialExperiment"
+          href: "SpatialExperiment.html"
     - text: "License"
       href: "license.html"
   right:
