@@ -14,10 +14,10 @@ curl -O https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Adult_Mouse_Brai
 curl -O https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Adult_Mouse_Brain/V1_Adult_Mouse_Brain_spatial.tar.gz
 curl -O https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Adult_Mouse_Brain/V1_Adult_Mouse_Brain_cloupe.cloupe
 
-tar -xvzf V1_Adult_Mouse_Brain/V1_Adult_Mouse_Brain_filtered_feature_bc_matrix.tar.gz
-tar -xvzf V1_Adult_Mouse_Brain/V1_Adult_Mouse_Brain_raw_feature_bc_matrix.tar.gz
+tar -xvzf V1_Adult_Mouse_Brain_filtered_feature_bc_matrix.tar.gz
+tar -xvzf V1_Adult_Mouse_Brain_raw_feature_bc_matrix.tar.gz
 tar -xvzf V1_Adult_Mouse_Brain_spatial.tar.gz
 
-rm V1_Adult_Mouse_Brain/V1_Adult_Mouse_Brain_filtered_feature_bc_matrix.tar.gz
-rm V1_Adult_Mouse_Brain/V1_Adult_Mouse_Brain_raw_feature_bc_matrix.tar.gz
+rm V1_Adult_Mouse_Brain_filtered_feature_bc_matrix.tar.gz
+rm V1_Adult_Mouse_Brain_raw_feature_bc_matrix.tar.gz
 rm V1_Adult_Mouse_Brain_spatial.tar.gz
