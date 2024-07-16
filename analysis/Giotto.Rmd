@@ -7,109 +7,48 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Giotto Visium Brain
+# Giotto Suite
 
-## Introduction to Giotto Visium Platform
+## Introduction to Giotto 
 
-### Overview
+Giotto Suite is a collection of open-source software tools, including data structures and methods, for the comprehensive analysis and visualization of spatial multi-omics data at multiple scales and resolutions. More information can be found [here](https://drieslab.github.io/Giotto_website/).
 
-10X Genomics recently launched the Giotto Visium platform, a cutting-edge tool for acquiring
-spatial gene expression data using Visium Spatial Gene Expression slides. This innovative
-technology allows researchers to analyze gene expression patterns while preserving spatial information,
-which is crucial for understanding the intricate organization and functionality of tissues, especially
-in complex structures like the brain.
+## Dataset Description
 
-### Dataset Description
+The data in this tutorial originates from a Visium Spatial Gene Expression slide of the adult mouse. This dataset is available on the 10X Genomics support site and can be downloaded using the following [code](code/Giotto_mouse_brain.sh).
 
-The data used in this tutorial originates from a Visium Spatial Gene Expression slide of
-the adult mouse. This dataset is available on the 10X Genomics support site and can be downloaded from
-the following link: [V1_Adult_Mouse_Brain](https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Adult_Mouse_Brain).
-Ensure that the necessary files are properly organized in the `data_path` directory.
-
-## Part 1: Setup and Installation
-
-### Package Installation
-
-Before proceeding, ensure the required R packages are installed:
+## Library loading
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# Ensure Giotto Suite is installed
-if (!"Giotto" %in% installed.packages()) {
-  devtools::install_github("drieslab/Giotto@suite")
-}
-
-# Ensure GiottoData is installed
-if (!"GiottoData" %in% installed.packages()) {
-  devtools::install_github("drieslab/GiottoData")
-}
-
-# Check and install Python environment for Giotto
-library(Giotto)
-
-genv_exists <- checkGiottoEnvironment()
-if (!genv_exists) {
-  installGiottoEnvironment()  # Run this command once to install Giotto environment
-}
-
-# Install additional required packages
-if (!"KODAMA" %in% installed.packages()) {
-  devtools::install_github("tkcaccia/KODAMA")
-}
-if (!"KODAMAextra" %in% installed.packages()) {
-  devtools::install_github("tkcaccia/KODAMAextra")
-}
-```
-## Part 2: Setup and Installation
-
-### Package Installation
-
-Before proceeding, ensure the required R packages are installed:
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# Ensure Giotto Suite is installed
-if (!"Giotto" %in% installed.packages()) {
-  devtools::install_github("drieslab/Giotto@suite")
-}
-
-# Ensure GiottoData is installed
-if (!"GiottoData" %in% installed.packages()) {
-  devtools::install_github("drieslab/GiottoData")
-}
-
-# Check and install Python environment for Giotto
-library(Giotto)
-
-genv_exists <- checkGiottoEnvironment()
-if (!genv_exists) {
-  installGiottoEnvironment()  # Run this command once to install Giotto environment
-}
-
-# Install additional required packages
-if (!"KODAMA" %in% installed.packages()) {
-  devtools::install_github("tkcaccia/KODAMA")
-}
-if (!"KODAMAextra" %in% installed.packages()) {
-  devtools::install_github("tkcaccia/KODAMAextra")
-}
-
 library(KODAMA)
 library(KODAMAextra)
 library(Giotto)
-library(GiottoData)
 ```
-## Part 3: Data Preparation and Analysis
-### Setting Up the Environment
-Set Working Directory and Giotto Instructions
+## Dataset loading 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# Set working directory
-results_folder <- '../result'
 
-# Create Giotto instructions
-my_python_path <- NULL  # Use the default Python environment for Giotto
-instrs <- createGiottoInstructions(save_dir = results_folder,
-                                   save_plot = TRUE,
-                                   show_plot = FALSE,
-                                   python_path = my_python_path)
+instrs = createGiottoInstructions(save_dir = 'path/to/result',
+                                  save_plot = FALSE,
+                                  show_plot = TRUE,
+                                  python_path = NULL)
+
+
+## directly from visium folder
+visium_brain = createGiottoVisiumObject(visium_dir = "../Giotto_Mouse_brain/",
+                                        expr_data = 'raw',
+                                        png_name = 'tissue_lowres_image.png',
+                                        gene_column_index = 2,
+                                        instructions = instrs,
+                                        verbose = FALSE)
+
+
+## check metadata
+pDataDT(visium_brain)
+
+## show plot
+spatPlot2D(gobject = visium_brain, cell_color = 'in_tissue', point_size = 2,
+           cell_color_code = c('0' = 'lightgrey', '1' = 'blue'))
+
 ```
 ###Loading and Preparing Data
 Create Giotto Visium Object
@@ -124,72 +63,59 @@ visium_brain <- createGiottoVisiumObject(visium_dir = data_path,
                                          gene_column_index = 2,
                                          instructions = instrs)
 ```
-## Part 4: Exploratory Data Analysis
-#### Visualizing Data and Quality Control
+## Preprocessing
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# Show associated images with Giotto object
-showGiottoImageNames(visium_brain)
+## subset on spots that were covered by tissue
+metadata = pDataDT(visium_brain)
+in_tissue_barcodes = metadata[in_tissue == 1]$cell_ID
+visium_brain = subsetGiotto(visium_brain, cell_ids = in_tissue_barcodes)
 
-# Check metadata
-pDataDT(visium_brain)
-
-# Visualize spatial plot
-spatPlot2D(gobject = visium_brain, cell_color = 'in_tissue', point_size = 2,
-           cell_color_code = c('0' = 'lightgrey', '1' = 'blue'),
-           show_image = TRUE, image_name = 'image', show_plot= TRUE, return_plot = FALSE, save_plot = TRUE)
-```
-## Part 5: Data Processing and Analysis
-### Data Filtering and Normalization
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# Subset spots covered by tissue
-metadata <- pDataDT(visium_brain)
-in_tissue_barcodes <- metadata[in_tissue == 1]$cell_ID
-visium_brain <- subsetGiotto(visium_brain, cell_ids = in_tissue_barcodes)
-
-# Filter data
+## filter
 visium_brain <- filterGiotto(gobject = visium_brain,
                              expression_threshold = 1,
                              feat_det_in_min_cells = 50,
                              min_det_feats_per_cell = 1000,
                              expression_values = c('raw'),
-                             verbose = TRUE)
+                             verbose = FALSE)
+```
+## Normalization and feature reduction
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
-# Normalize data
-visium_brain <- normalizeGiotto(gobject = visium_brain, scalefactor = 6000, verbose = TRUE)
+## normalize
+visium_brain <- normalizeGiotto(gobject = visium_brain, scalefactor = 6000, verbose = FALSE)
 
 ## add gene & cell statistics
 visium_brain <- addStatistics(gobject = visium_brain)
 
-## visualize
-spatPlot2D(gobject = visium_brain, show_image = T, point_alpha = 0.7,
-           cell_color = 'nr_feats', color_as_factor = F,save_plot = TRUE, show_plot= TRUE, return_plot = FALSE)
-visium_brain <- calculateHVF(gobject = visium_brain, save_plot = TRUE, show_plot= TRUE, return_plot = FALSE)
 
+visium_brain <- calculateHVF(gobject = visium_brain)
+
+
+
+gene_metadata = fDataDT(visium_brain)
+featgenes = gene_metadata[hvf == 'yes' & perc_cells > 3 & mean_expr_det > 0.4]$feat_ID
+
+## run PCA on expression values (default)
+visium_brain <- runPCA(gobject = visium_brain, feats_to_use = featgenes)
 
 ```
-## Part 6: Advanced Analysis and Visualization
-### Dimensionality Reduction and Clustering
+## KODAMA analysis
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# Perform PCA
-gene_metadata <- fDataDT(visium_brain)
-featgenes <- gene_metadata[hvf == 'yes' & perc_cells > 3 & mean_expr_det > 0.4]$feat_ID
-visium_brain <- runPCA(gobject = visium_brain,
-                       feats_to_use = featgenes)
+visium_brain=RunKODAMAmatrix(visium_brain, f.par.pls = 50,FUN="PLS",n.cores=4)
+visium_brain=RunKODAMAvisualization(visium_brain,method="UMAP")
+```
 
-# Perform KODAMA analysis and visualization
-visium_brain <- RunKODAMAmatrix(visium_brain, f.par.pls = 50, FUN = "PLS", n.cores = 4)
-visium_brain <- RunKODAMAvisualization(visium_brain, method = "UMAP")
+## Clustering and visualization
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
 visium_brain <- createNearestNetwork(gobject = visium_brain,dim_reduction_to_use = "KODAMA", dim_reduction_name="KODAMA",dimensions_to_use = 1:2, k = 15)
 
+## Leiden clustering
+visium_brain <- doLeidenCluster(gobject = visium_brain, resolution = 0.5, n_iterations = 1000,network_name = "sNN.KODAMA")
 
-# Perform clustering and visualize results
-visium_brain <- doLeidenCluster(gobject = visium_brain, resolution = 0.6, n_iterations = 1000,network_name = "sNN.KODAMA")
-
-
-spatDimPlot(gobject = visium_brain, dim_reduction_to_use ="KODAMA", dim_reduction_name="KODAMA",cell_color = 'leiden_clus',
-            dim_point_size = 2, spat_point_size = 2.5, show_plot= TRUE, return_plot = FALSE, save_plot = TRUE)
-
+dimPlot2D(gobject = visium_brain, dim_reduction_to_use ="KODAMA", dim_reduction_name="KODAMA",cell_color = 'leiden_clus',point_size = 2)
+spatPlot2D(gobject = visium_brain,cell_color = 'leiden_clus',point_size = 2.5)
 ```
-This tutorial provides a comprehensive guide to using the Giotto Visium platform for spatial gene expression analysis, covering setup, data handling, advanced analysis techniques, and visualization. Each section aims to help you effectively leverage this powerful tool for your research endeavors.
+
