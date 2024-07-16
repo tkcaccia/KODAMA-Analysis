@@ -9,9 +9,9 @@ navbar:
     - text: "Installation"
       href: "Installation.html"
     - text: "Single-cell"
-      href: "single-cell.html"
+      href: "Single-cell.html"
     - text: "Simulation"
-      href: "simulation.html"
+      href: "Simulation.html"
     - text: "Real data analyses"
       menu:
         - text: "DLPFC (4 slides)"
