@@ -7,25 +7,14 @@ editor_options:
   chunk_output_type: console
 ---
 
-Explore this comprehensive tutorial on spatial transcriptomics with Seurat and the KODAMA package. This detailed guide takes you through all the essential steps to preprocess and effectively analyze spatial transcriptomic data from the anterior region of the mouse brain. You will master initial visualizations, precise data preprocessing, and the application of advanced dimensionality reduction techniques using Seurat and KODAMA.
+Seurat is an R toolkit widely used for single-cell genomics and spatial transcriptomics, developed and maintained by the Satija Lab at New York Genome Center.
+In this section, we will see the steps to integrate KODAMA into the Seurat pipeline.
 
-Seurat is a widely-used R package designed for single-cell RNA sequencing (scRNA-seq) data analysis, enabling integration of spatially resolved gene expression data with tissue imaging for detailed spatial analysis.
 
-The dataset used includes gene expression profiles collected at specific locations on a tissue slice image, providing insights into gene expression patterns within the spatial context of the brain tissue.
+## Loading libraries
 
-This tutorial prepares you to efficiently handle spatial transcriptomic data and utilize advanced tools like KODAMA to explore the underlying structure of the data, facilitating a thorough understanding of spatial biology through precise spatial transcriptomic analysis.
+First, we need to load the required libraries for this analysis. Make sure you have the following packages installed.
 
-## Access to Data
-
-This tutorial utilizes a Seurat object that contains both gene expression data at the spot level and the corresponding tissue slice image of the anterior region of the mouse brain.
-
-For specific details on loading and using the dataset, refer to the documentation by typing ?stxBrain in your R environment.
-
-## Step 1: Load Necessary Libraries
-
-First, we need to load the required libraries for this analysis. Make sure you have the following packages installed:
-
-Load the libraries:
 
 ```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
 library(Seurat)
@@ -34,9 +23,11 @@ library(KODAMA)
 library(KODAMAextra)
 ```
 
-## Step 2: Install and Load Data
 
-Install and load the anterior region of the mouse brain dataset:
+## Dataset
+The data used are sagittal sections of the mouse brain generated using Visium v1 technology saved in the Seurat library.
+For specific details on loading and using the dataset, please take a look at the documentation by typing ?stxBrain in your R environment.
+Install and load the anterior region of the mouse brain dataset.
 
 ```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
 InstallData("stxBrain")
@@ -44,30 +35,17 @@ brain <- LoadData("stxBrain", type = "anterior1")
 ```
 
 
-## Step 3: Pre-process the Data
+## Data processing
 
 We will preprocess the data using Seurat's SCTransform method and perform PCA:
 
 ```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
 brain <- SCTransform(brain, assay = "Spatial", verbose = FALSE)
 brain <- RunPCA(brain, assay = "SCT", verbose = FALSE)
-brain <- FindNeighbors(brain, reduction = "pca", dims = 1:30)
-brain <- FindClusters(brain, verbose = FALSE)
-brain <- RunUMAP(brain, reduction = "pca", dims = 1:30)
-```
-
-## Step 4: Visualization of PCA and UMAP Results
-
-Visualize the PCA and UMAP results to understand the clustering:
-
-```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
-p1 <- DimPlot(brain, reduction = "umap", label = TRUE)
-p2 <- SpatialDimPlot(brain, label = TRUE, label.size = 3)
-p1 + p2
 ```
 
 
-## Step 5: Run and Visualize KODAMA
+## Run and Visualize KODAMA
 
 Apply KODAMA to reduce dimensionality and visualize the results:
 
@@ -75,14 +53,23 @@ Apply KODAMA to reduce dimensionality and visualize the results:
 
 brain <- RunKODAMAmatrix(brain, reduction = "pca")
 brain <- RunKODAMAvisualization(brain, method = "UMAP")
+
+```
+
+## Clustering
+
+Apply clustering on the KODAMA plot.
+
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+brain <- FindNeighbors(brain, reduction = "KODAMA", dims = 1:2)
+brain <- FindClusters(brain, verbose = FALSE)
 ```
 
 Visualize the KODAMA results with DimPlot and SpatialDimPlot:
 
 ```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
-p3 <- DimPlot(brain, reduction = "KODAMA", label = TRUE)
-p4 <- SpatialDimPlot(brain, label = TRUE, label.size = 3)
-p3 + p4
+p1 <- DimPlot(brain, reduction = "KODAMA", label = TRUE)
+p2 <- SpatialDimPlot(brain, label = TRUE, label.size = 3)
+p1 + p2
 ```
 
-This tutorial provides a step-by-step guide to performing spatial transcriptomics analysis using Seurat and KODAMA. By following these steps, you will be able to preprocess your data, perform dimensionality reduction, and visualize the results effectively.
