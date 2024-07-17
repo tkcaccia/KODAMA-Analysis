@@ -6,6 +6,8 @@ navbar:
   left:
     - text: "Home"
       href: "index.html"
+    - text: "About"
+      href: "about.html"
     - text: "Installation"
       href: "Installation.html"
     - text: "Single-cell"
