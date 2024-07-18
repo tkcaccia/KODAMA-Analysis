@@ -437,7 +437,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-07-17
+<strong>Last updated:</strong> 2024-07-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -568,15 +568,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreed437809d02a29e2b398b0d052cfea1c2ca528916targetblankd437809a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreee12fa7554caf0ce5c8fa6e72154f3ba9265d28cbtargetblanke12fa75a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/d437809d02a29e2b398b0d052cfea1c2ca528916" target="_blank">d437809</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/e12fa7554caf0ce5c8fa6e72154f3ba9265d28cb" target="_blank">e12fa75</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreed437809d02a29e2b398b0d052cfea1c2ca528916targetblankd437809a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreee12fa7554caf0ce5c8fa6e72154f3ba9265d28cbtargetblanke12fa75a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -586,7 +586,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/d437809d02a29e2b398b0d052cfea1c2ca528916" target="_blank">d437809</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/e12fa7554caf0ce5c8fa6e72154f3ba9265d28cb" target="_blank">e12fa75</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -653,6 +653,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/e12fa7554caf0ce5c8fa6e72154f3ba9265d28cb/analysis/Seurat.Rmd" target="_blank">e12fa75</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-07-18
+</td>
+<td>
+Start my new project
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/017398677a8584ca81c0b8333192b01e3c7494c3/docs/Seurat.html" target="_blank">0173986</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-07-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -847,70 +881,38 @@ Add files via upload
 </div>
 </div>
 </div>
-<p>Explore this comprehensive tutorial on spatial transcriptomics with
-Seurat and the KODAMA package. This detailed guide takes you through all
-the essential steps to preprocess and effectively analyze spatial
-transcriptomic data from the anterior region of the mouse brain. You
-will master initial visualizations, precise data preprocessing, and the
-application of advanced dimensionality reduction techniques using Seurat
-and KODAMA.</p>
-<p>Seurat is a widely-used R package designed for single-cell RNA
-sequencing (scRNA-seq) data analysis, enabling integration of spatially
-resolved gene expression data with tissue imaging for detailed spatial
-analysis.</p>
-<p>The dataset used includes gene expression profiles collected at
-specific locations on a tissue slice image, providing insights into gene
-expression patterns within the spatial context of the brain tissue.</p>
-<p>This tutorial prepares you to efficiently handle spatial
-transcriptomic data and utilize advanced tools like KODAMA to explore
-the underlying structure of the data, facilitating a thorough
-understanding of spatial biology through precise spatial transcriptomic
-analysis.</p>
-<div id="access-to-data" class="section level2">
-<h2>Access to Data</h2>
-<p>This tutorial utilizes a Seurat object that contains both gene
-expression data at the spot level and the corresponding tissue slice
-image of the anterior region of the mouse brain.</p>
-<p>For specific details on loading and using the dataset, refer to the
-documentation by typing ?stxBrain in your R environment.</p>
-</div>
-<div id="step-1-load-necessary-libraries" class="section level2">
-<h2>Step 1: Load Necessary Libraries</h2>
+<p>Seurat is an R toolkit widely used for single-cell genomics and
+spatial transcriptomics, developed and maintained by the Satija Lab at
+New York Genome Center. In this section, we will see the steps to
+integrate KODAMA into the Seurat pipeline.</p>
+<div id="loading-libraries" class="section level2">
+<h2>Loading libraries</h2>
 <p>First, we need to load the required libraries for this analysis. Make
-sure you have the following packages installed:</p>
-<p>Load the libraries:</p>
+sure you have the following packages installed.</p>
 <pre class="r"><code>library(Seurat)
 library(SeuratData)
 library(KODAMA)
 library(KODAMAextra)</code></pre>
 </div>
-<div id="step-2-install-and-load-data" class="section level2">
-<h2>Step 2: Install and Load Data</h2>
-<p>Install and load the anterior region of the mouse brain dataset:</p>
+<div id="dataset" class="section level2">
+<h2>Dataset</h2>
+<p>The data used are sagittal sections of the mouse brain generated
+using Visium v1 technology saved in the Seurat library. For specific
+details on loading and using the dataset, please take a look at the
+documentation by typing ?stxBrain in your R environment. Install and
+load the anterior region of the mouse brain dataset.</p>
 <pre class="r"><code>InstallData(&quot;stxBrain&quot;)
 brain &lt;- LoadData(&quot;stxBrain&quot;, type = &quot;anterior1&quot;)</code></pre>
 </div>
-<div id="step-3-pre-process-the-data" class="section level2">
-<h2>Step 3: Pre-process the Data</h2>
+<div id="data-processing" class="section level2">
+<h2>Data processing</h2>
 <p>We will preprocess the data using Seurat’s SCTransform method and
 perform PCA:</p>
 <pre class="r"><code>brain &lt;- SCTransform(brain, assay = &quot;Spatial&quot;, verbose = FALSE)
-brain &lt;- RunPCA(brain, assay = &quot;SCT&quot;, verbose = FALSE)
-brain &lt;- FindNeighbors(brain, reduction = &quot;pca&quot;, dims = 1:30)
-brain &lt;- FindClusters(brain, verbose = FALSE)
-brain &lt;- RunUMAP(brain, reduction = &quot;pca&quot;, dims = 1:30)</code></pre>
+brain &lt;- RunPCA(brain, assay = &quot;SCT&quot;, verbose = FALSE)</code></pre>
 </div>
-<div id="step-4-visualization-of-pca-and-umap-results"
-class="section level2">
-<h2>Step 4: Visualization of PCA and UMAP Results</h2>
-<p>Visualize the PCA and UMAP results to understand the clustering:</p>
-<pre class="r"><code>p1 &lt;- DimPlot(brain, reduction = &quot;umap&quot;, label = TRUE)
-p2 &lt;- SpatialDimPlot(brain, label = TRUE, label.size = 3)
-p1 + p2</code></pre>
-<p><img src="figure/Seurat.Rmd/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="step-5-run-and-visualize-kodama" class="section level2">
-<h2>Step 5: Run and Visualize KODAMA</h2>
+<div id="run-and-visualize-kodama" class="section level2">
+<h2>Run and Visualize KODAMA</h2>
 <p>Apply KODAMA to reduce dimensionality and visualize the results:</p>
 <pre class="r"><code>brain &lt;- RunKODAMAmatrix(brain, reduction = &quot;pca&quot;)</code></pre>
 <pre><code>socket cluster with 1 nodes on host &#39;localhost&#39;
@@ -919,15 +921,54 @@ p1 + p2</code></pre>
 [1] &quot;Calculation of dissimilarity matrix...&quot;
 ================================================================================</code></pre>
 <pre class="r"><code>brain &lt;- RunKODAMAvisualization(brain, method = &quot;UMAP&quot;)</code></pre>
+</div>
+<div id="clustering" class="section level2">
+<h2>Clustering</h2>
+<p>Apply clustering on the KODAMA plot.</p>
+<pre class="r"><code>brain &lt;- FindNeighbors(brain, reduction = &quot;KODAMA&quot;, dims = 1:2)
+brain &lt;- FindClusters(brain, verbose = FALSE, graph.name=&quot;RNA_snn&quot;,resolution = 0.2)</code></pre>
 <p>Visualize the KODAMA results with DimPlot and SpatialDimPlot:</p>
-<pre class="r"><code>p3 &lt;- DimPlot(brain, reduction = &quot;KODAMA&quot;, label = TRUE)
-p4 &lt;- SpatialDimPlot(brain, label = TRUE, label.size = 3)
-p3 + p4</code></pre>
+<pre class="r"><code>p1 &lt;- DimPlot(brain, reduction = &quot;KODAMA&quot;, label = TRUE)
+p2 &lt;- SpatialDimPlot(brain, label = TRUE, label.size = 3)
+p1 + p2</code></pre>
 <p><img src="figure/Seurat.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>This tutorial provides a step-by-step guide to performing spatial
-transcriptomics analysis using Seurat and KODAMA. By following these
-steps, you will be able to preprocess your data, perform dimensionality
-reduction, and visualize the results effectively.</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/017398677a8584ca81c0b8333192b01e3c7494c3/docs/figure/Seurat.Rmd/unnamed-chunk-6-1.png" target="_blank">0173986</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-07-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
