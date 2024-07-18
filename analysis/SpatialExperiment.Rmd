@@ -7,4 +7,74 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Giotto Suite
+
+Spatial Transcriptomics has revolutionized the study of tissue architecture by integrating spatial information with transcriptomic data. This tutorial demonstrates how to perform spatial data analysis and visualize the results. We will use a dataset from the mouse olfactory bulb (OB), acquired via the Spatial Transcriptomics platform (Stahl et al. 2016) [link to the article](https://www.science.org/doi/full/10.1126/science.aaf2403). This dataset includes annotations for five cellular layers as provided by the original authors.
+
+Spatial Transcriptomics enables researchers to explore the spatial organization of gene expression within tissues, offering insights into cellular interactions and tissue microenvironments. By combining spatial coordinates with gene expression profiles, analyses such as Principal Component Analysis (PCA) and visualization techniques like KODAMA provide powerful tools to uncover spatial patterns and relationships in biological data.
+# Tutorial Steps
+
+## Loading Packages and Data
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+library(SpatialExperiment)
+library(STexampleData)
+library(scran)
+library(scater)
+library(KODAMA)
+library(KODAMAextra)
+
+# Loading spatial data from the mouse olfactory bulb
+spe = ST_mouseOB()
+```
+
+##### Extracting and Handling Cell Metadata
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+# Extracting cell metadata
+metaData = SingleCellExperiment::colData(spe)
+
+# Calculating library factors
+spe <- computeLibraryFactors(spe)
+
+# Summarizing size factors
+summary(sizeFactors(spe))
+```
+
+## Logarithmic Transformation of Counts
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+spe <- logNormCounts(spe)
+```
+
+##### Principal Component Analysis (PCA)
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+# Selecting highly variable genes
+top_hvgs <- getTopHVGs(spe, prop = 0.1)
+
+# Performing PCA
+spe <- runPCA(spe, 50, subset_row = top_hvgs, scale = TRUE)
+
+# Defining colors for PCA plot based on "layer" metadata
+colors = c("#11111199", "#111ee199", "#aa111199", "#1111cc99", "#11cccc99")
+plot(reducedDim(spe, type = "PCA"), bg = colors[as.factor(metaData[,"layer"])], pch = 21, cex = 2)
+```
+
+## KODAMA Analysis and Visualization with UMAP
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+# Running KODAMA on the reduced PCA matrix
+spe = RunKODAMAmatrix(spe, reduction = "PCA")
+
+# Visualizing KODAMA using UMAP method
+spe = RunKODAMAvisualization(spe, method = "UMAP")
+```
+
+## Visualizing Spatial Coordinates
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+# Retrieving spatial coordinates
+xy = spatialCoords(spe)
+
+# Plotting reduced data with KODAMA, based on "layer" metadata
+plot(reducedDim(spe, type = "KODAMA"), bg = colors[as.factor(metaData[,"layer"])], pch = 21, cex = 2)
+
+# Plotting spatial coordinates, based on "layer" metadata
+plot(xy, bg = colors[as.factor(metaData[,"layer"])], pch = 21, cex = 2)
+```
+This tutorial covered essential steps for performing spatial data analysis in R, using techniques such as Principal Component Analysis (PCA) and the KODAMA tool for visualization. You can now further explore and adapt these methods to your own data and research questions.
+
