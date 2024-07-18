@@ -62,7 +62,7 @@ Apply clustering on the KODAMA plot.
 
 ```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
 brain <- FindNeighbors(brain, reduction = "KODAMA", dims = 1:2)
-brain <- FindClusters(brain, verbose = FALSE)
+brain <- FindClusters(brain, verbose = FALSE, graph.name="RNA_snn",resolution = 0.2)
 ```
 
 Visualize the KODAMA results with DimPlot and SpatialDimPlot:
