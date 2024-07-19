@@ -27,7 +27,7 @@ library(Giotto)
 ## Dataset loading 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
-instrs = createGiottoInstructions(save_dir = 'path/to/result',
+instrs = createGiottoInstructions(save_dir = '../Temporary',
                                   save_plot = FALSE,
                                   show_plot = TRUE,
                                   python_path = NULL)
@@ -54,7 +54,7 @@ spatPlot2D(gobject = visium_brain, cell_color = 'in_tissue', point_size = 2,
 Create Giotto Visium Object
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 # Provide path to Visium data folder
-data_path <- '../DATA/data_path'
+data_path <- '../Giotto_Mouse_brain/'
 
 # Create Giotto Visium object
 visium_brain <- createGiottoVisiumObject(visium_dir = data_path,

@@ -55,7 +55,7 @@ spe <- read10xVisium(address, tissues,
 Visualization
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-par(mfrow = c(1, 4),mar=c(0,0,0,0),pin=c(3,3))
+par(mfrow = c(1, 4))
 
 img=as.raster(getImg(spe, sample_id = "Normal_prostate" , image_id = NULL))
 plot(img)
@@ -77,7 +77,6 @@ plot(img)
 box(col="#77cc66",lwd=3)
 mtext("Adjacent Normal section with IF")
 ```
-
 
 ### Loading Pathology Data
 
@@ -324,4 +323,3 @@ We start by loading the necessary packages and preparing our gene data for analy
 # VAM$distance.sq
 
 ```
-
