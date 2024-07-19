@@ -334,13 +334,16 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
+  <a href="about.html">About</a>
+</li>
+<li>
   <a href="Installation.html">Installation</a>
 </li>
 <li>
-  <a href="single-cell.html">Single-cell</a>
+  <a href="Single-cell.html">Single-cell</a>
 </li>
 <li>
-  <a href="simulation.html">Simulation</a>
+  <a href="Simulation.html">Simulation</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -381,6 +384,9 @@ div.tocify {
     </li>
     <li>
       <a href="Giotto.html">Giotto</a>
+    </li>
+    <li>
+      <a href="SpatialExperiment.html">SpatialExperiment</a>
     </li>
   </ul>
 </li>
@@ -434,7 +440,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-07-14
+<strong>Last updated:</strong> 2024-07-19
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -565,15 +571,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree0051854b6093e26617fe534e1deab4ef02cb96d1targetblank0051854a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree3f7aad62bc5856b2bdec967ad08fe8dfcb44b2adtargetblank3f7aad6a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/0051854b6093e26617fe534e1deab4ef02cb96d1" target="_blank">0051854</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/3f7aad62bc5856b2bdec967ad08fe8dfcb44b2ad" target="_blank">3f7aad6</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree0051854b6093e26617fe534e1deab4ef02cb96d1targetblank0051854a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree3f7aad62bc5856b2bdec967ad08fe8dfcb44b2adtargetblank3f7aad6a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -583,7 +589,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/0051854b6093e26617fe534e1deab4ef02cb96d1" target="_blank">0051854</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/3f7aad62bc5856b2bdec967ad08fe8dfcb44b2ad" target="_blank">3f7aad6</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -597,19 +603,8 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .RData
-    Ignored:    .Rhistory
-
-Untracked files:
-    Untracked:  .h5seurat
-    Untracked:  code/VisiumHD_CRC_download.sh
-    Untracked:  data/Pathology.csv
-
 Unstaged changes:
-    Deleted:    _site.yml
-    Deleted:    analysis/DLPFC.Rmd
-    Deleted:    data/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv
+    Deleted:    analysis/figure/DLPFC-12.Rmd/unnamed-chunk-10-1.png
 
 </code></pre>
 <p>
@@ -659,16 +654,33 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/0051854b6093e26617fe534e1deab4ef02cb96d1/analysis/DLPFC-12.Rmd" target="_blank">0051854</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/7be8f59b0c4d82e877c5dfc8cfbfb7936ceceeb6/analysis/DLPFC-12.Rmd" target="_blank">7be8f59</a>
 </td>
 <td>
-Stefano Cacciatore
+tkcaccia
 </td>
 <td>
-2024-07-14
+2024-07-15
 </td>
 <td>
-Start my new project
+updates
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/7be8f59b0c4d82e877c5dfc8cfbfb7936ceceeb6/docs/DLPFC-12.html" target="_blank">7be8f59</a>
+</td>
+<td>
+tkcaccia
+</td>
+<td>
+2024-07-15
+</td>
+<td>
+updates
 </td>
 </tr>
 </tbody>
@@ -1107,7 +1119,7 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.4.0 (2024-04-24)
+<pre><code>R version 4.4.1 (2024-06-14)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 20.04.6 LTS
 
@@ -1154,11 +1166,11 @@ other attached packages:
 loaded via a namespace (and not attached):
   [1] goftest_1.2-3             DT_0.33                  
   [3] Biostrings_2.72.1         vctrs_0.6.5              
-  [5] spatstat.random_3.2-3     digest_0.6.36            
+  [5] spatstat.random_3.3-1     digest_0.6.36            
   [7] png_0.1-8                 proxy_0.4-27             
   [9] git2r_0.33.0              ggrepel_0.9.5            
  [11] deldir_2.0-4              parallelly_1.37.1        
- [13] magick_2.8.3              MASS_7.3-61              
+ [13] magick_2.8.4              MASS_7.3-61              
  [15] reshape2_1.4.4            httpuv_1.6.15            
  [17] withr_3.0.0               xfun_0.45                
  [19] survival_3.7-0            memoise_2.0.1            
@@ -1167,7 +1179,7 @@ loaded via a namespace (and not attached):
  [25] rematch2_2.1.2            KEGGREST_1.44.1          
  [27] promises_1.3.0            httr_1.4.7               
  [29] restfulr_0.0.15           globals_0.16.3           
- [31] fitdistrplus_1.1-11       ps_1.7.7                 
+ [31] fitdistrplus_1.2-1        ps_1.7.7                 
  [33] rstudioapi_0.16.0         UCSC.utils_1.0.0         
  [35] miniUI_0.1.1.1            generics_0.1.3           
  [37] processx_3.8.4            curl_5.2.1               
@@ -1184,12 +1196,12 @@ loaded via a namespace (and not attached):
  [59] spatstat.data_3.1-2       shinyWidgets_0.8.6       
  [61] magrittr_2.0.3            lmtest_0.9-40            
  [63] later_1.3.2               viridis_0.6.5            
- [65] lattice_0.22-6            spatstat.geom_3.2-9      
+ [65] lattice_0.22-6            spatstat.geom_3.3-2      
  [67] future.apply_1.11.2       getPass_0.2-4            
  [69] scattermore_1.2           XML_3.99-0.17            
  [71] cowplot_1.1.3             RcppAnnoy_0.0.22         
  [73] class_7.3-22              pillar_1.9.0             
- [75] nlme_3.1-165              compiler_4.4.0           
+ [75] nlme_3.1-165              compiler_4.4.1           
  [77] beachmat_2.20.0           RSpectra_0.16-1          
  [79] stringi_1.8.4             tensor_1.5               
  [81] GenomicAlignments_1.40.0  plyr_1.8.9               
@@ -1200,7 +1212,7 @@ loaded via a namespace (and not attached):
  [91] BiocSingular_1.20.0       openssl_2.2.0            
  [93] bslib_0.7.0               paletteer_1.6.0          
  [95] plotly_4.10.4             mime_0.12                
- [97] splines_4.4.0             fastDummies_1.7.3        
+ [97] splines_4.4.1             fastDummies_1.7.3        
  [99] dbplyr_2.5.0              sparseMatrixStats_1.16.0 
 [101] attempt_0.3.1             knitr_1.48               
 [103] blob_1.2.4                utf8_1.2.4               
@@ -1209,12 +1221,12 @@ loaded via a namespace (and not attached):
 [109] rdist_0.0.5               tibble_3.2.1             
 [111] Matrix_1.7-0              callr_3.7.6              
 [113] statmod_1.5.0             pkgconfig_2.0.3          
-[115] tools_4.4.0               BRISC_1.0.5              
+[115] tools_4.4.1               BRISC_1.0.5              
 [117] cachem_1.1.0              RhpcBLASctl_0.23-42      
 [119] RSQLite_2.3.7             viridisLite_0.4.2        
 [121] DBI_1.2.3                 fastmap_1.2.0            
 [123] rmarkdown_2.27            scales_1.3.0             
-[125] grid_4.4.0                ica_1.0-3                
+[125] grid_4.4.1                ica_1.0-3                
 [127] Rsamtools_2.20.0          AnnotationHub_3.12.0     
 [129] sass_0.4.9                patchwork_1.2.0          
 [131] BiocManager_1.30.23       dotCall64_1.1-1          
@@ -1227,30 +1239,30 @@ loaded via a namespace (and not attached):
 [145] BiocParallel_1.38.0       gtable_0.3.5             
 [147] rjson_0.2.21              ggridges_0.5.6           
 [149] progressr_0.14.0          limma_3.60.3             
-[151] jsonlite_1.8.8            edgeR_4.2.0              
+[151] jsonlite_1.8.8            edgeR_4.2.1              
 [153] RcppHNSW_0.6.0            bitops_1.0-7             
 [155] benchmarkmeData_1.0.4     bit64_4.0.5              
 [157] spatstat.utils_3.0-5      BiocNeighbors_1.22.0     
 [159] matlab_1.0.4.1            jquerylib_0.1.4          
 [161] highr_0.11                metapod_1.12.0           
 [163] config_0.3.2              dqrng_0.4.1              
-[165] lazyeval_0.2.2            shiny_1.8.1.1            
-[167] htmltools_0.5.8.1         sctransform_0.4.1        
-[169] rappdirs_0.3.3            glue_1.7.0               
-[171] spam_2.10-0               XVector_0.44.0           
-[173] RCurl_1.98-1.14           rprojroot_2.0.4          
-[175] gridExtra_2.3             igraph_2.0.3             
-[177] R6_2.5.1                  tidyr_1.3.1              
-[179] CompQuadForm_1.4.3        cluster_2.1.6            
-[181] DelayedArray_0.30.1       tidyselect_1.2.1         
-[183] vipor_0.4.7               maps_3.4.2               
-[185] AnnotationDbi_1.66.0      future_1.33.2            
-[187] rsvd_1.0.5                munsell_0.5.1            
-[189] KernSmooth_2.23-24        data.table_1.15.4        
-[191] htmlwidgets_1.6.4         RColorBrewer_1.1-3       
-[193] rlang_1.1.4               spatstat.sparse_3.1-0    
-[195] spatstat.explore_3.2-7    fansi_1.0.6              
-[197] beeswarm_0.4.0           </code></pre>
+[165] spatstat.univar_3.0-0     lazyeval_0.2.2           
+[167] shiny_1.8.1.1             htmltools_0.5.8.1        
+[169] sctransform_0.4.1         rappdirs_0.3.3           
+[171] glue_1.7.0                spam_2.10-0              
+[173] XVector_0.44.0            RCurl_1.98-1.16          
+[175] rprojroot_2.0.4           gridExtra_2.3            
+[177] igraph_2.0.3              R6_2.5.1                 
+[179] tidyr_1.3.1               CompQuadForm_1.4.3       
+[181] cluster_2.1.6             DelayedArray_0.30.1      
+[183] tidyselect_1.2.1          vipor_0.4.7              
+[185] maps_3.4.2                AnnotationDbi_1.66.0     
+[187] future_1.33.2             rsvd_1.0.5               
+[189] munsell_0.5.1             KernSmooth_2.23-24       
+[191] data.table_1.15.4         htmlwidgets_1.6.4        
+[193] RColorBrewer_1.1-3        rlang_1.1.4              
+[195] spatstat.sparse_3.1-0     spatstat.explore_3.3-1   
+[197] fansi_1.0.6               beeswarm_0.4.0           </code></pre>
 </div>
 </div>
 </div>
