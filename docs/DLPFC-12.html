@@ -342,33 +342,35 @@ div.tocify {
 <li>
   <a href="Single-cell.html">Single-cell</a>
 </li>
-<li>
-  <a href="Simulation.html">Simulation</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Real data analyses
+    Spatial
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="DLPFC-4.html">DLPFC (4 slides)</a>
-    </li>
-    <li>
-      <a href="DLPFC-12.html">DLPFC (12 slides)</a>
-    </li>
-    <li>
-      <a href="Prostate.html">Prostate</a>
-    </li>
-    <li>
-      <a href="STARmap.html">STARmap (Wang et al., 2018)</a>
+      <a href="Simulation.html">Simulation</a>
     </li>
     <li>
       <a href="MERFISH.html">MERFISH (Moffitt et al., 2018)</a>
     </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Visium DLPFC (Maynard et al., 2021)</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="DLPFC-4.html">Grouped by individual (4 slides)</a>
+        </li>
+        <li>
+          <a href="DLPFC-12.html">All 12 slides together</a>
+        </li>
+      </ul>
+    </li>
     <li>
-      <a href="VisiumHD.html">Visium HD</a>
+      <a href="Prostate.html">Visium (10X database - Prostate)</a>
+    </li>
+    <li>
+      <a href="VisiumHD.html">Visium HD (10X database - Colorectal cancer)</a>
     </li>
   </ul>
 </li>
@@ -440,7 +442,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-07-19
+<strong>Last updated:</strong> 2024-07-24
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -571,15 +573,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree3f7aad62bc5856b2bdec967ad08fe8dfcb44b2adtargetblank3f7aad6a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreeb422e4318478a4de3e61332a0acf677640350efbtargetblankb422e43a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/3f7aad62bc5856b2bdec967ad08fe8dfcb44b2ad" target="_blank">3f7aad6</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/b422e4318478a4de3e61332a0acf677640350efb" target="_blank">b422e43</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree3f7aad62bc5856b2bdec967ad08fe8dfcb44b2adtargetblank3f7aad6a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreeb422e4318478a4de3e61332a0acf677640350efbtargetblankb422e43a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -589,7 +591,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/3f7aad62bc5856b2bdec967ad08fe8dfcb44b2ad" target="_blank">3f7aad6</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/b422e4318478a4de3e61332a0acf677640350efb" target="_blank">b422e43</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -603,7 +605,15 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Untracked files:
+    Untracked:  output/DLFPC-All.RData
+    Untracked:  output/DLFPC-Br5292.RData
+    Untracked:  output/DLFPC-Br5595.RData
+    Untracked:  output/DLFPC-Br8100.RData
+    Untracked:  output/VisiumHD.RData
+
 Unstaged changes:
+    Deleted:    analysis/STARmap.Rmd
     Deleted:    analysis/figure/DLPFC-12.Rmd/unnamed-chunk-10-1.png
 
 </code></pre>
@@ -654,6 +664,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/b422e4318478a4de3e61332a0acf677640350efb/analysis/DLPFC-12.Rmd" target="_blank">b422e43</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-07-24
+</td>
+<td>
+Start my new project
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/6f7daaccbcc7b968bc736664a45f9ebcaf73fba3/docs/DLPFC-12.html" target="_blank">6f7daac</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-07-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/7be8f59b0c4d82e877c5dfc8cfbfb7936ceceeb6/analysis/DLPFC-12.Rmd" target="_blank">7be8f59</a>
 </td>
 <td>
@@ -690,7 +734,18 @@ updates
 </div>
 </div>
 </div>
-<p>We will analyze all 12 slides</p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Here, we apply KODAMA to analyze the human dorsolateral prefrontal
+cortex (DLPFC) data by 10x Visium from <a
+href="https://www.nature.com/articles/s41593-020-00787-0">Maynard et
+al., 2021</a>. The links to download the raw data and H&amp;E full
+resolution images can be found in the <a
+href="https://github.com/LieberInstitute/spatialLIBD">LieberInstitute/spatialLIBD</a>
+github page.</p>
+</div>
+<div id="loading-the-required-libraries" class="section level1">
+<h1>Loading the required libraries</h1>
 <pre class="r"><code>library(&quot;nnSVG&quot;)
 library(&quot;scater&quot;)
 library(&quot;scran&quot;)
@@ -701,9 +756,14 @@ library(&quot;Seurat&quot;)
 library(&quot;spatialLIBD&quot;)
 library(&quot;KODAMA&quot;)
 library(&quot;KODAMAextra&quot;)
-
-
-sample_names=c(&quot;151507&quot;,
+library(&quot;mclust&quot;)</code></pre>
+</div>
+<div id="download-the-dataset" class="section level1">
+<h1>Download the dataset</h1>
+<pre class="r"><code>spe &lt;- fetch_data(type = &#39;spe&#39;)</code></pre>
+<div id="extract-the-metadata-information" class="section level2">
+<h2>Extract the metadata information</h2>
+<pre class="r"><code>sample_names=c(&quot;151507&quot;,
                &quot;151508&quot;,
                &quot;151509&quot;,
                &quot;151510&quot;,
@@ -715,34 +775,35 @@ sample_names=c(&quot;151507&quot;,
                &quot;151674&quot;,
                &quot;151675&quot;,
                &quot;151676&quot;)
-
 subject_names= c(&quot;Br5292&quot;,&quot;Br5595&quot;, &quot;Br8100&quot;)
-
-#spe &lt;- fetch_data(type = &#39;spe&#39;,destdir=&quot;../Temporary&quot;)
-load(&quot;../DLFPC.RData&quot;)
-
 metaData = SingleCellExperiment::colData(spe)
 expr = SingleCellExperiment::counts(spe)
 sample_names &lt;- paste0(&quot;sample_&quot;, unique(colData(spe)$sample_id))
 sample_names &lt;-  unique(colData(spe)$sample_id)
 dim(spe)</code></pre>
 <pre><code>[1] 33538 47681</code></pre>
-<p>identify mitochondrial genes</p>
+</div>
+</div>
+<div id="preprocessing" class="section level1">
+<h1>Preprocessing</h1>
+<div id="quality-control" class="section level2">
+<h2>Quality control</h2>
+<p>We identified mitochondrial genes, calculated per-spot QC metrix and
+select the QC threshoulds. Low quality spots are discarded.</p>
 <pre class="r"><code>is_mito &lt;- grepl(&quot;(^MT-)|(^mt-)&quot;, rowData(spe)$gene_name)
 table(is_mito)</code></pre>
 <pre><code>is_mito
 FALSE  TRUE 
 33525    13 </code></pre>
-<p>calculate per-spot QC metrics and select the QC threshoulds</p>
 <pre class="r"><code>spe &lt;- addPerCellQC(spe, subsets = list(mito = is_mito))
 
 # select QC thresholds
 qc_lib_size &lt;- colData(spe)$sum &lt; 500
 qc_detected &lt;- colData(spe)$detected &lt; 250
 qc_mito &lt;- colData(spe)$subsets_mito_percent &gt; 30
-qc_cell_count &lt;- colData(spe)$cell_count &gt; 12</code></pre>
-<p>Spot to discard and filter low-quality</p>
-<pre class="r"><code>discard &lt;- qc_lib_size | qc_detected | qc_mito | qc_cell_count
+qc_cell_count &lt;- colData(spe)$cell_count &gt; 12
+
+discard &lt;- qc_lib_size | qc_detected | qc_mito | qc_cell_count
 table(discard)</code></pre>
 <pre><code>discard
 FALSE  TRUE 
@@ -752,16 +813,21 @@ FALSE  TRUE
 spe &lt;- spe[, !colData(spe)$discard]
 dim(spe)</code></pre>
 <pre><code>[1] 33538 46653</code></pre>
-<p>Horizontalization</p>
-<pre class="r"><code># readjust xy
-xy=spatialCoords(spe)
+</div>
+<div id="horizontalization" class="section level2">
+<h2>Horizontalization</h2>
+<p>The position of spots is corrected to allow to set the slides in the
+same XY plane.</p>
+<pre class="r"><code>xy=spatialCoords(spe)
 samples=unique(colData(spe)$sample_id)
 for(j in 1:length(samples)){
   sel=samples[j]==colData(spe)$sample_id
   xy[sel,1]=spatialCoords(spe)[sel,1]+12000*(j-1)
 }
 spatialCoords(spe)=xy</code></pre>
-<p>Gene filtering</p>
+</div>
+<div id="gene-filtering" class="section level2">
+<h2>Gene filtering</h2>
 <pre class="r"><code>spe &lt;- filter_genes(
   spe,
   filter_genes_ncounts = 2,   #ncounts
@@ -771,15 +837,26 @@ spatialCoords(spe)=xy</code></pre>
 
 dim(spe)</code></pre>
 <pre><code>[1]  6623 46653</code></pre>
-<p>REmove the spots that have not been manually assigned</p>
+<p>Spots that are not assigned to any tissue regions are removed from
+the analysis.</p>
 <pre class="r"><code>sel= !is.na(colData(spe)$layer_guess_reordered)
 spe = spe[,sel]
 dim(spe)</code></pre>
 <pre><code>[1]  6623 46318</code></pre>
-<p>normalization</p>
+</div>
+<div id="normalization" class="section level2">
+<h2>Normalization</h2>
 <pre class="r"><code>spe &lt;- computeLibraryFactors(spe)
 spe &lt;- logNormCounts(spe)</code></pre>
-<p>Identification of the gene spatially relevvant</p>
+</div>
+<div id="gene-selection" class="section level2">
+<h2>Gene selection</h2>
+<p>The identification of genes that display spatial expression patterns
+is performed using the SPARKX method (<a
+href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02404-0">Zhu
+et al. (2021)</a>). The genes are ranked based on the median value of
+the logarithm value of the p-value obtained in each slide
+individually.</p>
 <pre class="r"><code>gene_i=NULL
 pvalue_i=NULL
 pvalue_mat=matrix(nrow=nrow(spe),ncol=length(sample_names))
@@ -794,207 +871,15 @@ for(i in 1:length(sample_names)){
   pvalue_mat[,i]=sparkX$res_mtest$combinedPval
   print(sample_names[i])
 }</code></pre>
-<pre><code>## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 4170 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5
-[1] &quot;151507&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 4285 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5</code></pre>
 <pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!
+Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!
+Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!
+Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!
+Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!
+Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!
+Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!
+Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!
 Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
-<pre><code>[1] &quot;151508&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 4708 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5
-[1] &quot;151509&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 4571 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5</code></pre>
-<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!
-Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
-<pre><code>[1] &quot;151510&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 3587 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5</code></pre>
-<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
-<pre><code>[1] &quot;151669&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 3274 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5</code></pre>
-<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
-<pre><code>[1] &quot;151670&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 4013 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5
-[1] &quot;151671&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 3772 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5</code></pre>
-<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
-<pre><code>[1] &quot;151672&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 3568 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5
-[1] &quot;151673&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 3576 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5
-[1] &quot;151674&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 3468 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5</code></pre>
-<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
-<pre><code>[1] &quot;151675&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 3326 
-## number of total genes: 6623 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5</code></pre>
-<pre><code>Warning in FUN(newX[, i], ...): There are p-values that are exactly 1!</code></pre>
-<pre><code>[1] &quot;151676&quot;</code></pre>
 <pre class="r"><code>oo=order(pvalue_i)
 top_genes=gene_i[oo]
 n=ave(1:length(top_genes), top_genes, FUN = seq_along)
@@ -1020,13 +905,13 @@ top=gene_i[oo]</code></pre>
 # pca &lt;- RunHarmony(pca, subjects,lambda=NULL)
  pca=reducedDim(spe,type = &quot;HARMONY&quot;)[,1:50]
 plot(pca)</code></pre>
-<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>KODAMA</p>
 <pre class="r"><code>kk=KODAMA.matrix.parallel(pca,
                             spatial = xy,
                             FUN= &quot;PLS&quot; ,
                             landmarks = 100000,
-                            splitting = 100,
+                            splitting = 300,
                             f.par.pls = 50,
                             spatial.resolution = 0.4,
                             n.cores=4)</code></pre>
@@ -1046,28 +931,28 @@ plot(pca)</code></pre>
 
   clu=kmeans(kk_UMAP,7,nstart = 100)$cluster
   plot(kk_UMAP,col=labels,pch=20)</code></pre>
-<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>  plot(kk_UMAP,col=clu,pch=20)</code></pre>
-<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-14-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(xy,col=clu,pch=20)</code></pre>
-<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-12-3.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-14-3.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>u=unique(samples)
 for(i in 1:length(u)){
   sel=samples==u[i]
   print(adjustedRandIndex(labels[sel],clu[sel]))
 }</code></pre>
-<pre><code>[1] 0.5508229
-[1] 0.4872925
-[1] 0.5052779
-[1] 0.494307
-[1] 0.3409199
-[1] 0.3167812
-[1] 0.3902892
-[1] 0.4299399
-[1] 0.556732
-[1] 0.5887864
-[1] 0.5407068
-[1] 0.5263028</code></pre>
+<pre><code>[1] 0.5424012
+[1] 0.4869132
+[1] 0.4918829
+[1] 0.482701
+[1] 0.3316558
+[1] 0.3128665
+[1] 0.3886265
+[1] 0.4199793
+[1] 0.5528813
+[1] 0.566796
+[1] 0.5556891
+[1] 0.5284708</code></pre>
 <pre class="r"><code>ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
 <pre><code>[1] &quot;151507&quot;
 [1] &quot;151508&quot;
@@ -1086,20 +971,20 @@ for(i in 1:length(u)){
   sel=samples==u[i]
   print(adjustedRandIndex(labels[sel],ref[sel]))
 }</code></pre>
-<pre><code>[1] 0.5866949
-[1] 0.5195753
-[1] 0.5188101
-[1] 0.5143312
-[1] 0.3850269
-[1] 0.3693473
-[1] 0.4572459
-[1] 0.5679025
-[1] 0.6151074
-[1] 0.6426947
-[1] 0.6247849
-[1] 0.6034484</code></pre>
+<pre><code>[1] 0.5808856
+[1] 0.5194297
+[1] 0.5068338
+[1] 0.5109041
+[1] 0.3762886
+[1] 0.3615001
+[1] 0.4520455
+[1] 0.5476094
+[1] 0.6065583
+[1] 0.6119949
+[1] 0.6139298
+[1] 0.5945212</code></pre>
 <pre class="r"><code>plot(xy,col=ref,pch=20)</code></pre>
-<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-12-4.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-14-4.png" width="960" style="display: block; margin: auto;" /></p>
 <p>TRAJECTORY</p>
 <pre class="r"><code>library(&quot;slingshot&quot;)
 
@@ -1109,7 +994,9 @@ k=knn_Armadillo(trajectory,kk_UMAP,1)
 
 map_color=rainbow(nrow(trajectory))[k$nn_index]
 plot(kk_UMAP,col=map_color)</code></pre>
-<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(xy,col=map_color)</code></pre>
+<p><img src="figure/DLPFC-12.Rmd/unnamed-chunk-15-2.png" width="960" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1243,8 +1130,8 @@ loaded via a namespace (and not attached):
 [153] RcppHNSW_0.6.0            bitops_1.0-7             
 [155] benchmarkmeData_1.0.4     bit64_4.0.5              
 [157] spatstat.utils_3.0-5      BiocNeighbors_1.22.0     
-[159] matlab_1.0.4.1            jquerylib_0.1.4          
-[161] highr_0.11                metapod_1.12.0           
+[159] matlab_1.0.4.1            highr_0.11               
+[161] jquerylib_0.1.4           metapod_1.12.0           
 [163] config_0.3.2              dqrng_0.4.1              
 [165] spatstat.univar_3.0-0     lazyeval_0.2.2           
 [167] shiny_1.8.1.1             htmltools_0.5.8.1        
@@ -1263,6 +1150,8 @@ loaded via a namespace (and not attached):
 [193] RColorBrewer_1.1-3        rlang_1.1.4              
 [195] spatstat.sparse_3.1-0     spatstat.explore_3.3-1   
 [197] fansi_1.0.6               beeswarm_0.4.0           </code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
