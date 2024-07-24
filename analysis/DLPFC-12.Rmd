@@ -7,8 +7,10 @@ editor_options:
   chunk_output_type: console
 ---
 
-We will analyze all 12 slides
+# Introduction
+Here, we apply KODAMA to analyze the human dorsolateral prefrontal cortex (DLPFC) data by 10x Visium from [Maynard et al., 2021](https://www.nature.com/articles/s41593-020-00787-0). The links to download the raw data and H&E full resolution images can be found in the [LieberInstitute/spatialLIBD](https://github.com/LieberInstitute/spatialLIBD) github page.
 
+# Loading the required libraries
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 library("nnSVG")
 library("scater")
@@ -20,8 +22,20 @@ library("Seurat")
 library("spatialLIBD")
 library("KODAMA")
 library("KODAMAextra")
+library("mclust")
+```
 
+# Download the dataset
+```{r, eval=FALSE}
+spe <- fetch_data(type = 'spe')
+```
 
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+load("../DLFPC.RData")
+```
+
+## Extract the metadata information
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 sample_names=c("151507",
                "151508",
                "151509",
@@ -34,35 +48,22 @@ sample_names=c("151507",
                "151674",
                "151675",
                "151676")
-
 subject_names= c("Br5292","Br5595", "Br8100")
-
-#spe <- fetch_data(type = 'spe',destdir="../Temporary")
-load("../DLFPC.RData")
-
 metaData = SingleCellExperiment::colData(spe)
 expr = SingleCellExperiment::counts(spe)
 sample_names <- paste0("sample_", unique(colData(spe)$sample_id))
 sample_names <-  unique(colData(spe)$sample_id)
 dim(spe)
-
-
-
-
 ```
 
- identify mitochondrial genes
+# Preprocessing
+## Quality control
+We identified mitochondrial genes, calculated per-spot QC metrix and select the QC threshoulds.
+Low quality spots are discarded.
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-
 is_mito <- grepl("(^MT-)|(^mt-)", rowData(spe)$gene_name)
 table(is_mito)
-
-```
-
- calculate per-spot QC metrics
- and select the QC threshoulds
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 spe <- addPerCellQC(spe, subsets = list(mito = is_mito))
 
 # select QC thresholds
@@ -70,10 +71,6 @@ qc_lib_size <- colData(spe)$sum < 500
 qc_detected <- colData(spe)$detected < 250
 qc_mito <- colData(spe)$subsets_mito_percent > 30
 qc_cell_count <- colData(spe)$cell_count > 12
-```
-
-Spot to discard and filter low-quality
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
 discard <- qc_lib_size | qc_detected | qc_mito | qc_cell_count
 table(discard)
@@ -84,10 +81,12 @@ dim(spe)
 
 ```
 
-Horizontalization
+
+
+## Horizontalization
+The position of spots is corrected to allow to set the slides in the same XY plane.
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# readjust xy
 xy=spatialCoords(spe)
 samples=unique(colData(spe)$sample_id)
 for(j in 1:length(samples)){
@@ -97,7 +96,8 @@ for(j in 1:length(samples)){
 spatialCoords(spe)=xy
 ```
 
-Gene filtering
+
+## Gene filtering
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
 spe <- filter_genes(
@@ -110,24 +110,25 @@ spe <- filter_genes(
 dim(spe)
 ```
 
-REmove the spots that have not been manually assigned
+Spots that are not assigned to any tissue regions are removed from the analysis.
+
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 sel= !is.na(colData(spe)$layer_guess_reordered)
 spe = spe[,sel]
 dim(spe)
 ```
 
-
- normalization
+## Normalization
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 spe <- computeLibraryFactors(spe)
 spe <- logNormCounts(spe)
 ```
 
+## Gene selection
+The identification of genes that display spatial expression patterns is performed using the SPARKX method ([Zhu et al. (2021)](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02404-0)). The genes are ranked based on the median value of the logarithm value of the p-value obtained in each slide individually.
 
-Identification of the gene spatially relevvant
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=10, fig.height=4,results = "hide"}
 gene_i=NULL
 pvalue_i=NULL
 pvalue_mat=matrix(nrow=nrow(spe),ncol=length(sample_names))
@@ -150,7 +151,6 @@ top_genes=top_genes[n==1]
 oo=order(apply(pvalue_mat,1,function(x) median(-log(x))),decreasing = TRUE)
 top=gene_i[oo]
 ```
-
 
 
 PCA and HARMONY
@@ -184,7 +184,7 @@ kk=KODAMA.matrix.parallel(pca,
                             spatial = xy,
                             FUN= "PLS" ,
                             landmarks = 100000,
-                            splitting = 100,
+                            splitting = 300,
                             f.par.pls = 50,
                             spatial.resolution = 0.4,
                             n.cores=4)
@@ -197,6 +197,12 @@ kk=KODAMA.matrix.parallel(pca,
      kk_UMAP=KODAMA.visualization(kk,method="UMAP",config=config)
 
 ```
+
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+save(kk_UMAP,file="output/DLFPC-All.RData")
+```
+
 
 CLUSTER
 
@@ -239,6 +245,9 @@ k=knn_Armadillo(trajectory,kk_UMAP,1)
 
 map_color=rainbow(nrow(trajectory))[k$nn_index]
 plot(kk_UMAP,col=map_color)
+
+
+plot(xy,col=map_color)
 
 
 

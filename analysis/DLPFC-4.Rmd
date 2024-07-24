@@ -81,13 +81,7 @@ dim(spe)
 
 ```
 
-Spots that are not assigned to any tissue regions are removed from the analysis.
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-sel= !is.na(colData(spe)$layer_guess_reordered)
-spe = spe[,sel]
-dim(spe)
-```
 
 ## Horizontalization
 The position of spots is corrected to allow to set the slides in the same XY plane.
@@ -116,6 +110,13 @@ spe <- filter_genes(
 dim(spe)
 ```
 
+Spots that are not assigned to any tissue regions are removed from the analysis.
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+sel= !is.na(colData(spe)$layer_guess_reordered)
+spe = spe[,sel]
+dim(spe)
+```
 
 ## Normalization
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
@@ -181,7 +182,7 @@ kk=KODAMA.matrix.parallel(pca,
                             spatial = xy,
                             FUN= "PLS" ,
                             landmarks = 100000,
-                            splitting = 100,
+                            splitting = 300,
                             f.par.pls = 50,
                             spatial.resolution = 0.4,
                             n.cores=4)
@@ -225,33 +226,117 @@ for(i in 1:length(u)){
 }
 plot(xy,col=ref,pch=20)
 
-#############################
-
-  clu=kmeans(kk_UMAP,7,nstart = 100)$cluster
-  plot(kk_UMAP,col=labels,pch=20)
-  plot(kk_UMAP,col=clu,pch=20)
-
-plot(xy,col=clu,pch=20)
-
-u=unique(samples)
-for(i in 1:length(u)){
-  sel=samples==u[i]
-  print(adjustedRandIndex(labels[sel],clu[sel]))
-}
-
-ref=refine_SVM(xy,clu,samples,cost=100)
-
-u=unique(samples)
-for(i in 1:length(u)){
-  sel=samples==u[i]
-  print(adjustedRandIndex(labels[sel],ref[sel]))
-}
-plot(xy,col=ref,pch=20)
+```
 
 
-###################
 
- clu=kmeans(kk_UMAP,8,nstart = 100)$cluster
+## Graph-based clustering
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+
+    # Graph-based clustering
+    g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = 20)
+    g_walk <- igraph::cluster_walktrap(g)
+    clu <- as.character(igraph::cut_at(g_walk, no = 2))
+    plot(kk_UMAP,col=clu,pch=20)
+    
+
+    selclu=clu==1
+    
+    g <- bluster::makeSNNGraph(as.matrix(kk_UMAP[selclu,]), k = 50)
+    g_walk <- igraph::cluster_walktrap(g)
+    clu <- as.character(igraph::cut_at(g_walk, no = 5))
+    plot(kk_UMAP[selclu,],col=clu,pch=20)
+    
+    ref=refine_SVM(xy[selclu,],clu,samples[selclu],cost=100)
+
+    u=unique(samples)
+    for(i in 1:length(u)){
+      sel=samples==u[i]
+      print(adjustedRandIndex(labels[selclu][sel],ref[sel]))
+    }
+    plot(xy[selclu,],col=ref,pch=20)
+``` 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Patient Br5292
+
+
+```{r, fig.width=10, fig.height=4}
+
+subject_names="Br5292"
+
+  spe_sub <- spe[, colData(spe)$subject ==  subject_names]
+  subjects=colData(spe_sub)$subject
+  dim(spe_sub)
+  spe_sub <- runPCA(spe_sub, 50,subset_row = top[1:2000], scale=TRUE)
+
+  pca=reducedDim(spe_sub,type = "PCA")[,1:50]
+  labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+  xy=as.matrix(spatialCoords(spe_sub))
+  samples=colData(spe_sub)$sample_id
+  data=t(logcounts(spe_sub)[top[1:2000],])
+  
+  plot(pca, col=as.factor(colData(spe_sub)$sample_id))
+
+
+```
+
+## KODAMA analysis
+
+```{r, fig.width=10, fig.height=4}
+kk=KODAMA.matrix.parallel(pca,
+                            spatial = xy,
+                            FUN= "PLS" ,
+                            landmarks = 100000,
+                            splitting = 300,
+                            f.par.pls = 50,
+                            spatial.resolution = 0.4,
+                            n.cores=4)
+
+  print("KODAMA finished")
+  
+     config=umap.defaults
+     config$n_threads = 4
+     config$n_sgd_threads = "auto"
+     kk_UMAP=KODAMA.visualization(kk,method="UMAP",config=config)
+
+     plot(kk_UMAP,col=as.factor(labels))
+```
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+save(kk_UMAP,file="output/DLFPC-Br5292.RData")
+```
+
+## Kmeans clustering
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+
+
+ clu=kmeans(kk_UMAP,7,nstart = 100)$cluster
   plot(kk_UMAP,col=labels,pch=20)
   plot(kk_UMAP,col=clu,pch=20)
 
@@ -280,17 +365,12 @@ plot(xy,col=ref,pch=20)
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
-    # Graph-based clustering
-    g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = 20)
-    g_walk <- igraph::cluster_walktrap(g)
-    clu <- as.character(igraph::cut_at(g_walk, no = 2))
-    plot(kk_UMAP,col=clu,pch=20)
-    
+
 
     
-    g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = 20)
+    g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = 50)
     g_walk <- igraph::cluster_walktrap(g)
-    clu <- as.character(igraph::cut_at(g_walk, no = 5))
+    clu <- as.character(igraph::cut_at(g_walk, no = 7))
     plot(kk_UMAP,col=clu,pch=20)
     
     ref=refine_SVM(xy,clu,samples,cost=100)
@@ -302,3 +382,126 @@ plot(xy,col=ref,pch=20)
     }
     plot(xy,col=ref,pch=20)
 ``` 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Patient Br8100
+
+
+```{r, fig.width=10, fig.height=4}
+
+subject_names="Br8100"
+
+  spe_sub <- spe[, colData(spe)$subject ==  subject_names]
+  subjects=colData(spe_sub)$subject
+  dim(spe_sub)
+  spe_sub <- runPCA(spe_sub, 50,subset_row = top[1:2000], scale=TRUE)
+
+  pca=reducedDim(spe_sub,type = "PCA")[,1:50]
+  labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+  xy=as.matrix(spatialCoords(spe_sub))
+  samples=colData(spe_sub)$sample_id
+  data=t(logcounts(spe_sub)[top[1:2000],])
+  
+  plot(pca, col=as.factor(colData(spe_sub)$sample_id))
+
+
+```
+
+## KODAMA analysis
+
+```{r, fig.width=10, fig.height=4}
+kk=KODAMA.matrix.parallel(pca,
+                            spatial = xy,
+                            FUN= "PLS" ,
+                            landmarks = 100000,
+                            splitting = 300,
+                            f.par.pls = 50,
+                            spatial.resolution = 0.4,
+                            n.cores=4)
+
+  print("KODAMA finished")
+  
+     config=umap.defaults
+     config$n_threads = 4
+     config$n_sgd_threads = "auto"
+     kk_UMAP=KODAMA.visualization(kk,method="UMAP",config=config)
+
+     plot(kk_UMAP,col=as.factor(labels))
+```
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+save(kk_UMAP,file="output/DLFPC-Br8100.RData")
+```
+
+## Kmeans clustering
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+
+ clu=kmeans(kk_UMAP,7,nstart = 100)$cluster
+  plot(kk_UMAP,col=labels,pch=20)
+  plot(kk_UMAP,col=clu,pch=20)
+
+plot(xy,col=clu,pch=20)
+
+u=unique(samples)
+for(i in 1:length(u)){
+  sel=samples==u[i]
+  print(adjustedRandIndex(labels[sel],clu[sel]))
+}
+
+ref=refine_SVM(xy,clu,samples,cost=100)
+
+u=unique(samples)
+for(i in 1:length(u)){
+  sel=samples==u[i]
+  print(adjustedRandIndex(labels[sel],ref[sel]))
+}
+plot(xy,col=ref,pch=20)
+
+#############################
+
+```
+
+
+
+## Graph-based clustering
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+
+    # Graph-based clustering
+    g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = 20)
+    g_walk <- igraph::cluster_walktrap(g)
+    clu <- as.character(igraph::cut_at(g_walk, no = 7))
+    plot(kk_UMAP,col=clu,pch=20)
+    
+
+    
+    ref=refine_SVM(xy,clu,samples,cost=100)
+
+    u=unique(samples)
+    for(i in 1:length(u)){
+      sel=samples==u[i]
+      print(adjustedRandIndex(labels[sel],ref[sel]))
+    }
+    plot(xy,col=ref,pch=20)
+``` 
+
+
+
+
+
+
