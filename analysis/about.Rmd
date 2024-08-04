@@ -8,4 +8,15 @@ editor_options:
 ---
 
 
-Describe your project.
+References
+
+
+The KODAMA package has been integrated with t-SNE and UMAP to convert the KODAMA's dissimilarity matrix in a low dimensional space. 
+
+
+
+[Zinga MM, Abdel-Shafy E, Melak T, Vignoli A, Piazza S, Zerbini LF, Tenori L, Cacciatore S. KODAMA exploratory analysis in metabolic phenotyping. Front Mol Biosci. 2023 Jan 17;9:1070394.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9887019/)
+
+[Cacciatore S, Tenori L, Luchinat C, Bennett PR, MacIntyre DA. KODAMA: an R package for knowledge discovery and data mining. Bioinformatics. 2017 Feb 15;33(4):621-623.](https://academic.oup.com/bioinformatics/article-lookup/doi/10.1093/bioinformatics/btw705)
+
+[Cacciatore S, Luchinat C, Tenori L. Knowledge discovery by accuracy maximization. Proc Natl Acad Sci U S A. 2014 Apr 8;111(14):5117-22.](https://www.pnas.org/doi/abs/10.1073/pnas.1220873111)

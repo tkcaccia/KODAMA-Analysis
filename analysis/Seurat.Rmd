@@ -30,7 +30,7 @@ For specific details on loading and using the dataset, please take a look at the
 Install and load the anterior region of the mouse brain dataset.
 
 ```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
-InstallData("stxBrain")
+#InstallData("stxBrain")
 brain <- LoadData("stxBrain", type = "anterior1")
 ```
 
