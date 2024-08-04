@@ -2,9 +2,99 @@
 title: "About"
 output:
   workflowr::wflow_html:
-    toc: false
+    toc: true
 editor_options:
   chunk_output_type: console
 ---
 
-Describe your project.
+# Introduction
+
+Single-cell RNA sequencing (scRNA-seq) has revolutionized our ability to understand the complexity of biological systems at an unprecedented resolution. By profiling the transcriptomes of individual cells, researchers can uncover cellular heterogeneity, identify novel cell types, and understand dynamic biological processes such as differentiation, development, and disease progression.
+
+To analyze scRNA-seq data effectively, robust computational tools are essential. The Seurat package, developed by the Satija Lab, is widely used for scRNA-seq data analysis. It provides comprehensive methods for quality control, data normalization, identification of highly variable genes, dimensionality reduction, clustering, and differential expression analysis.
+
+In addition to Seurat, the KODAMA package offers powerful techniques for data visualization and unsupervised clustering. KODAMA (Kernel Density Approximation and Manifold Alignment) is particularly useful for detecting complex structures and relationships in high-dimensional data.
+
+In this tutorial, we will perform a step-by-step analysis of a publicly available scRNA-seq dataset using Seurat and KODAMA. The dataset consists of peripheral blood mononuclear cells (PBMCs) from a healthy donor, sequenced by 10x Genomics.
+
+# Load necessary libraries
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+library(dplyr)
+library(Seurat)
+library(patchwork)
+library(KODAMA)
+library(KODAMAextra)
+```
+
+# Loading Data
+
+The raw data can be found [here](https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz).
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+# Read the 10X Genomics data
+pbmc.data <- Read10X(data.dir = "../data/filtered_gene_bc_matrices/hg19/")
+
+# Replace underscores with dashes in the row names (feature names)
+rownames(pbmc.data) <- gsub("_", "-", rownames(pbmc.data))
+
+# Create the Seurat object
+pbmc <- CreateSeuratObject(counts = pbmc.data, project = "pbmc3k", min.cells = 3, min.features = 200)
+pbmc
+```
+
+# Quality Control and Filtering
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
+VlnPlot(pbmc, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+
+plot1 <- FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+
+pbmc <- subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
+```
+
+# Normalization and Identification of Variable Features
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+pbmc <- NormalizeData(pbmc, normalization.method = "LogNormalize", scale.factor = 10000)
+pbmc <- FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
+
+# Identify the 10 most highly variable genes
+top10 <- head(VariableFeatures(pbmc), 10)
+
+# Plot variable features with and without labels
+plot1 <- VariableFeaturePlot(pbmc)
+plot2 <- LabelPoints(plot = plot1, points = top10, repel = TRUE)
+plot1 + plot2
+```
+
+# Data Scaling
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+all.genes <- rownames(pbmc)
+pbmc <- ScaleData(pbmc, features = all.genes)
+```
+
+# Principal Component Analysis (PCA) and KODAMA
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+pbmc <- RunPCA(pbmc, features = VariableFeatures(object = pbmc))
+pbmc <- RunKODAMAmatrix(pbmc, FUN = "PK", f.par.knn = 50, f.par.pls = 50, n.cores = 1)
+```
+
+# Visualization with KODAMA
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+pbmc <- RunKODAMAvisualization(pbmc, method = "UMAP")
+```
+
+# Clustering
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+pbmc <- FindNeighbors(pbmc, reduction = "KODAMA", dims = 1:2)
+pbmc <- FindClusters(pbmc, verbose = TRUE, graph.name = "RNA_snn", resolution = 0.2)
+DimPlot(pbmc, reduction = "KODAMA")
+```
