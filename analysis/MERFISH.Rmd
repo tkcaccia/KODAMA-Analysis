@@ -6,123 +6,256 @@ output:
 editor_options:
   chunk_output_type: console
 ---
-Describe your project.
 
 # MERFISH Data Analysis
 
-The molecular imaging technology MERFISH (Multiplexed Error-Robust Fluorescence In Situ Hybridization) has revolutionized RNA mapping at the cellular level with unmatched spatial precision. This technique enables the simultaneous visualization of numerous genes within individual cells, offering unique insights into molecular processes in biological tissues. MERFISH data provides detailed information on cell structure and function, paving the way for new discoveries in cellular and molecular biology.
+# Introduction
 
-The dataset analyzed, as presented in [this article](https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248), includes information on 36 mice from the hypothalamic preoptic region of the brain, derived from samples taken from various regions of the same animal. The "Bregma" column indicates the slice location in Bregma coordinates, an anatomical reference point used in neuroscience.
+Spatial transcriptomics is a powerful technique for studying the spatial organization of gene expression within tissues.
+Here, we apply KODAMA to analyze the spatial transcriptomic data that measured the mouse preoptic region of the hypothalamus
+using the MERFISH technology from Moffitt et al., 2018. [Link to study](https://www.science.org/doi/10.1126/science.aau5324).
+We focus on the tissue sections Bregma -0.04, -0.09, -0.14, -0.19, and -0.24 mm from a consecutive brain hypothalamic region of animal 1.
+The original data can be downloaded from [Dryad](https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248).
 
-Our focus is on advanced analysis of MERFISH data from biological tissues, introducing key advancements such as a 12 Extended Layer Analysis method for detailed tissue structure understanding and a 3D clustering feature for accurately representing the spatial relationships and RNA interactions within cells.
+# Loading and Preprocessing Data
 
-Our main objective is to integrate multiple tissue sections for unified analysis across different samples. We employ data preprocessing, dimension reduction, and advanced clustering techniques to explore the relationship between tissue structure and cellular behavior, highlighting spatial variations and gene expression patterns associated with specific biological functions.
-
-# Load necessary libraries
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-
-library(Seurat)
+```{r, message=FALSE, warning=FALSE}
+# Load the necessary libraries
+library(rgl)
+library(irlba)
 library(KODAMAextra)
+library(scater)
+library(SPARK)
 library(ggplot2)
-library(NMI)
+library(plotly)
 library(mclust)
-library(bluster)
-library(igraph)
 ```
 
-# Downloading the Data
 
-The data is downloaded from this [link](https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248) for the continuation of the work.
+```{r, message=FALSE, warning=FALSE}
+# Load the MERFISH data
+load("../MERFISH_Animal1.RData")
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# Load data
-data <- read.csv("../Merfish/hypothalamic_preoptic_region/Moffitt_and_Bambah-Mukku_et_al_merfish_all_cells.csv")
-data <- as.data.frame(data)
+# Define the slides to be analyzed
+slides <- c("-0.04", "-0.09", "-0.14", "-0.19", "-0.24")
+
+# Initialize variables
+xyz <- NULL
+tissue_segments <- NULL
+cell_type <- NULL
+RNA <- NULL
+
+# Extract spatial and expression data from each slide
+for (i in slides) {
+  x <- info_mult[[i]]$x / 1000
+  y <- info_mult[[i]]$y / 1000
+  z <- as.numeric(i)
+  slide_xyz <- cbind(x - min(x), y - min(y), z)
+  xyz <- rbind(xyz, slide_xyz)
+  tissue_segments <- c(tissue_segments, info_mult[[i]]$z)
+  cell_type <- c(cell_type, info_mult[[i]]$Cell_class)
+  RNA <- rbind(RNA, t(cnts_mult[[i]]))
+}
+
+# Normalize RNA counts
+RNA <- t(normalizeCounts(t(RNA), log = TRUE))
+
+# Convert tissue segments to factor with defined levels
+tissue_segments <- factor(tissue_segments, levels = c("V3", "BST", "fx", "MPA", "MPN", "PV", "PVH", "PVT"))
+
+# Convert xyz to numeric matrix
+xyz <- matrix(as.numeric(as.matrix(xyz)), ncol = ncol(xyz))
 ```
 
-# Data Pre-processing
-In our data preprocessing process, we have undertaken a rigorous approach to ensure the quality and relevance of the information we use in our analysis. With a total of 170 genes initially included in our data, our first step was to eliminate the "Blank" genes, which are control or background genes that do not contribute to our main analysis. This elimination allowed us to reduce our data set to 165 genes. Subsequently, we identified and removed the "Fos" gene, suspected of having an unwanted or disruptive impact on our data, leaving a total of 164 genes for our analysis. These initial cleaning steps are crucial to ensure that the data we use is reliable and suitable for our analysis objectives. By then filtering the data to retain only those corresponding to Animal_ID 1 and specific Bregma values, we ensure that we focus on a subset relevant to our study. This preprocessing process is essential to prepare our data properly, by eliminating unnecessary elements and focusing on the most relevant data for our subsequent analysis.
+# Identifying Differentially Expressed Genes
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# Data cleaning
-colnames_data <- colnames(data)
-blankgenes <- grep("Blank", colnames_data)
-fos_index <- which(colnames(data) == "Fos")
-df <- data[, -c(fos_index, blankgenes)]
-selected_bregma <- unique(df$Bregma)
+```{r, fig.width=10, fig.height=4,results = "hide"}
+# Initialize matrix to store p-values
+pvalue_mat <- matrix(nrow = ncol(RNA), ncol = length(slides))
+rownames(pvalue_mat) <- colnames(RNA)
 
-# Filter data for Animal_ID 1 and specific Bregma values
-exp <- subset(df, Animal_ID == 1 & Bregma %in% selected_bregma)
-rownames(exp) <- exp$Cell_ID
-data_list <- split(exp, exp$Bregma)
-data_list <- data_list[match(selected_bregma, names(data_list))]
+# Calculate p-values using SPARK
+for (i in 1:length(slides)) {
+  sel <- xyz[, 3] == slides[i]
+  RNA_sub <- RNA[sel,]
+  xyz_sup <- xyz[sel, -3]
+  sparkX <- sparkx(t(RNA_sub), xyz_sup, numCores = 1, option = "mixture")
+  pvalue_mat[, i] <- sparkX$res_mtest$combinedPval
+  print(slides[i])
+}
 
-
-# Initialize lists 
-xy <- list()
-pca <- list()
-v <- list()
-kk <- list()
-vis <- list()
-pred <- list()
-refine <- list()
-cons <- list()
-ARI <- list()
-NMI <- list()
-
-
-# Normalization and dimension reduction by PCA
-for (i in names(data_list)) {
-  print(i)
-  x <- data_list[[i]]$Centroid_X - min(data_list[[i]]$Centroid_X)
-  y <- data_list[[i]]$Centroid_Y - min(data_list[[i]]$Centroid_Y)
-  xy[[i]] <- cbind(x, y)
-  rownames(xy[[i]]) <- rownames(data_list[[i]])
-  cons[[i]] <- t(data_list[[i]][, 10:ncol(data_list[[i]])])
-  colnames(cons[[i]]) <- rownames(data_list[[i]])
-  v[[i]] <- t(LogNormalize(cons[[i]]))
-
-#dimensionality reduction BY Principal Component Analysis (PCA)
-
-  pca[[i]] <- prcomp(v[[i]], scale. = TRUE)$x[, 1:50]
-
-#  KODAMA clustering
-    kk[[i]] <- KODAMA.matrix.parallel(pca[[i]], spatial = xy[[i]], FUN = "PLS", landmarks = 10000, n.cores = 4)
-    vis[[i]] <- KODAMA.visualization(kk[[i]], method = "UMAP")
-    names(vis[[i]]) <- names(data_list[[i]])
-    
-    # Graph-based clustering
-    g <- bluster::makeSNNGraph(as.matrix(vis[[i]]), k = 100)
-    g_walk <- igraph::cluster_walktrap(g)
-    pred[[i]] <- as.character(igraph::cut_at(g_walk, no = 8))
-    refine[[i]] <- refinecluster(pred[[i]], xy[[i]], shape = "hexagon")}
+# Order genes by median -log(p-value)
+oo <- order(apply(pvalue_mat, 1, function(x) median(-log(x))), decreasing = TRUE)
+top <- colnames(RNA)[oo]
 ```
 
-#Visualization
-For better visualization of the results, it is essential to import the `vis.R` file at this stage.
+# Passing message
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# Importing the vis.R code
-source("data/vis.R")
+
+```{r, message=FALSE, warning=FALSE}
+
+RNA.sel.2=RNA[,top[1:100]]
+number_knn=10
+RNA.sel.3=RNA.sel.2
+knn=knn_Armadillo(xyz,xyz,number_knn)
+for(h in 1:nrow(xyz)){
+  temp=rep(0,ncol(RNA.sel.3))
+  RNA.temp=RNA.sel.2[knn$nn_index[h,],]
+  knn_gene=knn_Armadillo(RNA.temp,RNA.temp[1,,drop=FALSE],round(number_knn*0.5))$nn_index
+  for(i in 1:number_knn){
+    temp=temp+RNA.temp[i,]/(1+knn$distances[h,i]^2)
+  }
+  RNA.sel.3[h,]=temp
+}
+
+
+
 ```
 
-Visualizing the results of the Kodama clustering, a dimensionality reduction method that enhances data understanding.
+## Dimensionality reduction
 
-```{r, fig.width=10, fig.height=4}
-# Define colors for visualizations
+```{r, message=FALSE, warning=FALSE}
+RNA.scaled=scale(RNA.sel.3)
+pca_results <- irlba(A = RNA.scaled, nv = 50)
+pca <- pca_results$u %*% diag(pca_results$d)
+plot(pca,col=tissue_segments)
+
+```
+
+# Applying KODAMA
+
+```{r, message=FALSE, warning=FALSE}
+# Apply KODAMA to the PCA results
+jj <- KODAMA.matrix.parallel(pca[,1:30],spatial = xyz,f.par.pls = 50, FUN = "PLS", landmarks = 100000, n.cores = 8,splitting=100)
+
+config=umap.defaults
+config$n_neighbors=30
+vis <- KODAMA.visualization(jj, method = "UMAP",config=config)
+
+# Cluster the results
+ #g <- makeSNNGraph(vis,k = 100)
+ #g_walk <- cluster_walktrap(g)
+ #clu = as.character(igraph::cut_at(g_walk, no=8))
+ 
+clu=kmeans(vis,8,nstart = 100)$cluster
+ 
+# Plot the clusters
+par(mfrow = c(1, 2))
+plot(vis, col = tissue_segments, main = "KODAMA tissue")
+plot(vis, col = clu, main = "KODAMA Clusters")
+
+
+ref=refine_SVM(xyz,clu,cost=10000)
+
+ARI=NULL
+slides=unique(xyz[,3])
+for(i in 1:length(slides)){
+  sel=slides[i]==xyz[,3]
+  ARI[i]=adjustedRandIndex(ref[sel], tissue_segments[sel])
+}
+print(ARI)
+```
+
+# Refinement and Visualization
+
+```{r, message=FALSE, warning=FALSE}
+
+
 cols <- c("#669bbc", "#81b29a", "#f2cc8f", "#adc178",
           "#dde5b6", "#a8dadc", "#e5989b", "#e07a5f")
 
-# Visualize clusters
-plotClustersFacet(xy, pred, selected_bregma, size = 0.2) +
-  scale_color_manual("Domain", values = cols) +
-  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))
+change=sort(tapply(ref,tissue_segments,function(x) which.max(table(x))))
+ref=names(change)[ref]
+ref=factor(ref,levels = levels(tissue_segments))
 
-plotClustersFacet(xy, refine, selected_bregma, size = 1) +
+df <- data.frame(xyz, tissue_segments)
+df <- data.frame(xyz, ref)
+colnames(df)=c("x","y","z","tissue_segments")
+df$z=as.factor(df$z)
+df$tissue_segments=as.factor(df$tissue_segments)
+ggplot(df, aes(x, y, color = tissue_segments)) +
+  geom_point(size = 1) +
+  facet_grid(~z) +
+  theme_bw() +
+  theme(
+    legend.position = "bottom",
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid = element_blank())+
+  
   scale_color_manual("Domain", values = cols) +
-  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))
+  guides(color = guide_legend(nrow = 1, 
+                              override.aes = list(size = 2)))
+
+
+
+
 
 ```
+# 3D Visualization for Slice -0.14
 
-This script illustrates a standard approach to Merfish data analysis, showcasing the use of commonly used bioinformatics tools. It provides a comprehensive overview of the Merfish data analysis and visualization process, crucial for understanding the spatial distribution of RNA in cells.
+```{r, message=FALSE, warning=FALSE}
+
+
+library(rgl)
+
+library(MASS)
+
+library(misc3d)
+
+volume_rendering <- function(xyz,  tissue_segments,selection=NULL, alpha=NULL, colors=NULL,cells=c(20, 20, 20), level=exp(-3)) {
+  if(!is.factor(tissue_segments)){
+    stop("tissue_segments is not a factor")
+  }
+  option_tissue=levels(tissue_segments)
+  if(is.null(colors)){
+    colors=rainbow(length(option_tissue))
+  }else{
+    if(length(option_tissue)!=length(alpha)){
+      stop("The number of color does not match")
+    }
+  }
+  if(is.null(alpha)){ 
+    alpha=rep(1,length(option_tissue))
+  }else{
+    if(length(option_tissue)!=length(alpha)){
+      stop("The number of alpha does not match")
+    }
+  }
+  if(!is.null(selection)){
+    option_tissue=selection
+  }
+    ww=which(levels(tissue_segments) %in% option_tissue)
+    colors=colors[ww]
+    alpha=alpha[ww]
+    
+    
+
+  cells[1]=min(cells[1],length(unique(xyz[,1])))
+  cells[2]=min(cells[2],length(unique(xyz[,2])))
+  cells[3]=min(cells[3],length(unique(xyz[,3])))
+  sel.alpha=alpha>0
+  option_tissue=option_tissue[sel.alpha]
+  alpha=alpha[sel.alpha]
+  colors=colors[sel.alpha]
+  for (i in 1:length(option_tissue) ){
+    segment <- option_tissue[i]
+    sel <- tissue_segments == segment
+    d <- kde3d(xyz[sel, 1], xyz[sel, 2], xyz[sel, 3], n = cells)
+    e=array(0,dim=cells+2)
+    e[2:(cells[1]+1),2:(cells[2]+1),2:(cells[3]+1)]=d$d
+    dx=c(d$x[1]-d$x[2],d$x,d$x[cells[1]]+d$x[2]-d$x[1])
+    dy=c(d$y[1]-d$y[2],d$y,d$y[cells[2]]+d$y[2]-d$y[1])
+    dz=c(d$z[1]-d$z[2],d$z,d$z[cells[3]]+d$z[2]-d$z[1])
+    contour3d(e, level=level, dx, dy, dz,
+              color = colors[i],  scale = FALSE,
+              engine = "rgl", draw = TRUE, alpha = alpha[i], add = (i != 1))
+  }
+  rglwidget()
+}
+
+
+volume_rendering(xyz,ref,selection = c("V3","PVH","PV","fx"),alpha = c(0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8) ,colors = cols,cells=c(20, 20, 20),level=exp(2.8))
+
+```
