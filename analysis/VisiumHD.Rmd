@@ -68,6 +68,30 @@ sp_obj <- NormalizeData(sp_obj)
 sp_obj <- FindVariableFeatures(sp_obj)
 sp_obj <- ScaleData(sp_obj)
 
+xy=as.matrix(GetTissueCoordinates(sp_obj)[,1:2])
+
+
+RNA.sel.2=(t(sp_obj@assays$Spatial.008um$scale.data))
+number_knn=10
+RNA.sel.3=RNA.sel.2
+knn=knn_Armadillo(xy,xy,number_knn)
+for(h in 1:nrow(xy)){
+  temp=rep(0,ncol(RNA.sel.3))
+  RNA.temp=as.matrix(RNA.sel.2[knn$nn_index[h,],])
+  knn_gene=knn_Armadillo(RNA.temp,RNA.temp[1,,drop=FALSE],round(number_knn*0.5))$nn_index
+  for(i in 1:number_knn){
+    temp=temp+RNA.temp[i,]/(1+knn$distances[h,i]^2)
+  }
+  RNA.sel.3[h,]=temp
+
+  print(h)
+}
+sp_obj@assays$Spatial.008um$scale.data=t(RNA.sel.3)
+
+
+
+
+
 xy=as.matrix(GetTissueCoordinates(sp_obj))
 
 sp_obj <- RunPCA(sp_obj, reduction.name = "pca.008um")
@@ -103,7 +127,7 @@ plot(Seurat::Embeddings(sp_obj, reduction = "KODAMA"))
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
 kk_UMAP=Seurat::Embeddings(sp_obj, reduction = "KODAMA")
-save(kk_UMAP,file="output/VisiumHD.RData")
+save(kk_UMAP,file="output/VisiumHD2.RData")
 ```
 
 
