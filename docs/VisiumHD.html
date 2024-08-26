@@ -410,7 +410,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -421,8 +421,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -431,13 +431,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-08-02
+<strong>Last updated:</strong> 2024-08-25
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
@@ -460,18 +460,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -562,15 +565,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree06f7055948b77da17ff4bf8e475037218baab49etargetblank06f7055a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreed1192e95a8ed7985fb6d9678ce0a6d850f882066targetblankd1192e9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/06f7055948b77da17ff4bf8e475037218baab49e" target="_blank">06f7055</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/d1192e95a8ed7985fb6d9678ce0a6d850f882066" target="_blank">d1192e9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree06f7055948b77da17ff4bf8e475037218baab49etargetblank06f7055a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreed1192e95a8ed7985fb6d9678ce0a6d850f882066targetblankd1192e9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -580,7 +583,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/06f7055948b77da17ff4bf8e475037218baab49e" target="_blank">06f7055</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/d1192e95a8ed7985fb6d9678ce0a6d850f882066" target="_blank">d1192e9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -594,7 +597,16 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Ignored files:
+    Ignored:    analysis/figure/Prostate.Rmd/
+    Ignored:    analysis/figure/VisiumHD.Rmd/
+
 Untracked files:
+    Untracked:  big_matrix.bin.res
+    Untracked:  big_matrix.bin.res_constrain
+    Untracked:  big_matrix.desc.res
+    Untracked:  big_matrix.desc.res_constrain
+    Untracked:  data/trajectories.RData
     Untracked:  output/DLFPC-All-2-3000-300-0.4.RData
     Untracked:  output/DLFPC-All.RData
     Untracked:  output/DLFPC-Br5292-2-3000-300-0.3.RData
@@ -603,12 +615,16 @@ Untracked files:
     Untracked:  output/DLFPC-Br5595.RData
     Untracked:  output/DLFPC-Br8100-2-3000-300-0.3.RData
     Untracked:  output/DLFPC-Br8100.RData
+    Untracked:  output/Prostate.RData
     Untracked:  output/VisiumHD.RData
+    Untracked:  output/VisiumHD2.RData
 
 Unstaged changes:
     Deleted:    analysis/DLPFC-12.Rmd
     Deleted:    analysis/DLPFC-4.Rmd
+    Modified:   analysis/Prostate.Rmd
     Deleted:    analysis/STARmap.Rmd
+    Modified:   analysis/VisiumHD.Rmd
     Deleted:    analysis/figure/DLPFC-12.Rmd/unnamed-chunk-10-1.png
 
 </code></pre>
@@ -654,6 +670,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/d1192e95a8ed7985fb6d9678ce0a6d850f882066/docs/VisiumHD.html" target="_blank">d1192e9</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/5ef81484e2db340df5c626c8a7dd61d34f295f48/analysis/VisiumHD.Rmd" target="_blank">5ef8148</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-12
+</td>
+<td>
+Start my new project
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/3374e66ce76ec3d26fcb912a9f6eba2f7341ed8f/docs/VisiumHD.html" target="_blank">3374e66</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/VisiumHD.html" target="_blank">35ce733</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-03
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -880,6 +964,7 @@ library(&quot;dplyr&quot;)
 library(&quot;Seurat&quot;)
 library(&quot;KODAMA&quot;)
 library(&quot;KODAMAextra&quot;)
+library(&quot;bigmemory&quot;)
 
 localdir=&quot;../Colorectal/outs/&quot;
 object &lt;- Load10X_Spatial(data.dir = localdir, bin.size = c(8))
@@ -927,6 +1012,30 @@ sp_obj &lt;- NormalizeData(sp_obj)
 sp_obj &lt;- FindVariableFeatures(sp_obj)
 sp_obj &lt;- ScaleData(sp_obj)
 
+xy=as.matrix(GetTissueCoordinates(sp_obj)[,1:2])
+
+
+#RNA.sel.2=(t(sp_obj@assays$Spatial.008um$scale.data))
+#number_knn=10
+#RNA.sel.3=RNA.sel.2
+#knn=knn_Armadillo(xy,xy,number_knn)
+#for(h in 1:nrow(xy)){
+#  temp=rep(0,ncol(RNA.sel.3))
+#  RNA.temp=as.matrix(RNA.sel.2[knn$nn_index[h,],])
+#  knn_gene=knn_Armadillo(RNA.temp,RNA.temp[1,,drop=FALSE],round(number_knn*0.5))$nn_index
+#  for(i in 1:number_knn){
+#    temp=temp+RNA.temp[i,]/(1+knn$distances[h,i]^2)
+#  }
+#  RNA.sel.3[h,]=temp
+#
+#  print(h)
+#}
+#sp_obj@assays$Spatial.008um$scale.data=t(RNA.sel.3)
+
+
+
+
+
 xy=as.matrix(GetTissueCoordinates(sp_obj))
 
 sp_obj &lt;- RunPCA(sp_obj, reduction.name = &quot;pca.008um&quot;)
@@ -959,6 +1068,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/d1192e95a8ed7985fb6d9678ce0a6d850f882066/docs/figure/VisiumHD.Rmd/unnamed-chunk-1-1.png" target="_blank">d1192e9</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6f7daaccbcc7b968bc736664a45f9ebcaf73fba3/docs/figure/VisiumHD.Rmd/unnamed-chunk-1-1.png" target="_blank">6f7daac</a>
 </td>
 <td>
@@ -985,13 +1105,14 @@ tkcaccia
 </div>
 <pre class="r"><code>sp_obj &lt;- RunKODAMAmatrix(sp_obj, reduction = &quot;pca.008um&quot;,
                           FUN= &quot;PLS&quot; ,
-                          landmarks = 10000,
+                          landmarks = 20000,
                           splitting = 100,
                           f.par.pls = 50,
                           spatial.resolution = 0.4,
                           n.cores=4)</code></pre>
 <pre><code>socket cluster with 4 nodes on host &#39;localhost&#39;
-================================================================================[1] &quot;Finished parallel computation&quot;
+================================================================================
+Finished parallel computation
 
 [1] &quot;Calculation of dissimilarity matrix...&quot;
 ================================================================================</code></pre>
@@ -1028,6 +1149,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/d1192e95a8ed7985fb6d9678ce0a6d850f882066/docs/figure/VisiumHD.Rmd/unnamed-chunk-2-1.png" target="_blank">d1192e9</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/82fe167363197a5889eb59cb7e39511dfde2f22e/docs/figure/VisiumHD.Rmd/unnamed-chunk-2-1.png" target="_blank">82fe167</a>
@@ -1076,57 +1208,60 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] KODAMAextra_1.0    e1071_1.7-14       doParallel_1.0.17  iterators_1.0.14  
- [5] foreach_1.5.2      KODAMA_3.1         umap_0.2.10.0      Rtsne_0.17        
- [9] minerva_1.5.10     Seurat_5.1.0       SeuratObject_5.0.2 sp_2.1-4          
-[13] dplyr_1.1.4        patchwork_1.2.0    ggplot2_3.5.1      workflowr_1.7.1   
+ [1] bigmemory_4.6.4    KODAMAextra_1.0    rgl_1.3.1          misc3d_0.9-1      
+ [5] e1071_1.7-14       doParallel_1.0.17  iterators_1.0.14   foreach_1.5.2     
+ [9] KODAMA_3.1         umap_0.2.10.0      Rtsne_0.17         minerva_1.5.10    
+[13] Seurat_5.1.0       SeuratObject_5.0.2 sp_2.1-4           dplyr_1.1.4       
+[17] patchwork_1.2.0    ggplot2_3.5.1      workflowr_1.7.1   
 
 loaded via a namespace (and not attached):
-  [1] RColorBrewer_1.1-3     rstudioapi_0.16.0      jsonlite_1.8.8        
-  [4] magrittr_2.0.3         ggbeeswarm_0.7.2       spatstat.utils_3.0-5  
-  [7] farver_2.1.2           rmarkdown_2.27         fs_1.6.4              
- [10] vctrs_0.6.5            ROCR_1.0-11            spatstat.explore_3.3-1
- [13] askpass_1.2.0          htmltools_0.5.8.1      sass_0.4.9            
- [16] sctransform_0.4.1      parallelly_1.37.1      KernSmooth_2.23-24    
- [19] bslib_0.7.0            htmlwidgets_1.6.4      ica_1.0-3             
- [22] plyr_1.8.9             plotly_4.10.4          zoo_1.8-12            
- [25] cachem_1.1.0           whisker_0.4.1          igraph_2.0.3          
- [28] mime_0.12              lifecycle_1.0.4        pkgconfig_2.0.3       
- [31] Matrix_1.7-0           R6_2.5.1               fastmap_1.2.0         
- [34] fitdistrplus_1.2-1     future_1.33.2          shiny_1.8.1.1         
- [37] digest_0.6.36          colorspace_2.1-0       ps_1.7.7              
- [40] rprojroot_2.0.4        tensor_1.5             RSpectra_0.16-1       
- [43] irlba_2.3.5.1          progressr_0.14.0       fansi_1.0.6           
- [46] spatstat.sparse_3.1-0  httr_1.4.7             polyclip_1.10-6       
- [49] abind_1.4-5            compiler_4.4.1         proxy_0.4-27          
- [52] bit64_4.0.5            withr_3.0.0            fastDummies_1.7.3     
- [55] highr_0.11             MASS_7.3-61            openssl_2.2.0         
- [58] tools_4.4.1            vipor_0.4.7            lmtest_0.9-40         
- [61] beeswarm_0.4.0         httpuv_1.6.15          future.apply_1.11.2   
- [64] goftest_1.2-3          glue_1.7.0             callr_3.7.6           
- [67] nlme_3.1-165           promises_1.3.0         grid_4.4.1            
- [70] getPass_0.2-4          cluster_2.1.6          reshape2_1.4.4        
- [73] snow_0.4-4             generics_0.1.3         hdf5r_1.3.11          
- [76] gtable_0.3.5           spatstat.data_3.1-2    class_7.3-22          
- [79] tidyr_1.3.1            data.table_1.15.4      utf8_1.2.4            
- [82] spatstat.geom_3.3-2    RcppAnnoy_0.0.22       ggrepel_0.9.5         
- [85] RANN_2.6.1             pillar_1.9.0           stringr_1.5.1         
- [88] spam_2.10-0            RcppHNSW_0.6.0         later_1.3.2           
- [91] splines_4.4.1          lattice_0.22-6         bit_4.0.5             
- [94] survival_3.7-0         deldir_2.0-4           tidyselect_1.2.1      
- [97] miniUI_0.1.1.1         pbapply_1.7-2          knitr_1.48            
-[100] git2r_0.33.0           gridExtra_2.3          scattermore_1.2       
-[103] xfun_0.45              matrixStats_1.3.0      stringi_1.8.4         
-[106] lazyeval_0.2.2         yaml_2.3.9             evaluate_0.24.0       
-[109] codetools_0.2-20       tibble_3.2.1           cli_3.6.3             
-[112] uwot_0.2.2             arrow_16.1.0           xtable_1.8-4          
-[115] reticulate_1.38.0      munsell_0.5.1          processx_3.8.4        
-[118] jquerylib_0.1.4        Rcpp_1.0.12            doSNOW_1.0.20         
-[121] globals_0.16.3         spatstat.random_3.3-1  png_0.1-8             
-[124] ggrastr_1.0.2          spatstat.univar_3.0-0  assertthat_0.2.1      
-[127] dotCall64_1.1-1        listenv_0.9.1          viridisLite_0.4.2     
-[130] scales_1.3.0           ggridges_0.5.6         leiden_0.4.3.1        
-[133] purrr_1.0.2            rlang_1.1.4            cowplot_1.1.3         </code></pre>
+  [1] RcppAnnoy_0.0.22       splines_4.4.1          later_1.3.2           
+  [4] tibble_3.2.1           polyclip_1.10-7        fastDummies_1.7.4     
+  [7] lifecycle_1.0.4        tcltk_4.4.1            rprojroot_2.0.4       
+ [10] globals_0.16.3         processx_3.8.4         lattice_0.22-6        
+ [13] hdf5r_1.3.11           MASS_7.3-61            magrittr_2.0.3        
+ [16] plotly_4.10.4          sass_0.4.9             rmarkdown_2.27        
+ [19] jquerylib_0.1.4        yaml_2.3.9             httpuv_1.6.15         
+ [22] sctransform_0.4.1      spam_2.10-0            askpass_1.2.0         
+ [25] spatstat.sparse_3.1-0  reticulate_1.38.0      cowplot_1.1.3         
+ [28] pbapply_1.7-2          RColorBrewer_1.1-3     abind_1.4-5           
+ [31] purrr_1.0.2            git2r_0.33.0           ggrepel_0.9.5         
+ [34] irlba_2.3.5.1          listenv_0.9.1          spatstat.utils_3.1-0  
+ [37] goftest_1.2-3          RSpectra_0.16-1        spatstat.random_3.3-1 
+ [40] fitdistrplus_1.2-1     parallelly_1.38.0      leiden_0.4.3.1        
+ [43] codetools_0.2-20       tidyselect_1.2.1       farver_2.1.2          
+ [46] matrixStats_1.3.0      base64enc_0.1-3        spatstat.explore_3.3-2
+ [49] jsonlite_1.8.8         progressr_0.14.0       ggridges_0.5.6        
+ [52] survival_3.7-0         tools_4.4.1            snow_0.4-4            
+ [55] ica_1.0-3              Rcpp_1.0.12            glue_1.7.0            
+ [58] gridExtra_2.3          xfun_0.45              withr_3.0.0           
+ [61] fastmap_1.2.0          fansi_1.0.6            openssl_2.2.0         
+ [64] callr_3.7.6            digest_0.6.36          R6_2.5.1              
+ [67] mime_0.12              colorspace_2.1-0       scattermore_1.2       
+ [70] tensor_1.5             spatstat.data_3.1-2    utf8_1.2.4            
+ [73] tidyr_1.3.1            generics_0.1.3         data.table_1.15.4     
+ [76] class_7.3-22           httr_1.4.7             htmlwidgets_1.6.4     
+ [79] whisker_0.4.1          uwot_0.2.2             pkgconfig_2.0.3       
+ [82] gtable_0.3.5           lmtest_0.9-40          htmltools_0.5.8.1     
+ [85] dotCall64_1.1-1        scales_1.3.0           png_0.1-8             
+ [88] doSNOW_1.0.20          spatstat.univar_3.0-0  bigmemory.sri_0.1.8   
+ [91] knitr_1.48             rstudioapi_0.16.0      reshape2_1.4.4        
+ [94] uuid_1.2-1             nlme_3.1-166           proxy_0.4-27          
+ [97] cachem_1.1.0           zoo_1.8-12             stringr_1.5.1         
+[100] KernSmooth_2.23-24     miniUI_0.1.1.1         vipor_0.4.7           
+[103] arrow_16.1.0           ggrastr_1.0.2          pillar_1.9.0          
+[106] grid_4.4.1             vctrs_0.6.5            RANN_2.6.1            
+[109] promises_1.3.0         xtable_1.8-4           cluster_2.1.6         
+[112] beeswarm_0.4.0         evaluate_0.24.0        cli_3.6.3             
+[115] compiler_4.4.1         rlang_1.1.4            future.apply_1.11.2   
+[118] ps_1.7.7               getPass_0.2-4          plyr_1.8.9            
+[121] fs_1.6.4               ggbeeswarm_0.7.2       stringi_1.8.4         
+[124] viridisLite_0.4.2      deldir_2.0-4           assertthat_0.2.1      
+[127] munsell_0.5.1          lazyeval_0.2.2         spatstat.geom_3.3-2   
+[130] Matrix_1.7-0           RcppHNSW_0.6.0         bit64_4.0.5           
+[133] future_1.34.0          shiny_1.9.1            highr_0.11            
+[136] ROCR_1.0-11            igraph_2.0.3           bslib_0.7.0           
+[139] bit_4.0.5             </code></pre>
 </div>
 </div>
 </div>
