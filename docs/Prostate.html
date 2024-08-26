@@ -410,7 +410,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -421,8 +421,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -431,13 +431,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-08-12
+<strong>Last updated:</strong> 2024-08-22
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
@@ -460,18 +460,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -562,15 +565,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5ef81484e2db340df5c626c8a7dd61d34f295f48targetblank5ef8148a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreed1192e95a8ed7985fb6d9678ce0a6d850f882066targetblankd1192e9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5ef81484e2db340df5c626c8a7dd61d34f295f48" target="_blank">5ef8148</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/d1192e95a8ed7985fb6d9678ce0a6d850f882066" target="_blank">d1192e9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5ef81484e2db340df5c626c8a7dd61d34f295f48targetblank5ef8148a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreed1192e95a8ed7985fb6d9678ce0a6d850f882066targetblankd1192e9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -580,7 +583,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5ef81484e2db340df5c626c8a7dd61d34f295f48" target="_blank">5ef8148</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/d1192e95a8ed7985fb6d9678ce0a6d850f882066" target="_blank">d1192e9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -594,6 +597,9 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Ignored files:
+    Ignored:    analysis/figure/VisiumHD.Rmd/
+
 Untracked files:
     Untracked:  output/DLFPC-All-2-3000-300-0.4.RData
     Untracked:  output/DLFPC-All.RData
@@ -609,7 +615,9 @@ Untracked files:
 Unstaged changes:
     Deleted:    analysis/DLPFC-12.Rmd
     Deleted:    analysis/DLPFC-4.Rmd
+    Modified:   analysis/Prostate.Rmd
     Deleted:    analysis/STARmap.Rmd
+    Modified:   analysis/VisiumHD.Rmd
     Deleted:    analysis/figure/DLPFC-12.Rmd/unnamed-chunk-10-1.png
 
 </code></pre>
@@ -655,6 +663,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/d1192e95a8ed7985fb6d9678ce0a6d850f882066/docs/Prostate.html" target="_blank">d1192e9</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1150,9 +1175,7 @@ class="section level4">
 <pre class="r"><code>spe &lt;- spe[, colData(spe)$in_tissue]
 
 # Identify mitochondrial genes
-is_mito &lt;- grepl(&quot;(^MT-)|(^mt-)&quot;, rowData(spe)$gene_name)
-table(is_mito)</code></pre>
-<pre><code>&lt; table of extent 0 &gt;</code></pre>
+is_mito &lt;- grepl(&quot;(^MT-)|(^mt-)&quot;, rowData(spe)$gene_name)</code></pre>
 <p>Filter the spots located in the tissue and identify mitochondrial
 genes, which are often used as quality indicators.</p>
 </div>
@@ -1244,72 +1267,9 @@ for (i in 1:length(sample_names)) {
   
   pvalue_mat[rownames(sparkX$res_mtest), i] &lt;- sparkX$res_mtest$combinedPval
   print(sample_names[i])
-}</code></pre>
-<pre><code>## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 2543 
-## number of total genes: 12519 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5
-[1] &quot;Normal_prostate&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 3043 
-## number of total genes: 12524 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5
-[1] &quot;Acinar_Cell_Carcinoma&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 3460 
-## number of total genes: 12521 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5
-[1] &quot;Adjacent_normal_section&quot;
-## ===== SPARK-X INPUT INFORMATION ==== 
-## number of total samples: 4371 
-## number of total genes: 12525 
-## Running with single core, may take some time 
-## Testing With Projection Kernel
-## Testing With Gaussian Kernel 1
-## Testing With Gaussian Kernel 2
-## Testing With Gaussian Kernel 3
-## Testing With Gaussian Kernel 4
-## Testing With Gaussian Kernel 5
-## Testing With Cosine Kernel 1
-## Testing With Cosine Kernel 2
-## Testing With Cosine Kernel 3
-## Testing With Cosine Kernel 4
-## Testing With Cosine Kernel 5
-[1] &quot;Adenocarcinoma&quot;</code></pre>
-<pre class="r"><code>pvalue_mat=pvalue_mat[!is.na(rowSums(pvalue_mat)),]
+}
+
+pvalue_mat=pvalue_mat[!is.na(rowSums(pvalue_mat)),]
 
 oo=order(apply(pvalue_mat,1,function(x) mean(-log(x))),decreasing = TRUE)
 top=rownames(pvalue_mat)[oo]</code></pre>
