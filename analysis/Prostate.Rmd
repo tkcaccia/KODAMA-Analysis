@@ -33,12 +33,14 @@ library(harmony)
 library(scuttle)
 library(BiocSingular)
 library(spatialLIBD)
-library("bigmemory")
+library(KODAMAextra)
 
 tissues <- c("Normal_prostate",
              "Acinar_Cell_Carcinoma",
              "Adjacent_normal_section",
              "Adenocarcinoma")
+n.cores=16
+
 ```
 
 Begin by loading the necessary libraries for the analysis. Next, define the different types of prostate tissues to be studied: normal prostate, acinar cell carcinoma, adjacent normal sections, and adenocarcinoma.
@@ -172,24 +174,20 @@ This preprocessing process cleans and normalizes the spatial transcriptomics dat
 After preprocessing the data, the next step involves feature selection using SPARK, which is crucial for identifying significant genes across different tissue samples.
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE,results = "hide"}
-pvalue_mat <- matrix(NA, nrow = nrow(spe), ncol = length(sample_names))
-rownames(pvalue_mat) <- rownames(rowData(spe))
 
-# Perform SPARK analysis for each sample
-for (i in 1:length(sample_names)) {
-  sel <- colData(spe)$sample_id == sample_names[i]
-  spe_sub <- spe[, sel]
+multi_SPARKX.SpatialExperiment = function(object, ...) {
+  if (!is(object, "SpatialExperiment")) {
+    stop("object is not a spatialExperiment object")
+  }
   
-  sparkX <- sparkx(logcounts(spe_sub), spatialCoords(spe_sub), numCores = 1, option = "mixture",verbose=FALSE)
-  
-  pvalue_mat[rownames(sparkX$res_mtest), i] <- sparkX$res_mtest$combinedPval
-  print(sample_names[i])
+  data=as.matrix(t(logcounts(object)))
+  spatial=as.matrix(spatialCoords(object))
+  samples=as.factor(colData(object)$sample_id)
+  top=multi_SPARKX(data,spatial,samples)
+  return(top)
 }
 
-pvalue_mat=pvalue_mat[!is.na(rowSums(pvalue_mat)),]
-
-oo=order(apply(pvalue_mat,1,function(x) mean(-log(x))),decreasing = TRUE)
-top=rownames(pvalue_mat)[oo]
+top=multi_SPARKX.SpatialExperiment(spe,n.cores=n.cores)
 
 ```
 ### Principal Component Analysis (PCA)
@@ -282,7 +280,7 @@ The next step is running KODAMA, a method for dimensionality reduction and visua
 
 ```{r, fig.width=10, fig.height=6, warning=FALSE, message=FALSE}
 
-library(KODAMAextra)
+
 
 spe <- RunKODAMAmatrix(spe,
                        reduction = "HARMONY",
@@ -291,10 +289,10 @@ spe <- RunKODAMAmatrix(spe,
                        splitting = 300,
                        f.par.pls = 50,
                        spatial.resolution = 0.4,
-                       n.cores = 4)
+                       n.cores = n.cores)
 
 config <- umap.defaults
-config$n_threads = 4
+config$n_threads = n.cores
 config$n_sgd_threads = "auto"
 
 spe=RunKODAMAvisualization(spe,method="UMAP",config=config)
@@ -406,9 +404,9 @@ mm1=new_trajectory (xy_sel,data = data,trace=nn1$xy)
 mm2=new_trajectory (xy_sel,data = data,trace=nn2$xy)
 mm3=new_trajectory (xy_sel,data = data,trace=nn3$xy)
 
-traj=rbind(nn1$trajectory,
-           nn2$trajectory,
-           nn3$trajectory)
+traj=rbind(mm1$trajectory,
+           mm2$trajectory,
+           mm3$trajectory)
 traj=traj[,top[1:2000]]
 y=rep(1:20,3)
 
@@ -422,7 +420,6 @@ vis_gene(spe,"Acinar_Cell_Carcinoma","ENSG00000166741")
 
 
 rowData(spe)[c("ENSG00000134339","ENSG00000166741"),]
-
 
 
 ```
@@ -460,8 +457,8 @@ pathway=VAM$distance.sq
 table(pathology,clu)
 
 clu2=rep(NA,length(clu))
-clu2[clu<4 & pathology=="Normal gland"]="Normal-phenotype"
-clu2[clu==7 & pathology=="Normal gland"]="Tumor-phenotype"
+clu2[(clu<4 | clu==6) & pathology=="Normal gland"]="Normal-phenotype"
+clu2[clu==11 & pathology=="Normal gland"]="Tumor-phenotype"
 
 ma=multi_analysis(pathway[!is.na(clu2),],clu2[!is.na(clu2)])
 
@@ -476,57 +473,44 @@ ma[1:10,]
 
 
 
-library(ggpubr)
-library(gridExtra)
-par(mai=c(3,3,3,3))
-col_pathology <- c("#0000ff", "#e41a1c", "#006400", "#000000", "#ffd700", "#00ff00", "#b2dfee")
+
+#library(ggpubr)
+#library(gridExtra)
+#par(mai=c(3,3,3,3))
+#col_pathology <- c("#0000ff", "#e41a1c", "#006400", "#000000", "#ffd700", "#00ff00", "#b2dfee")
 
 
-df=data.frame(variable=pathway[,"HALLMARK_MYC_TARGETS_V1"],labels=pathology)
-df=df[!is.na(df$labels),]
+#df=data.frame(variable=pathway[,"HALLMARK_MYC_TARGETS_V1"],labels=pathology)
+#df=df[!is.na(df$labels),]
 
-my_comparisons=list(c(1,7))
-# Basic plot
-# +++++++++++++++++++++++++++
-# width: change box plots width
-Nplot1=ggboxplot(df, x = "labels", y = "variable", width = 0.8,palette = col_pathology,las=2,
-                 fill="labels",ylim=c(200,1400),       
-                 shape=21)+  
-  ylab("HALLMARK_MYC_TARGETS_V1")+ 
-  xlab("")+
-  
-  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),legend.position = "none",plot.margin = unit(c(2,1,1,1), "cm"))
-
-
-
-
-cols=cols_cluster[c(1,2,3,7)]
-
-df=data.frame(variable=pathway[,"HALLMARK_MYC_TARGETS_V1"],labels=clu)
-df=df[!is.na(clu2),]
-my_comparisons=list(c(4,3),c(4,2),c(4,1))
-#my_comparisons=as.data.frame(t(expand.grid(1:4,1:4)))
-# Basic plot
-# +++++++++++++++++++++++++++
-# width: change box plots width
-Nplot2=ggboxplot(df, x = "labels", y = "variable", width = 0.8,palette = cols,
-                 fill="labels",add = "jitter", ylim=c(200,1400),                  
-                 add.params = list(size = 0.5, jitter = 0.2,fill=2),
-                 shape=21)+  
-  ylab("HALLMARK_MYC_TARGETS_V1")+ 
-  xlab("")+
-  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")+
-  theme(legend.position = "none",plot.margin = unit(c(2,1,1,1), "cm"))
-
-
-
-
-
-
-egg::ggarrange(Nplot1,Nplot2,widths = c(2,1.2),nrow=1,labels = c('A', 'B'))
-
-
+#my_comparisons=list(c(1,7))
+#Nplot1=ggboxplot(df, x = "labels", y = "variable", width = 0.8,palette = col_pathology,las=2,
+#                 fill="labels",ylim=c(200,1400),       
+#                 shape=21)+  
+#  ylab("HALLMARK_MYC_TARGETS_V1")+ 
+#  xlab("")+
+#  
+#  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")+
+#  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),legend.position = "none",plot.margin = unit(c(2,1,1,1), "cm"))
+#
+#
+#
+#
+#cols=cols_cluster[c(1,2,3,6,11)]
+#
+#df=data.frame(variable=pathway[,"HALLMARK_MYC_TARGETS_V1"],labels=clu)
+#df=df[!is.na(clu2),]
+#my_comparisons=list(c(4,3),c(4,2),c(4,1))
+#Nplot2=ggboxplot(df, x = "labels", y = "variable", width = 0.8,palette = cols,
+#                 fill="labels",add = "jitter", ylim=c(200,1400),                  
+#                 add.params = list(size = 0.5, jitter = 0.2,fill=2),
+#                 shape=21)+  
+#  ylab("HALLMARK_MYC_TARGETS_V1")+ 
+#  xlab("")+
+#  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")+
+#  theme(legend.position = "none",plot.margin = unit(c(2,1,1,1), "cm"))
+#
+#egg::ggarrange(Nplot1,Nplot2,widths = c(2,1.2),nrow=1,labels = c('A', 'B'))
 
 
 
