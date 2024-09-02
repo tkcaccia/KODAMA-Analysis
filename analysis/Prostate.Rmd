@@ -437,16 +437,22 @@ We start by loading the necessary packages and preparing our gene data for analy
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
  library("GSVA")
  library("GSA")
- library("gprofiler2")
  library("VAM")
  geneset=GSA.read.gmt("../Genesets/msigdb_v2023.2.Hs_GMTs/h.all.v2023.2.Hs.symbols.gmt")
  names(geneset$genesets)=geneset$geneset.names
  genesets=geneset$genesets
 
 countdata <- t(as.matrix(logcounts(spe)))
-genes=gconvert(rownames(spe),organism="hsapiens",target="GENECARDS",filter_na = F)$target
+
+# library("gprofiler2")
+# genes=gconvert(rownames(spe),organism="hsapiens",target="GENECARDS",filter_na = F)$target
+
+genes=rowData(spe)[,"gene_name"]
+spot_name=colnames(spe)
 colnames(countdata)=genes
-rownames(countdata)=paste(gsub("-1","",colnames(spe)),spe$sample_id,sep="-")
+rownames(countdata)=paste(gsub("-1","",spot_name),spe$sample_id,sep="-")
+
+save(genesets,countdata,file="Elemina.RData") 
 
 li=lapply(genesets,function(x) which(genes %in% x))
 
@@ -454,11 +460,17 @@ VAM=vamForCollection(gene.expr=countdata, gene.set.collection=li)
 pathway=VAM$distance.sq
 
 
-table(pathology,clu)
-
+ta=table(pathology,clu)
+path_clust=levels(pathology)[apply(ta,2,which.max)]
 clu2=rep(NA,length(clu))
-clu2[(clu<4 | clu==6) & pathology=="Normal gland"]="Normal-phenotype"
-clu2[clu==11 & pathology=="Normal gland"]="Tumor-phenotype"
+clu2[(clu %in% which(path_clust=="Normal gland")) & pathology=="Normal gland"]="Normal-phenotype"
+clu2[(clu %in% which(path_clust=="Invasive carcinoma")) & pathology=="Normal gland"]="Tumor-phenotype"
+ta
+
+
+save(pathology,clu2,file="elimina_table.RData")
+
+
 
 ma=multi_analysis(pathway[!is.na(clu2),],clu2[!is.na(clu2)])
 
@@ -474,44 +486,42 @@ ma[1:10,]
 
 
 
-#library(ggpubr)
-#library(gridExtra)
-#par(mai=c(3,3,3,3))
-#col_pathology <- c("#0000ff", "#e41a1c", "#006400", "#000000", "#ffd700", "#00ff00", "#b2dfee")
+library(ggpubr)
+library(gridExtra)
+par(mai=c(3,3,3,3))
+col_pathology <- c("#0000ff", "#e41a1c", "#006400", "#000000", "#ffd700", "#00ff00", "#b2dfee")
 
 
-#df=data.frame(variable=pathway[,"HALLMARK_MYC_TARGETS_V1"],labels=pathology)
-#df=df[!is.na(df$labels),]
+df=data.frame(variable=pathway[,"HALLMARK_MYC_TARGETS_V1"],labels=pathology)
+df=df[!is.na(df$labels),]
 
-#my_comparisons=list(c(1,7))
-#Nplot1=ggboxplot(df, x = "labels", y = "variable", width = 0.8,palette = col_pathology,las=2,
-#                 fill="labels",ylim=c(200,1400),       
-#                 shape=21)+  
-#  ylab("HALLMARK_MYC_TARGETS_V1")+ 
-#  xlab("")+
-#  
-#  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")+
-#  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),legend.position = "none",plot.margin = unit(c(2,1,1,1), "cm"))
-#
-#
-#
-#
-#cols=cols_cluster[c(1,2,3,6,11)]
-#
-#df=data.frame(variable=pathway[,"HALLMARK_MYC_TARGETS_V1"],labels=clu)
-#df=df[!is.na(clu2),]
-#my_comparisons=list(c(4,3),c(4,2),c(4,1))
-#Nplot2=ggboxplot(df, x = "labels", y = "variable", width = 0.8,palette = cols,
-#                 fill="labels",add = "jitter", ylim=c(200,1400),                  
-#                 add.params = list(size = 0.5, jitter = 0.2,fill=2),
-#                 shape=21)+  
-#  ylab("HALLMARK_MYC_TARGETS_V1")+ 
-#  xlab("")+
-#  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")+
-#  theme(legend.position = "none",plot.margin = unit(c(2,1,1,1), "cm"))
-#
-#egg::ggarrange(Nplot1,Nplot2,widths = c(2,1.2),nrow=1,labels = c('A', 'B'))
+my_comparisons=list(c(1,7))
+Nplot1=ggboxplot(df, x = "labels", y = "variable", width = 0.8,palette = col_pathology,las=2,
+                 fill="labels",ylim=c(200,1400),       
+                 shape=21)+  
+  ylab("HALLMARK_MYC_TARGETS_V1")+ 
+  xlab("")+
+  
+  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),legend.position = "none",plot.margin = unit(c(2,1,1,1), "cm"))
 
 
+
+
+cols=cols_cluster[c(1,2,3,6,11)]
+
+df=data.frame(variable=pathway[,"HALLMARK_MYC_TARGETS_V1"],labels=clu)
+df=df[!is.na(clu2),]
+my_comparisons=list(c(4,3),c(4,2),c(4,1))
+Nplot2=ggboxplot(df, x = "labels", y = "variable", width = 0.8,palette = cols,
+                 fill="labels",add = "jitter", ylim=c(200,1400),                  
+                 add.params = list(size = 0.5, jitter = 0.2,fill=2),
+                 shape=21)+  
+  ylab("HALLMARK_MYC_TARGETS_V1")+ 
+  xlab("")+
+  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")+
+  theme(legend.position = "none",plot.margin = unit(c(2,1,1,1), "cm"))
+
+egg::ggarrange(Nplot1,Nplot2,widths = c(2,1.2),nrow=1,labels = c('A', 'B'))
 
 ```
