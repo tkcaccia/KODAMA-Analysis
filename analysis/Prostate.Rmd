@@ -34,6 +34,8 @@ library(scuttle)
 library(BiocSingular)
 library(spatialLIBD)
 library(KODAMAextra)
+opar <- par()      # make a copy of current settings
+
 
 tissues <- c("Normal_prostate",
              "Acinar_Cell_Carcinoma",
@@ -375,9 +377,9 @@ ggplot(df, aes(x, y, color = cluster)) +
 
 ### Trajectory
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE, echo=FALSE}
 
-par(mfrow=c(1,1))
+par(opar)
 sel=colData(spe)$sample_id=="Acinar_Cell_Carcinoma"
 spe_sub=spe[,sel]
 image=as.raster(imgData(spe_sub)$data[[1]])
@@ -415,7 +417,9 @@ ma=multi_analysis(traj,y,FUN="correlation.test",method="spearman")
 ma=ma[order(as.numeric(ma$`p-value`)),]
 
 ma[1:20,]
+par(opar)
 vis_gene(spe,"Acinar_Cell_Carcinoma","ENSG00000134339")
+par(opar)
 vis_gene(spe,"Acinar_Cell_Carcinoma","ENSG00000166741")
 
 
@@ -434,7 +438,9 @@ To explore enriched biological processes in our spatial transcriptomics data, we
 
 We start by loading the necessary packages and preparing our gene data for analysis:
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE,results = "hide"}
  library("GSVA")
  library("GSA")
  library("VAM")
@@ -465,11 +471,10 @@ path_clust=levels(pathology)[apply(ta,2,which.max)]
 clu2=rep(NA,length(clu))
 clu2[(clu %in% which(path_clust=="Normal gland")) & pathology=="Normal gland"]="Normal-phenotype"
 clu2[(clu %in% which(path_clust=="Invasive carcinoma")) & pathology=="Normal gland"]="Tumor-phenotype"
+```
+bla
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
 ta
-
-
-save(pathology,clu2,file="elimina_table.RData")
-
 
 
 ma=multi_analysis(pathway[!is.na(clu2),],clu2[!is.na(clu2)])
