@@ -71,30 +71,6 @@ sp_obj <- ScaleData(sp_obj)
 
 xy=as.matrix(GetTissueCoordinates(sp_obj)[,1:2])
 
-
-#RNA.sel.2=(t(sp_obj@assays$Spatial.008um$scale.data))
-#number_knn=10
-#RNA.sel.3=RNA.sel.2
-#knn=knn_Armadillo(xy,xy,number_knn)
-#for(h in 1:nrow(xy)){
-#  temp=rep(0,ncol(RNA.sel.3))
-#  RNA.temp=as.matrix(RNA.sel.2[knn$nn_index[h,],])
-#  knn_gene=knn_Armadillo(RNA.temp,RNA.temp[1,,drop=FALSE],round(number_knn*0.5))$nn_index
-#  for(i in 1:number_knn){
-#    temp=temp+RNA.temp[i,]/(1+knn$distances[h,i]^2)
-#  }
-#  RNA.sel.3[h,]=temp
-#
-#  print(h)
-#}
-#sp_obj@assays$Spatial.008um$scale.data=t(RNA.sel.3)
-
-
-
-
-
-xy=as.matrix(GetTissueCoordinates(sp_obj))
-
 sp_obj <- RunPCA(sp_obj, reduction.name = "pca.008um")
 
 dim(sp_obj)
@@ -106,29 +82,62 @@ plot(Seurat::Embeddings(sp_obj, reduction = "pca.008um"))
 
 sp_obj <- RunKODAMAmatrix(sp_obj, reduction = "pca.008um",
                           FUN= "PLS" ,
-                          landmarks = 50000,
+                          landmarks = 10000,
                           splitting = 100,
                           f.par.pls = 50,
                           spatial.resolution = 0.4,
-                          n.cores=4)
+                          n.cores=8)
 
   print("KODAMA finished")
   
      config=umap.defaults
-     config$n_threads = 4
+     config$n_threads = 8
      config$n_sgd_threads = "auto"
      sp_obj <- RunKODAMAvisualization(sp_obj, method = "UMAP",config=config)
 
      
+kk_UMAP=Seurat::Embeddings(sp_obj, reduction = "KODAMA")
 
-plot(Seurat::Embeddings(sp_obj, reduction = "KODAMA"))
      
+
+rr=read.csv("data/spots_classification_ALL.csv",sep=",")
+ss=strsplit(rr[,2],":")
+ss=unlist(lapply(ss, function(x) x[2]))
+ss=strsplit(ss,",")
+ss=unlist(lapply(ss, function(x) x[1]))
+ss=gsub("\"","",ss)
+
+rr[,2]=ss
+n=ave(1:length(rr[,1]), rr[,1], FUN = seq_along)
+rr=rr[n==1,]
+rownames(rr)=rr[,1]
+rr=rr[rownames(kk_UMAP),]
+
+table(rr[,"classification"])
+
+library(ggplot2)
+cols <- c("#669bbc", "#81b291", "#f2cc8f", "#adc178",
+          "#dde5b6", "#a8dadc", "#e5989b", "#e07a5f",
+          "#ffe5b6", "#ffdadc", "#e5ff9b", "#ffff11")
+
+labels=as.factor(rr[,"classification"])
+par(xpd = T, mar = par()$mar + c(0,0,0,7))
+
+plot(kk_UMAP,cex=0.5,pch=20,col=cols[labels])
+legend(max(kk_UMAP[,1])+0.05*dist(range(kk_UMAP[,1])), max(kk_UMAP[,2]),
+       levels(labels),
+       col = cols,
+       cex = 0.8,
+       pch=20)
+
+
+
 ```
 
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-kk_UMAP=Seurat::Embeddings(sp_obj, reduction = "KODAMA")
-save(kk_UMAP,file="output/VisiumHD3.RData")
+
+save(kk_UMAP,xy,file="output/VisiumHD3.RData")
 ```
 
 
