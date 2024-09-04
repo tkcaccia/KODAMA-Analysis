@@ -149,13 +149,17 @@ traj=rbind(mm1$trajectory,
            mm3$trajectory)
 y=rep(1:20,3)
 
-ma=multi_analysis(traj,y,FUN="correlation.test",method="spearman")
-
-ma=ma[order(as.numeric(ma$`p-value`)),]
 ```
 
 ```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
-knitr::kable(ma[1:20,])
+ma=multi_analysis(traj,y,FUN="correlation.test",method="spearman")
+rownames(ma)
+ma=ma[order(as.numeric(ma$`p-value`)),]
+colnames(ma)=c("Feature   ","rho   ","p-value   ","FDR   ")
+```
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
+knitr::kable(ma[1:30,],row.names=FALSE)
 ```
 
 ```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE,results = "hide"}
@@ -173,14 +177,14 @@ ma=ma[order(as.numeric(ma$`p-value`)),]
 
 
 ```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
-knitr::kable(ma[1:20,])
+knitr::kable(ma[1:30,],row.names=FALSE)
 ```
 
 
 ```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE,results = "hide"}
 
 lab=rr[,"classification"]
-sel=lab==" stroma invasive carcinoma" | lab==" stroma intermediate" | lab==" lamina propria dysplasia"
+sel=lab==" stroma invasive carcinoma" | lab==" desmoplastic submucosa"
 data.sel=data[which(sel),]
 lab=as.factor(as.vector(lab[which(sel)]))
 
@@ -191,7 +195,7 @@ ma=ma[order(as.numeric(ma$`p-value`)),]
 
 
 ```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
-knitr::kable(ma[1:20,])
+knitr::kable(ma[1:30,],row.names=FALSE)
 ```
 
 
