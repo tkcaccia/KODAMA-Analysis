@@ -136,7 +136,8 @@ legend(max(kk_UMAP[,1])+0.05*dist(range(kk_UMAP[,1])), max(kk_UMAP[,2]),
 
 load("data/trajectories_VISIUMHD.RData")
 
-data=as.matrix(sp_obj@assays$Spatial.008um$scale.data)
+data=sp_obj@assays$Spatial.008um$data[rownames(sp_obj@assays$Spatial.008um$scale.data),]
+data=as.matrix(data)
 data=t(data)
 
 mm1=new_trajectory (kk_UMAP,data = data,trace=tra1$xy)
@@ -153,7 +154,6 @@ y=rep(1:20,3)
 
 ```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
 ma=multi_analysis(traj,y,FUN="correlation.test",method="spearman")
-rownames(ma)
 ma=ma[order(as.numeric(ma$`p-value`)),]
 colnames(ma)=c("Feature   ","rho   ","p-value   ","FDR   ")
 ```
@@ -168,9 +168,10 @@ knitr::kable(ma[1:30,],row.names=FALSE)
 lab=rr[,"classification"]
 sel=lab==" stroma invasive carcinoma" | lab==" stroma intermediate"
 data.sel=data[which(sel),]
+data.sel=data.sel[,colSums(data.sel)>0]
 lab=as.factor(as.vector(lab[which(sel)]))
 
-ma=multi_analysis(data.sel,lab)
+ma=multi_analysis(data.sel,lab,range="95%CI")
 
 ma=ma[order(as.numeric(ma$`p-value`)),]
 ```
@@ -186,9 +187,11 @@ knitr::kable(ma[1:30,],row.names=FALSE)
 lab=rr[,"classification"]
 sel=lab==" stroma invasive carcinoma" | lab==" desmoplastic submucosa"
 data.sel=data[which(sel),]
+data.sel=data.sel[,colSums(data.sel)>0]
+
 lab=as.factor(as.vector(lab[which(sel)]))
 
-ma=multi_analysis(data.sel,lab)
+ma=multi_analysis(data.sel,lab,range="95%CI")
 
 ma=ma[order(as.numeric(ma$`p-value`)),]
 ```
