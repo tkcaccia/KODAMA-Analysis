@@ -80,25 +80,27 @@ plot(Seurat::Embeddings(sp_obj, reduction = "pca.008um"))
 
 ```{r, fig.width=10, fig.height=4}
 
-sp_obj <- RunKODAMAmatrix(sp_obj, reduction = "pca.008um",
-                          FUN= "PLS" ,
-                          landmarks = 10000,
-                          splitting = 100,
-                          f.par.pls = 50,
-                          spatial.resolution = 0.4,
-                          n.cores=8)
+#sp_obj <- RunKODAMAmatrix(sp_obj, reduction = "pca.008um",
+#                          FUN= "PLS" ,
+#                          landmarks = 10000,
+#                          splitting = 100,
+#                          f.par.pls = 50,
+#                          spatial.resolution = 0.4,
+#                          n.cores=8)
 
-  print("KODAMA finished")
+#  print("KODAMA finished")
   
-     config=umap.defaults
-     config$n_threads = 8
-     config$n_sgd_threads = "auto"
-     sp_obj <- RunKODAMAvisualization(sp_obj, method = "UMAP",config=config)
+#     config=umap.defaults
+#     config$n_threads = 8
+#     config$n_sgd_threads = "auto"
+#     sp_obj <- RunKODAMAvisualization(sp_obj, method = "UMAP",config=config)
 
      
-kk_UMAP=Seurat::Embeddings(sp_obj, reduction = "KODAMA")
+# kk_UMAP=Seurat::Embeddings(sp_obj, reduction = "KODAMA")
 
-     
+# save(kk_UMAP,xy,file="output/VisiumHD.RData")
+
+load("output/VisiumHD3.RData")   
 
 rr=read.csv("data/spots_classification_ALL.csv",sep=",")
 ss=strsplit(rr[,2],":")
@@ -115,11 +117,12 @@ rr=rr[rownames(kk_UMAP),]
 
 table(rr[,"classification"])
 
-library(ggplot2)
-cols <- c("#669bbc", "#81b291", "#f2cc8f", "#adc178",
-          "#dde5b6", "#a8dadc", "#e5989b", "#e07a5f",
-          "#ffe5b6", "#ffdadc", "#e5ff9b", "#ffff11")
 
+
+library(ggplot2)
+
+
+cols=sample(rainbow(15))
 labels=as.factor(rr[,"classification"])
 par(xpd = T, mar = par()$mar + c(0,0,0,7))
 
@@ -131,13 +134,53 @@ legend(max(kk_UMAP[,1])+0.05*dist(range(kk_UMAP[,1])), max(kk_UMAP[,2]),
        pch=20)
 
 
+load("data/trajectories_VISIUMHD.RData")
+
+data=as.matrix(sp_obj@assays$Spatial.008um$scale.data)
+data=t(data)
+
+mm1=new_trajectory (kk_UMAP,data = data,trace=tra1$xy)
+mm2=new_trajectory (kk_UMAP,data = data,trace=tra2$xy)
+mm3=new_trajectory (kk_UMAP,data = data,trace=tra3$xy)
+
+
+traj=rbind(mm1$trajectory,
+           mm2$trajectory,
+           mm3$trajectory)
+y=rep(1:20,3)
+
+ma=multi_analysis(traj,y,FUN="correlation.test",method="spearman")
+
+ma=ma[order(as.numeric(ma$`p-value`)),]
+
+ma[1:20,]
+
+
+lab=rr[,"classification"]
+sel=lab==" stroma invasive carcinoma" | lab==" stroma intermediate"
+data.sel=data[which(sel),]
+lab=as.factor(as.vector(lab[which(sel)]))
+
+ma=multi_analysis(data.sel,lab)
+
+ma=ma[order(as.numeric(ma$`p-value`)),]
+ma[1:20,]
+
+
+lab=rr[,"classification"]
+sel=lab==" stroma invasive carcinoma" | lab==" stroma intermediate" | lab==" lamina propria dysplasia"
+data.sel=data[which(sel),]
+lab=as.factor(as.vector(lab[which(sel)]))
+
+ma=multi_analysis(data.sel,lab)
+
+ma=ma[order(as.numeric(ma$`p-value`)),]
+ma[1:20,]
+
+
+
+
+
 
 ```
-
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-
-save(kk_UMAP,xy,file="output/VisiumHD3.RData")
-```
-
 
