@@ -377,7 +377,7 @@ ggplot(df, aes(x, y, color = cluster)) +
 
 ### Trajectory
 
-```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE, echo=FALSE}
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
 
 par(opar)
 sel=colData(spe)$sample_id=="Acinar_Cell_Carcinoma"
