@@ -78,7 +78,7 @@ dim(sp_obj)
 plot(Seurat::Embeddings(sp_obj, reduction = "pca.008um"))
 ```
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=10, fig.height=8}
 
 #sp_obj <- RunKODAMAmatrix(sp_obj, reduction = "pca.008um",
 #                          FUN= "PLS" ,
@@ -152,8 +152,13 @@ y=rep(1:20,3)
 ma=multi_analysis(traj,y,FUN="correlation.test",method="spearman")
 
 ma=ma[order(as.numeric(ma$`p-value`)),]
+```
 
-ma[1:20,]
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
+knitr::kable(ma[1:20,])
+```
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE,results = "hide"}
 
 
 lab=rr[,"classification"]
@@ -164,8 +169,15 @@ lab=as.factor(as.vector(lab[which(sel)]))
 ma=multi_analysis(data.sel,lab)
 
 ma=ma[order(as.numeric(ma$`p-value`)),]
-ma[1:20,]
+```
 
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
+knitr::kable(ma[1:20,])
+```
+
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE,results = "hide"}
 
 lab=rr[,"classification"]
 sel=lab==" stroma invasive carcinoma" | lab==" stroma intermediate" | lab==" lamina propria dysplasia"
@@ -175,12 +187,12 @@ lab=as.factor(as.vector(lab[which(sel)]))
 ma=multi_analysis(data.sel,lab)
 
 ma=ma[order(as.numeric(ma$`p-value`)),]
-ma[1:20,]
-
-
-
-
-
-
 ```
+
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
+knitr::kable(ma[1:20,])
+```
+
+
 
