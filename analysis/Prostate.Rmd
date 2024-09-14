@@ -290,8 +290,9 @@ spe <- RunKODAMAmatrix(spe,
                        landmarks = 100000,
                        splitting = 300,
                        f.par.pls = 50,
-                       spatial.resolution = 0.4,
-                       n.cores = n.cores)
+                       spatial.resolution = 0.2,
+                       n.cores = n.cores,
+                       aa_noise=3)
 
 config <- umap.defaults
 config$n_threads = n.cores
@@ -424,6 +425,31 @@ vis_gene(spe,"Acinar_Cell_Carcinoma","ENSG00000166741")
 
 
 rowData(spe)[c("ENSG00000134339","ENSG00000166741"),]
+
+samples=as.factor(colData(spe_sub)$sample_id)
+xy=as.matrix(spatialCoords(spe_sub))
+data=t(logcounts(spe_sub))[,top[1:2000]]
+data=as.matrix(data)
+PMdata=passing.message(data,xy/1000)
+
+par(mfrow=c(1,2))
+
+a=data[,"ENSG00000134339"]
+b=data[,"ENSG00000166741"]
+cc=cor.test(a,b)
+txt=paste("r=",round(cc$estimate,digits=2))
+plot(a,b,main="Pearson correlation",xlab="SAA2",ylab="NNMT")
+mtext(txt)
+
+
+a=PMdata[,"ENSG00000134339"]
+b=PMdata[,"ENSG00000166741"]
+cc=cor.test(a,b)
+txt=paste("r=",round(cc$estimate,digits=2))
+plot(a,b,main="APM correlation",xlab="SAA2",ylab="NNMT")
+mtext(txt)
+
+
 
 
 ```
