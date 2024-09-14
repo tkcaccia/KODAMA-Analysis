@@ -431,7 +431,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-09-04
+<strong>Last updated:</strong> 2024-09-14
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -562,15 +562,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree3040393fc2dd7df2387253d532d3ad5f249c6b78targetblank3040393a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreeedbb375910db38c2458544dddb86cb3c2ed221cdtargetblankedbb375a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/3040393fc2dd7df2387253d532d3ad5f249c6b78" target="_blank">3040393</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/edbb375910db38c2458544dddb86cb3c2ed221cd" target="_blank">edbb375</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree3040393fc2dd7df2387253d532d3ad5f249c6b78targetblank3040393a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreeedbb375910db38c2458544dddb86cb3c2ed221cdtargetblankedbb375a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -580,7 +580,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/3040393fc2dd7df2387253d532d3ad5f249c6b78" target="_blank">3040393</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/edbb375910db38c2458544dddb86cb3c2ed221cd" target="_blank">edbb375</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -595,6 +595,7 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .RData
     Ignored:    .Rhistory
 
 Untracked files:
@@ -623,7 +624,6 @@ Unstaged changes:
     Deleted:    analysis/DLPFC-4.Rmd
     Modified:   analysis/DLPFC.Rmd
     Modified:   analysis/Giotto.Rmd
-    Modified:   analysis/MERFISH.Rmd
     Deleted:    analysis/STARmap.Rmd
 
 </code></pre>
@@ -669,6 +669,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/edbb375910db38c2458544dddb86cb3c2ed221cd/analysis/Prostate.Rmd" target="_blank">edbb375</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-09-14
+</td>
+<td>
+Start my new project
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/460bb2df4e686fe40e721e580a096a4de13711a1/docs/Prostate.html" target="_blank">460bb2d</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-09-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1757,8 +1791,9 @@ reduction and visualization.</p>
                        landmarks = 100000,
                        splitting = 300,
                        f.par.pls = 50,
-                       spatial.resolution = 0.4,
-                       n.cores = n.cores)</code></pre>
+                       spatial.resolution = 0.2,
+                       n.cores = n.cores,
+                       aa_noise=3)</code></pre>
 <pre><code>Calculating Network
 
 Calculating Network spatial
@@ -2257,6 +2292,29 @@ Stefano Cacciatore
 </div>
 <pre class="r"><code>rowData(spe)[c(&quot;ENSG00000134339&quot;,&quot;ENSG00000166741&quot;),]</code></pre>
 <pre><code>[1] &quot;SAA2&quot; &quot;NNMT&quot;</code></pre>
+<pre class="r"><code>samples=as.factor(colData(spe_sub)$sample_id)
+xy=as.matrix(spatialCoords(spe_sub))
+data=t(logcounts(spe_sub))[,top[1:2000]]
+data=as.matrix(data)
+PMdata=passing.message(data,xy/1000)
+
+par(mfrow=c(1,2))
+
+a=data[,&quot;ENSG00000134339&quot;]
+b=data[,&quot;ENSG00000166741&quot;]
+cc=cor.test(a,b)
+txt=paste(&quot;r=&quot;,round(cc$estimate,digits=2))
+plot(a,b,main=&quot;Pearson correlation&quot;,xlab=&quot;SAA2&quot;,ylab=&quot;NNMT&quot;)
+mtext(txt)
+
+
+a=PMdata[,&quot;ENSG00000134339&quot;]
+b=PMdata[,&quot;ENSG00000166741&quot;]
+cc=cor.test(a,b)
+txt=paste(&quot;r=&quot;,round(cc$estimate,digits=2))
+plot(a,b,main=&quot;APM correlation&quot;,xlab=&quot;SAA2&quot;,ylab=&quot;NNMT&quot;)
+mtext(txt)</code></pre>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-17-4.png" width="960" style="display: block; margin: auto;" /></p>
 <p>This extended analysis includes principal component analysis (PCA),
 pathology data analysis, and the application of KODAMA for
 dimensionality reduction and visualization, enhancing the understanding
@@ -2307,41 +2365,41 @@ clu2[(clu %in% which(path_clust==&quot;Invasive carcinoma&quot;)) &amp; patholog
 <p>bla</p>
 <pre class="r"><code>ta</code></pre>
 <pre><code>                       clu
-pathology                  1    2    3    4    5    6    7    8    9   10
-  Invasive carcinoma       2    2    0    0    1    0    6  676   43 1212
-  Blood vessel             0   17    0    0    0    0    0    0    0    0
-  Fibro-muscular tissue    4  689    4    0   87    0    1   35    0    0
-  Fibrous tissue           2   46    4    0   18    0    0   83    0    3
-  Immune Cells             0    8    0    0    0    0    0    0    0    0
-  Nerve                    0   40    0    0    0    0    0    0    0    0
-  Normal gland           252   37  296    0   61    0   31  100    0    0</code></pre>
+pathology                  1    2    3    4    5    6    7    8    9
+  Invasive carcinoma       3    2    0    0    1    1  691 1244    0
+  Blood vessel             0   17    0    0    0    0    0    0    0
+  Fibro-muscular tissue    5  675    9    0   96    0   35    0    0
+  Fibrous tissue           1   49    5    0   15    0   86    0    0
+  Immune Cells             0    8    0    0    0    0    0    0    0
+  Nerve                    0   40    0    0    0    0    0    0    0
+  Normal gland           248   41  315    0   62    1  110    0    0</code></pre>
 <pre class="r"><code>ma=multi_analysis(pathway[!is.na(clu2),],clu2[!is.na(clu2)])
 
 ma=ma[order(as.numeric(ma$`p-value`)),]
 
 ma[1:10,]</code></pre>
 <pre><code>                                            Feature          Normal-phenotype
-32            HALLMARK_MYC_TARGETS_V1, median [IQR] 760.599 [714.504 803.691]
-16    HALLMARK_ESTROGEN_RESPONSE_LATE, median [IQR] 393.565 [361.904 427.991]
-15   HALLMARK_ESTROGEN_RESPONSE_EARLY, median [IQR] 428.945 [394.115 467.988]
-50     HALLMARK_XENOBIOTIC_METABOLISM, median [IQR] 327.488 [306.174 350.169]
-7                  HALLMARK_APOPTOSIS, median [IQR] 482.047 [449.598 521.172]
-46 HALLMARK_UNFOLDED_PROTEIN_RESPONSE, median [IQR]  421.887 [397.11 448.448]
-37               HALLMARK_P53_PATHWAY, median [IQR] 458.534 [424.613 502.463]
-36 HALLMARK_OXIDATIVE_PHOSPHORYLATION, median [IQR] 573.488 [547.079 609.918]
-22                   HALLMARK_HYPOXIA, median [IQR] 471.791 [438.548 503.181]
-6             HALLMARK_APICAL_SURFACE, median [IQR]    87.192 [74.44 103.338]
+32            HALLMARK_MYC_TARGETS_V1, median [IQR] 762.214 [716.169 804.948]
+15   HALLMARK_ESTROGEN_RESPONSE_EARLY, median [IQR] 430.717 [394.115 469.561]
+16    HALLMARK_ESTROGEN_RESPONSE_LATE, median [IQR] 393.953 [361.649 428.275]
+50     HALLMARK_XENOBIOTIC_METABOLISM, median [IQR]  328.439 [306.927 352.21]
+46 HALLMARK_UNFOLDED_PROTEIN_RESPONSE, median [IQR] 422.142 [397.567 448.126]
+7                  HALLMARK_APOPTOSIS, median [IQR] 483.739 [448.683 524.334]
+37               HALLMARK_P53_PATHWAY, median [IQR] 460.027 [425.566 503.993]
+8       HALLMARK_BILE_ACID_METABOLISM, median [IQR] 155.379 [139.304 173.486]
+17     HALLMARK_FATTY_ACID_METABOLISM, median [IQR] 348.876 [330.775 370.592]
+22                   HALLMARK_HYPOXIA, median [IQR] 471.791 [437.922 502.886]
              Tumor-phenotype  p-value      FDR
-32 866.415 [829.693 901.661]  2.9e-38 1.45e-36
-16 336.109 [317.834 358.003] 3.64e-26 7.45e-25
-15 365.636 [342.696 392.757] 4.47e-26 7.45e-25
-50  293.594 [276.485 310.08] 1.92e-20 2.40e-19
-7    431.7 [404.253 465.454] 1.78e-18 1.78e-17
-46 460.085 [434.529 482.478] 1.68e-17 1.40e-16
-37 419.784 [396.061 445.277] 3.44e-15 2.45e-14
-36 612.388 [588.538 654.292] 1.12e-14 7.03e-14
-22 431.344 [408.913 459.729]    2e-14 1.11e-13
-6       73.996 [60.7 83.456] 2.28e-13 1.14e-12</code></pre>
+32 861.928 [814.809 898.729] 4.62e-35 2.31e-33
+15  371.151 [344.973 395.62] 7.02e-26 1.76e-24
+16 339.376 [319.206 367.462] 2.15e-24 3.59e-23
+50  294.229 [277.07 310.438] 2.69e-22 3.37e-21
+46  456.177 [431.325 480.08] 7.29e-16 7.29e-15
+7  437.466 [410.213 473.311]  2.5e-15 2.09e-14
+37 423.033 [397.784 451.403] 2.27e-14 1.62e-13
+8  136.607 [125.651 148.689] 4.56e-14 2.85e-13
+17  323.276 [307.695 345.31] 1.17e-12 6.00e-12
+22  434.749 [415.64 460.525]  1.2e-12 6.00e-12</code></pre>
 <pre class="r"><code>library(ggpubr)
 library(gridExtra)
 par(mai=c(3,3,3,3))
