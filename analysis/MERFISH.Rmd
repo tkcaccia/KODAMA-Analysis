@@ -29,6 +29,8 @@ library(SPARK)
 library(ggplot2)
 library(plotly)
 library(mclust)
+
+n.cores=16
 ```
 
 
@@ -71,22 +73,8 @@ xyz <- matrix(as.numeric(as.matrix(xyz)), ncol = ncol(xyz))
 
 ```{r, fig.width=10, fig.height=4,results = "hide"}
 # Initialize matrix to store p-values
-pvalue_mat <- matrix(nrow = ncol(RNA), ncol = length(slides))
-rownames(pvalue_mat) <- colnames(RNA)
 
-# Calculate p-values using SPARK
-for (i in 1:length(slides)) {
-  sel <- xyz[, 3] == slides[i]
-  RNA_sub <- RNA[sel,]
-  xyz_sup <- xyz[sel, -3]
-  sparkX <- sparkx(t(RNA_sub), xyz_sup, numCores = 1, option = "mixture")
-  pvalue_mat[, i] <- sparkX$res_mtest$combinedPval
-  print(slides[i])
-}
-
-# Order genes by median -log(p-value)
-oo <- order(apply(pvalue_mat, 1, function(x) median(-log(x))), decreasing = TRUE)
-top <- colnames(RNA)[oo]
+top=multi_SPARKX(RNA,xyz[,-3],as.factor(xyz[,3]),n.cores = n.cores)
 ```
 
 # Passing message
@@ -94,21 +82,8 @@ top <- colnames(RNA)[oo]
 
 ```{r, message=FALSE, warning=FALSE}
 
-RNA.sel.2=RNA[,top[1:100]]
-number_knn=10
-RNA.sel.3=RNA.sel.2
-knn=knn_Armadillo(xyz,xyz,number_knn)
-for(h in 1:nrow(xyz)){
-  temp=rep(0,ncol(RNA.sel.3))
-  RNA.temp=RNA.sel.2[knn$nn_index[h,],]
-  knn_gene=knn_Armadillo(RNA.temp,RNA.temp[1,,drop=FALSE],round(number_knn*0.5))$nn_index
-  for(i in 1:number_knn){
-    temp=temp+RNA.temp[i,]/(1+knn$distances[h,i]^2)
-  }
-  RNA.sel.3[h,]=temp
-}
 
-
+RNA.sel.3=passing.message(RNA[,top[1:100]],xyz)
 
 ```
 
@@ -126,19 +101,17 @@ plot(pca,col=tissue_segments)
 
 ```{r, message=FALSE, warning=FALSE}
 # Apply KODAMA to the PCA results
-jj <- KODAMA.matrix.parallel(pca[,1:30],spatial = xyz,f.par.pls = 50, FUN = "PLS", landmarks = 100000, n.cores = 8,splitting=100)
+jj <- KODAMA.matrix.parallel(pca[,1:30],spatial = xyz,f.par.pls = 50, FUN = "PLS", landmarks = 100000, n.cores = n.cores,splitting=100)
 
 config=umap.defaults
 config$n_neighbors=30
+config$n_threads = n.cores
 vis <- KODAMA.visualization(jj, method = "UMAP",config=config)
 
-# Cluster the results
- #g <- makeSNNGraph(vis,k = 100)
- #g_walk <- cluster_walktrap(g)
- #clu = as.character(igraph::cut_at(g_walk, no=8))
- 
-clu=kmeans(vis,8,nstart = 100)$cluster
- 
+g <- bluster::makeSNNGraph(as.matrix(vis), k = 100)
+g_louvain <- igraph::cluster_louvain(g,resolution = 0.2)
+clu = g_louvain$membership
+
 # Plot the clusters
 par(mfrow = c(1, 2))
 plot(vis, col = tissue_segments, main = "KODAMA tissue")
@@ -155,6 +128,12 @@ for(i in 1:length(slides)){
 }
 print(ARI)
 ```
+
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+save(ref,tissue_segments,vis,xyz,file="output/MERFISH.RData")
+```
+
 
 # Refinement and Visualization
 
@@ -204,58 +183,10 @@ library(MASS)
 
 library(misc3d)
 
-volume_rendering <- function(xyz,  tissue_segments,selection=NULL, alpha=NULL, colors=NULL,cells=c(20, 20, 20), level=exp(-3)) {
-  if(!is.factor(tissue_segments)){
-    stop("tissue_segments is not a factor")
-  }
-  option_tissue=levels(tissue_segments)
-  if(is.null(colors)){
-    colors=rainbow(length(option_tissue))
-  }else{
-    if(length(option_tissue)!=length(alpha)){
-      stop("The number of color does not match")
-    }
-  }
-  if(is.null(alpha)){ 
-    alpha=rep(1,length(option_tissue))
-  }else{
-    if(length(option_tissue)!=length(alpha)){
-      stop("The number of alpha does not match")
-    }
-  }
-  if(!is.null(selection)){
-    option_tissue=selection
-  }
-    ww=which(levels(tissue_segments) %in% option_tissue)
-    colors=colors[ww]
-    alpha=alpha[ww]
-    
-    
-
-  cells[1]=min(cells[1],length(unique(xyz[,1])))
-  cells[2]=min(cells[2],length(unique(xyz[,2])))
-  cells[3]=min(cells[3],length(unique(xyz[,3])))
-  sel.alpha=alpha>0
-  option_tissue=option_tissue[sel.alpha]
-  alpha=alpha[sel.alpha]
-  colors=colors[sel.alpha]
-  for (i in 1:length(option_tissue) ){
-    segment <- option_tissue[i]
-    sel <- tissue_segments == segment
-    d <- kde3d(xyz[sel, 1], xyz[sel, 2], xyz[sel, 3], n = cells)
-    e=array(0,dim=cells+2)
-    e[2:(cells[1]+1),2:(cells[2]+1),2:(cells[3]+1)]=d$d
-    dx=c(d$x[1]-d$x[2],d$x,d$x[cells[1]]+d$x[2]-d$x[1])
-    dy=c(d$y[1]-d$y[2],d$y,d$y[cells[2]]+d$y[2]-d$y[1])
-    dz=c(d$z[1]-d$z[2],d$z,d$z[cells[3]]+d$z[2]-d$z[1])
-    contour3d(e, level=level, dx, dy, dz,
-              color = colors[i],  scale = FALSE,
-              engine = "rgl", draw = TRUE, alpha = alpha[i], add = (i != 1))
-  }
-  rglwidget()
-}
+#save(vis,xyz,ref,cols,file="MERFISH-test.RData")
 
 
-volume_rendering(xyz,ref,selection = c("V3","PVH","PV","fx"),alpha = c(0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8) ,colors = cols,cells=c(20, 20, 20),level=exp(2.8))
+volume_rendering(xyz[!is.na(ref),],ref[!is.na(ref)],selection = c("V3","PVH","PV","fx"),alpha = c(0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8) ,colors = cols,cells=c(20, 20, 20),level=exp(2.8))
+
 
 ```

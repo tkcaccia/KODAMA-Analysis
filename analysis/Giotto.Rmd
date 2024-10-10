@@ -26,7 +26,7 @@ library(Giotto)
 ```
 ## Dataset loading 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-
+n.cores=16
 instrs = createGiottoInstructions(save_dir = '../Temporary',
                                   save_plot = FALSE,
                                   show_plot = TRUE,
@@ -102,7 +102,7 @@ visium_brain <- runPCA(gobject = visium_brain, feats_to_use = featgenes)
 ## KODAMA analysis
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-visium_brain=RunKODAMAmatrix(visium_brain, f.par.pls = 50,FUN="PLS",n.cores=4)
+visium_brain=RunKODAMAmatrix(visium_brain, f.par.pls = 50,FUN="PLS",n.cores=n.cores)
 visium_brain=RunKODAMAvisualization(visium_brain,method="UMAP")
 ```
 

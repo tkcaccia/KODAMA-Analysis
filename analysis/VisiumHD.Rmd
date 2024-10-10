@@ -21,6 +21,7 @@ library("dplyr")
 library("Seurat")
 library("KODAMA")
 library("KODAMAextra")
+library("bigmemory")
 
 localdir="../Colorectal/outs/"
 object <- Load10X_Spatial(data.dir = localdir, bin.size = c(8))
@@ -68,7 +69,7 @@ sp_obj <- NormalizeData(sp_obj)
 sp_obj <- FindVariableFeatures(sp_obj)
 sp_obj <- ScaleData(sp_obj)
 
-xy=as.matrix(GetTissueCoordinates(sp_obj))
+xy=as.matrix(GetTissueCoordinates(sp_obj)[,1:2])
 
 sp_obj <- RunPCA(sp_obj, reduction.name = "pca.008um")
 
@@ -77,33 +78,128 @@ dim(sp_obj)
 plot(Seurat::Embeddings(sp_obj, reduction = "pca.008um"))
 ```
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=10, fig.height=8}
 
-sp_obj <- RunKODAMAmatrix(sp_obj, reduction = "pca.008um",
-                          FUN= "PLS" ,
-                          landmarks = 10000,
-                          splitting = 100,
-                          f.par.pls = 50,
-                          spatial.resolution = 0.4,
-                          n.cores=4)
+#sp_obj <- RunKODAMAmatrix(sp_obj, reduction = "pca.008um",
+#                          FUN= "PLS" ,
+#                          landmarks = 10000,
+#                          splitting = 100,
+#                          f.par.pls = 50,
+#                          spatial.resolution = 0.4,
+#                          n.cores=8)
 
-  print("KODAMA finished")
+#  print("KODAMA finished")
   
-     config=umap.defaults
-     config$n_threads = 4
-     config$n_sgd_threads = "auto"
-     sp_obj <- RunKODAMAvisualization(sp_obj, method = "UMAP",config=config)
+#     config=umap.defaults
+#     config$n_threads = 8
+#     config$n_sgd_threads = "auto"
+#     sp_obj <- RunKODAMAvisualization(sp_obj, method = "UMAP",config=config)
 
      
+# kk_UMAP=Seurat::Embeddings(sp_obj, reduction = "KODAMA")
 
-plot(Seurat::Embeddings(sp_obj, reduction = "KODAMA"))
-     
+# save(kk_UMAP,xy,file="output/VisiumHD.RData")
+
+load("output/VisiumHD3.RData")   
+
+rr=read.csv("data/spots_classification_ALL.csv",sep=",")
+ss=strsplit(rr[,2],":")
+ss=unlist(lapply(ss, function(x) x[2]))
+ss=strsplit(ss,",")
+ss=unlist(lapply(ss, function(x) x[1]))
+ss=gsub("\"","",ss)
+
+rr[,2]=ss
+n=ave(1:length(rr[,1]), rr[,1], FUN = seq_along)
+rr=rr[n==1,]
+rownames(rr)=rr[,1]
+rr=rr[rownames(kk_UMAP),]
+
+table(rr[,"classification"])
+
+
+
+library(ggplot2)
+
+
+cols=sample(rainbow(15))
+labels=as.factor(rr[,"classification"])
+par(xpd = T, mar = par()$mar + c(0,0,0,7))
+
+plot(kk_UMAP,cex=0.5,pch=20,col=cols[labels])
+legend(max(kk_UMAP[,1])+0.05*dist(range(kk_UMAP[,1])), max(kk_UMAP[,2]),
+       levels(labels),
+       col = cols,
+       cex = 0.8,
+       pch=20)
+
+
+load("data/trajectories_VISIUMHD.RData")
+
+data=sp_obj@assays$Spatial.008um$data[rownames(sp_obj@assays$Spatial.008um$scale.data),]
+data=as.matrix(data)
+data=t(data)
+
+mm1=new_trajectory (kk_UMAP,data = data,trace=tra1$xy)
+mm2=new_trajectory (kk_UMAP,data = data,trace=tra2$xy)
+mm3=new_trajectory (kk_UMAP,data = data,trace=tra3$xy)
+
+
+traj=rbind(mm1$trajectory,
+           mm2$trajectory,
+           mm3$trajectory)
+y=rep(1:20,3)
+
+```
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
+ma=multi_analysis(traj,y,FUN="correlation.test",method="spearman")
+ma=ma[order(as.numeric(ma$`p-value`)),]
+colnames(ma)=c("Feature   ","rho   ","p-value   ","FDR   ")
+```
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
+knitr::kable(ma[1:30,],row.names=FALSE)
+```
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE,results = "hide"}
+
+
+lab=rr[,"classification"]
+sel=lab==" stroma invasive carcinoma" | lab==" stroma intermediate"
+data.sel=data[which(sel),]
+data.sel=data.sel[,colSums(data.sel)>0]
+lab=as.factor(as.vector(lab[which(sel)]))
+
+ma=multi_analysis(data.sel,lab,range="95%CI")
+
+ma=ma[order(as.numeric(ma$`p-value`)),]
 ```
 
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-kk_UMAP=Seurat::Embeddings(sp_obj, reduction = "KODAMA")
-save(kk_UMAP,file="output/VisiumHD.RData")
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
+knitr::kable(ma[1:30,],row.names=FALSE)
 ```
+
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE,results = "hide"}
+
+lab=rr[,"classification"]
+sel=lab==" stroma invasive carcinoma" | lab==" desmoplastic submucosa"
+data.sel=data[which(sel),]
+data.sel=data.sel[,colSums(data.sel)>0]
+
+lab=as.factor(as.vector(lab[which(sel)]))
+
+ma=multi_analysis(data.sel,lab,range="95%CI")
+
+ma=ma[order(as.numeric(ma$`p-value`)),]
+```
+
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
+knitr::kable(ma[1:30,],row.names=FALSE)
+```
+
 
 
