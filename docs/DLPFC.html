@@ -562,15 +562,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreed1416285bd90b9ebb07152a6d73396f800e25d1dtargetblankd141628a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree1b119a0510fc5d6ad48183c7d7ce8455f9813d33targetblank1b119a0a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/d1416285bd90b9ebb07152a6d73396f800e25d1d" target="_blank">d141628</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/1b119a0510fc5d6ad48183c7d7ce8455f9813d33" target="_blank">1b119a0</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistreed1416285bd90b9ebb07152a6d73396f800e25d1dtargetblankd141628a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree1b119a0510fc5d6ad48183c7d7ce8455f9813d33targetblank1b119a0a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -580,7 +580,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/d1416285bd90b9ebb07152a6d73396f800e25d1d" target="_blank">d141628</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/1b119a0510fc5d6ad48183c7d7ce8455f9813d33" target="_blank">1b119a0</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -597,20 +597,22 @@ were generated:
 Ignored files:
     Ignored:    .RData
     Ignored:    .Rhistory
+    Ignored:    analysis/figure/
 
 Untracked files:
-    Untracked:  Elemina.RData
+    Untracked:  KODAMA.svg
+    Untracked:  code/Acinar_Cell_Carcinoma.ipynb
+    Untracked:  code/Adenocarcinoma.ipynb
+    Untracked:  code/Adjacent_normal_section.ipynb
+    Untracked:  code/DLFPC_preprocessing.R
+    Untracked:  code/VisiumHD-CRC.ipynb
+    Untracked:  data/DLPFC-general.RData
     Untracked:  data/spots_classification_ALL.csv
     Untracked:  data/trajectories.RData
     Untracked:  data/trajectories_VISIUMHD.RData
-    Untracked:  elimina_table.RData
-    Untracked:  output/DLFPC-All-2-3000-300-0.4.RData
     Untracked:  output/DLFPC-All.RData
-    Untracked:  output/DLFPC-Br5292-2-3000-300-0.3.RData
     Untracked:  output/DLFPC-Br5292.RData
-    Untracked:  output/DLFPC-Br5595-2-3000-300-0.3.RData
     Untracked:  output/DLFPC-Br5595.RData
-    Untracked:  output/DLFPC-Br8100-2-3000-300-0.3.RData
     Untracked:  output/DLFPC-Br8100.RData
     Untracked:  output/MERFISH.RData
     Untracked:  output/Prostate.RData
@@ -618,6 +620,7 @@ Untracked files:
     Untracked:  output/VisiumHD2.RData
     Untracked:  output/VisiumHD3.RData
     Untracked:  output/image.RData
+    Untracked:  output/pca.RData
 
 Unstaged changes:
     Deleted:    analysis/DLPFC-12.Rmd
@@ -667,6 +670,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/1b119a0510fc5d6ad48183c7d7ce8455f9813d33/analysis/DLPFC.Rmd" target="_blank">1b119a0</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-10
+</td>
+<td>
+Start my new project
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/DLPFC.html" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -999,12 +1036,26 @@ individually.</p>
 <pre class="r"><code>data=as.matrix(t(logcounts(spe)[top[1:gene_number],]))
 samples=colData(spe)$sample_id
 labels=as.factor(colData(spe)$layer_guess_reordered)
+names(labels)=rownames(colData(spe))
 subjects=colData(spe)$subject</code></pre>
+<p>#seurat list preprocessing</p>
+<pre class="r"><code>source(&quot;code/DLFPC_preprocessing.R&quot;)</code></pre>
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+[1] 11
+[1] 12</code></pre>
 </div>
 </div>
 <div id="patient-br5595" class="section level1">
 <h1>Patient Br5595</h1>
-<p>subject_names= c(“Br5292”,“Br5595”, “Br8100”)</p>
 <pre class="r"><code>subject_names=&quot;Br5595&quot;
 nclusters=5
 
@@ -1022,22 +1073,58 @@ data_sub=data[sel,top[1:gene_number]]
         
 RNA.scaled=scale(data_sub)
 pca_results &lt;- irlba(A = RNA.scaled, nv = 50)
-pca &lt;- pca_results$u %*% diag(pca_results$d)[,1:50]
-rownames(pca)=rownames(data_sub)
-colnames(pca)=paste(&quot;PC&quot;,1:50,sep=&quot;&quot;)
+pca_Br5595 &lt;- pca_results$u %*% diag(pca_results$d)[,1:50]
+rownames(pca_Br5595)=rownames(data_sub)
+colnames(pca_Br5595)=paste(&quot;PC&quot;,1:50,sep=&quot;&quot;)
 labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+names(labels)=rownames(colData(spe_sub))
 xy=as.matrix(spatialCoords(spe_sub))
 rownames(xy)=rownames(colData(spe_sub))
 samples=colData(spe_sub)$sample_id
 
-save(pca,samples,xy,labels,file=&quot;output/pca.RData&quot;)
 
-
-plot(pca, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+plot(pca_Br5595, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-7-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="kodama-analysis" class="section level2">
 <h2>KODAMA analysis</h2>
-<pre class="r"><code>kk=KODAMA.matrix.parallel(pca,
+<pre class="r"><code>kk=KODAMA.matrix.parallel(pca_Br5595,
                           spatial = xy,
                           samples=samples,
                           FUN= &quot;PLS&quot; ,
@@ -1065,20 +1152,93 @@ config$n_sgd_threads = &quot;auto&quot;
 
 kk_UMAP=KODAMA.visualization(kk,method=&quot;UMAP&quot;,config=config)
 plot(kk_UMAP,pch=20,col=as.factor(labels))</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-8-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="graph-based-clustering" class="section level2">
 <h2>Graph-based clustering</h2>
 <pre class="r"><code>    # Graph-based clustering
 
-      
 g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = 20)
 g_walk &lt;- igraph::cluster_walktrap(g)
 clu &lt;- as.character(igraph::cut_at(g_walk, no = 2))
 plot(kk_UMAP,pch=20,col=as.factor(clu))</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>  load(&quot;../Optimization/Data/rem.RData&quot;)
-  selFB=!(rownames(kk_UMAP) %in% rem)
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-9-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>selFB=clu==1
+
   kk_UMAP=kk_UMAP[selFB,]
   labels=labels[selFB]
   samples=samples[selFB]
@@ -1089,7 +1249,7 @@ g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
 g_walk &lt;- igraph::cluster_walktrap(g)
 clu &lt;- as.character(igraph::cut_at(g_walk, no = nclusters))
 plot(kk_UMAP,pch=20,col=as.factor(clu))</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-8-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-9-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
 <pre><code>[1] &quot;151669&quot;
 [1] &quot;151670&quot;
@@ -1100,10 +1260,10 @@ for(j in u){
   sel=samples==j
   print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
 }</code></pre>
-<pre><code>[1] 0.7513649
-[1] 0.754529
-[1] 0.8049544
-[1] 0.7291822</code></pre>
+<pre><code>[1] 0.5772998
+[1] 0.584124
+[1] 0.6568691
+[1] 0.664583</code></pre>
 <pre class="r"><code>      ###########
       
     
@@ -1111,9 +1271,16 @@ cols_cluster &lt;- c(&quot;#0000b6&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quo
           &quot;#cc00b6&quot;, &quot;#81ccff&quot;, &quot;#33b233&quot;)
 
 plot_slide(xy,samples,ref,col=cols_cluster)</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-8-3.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>  #  2_FALSE_2000_3_100_0.3_15_20_withFB
-save(kk_UMAP,samples,xy,labels,ref,clu,file=&quot;output/DLFPC-Br5595.RData&quot;)</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-9-3.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>kk_UMAP_Br5595=kk_UMAP
+samples_Br5595=samples
+xy_Br5595=xy
+labels_Br5595=labels
+subject_names_Br5595=subject_names
+ref_Br5595=ref
+clu_Br5595=clu
+
+save(kk_UMAP_Br5595,pca_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_names_Br5595,ref_Br5595,clu_Br5595,file=&quot;output/DLFPC-Br5595.RData&quot;)</code></pre>
 </div>
 </div>
 <div id="patient-br5292" class="section level1">
@@ -1140,19 +1307,79 @@ nclusters=7
         
         RNA.scaled=scale(data_sub)
         pca_results &lt;- irlba(A = RNA.scaled, nv = 50)
-        pca &lt;- pca_results$u %*% diag(pca_results$d)[,1:50]
-        rownames(pca)=rownames(data_sub)
-        colnames(pca)=paste(&quot;PC&quot;,1:50,sep=&quot;&quot;)
+        pca_Br5292 &lt;- pca_results$u %*% diag(pca_results$d)[,1:50]
+        rownames(pca_Br5292)=rownames(data_sub)
+        colnames(pca_Br5292)=paste(&quot;PC&quot;,1:50,sep=&quot;&quot;)
         labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+        names(labels)=rownames(colData(spe_sub))
         xy=as.matrix(spatialCoords(spe_sub))
         rownames(xy)=rownames(colData(spe_sub))
         samples=colData(spe_sub)$sample_id
         
-  plot(pca, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
+  plot(pca_Br5292, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-10-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-10-1.png" target="_blank">35ce733</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-03
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/f8ca54aee4428df50d2cd0f41cbf2a0ceae01d7d/docs/figure/DLPFC.Rmd/unnamed-chunk-10-1.png" target="_blank">f8ca54a</a>
+</td>
+<td>
+tkcaccia
+</td>
+<td>
+2024-07-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="kodama-analysis-1" class="section level2">
 <h2>KODAMA analysis</h2>
-<pre class="r"><code>kk=KODAMA.matrix.parallel(pca,
+<pre class="r"><code>kk=KODAMA.matrix.parallel(pca_Br5292,
                             spatial = xy,
                             samples=samples,
                             FUN= &quot;PLS&quot; ,
@@ -1180,68 +1407,6 @@ Finished parallel computation
      kk_UMAP=KODAMA.visualization(kk,method=&quot;UMAP&quot;,config=config)
 
      plot(kk_UMAP,pch=20,col=as.factor(labels))</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
-Past versions of unnamed-chunk-10-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-10-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-10-1.png" target="_blank">35ce733</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-08-03
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/f8ca54aee4428df50d2cd0f41cbf2a0ceae01d7d/docs/figure/DLPFC.Rmd/unnamed-chunk-10-1.png" target="_blank">f8ca54a</a>
-</td>
-<td>
-tkcaccia
-</td>
-<td>
-2024-07-14
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="graph-based-clustering-1" class="section level2">
-<h2>Graph-based clustering</h2>
-<pre class="r"><code>    # Graph-based clustering
-
-  
-        
-        g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
-        
-        g_walk &lt;- igraph::cluster_walktrap(g)
-        clu &lt;- as.character(igraph::cut_at(g_walk, no = nclusters))
-        
-    plot(kk_UMAP,pch=20,col=as.factor(clu))</code></pre>
 <p><img src="figure/DLPFC.Rmd/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
@@ -1267,6 +1432,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-11-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-11-1.png" target="_blank">35ce733</a>
 </td>
 <td>
@@ -1274,6 +1450,79 @@ Stefano Cacciatore
 </td>
 <td>
 2024-08-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="graph-based-clustering-1" class="section level2">
+<h2>Graph-based clustering</h2>
+<pre class="r"><code>    # Graph-based clustering
+
+  
+        
+        g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+        
+        g_walk &lt;- igraph::cluster_walktrap(g)
+        clu &lt;- as.character(igraph::cut_at(g_walk, no = nclusters))
+        
+    plot(kk_UMAP,pch=20,col=as.factor(clu))</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-12-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-12-1.png" target="_blank">35ce733</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-03
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/f8ca54aee4428df50d2cd0f41cbf2a0ceae01d7d/docs/figure/DLPFC.Rmd/unnamed-chunk-12-1.png" target="_blank">f8ca54a</a>
+</td>
+<td>
+tkcaccia
+</td>
+<td>
+2024-07-14
 </td>
 </tr>
 </tbody>
@@ -1291,16 +1540,94 @@ Stefano Cacciatore
           
             print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
         }</code></pre>
-<pre><code>[1] 0.4510898
-[1] 0.4860966
-[1] 0.4833866
-[1] 0.4664056</code></pre>
-<pre class="r"><code>cols_cluster &lt;- c(&quot;#0000b6&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quot;,&quot;#e07a5f&quot;,
+<pre><code>[1] 0.4326714
+[1] 0.4795256
+[1] 0.4221291
+[1] 0.3955949</code></pre>
+<pre class="r"><code>        ###########
+
+          g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+          
+          g_walk &lt;- igraph::cluster_walktrap(g)
+          clu &lt;- as.character(igraph::cut_at(g_walk, no = nclusters))
+          ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
+<pre><code>[1] &quot;151507&quot;
+[1] &quot;151508&quot;
+[1] &quot;151509&quot;
+[1] &quot;151510&quot;</code></pre>
+<pre class="r"><code>          u=unique(samples)
+          for(j in u){
+            sel=samples==j
+            print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+          }</code></pre>
+<pre><code>[1] 0.4326714
+[1] 0.4795256
+[1] 0.4221291
+[1] 0.3955949</code></pre>
+<pre class="r"><code>      ###########
+      
+    
+cols_cluster &lt;- c(&quot;#0000b6&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quot;,&quot;#e07a5f&quot;,
           &quot;#cc00b6&quot;, &quot;#81ccff&quot;, &quot;#33b233&quot;)
 
     plot_slide(xy,samples,ref,col=cols_cluster)</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-11-2.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>save(kk_UMAP,samples,xy,labels,ref,clu,file=&quot;output/DLFPC-Br5292.RData&quot;)</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-2">
+Past versions of unnamed-chunk-12-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-12-2.png" target="_blank">35ce733</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-03
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/f8ca54aee4428df50d2cd0f41cbf2a0ceae01d7d/docs/figure/DLPFC.Rmd/unnamed-chunk-12-2.png" target="_blank">f8ca54a</a>
+</td>
+<td>
+tkcaccia
+</td>
+<td>
+2024-07-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>kk_UMAP_Br5292=kk_UMAP
+samples_Br5292=samples
+xy_Br5292=xy
+labels_Br5292=labels
+subject_names_Br5292=subject_names
+ref_Br5292=ref
+clu_Br5292=clu
+save(kk_UMAP_Br5292,pca_Br5292,samples_Br5292,xy_Br5292,subject_names_Br5292,labels_Br5292,ref_Br5292,clu_Br5292,file=&quot;output/DLFPC-Br5292.RData&quot;)</code></pre>
 </div>
 </div>
 <div id="patient-br8100" class="section level1">
@@ -1328,22 +1655,23 @@ nclusters=7
         
         RNA.scaled=scale(data_sub)
         pca_results &lt;- irlba(A = RNA.scaled, nv = 50)
-        pca &lt;- pca_results$u %*% diag(pca_results$d)[,1:50]
-        rownames(pca)=rownames(data_sub)
-        colnames(pca)=paste(&quot;PC&quot;,1:50,sep=&quot;&quot;)
+        pca_Br8100 &lt;- pca_results$u %*% diag(pca_results$d)[,1:50]
+        rownames(pca_Br8100)=rownames(data_sub)
+        colnames(pca_Br8100)=paste(&quot;PC&quot;,1:50,sep=&quot;&quot;)
         labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+        names(labels)=rownames(colData(spe_sub))
         xy=as.matrix(spatialCoords(spe_sub))
         rownames(xy)=rownames(colData(spe_sub))
         samples=colData(spe_sub)$sample_id
         
-  plot(pca, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+  plot(pca_Br8100, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div id="fig-unnamed-chunk-13-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1362,7 +1690,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-12-1.png" target="_blank">35ce733</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-13-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-13-1.png" target="_blank">35ce733</a>
 </td>
 <td>
 Stefano Cacciatore
@@ -1373,7 +1712,7 @@ Stefano Cacciatore
 </tr>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/f8ca54aee4428df50d2cd0f41cbf2a0ceae01d7d/docs/figure/DLPFC.Rmd/unnamed-chunk-12-1.png" target="_blank">f8ca54a</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/f8ca54aee4428df50d2cd0f41cbf2a0ceae01d7d/docs/figure/DLPFC.Rmd/unnamed-chunk-13-1.png" target="_blank">f8ca54a</a>
 </td>
 <td>
 tkcaccia
@@ -1388,7 +1727,7 @@ tkcaccia
 </div>
 <div id="kodama-analysis-2" class="section level2">
 <h2>KODAMA analysis</h2>
-<pre class="r"><code>kk=KODAMA.matrix.parallel(pca,
+<pre class="r"><code>kk=KODAMA.matrix.parallel(pca_Br8100,
                             spatial = xy,
                             samples=samples,
                             FUN= &quot;PLS&quot; ,
@@ -1416,13 +1755,13 @@ Finished parallel computation
      kk_UMAP=KODAMA.visualization(kk,method=&quot;UMAP&quot;,config=config)
 
      plot(kk_UMAP,pch=20,col=as.factor(labels))</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div id="fig-unnamed-chunk-14-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1441,24 +1780,24 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-13-1.png" target="_blank">35ce733</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-14-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-14-1.png" target="_blank">35ce733</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
 2024-08-03
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/f8ca54aee4428df50d2cd0f41cbf2a0ceae01d7d/docs/figure/DLPFC.Rmd/unnamed-chunk-13-1.png" target="_blank">f8ca54a</a>
-</td>
-<td>
-tkcaccia
-</td>
-<td>
-2024-07-14
 </td>
 </tr>
 </tbody>
@@ -1487,75 +1826,18 @@ tkcaccia
           
             print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
         }</code></pre>
-<pre><code>[1] 0.6026135
-[1] 0.7192873
-[1] 0.6900801
-[1] 0.627094</code></pre>
+<pre><code>[1] 0.6032563
+[1] 0.689506
+[1] 0.6975872
+[1] 0.6478389</code></pre>
 <pre class="r"><code>        ###########
 
-    
-cols_cluster &lt;- c(&quot;#0000b6&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quot;,&quot;#e07a5f&quot;,
-          &quot;#cc00b6&quot;, &quot;#81ccff&quot;, &quot;#33b233&quot;)
-
-    plot_slide(xy,samples,ref,col=cols_cluster)</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-14-1.png" target="_blank">35ce733</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-08-03
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>save(kk_UMAP,samples,xy,labels,ref,clu,file=&quot;output/DLFPC-Br8100.RData&quot;)</code></pre>
-</div>
-</div>
-<div id="slides" class="section level1">
-<h1>12 Slides</h1>
-<p>PCA and HARMONY</p>
-<pre class="r"><code> dim(spe_sub)</code></pre>
-<pre><code>[1]  6623 13938</code></pre>
-<pre class="r"><code> spe &lt;- runPCA(spe, 50,subset_row = top[1:gene_number], scale=TRUE)
-
-
- subjects=colData(spe)$subject
- labels=as.factor(colData(spe)$layer_guess_reordered)
- xy=as.matrix(spatialCoords(spe))
- samples=colData(spe)$sample_id
-
- spe &lt;- RunHarmony(spe, &quot;subject&quot;,lambda=NULL)
- pca=reducedDim(spe,type = &quot;HARMONY&quot;)[,1:50]
- 
- plot(pca, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
+          g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+          
+          g_walk &lt;- igraph::cluster_walktrap(g)
+          clu &lt;- as.character(igraph::cut_at(g_walk, no = nclusters))
+          
+           plot(kk_UMAP,pch=20,col=as.factor(clu))</code></pre>
 <p><img src="figure/DLPFC.Rmd/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
@@ -1581,7 +1863,116 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-15-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-15-1.png" target="_blank">35ce733</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>          ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
+<pre><code>[1] &quot;151673&quot;
+[1] &quot;151674&quot;
+[1] &quot;151675&quot;
+[1] &quot;151676&quot;</code></pre>
+<pre class="r"><code>          u=unique(samples)
+          for(j in u){
+            sel=samples==j
+            print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+          }</code></pre>
+<pre><code>[1] 0.6032563
+[1] 0.689506
+[1] 0.6975872
+[1] 0.6478389</code></pre>
+<pre class="r"><code>      ###########
+      
+    
+cols_cluster &lt;- c(&quot;#0000b6&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quot;,&quot;#e07a5f&quot;,
+          &quot;#cc00b6&quot;, &quot;#81ccff&quot;, &quot;#33b233&quot;)
+
+    plot_slide(xy,samples,ref,col=cols_cluster)</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-15-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>kk_UMAP_Br8100=kk_UMAP
+samples_Br8100=samples
+xy_Br8100=xy
+labels_Br8100=labels
+subject_names_Br8100=subject_names
+ref_Br8100=ref
+clu_Br8100=clu 
+save(kk_UMAP_Br8100,pca_Br8100,samples_Br8100,xy_Br8100,subject_names_Br8100,labels_Br8100,ref_Br8100,clu_Br8100,file=&quot;output/DLFPC-Br8100.RData&quot;)</code></pre>
+</div>
+</div>
+<div id="slides" class="section level1">
+<h1>12 Slides</h1>
+<p>PCA and HARMONY</p>
+<pre class="r"><code> dim(spe_sub)</code></pre>
+<pre><code>[1]  6623 13938</code></pre>
+<pre class="r"><code> spe &lt;- runPCA(spe, 50,subset_row = top[1:gene_number], scale=TRUE)
+
+
+ subjects=colData(spe)$subject
+ labels=as.factor(colData(spe)$layer_guess_reordered)
+ xy=as.matrix(spatialCoords(spe))
+ samples=colData(spe)$sample_id
+
+ spe &lt;- RunHarmony(spe, &quot;subject&quot;,lambda=NULL)
+ pca=reducedDim(spe,type = &quot;HARMONY&quot;)[,1:50]
+ 
+ plot(pca, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-16-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-16-1.png" target="_blank">35ce733</a>
 </td>
 <td>
 Stefano Cacciatore
@@ -1623,56 +2014,19 @@ config$n_sgd_threads = &quot;auto&quot;
 
 kk_UMAP=KODAMA.visualization(kk,method=&quot;UMAP&quot;,config=config)
 plot(kk_UMAP,pch=20,col=as.factor(labels))</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-16-1.png" target="_blank">35ce733</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-08-03
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>CLUSTER</p>
 <pre class="r"><code>        g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
         g_walk &lt;- igraph::cluster_walktrap(g)
         clu &lt;- as.character(igraph::cut_at(g_walk, no = 7))
         plot(kk_UMAP,pch=20,col=as.factor(clu)) </code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
-Past versions of unnamed-chunk-18-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div id="fig-unnamed-chunk-19-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1691,7 +2045,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-18-1.png" target="_blank">35ce733</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-19-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-19-1.png" target="_blank">35ce733</a>
 </td>
 <td>
 Stefano Cacciatore
@@ -1721,54 +2086,17 @@ Stefano Cacciatore
           &quot;#cc00b6&quot;, &quot;#81ccff&quot;, &quot;#33b233&quot;)
 
     plot_slide(xy,samples,ref,col=cols_cluster)</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-18-2.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-2">
-Past versions of unnamed-chunk-18-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-18-2.png" target="_blank">35ce733</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-08-03
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-19-2.png" width="960" style="display: block; margin: auto;" /></p>
 <p>CLUSTER</p>
 <pre class="r"><code>  clu=kmeans(kk_UMAP,7,nstart = 100)$cluster
   plot(kk_UMAP,col=labels,pch=20)</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
-Past versions of unnamed-chunk-20-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div id="fig-unnamed-chunk-21-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1787,13 +2115,13 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-20-1.png" target="_blank">35ce733</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-21-1.png" target="_blank">6038af1</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
-2024-08-03
+2024-10-09
 </td>
 </tr>
 </tbody>
@@ -1801,24 +2129,61 @@ Stefano Cacciatore
 </div>
 </div>
 <pre class="r"><code>  plot(kk_UMAP,col=cols_cluster,pch=20)</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-20-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-21-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-2">
+Past versions of unnamed-chunk-21-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-21-2.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>u=unique(samples)
 for(i in 1:length(u)){
   sel=samples==u[i]
   print(adjustedRandIndex(labels[sel],clu[sel]))
 }</code></pre>
-<pre><code>[1] 0.5371949
-[1] 0.483808
-[1] 0.488199
-[1] 0.4772776
-[1] 0.3397857
-[1] 0.3219359
-[1] 0.3672257
-[1] 0.4093882
-[1] 0.5472621
-[1] 0.5675393
-[1] 0.5488973
-[1] 0.5331091</code></pre>
+<pre><code>[1] 0.5229387
+[1] 0.4808002
+[1] 0.4792372
+[1] 0.4615354
+[1] 0.3342856
+[1] 0.3190995
+[1] 0.3645173
+[1] 0.4042594
+[1] 0.5427708
+[1] 0.5655607
+[1] 0.5426387
+[1] 0.5276388</code></pre>
 <pre class="r"><code>ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
 <pre><code>[1] &quot;151507&quot;
 [1] &quot;151508&quot;
@@ -1837,29 +2202,125 @@ for(i in 1:length(u)){
   sel=samples==u[i]
   print(adjustedRandIndex(labels[sel],ref[sel]))
 }</code></pre>
-<pre><code>[1] 0.5963998
-[1] 0.5249246
-[1] 0.5064786
-[1] 0.5054675
-[1] 0.4019317
-[1] 0.3857042
-[1] 0.4448031
-[1] 0.5435157
-[1] 0.5894845
-[1] 0.6141475
-[1] 0.6006755
-[1] 0.590261</code></pre>
+<pre><code>[1] 0.5708956
+[1] 0.5279227
+[1] 0.5017788
+[1] 0.4914887
+[1] 0.3841959
+[1] 0.3751429
+[1] 0.4394351
+[1] 0.5280842
+[1] 0.5872196
+[1] 0.6091544
+[1] 0.6063361
+[1] 0.5934526</code></pre>
 <pre class="r"><code>plot_slide(xy,samples,ref,col=cols_cluster)</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-20-3.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-21-3.png" width="960" style="display: block; margin: auto;" /></p>
 <p>TRAJECTORY</p>
 <pre class="r"><code>d &lt;- slingshot(kk_UMAP, clusterLabels = clu)
 trajectory=d@metadata$curves$Lineage1$s
 k=knn_Armadillo(trajectory,kk_UMAP,1)
 map_color=rainbow(nrow(trajectory))[k$nn_index]
 plot(kk_UMAP,pch=20,col=map_color)</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
+Past versions of unnamed-chunk-22-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-22-1.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-22-1.png" target="_blank">35ce733</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot_slide(xy,samples,k$nn_index,col=rainbow(nrow(trajectory)))</code></pre>
-<p><img src="figure/DLPFC.Rmd/unnamed-chunk-21-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DLPFC.Rmd/unnamed-chunk-22-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-2">
+Past versions of unnamed-chunk-22-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6038af1ae7d982283a26fe00a2ca6547cfe2ad13/docs/figure/DLPFC.Rmd/unnamed-chunk-22-2.png" target="_blank">6038af1</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-09
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/35ce733e4e0012d79f696f9c7dcdbf67e1623e80/docs/figure/DLPFC.Rmd/unnamed-chunk-22-2.png" target="_blank">35ce733</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
