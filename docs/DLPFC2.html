@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>DLPFC</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">KODAMA-Analysis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="Installation.html">Installation</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Spatial
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Simulation.html">Simulation</a>
+    </li>
+    <li>
+      <a href="MERFISH.html">MERFISH (Moffitt et al., 2018)</a>
+    </li>
+    <li>
+      <a href="DLPFC1.html">Visium DLPFC (Maynard et al., 2021)</a>
+    </li>
+    <li>
+      <a href="DLPFC2.html">Visium 2</a>
+    </li>
+    <li>
+      <a href="DLPFC3.html">Visium 3</a>
+    </li>
+    <li>
+      <a href="DLPFC4.html">Visium 4</a>
+    </li>
+    <li>
+      <a href="DLPFC5.html">Visium 5</a>
+    </li>
+    <li>
+      <a href="DLPFC6.html">Visium 6</a>
+    </li>
+    <li>
+      <a href="DLPFC7.html">Visium 7</a>
+    </li>
+    <li>
+      <a href="DLPFC8.html">Visium 8</a>
+    </li>
+    <li>
+      <a href="DLPFC9.html">Visium 9</a>
+    </li>
+    <li>
+      <a href="DLPFC10.html">Visium 10</a>
+    </li>
+    <li>
+      <a href="Prostate.html">Visium (10X database - Prostate)</a>
+    </li>
+    <li>
+      <a href="VisiumHD.html">Visium HD (10X database - Colorectal cancer)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Wrapper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Seurat.html">Seurat</a>
+    </li>
+    <li>
+      <a href="Giotto.html">Giotto</a>
+    </li>
+    <li>
+      <a href="SpatialExperiment.html">SpatialExperiment</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/tkcaccia/KODAMA-Analysis">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">DLPFC</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-10-14
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240618code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240618)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240618code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240618)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree1db7422545daf3a02dfebc68076525f8957be829targetblank1db7422a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/1db7422545daf3a02dfebc68076525f8957be829" target="_blank">1db7422</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree1db7422545daf3a02dfebc68076525f8957be829targetblank1db7422a"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/1db7422545daf3a02dfebc68076525f8957be829" target="_blank">1db7422</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .RData
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  KODAMA.svg
+    Untracked:  code/Acinar_Cell_Carcinoma.ipynb
+    Untracked:  code/Adenocarcinoma.ipynb
+    Untracked:  code/Adjacent_normal_section.ipynb
+    Untracked:  code/DLFPC_preprocessing.R
+    Untracked:  code/VisiumHD-CRC.ipynb
+    Untracked:  data/DLPFC-general.RData
+    Untracked:  data/spots_classification_ALL.csv
+    Untracked:  data/trajectories.RData
+    Untracked:  data/trajectories_VISIUMHD.RData
+    Untracked:  output/DLFPC-All.RData
+    Untracked:  output/DLFPC-Br5292.RData
+    Untracked:  output/DLFPC-Br5595.RData
+    Untracked:  output/DLFPC-Br8100.RData
+    Untracked:  output/MERFISH.RData
+    Untracked:  output/Prostate.RData
+    Untracked:  output/VisiumHD3.RData
+    Untracked:  output/image.RData
+    Untracked:  output/pca.RData
+
+Unstaged changes:
+    Deleted:    analysis/DLPFC-12.Rmd
+    Deleted:    analysis/DLPFC-4.Rmd
+    Deleted:    analysis/DLPFC.Rmd
+    Modified:   analysis/Giotto.Rmd
+    Deleted:    analysis/STARmap.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/DLPFC2.Rmd</code>) and HTML
+(<code>docs/DLPFC2.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/1db7422545daf3a02dfebc68076525f8957be829/analysis/DLPFC2.Rmd" target="_blank">1db7422</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-10-14
+</td>
+<td>
+Start my new project
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Here, we apply KODAMA to analyze the human dorsolateral prefrontal
+cortex (DLPFC) data by 10x Visium from <a
+href="https://www.nature.com/articles/s41593-020-00787-0">Maynard et
+al., 2021</a>. The links to download the raw data and H&amp;E full
+resolution images can be found in the <a
+href="https://github.com/LieberInstitute/spatialLIBD">LieberInstitute/spatialLIBD</a>
+github page.</p>
+</div>
+<div id="loading-the-required-libraries" class="section level1">
+<h1>Loading the required libraries</h1>
+<pre class="r"><code>library(&quot;nnSVG&quot;)
+library(&quot;scater&quot;)
+library(&quot;scran&quot;)
+library(&quot;scry&quot;)
+library(&quot;SPARK&quot;)
+library(&quot;harmony&quot;)
+library(&quot;Seurat&quot;)
+library(&quot;spatialLIBD&quot;)
+library(&quot;KODAMAextra&quot;)
+library(&quot;mclust&quot;)
+library(&quot;slingshot&quot;)
+library(&quot;irlba&quot;)</code></pre>
+</div>
+<div id="download-the-dataset" class="section level1">
+<h1>Download the dataset</h1>
+<pre class="r"><code>spe &lt;- fetch_data(type = &#39;spe&#39;)</code></pre>
+<div id="extract-the-metadata-information" class="section level2">
+<h2>Extract the metadata information</h2>
+<pre class="r"><code>n.cores=40
+splitting = 100
+spatial.resolution = 0.3
+aa_noise=3
+gene_number=2000
+graph = 20
+seed=1
+
+
+set.seed(seed)
+ID=unlist(lapply(strsplit(rownames(colData(spe)),&quot;-&quot;),function(x) x[1]))
+samples=colData(spe)$sample_id
+rownames(colData(spe))=paste(ID,samples,sep=&quot;-&quot;)
+
+txtfile=paste(splitting,spatial.resolution,aa_noise,2,gene_number,sep=&quot;_&quot;)
+
+sample_names=c(&quot;151507&quot;,
+               &quot;151508&quot;,
+               &quot;151509&quot;,
+               &quot;151510&quot;,
+               &quot;151669&quot;,
+               &quot;151670&quot;,
+               &quot;151671&quot;,
+               &quot;151672&quot;,
+               &quot;151673&quot;,
+               &quot;151674&quot;,
+               &quot;151675&quot;,
+               &quot;151676&quot;)
+subject_names= c(&quot;Br5292&quot;,&quot;Br5595&quot;, &quot;Br8100&quot;)
+metaData = SingleCellExperiment::colData(spe)
+expr = SingleCellExperiment::counts(spe)
+sample_names &lt;- paste0(&quot;sample_&quot;, unique(colData(spe)$sample_id))
+sample_names &lt;-  unique(colData(spe)$sample_id)
+dim(spe)</code></pre>
+<pre><code>[1] 33538 47681</code></pre>
+<pre class="r"><code># identify mitochondrial genes
+is_mito &lt;- grepl(&quot;(^MT-)|(^mt-)&quot;, rowData(spe)$gene_name)
+table(is_mito)</code></pre>
+<pre><code>is_mito
+FALSE  TRUE 
+33525    13 </code></pre>
+<pre class="r"><code># calculate per-spot QC metrics
+spe &lt;- addPerCellQC(spe, subsets = list(mito = is_mito))
+
+# select QC thresholds
+qc_lib_size &lt;- colData(spe)$sum &lt; 500
+qc_detected &lt;- colData(spe)$detected &lt; 250
+qc_mito &lt;- colData(spe)$subsets_mito_percent &gt; 30
+qc_cell_count &lt;- colData(spe)$cell_count &gt; 12
+
+# spots to discard
+discard &lt;- qc_lib_size | qc_detected | qc_mito | qc_cell_count
+table(discard)</code></pre>
+<pre><code>discard
+FALSE  TRUE 
+46653  1028 </code></pre>
+<pre class="r"><code>colData(spe)$discard &lt;- discard
+# filter low-quality spots
+spe &lt;- spe[, !colData(spe)$discard]
+dim(spe)</code></pre>
+<pre><code>[1] 33538 46653</code></pre>
+<pre class="r"><code>spe &lt;- filter_genes(
+  spe,
+  filter_genes_ncounts = 2,   #ncounts
+  filter_genes_pcspots = 0.5,
+  filter_mito = TRUE
+)
+
+dim(spe)</code></pre>
+<pre><code>[1]  6623 46653</code></pre>
+<pre class="r"><code>sel= !is.na(colData(spe)$layer_guess_reordered)
+spe = spe[,sel]
+dim(spe)</code></pre>
+<pre><code>[1]  6623 46318</code></pre>
+<pre class="r"><code>spe &lt;- computeLibraryFactors(spe)
+spe &lt;- logNormCounts(spe)</code></pre>
+</div>
+<div id="gene-selection" class="section level2">
+<h2>Gene selection</h2>
+<p>The identification of genes that display spatial expression patterns
+is performed using the SPARKX method (<a
+href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02404-0">Zhu
+et al. (2021)</a>). The genes are ranked based on the median value of
+the logarithm value of the p-value obtained in each slide
+individually.</p>
+<pre class="r"><code>top=multi_SPARKX(spe,n.cores=n.cores)</code></pre>
+<pre><code>Warning in asMethod(object): sparse-&gt;dense coercion: allocating vector of size
+2.3 GiB</code></pre>
+<pre class="r"><code>data=as.matrix(t(logcounts(spe)[top[1:gene_number],]))
+samples=colData(spe)$sample_id
+labels=as.factor(colData(spe)$layer_guess_reordered)
+names(labels)=rownames(colData(spe))
+subjects=colData(spe)$subject</code></pre>
+<p>#seurat list preprocessing</p>
+<pre class="r"><code>source(&quot;code/DLFPC_preprocessing.R&quot;)</code></pre>
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+[1] 11
+[1] 12</code></pre>
+</div>
+</div>
+<div id="patient-br5595" class="section level1">
+<h1>Patient Br5595</h1>
+<pre class="r"><code>subject_names=&quot;Br5595&quot;
+nclusters=5
+
+spe_sub &lt;- spe[, colData(spe)$subject ==  subject_names]
+ # subjects=colData(spe_sub)$subject
+dim(spe_sub)</code></pre>
+<pre><code>[1]  6623 14646</code></pre>
+<pre class="r"><code>#  spe_sub &lt;- runPCA(spe_sub, 50,subset_row = top[1:gene_number], scale=TRUE)
+#pca=reducedDim(spe_sub,type = &quot;PCA&quot;)[,1:50]
+  
+spe_sub &lt;- spe[, colData(spe)$subject ==  subject_names]
+sel= subjects ==  subject_names
+        
+data_sub=data[sel,top[1:gene_number]]
+        
+RNA.scaled=scale(data_sub)
+pca_results &lt;- irlba(A = RNA.scaled, nv = 50)
+pca_Br5595 &lt;- pca_results$u %*% diag(pca_results$d)[,1:50]
+rownames(pca_Br5595)=rownames(data_sub)
+colnames(pca_Br5595)=paste(&quot;PC&quot;,1:50,sep=&quot;&quot;)
+labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+names(labels)=rownames(colData(spe_sub))
+xy=as.matrix(spatialCoords(spe_sub))
+rownames(xy)=rownames(colData(spe_sub))
+samples=colData(spe_sub)$sample_id
+
+
+plot(pca_Br5595, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="kodama-analysis" class="section level2">
+<h2>KODAMA analysis</h2>
+<pre class="r"><code>set.seed(seed)
+kk=KODAMA.matrix.parallel(pca_Br5595,
+                          spatial = xy,
+                          samples=samples,
+                          FUN= &quot;PLS&quot; ,
+                          landmarks = 100000,
+                          splitting = splitting,
+                          f.par.pls = 50,
+                          spatial.resolution = spatial.resolution,
+                          n.cores=n.cores,
+                          aa_noise=aa_noise,
+                          seed = seed)</code></pre>
+<pre><code>Calculating Network
+
+Calculating Network spatial
+socket cluster with 40 nodes on host &#39;localhost&#39;
+================================================================================
+Finished parallel computation
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================</code></pre>
+<pre class="r"><code>print(&quot;KODAMA finished&quot;)</code></pre>
+<pre><code>[1] &quot;KODAMA finished&quot;</code></pre>
+<pre class="r"><code>config=umap.defaults
+config$n_threads = n.cores
+config$n_sgd_threads = &quot;auto&quot;
+
+kk_UMAP=KODAMA.visualization(kk,method=&quot;UMAP&quot;,config=config)
+plot(kk_UMAP,pch=20,col=as.factor(labels))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-based-clustering" class="section level2">
+<h2>Graph-based clustering</h2>
+<pre class="r"><code>    # Graph-based clustering
+
+g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = 20)
+g_walk &lt;- igraph::cluster_walktrap(g)
+clu &lt;- as.character(igraph::cut_at(g_walk, no = 2))
+plot(kk_UMAP,pch=20,col=as.factor(clu))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>FB=names(which.min(table(clu)))
+selFB=clu!=FB
+
+  kk_UMAP=kk_UMAP[selFB,]
+  labels=labels[selFB]
+  samples=samples[selFB]
+  xy=xy[selFB,]
+    
+      
+g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+g_walk &lt;- igraph::cluster_walktrap(g)
+clu &lt;- as.character(igraph::cut_at(g_walk, no = nclusters))
+plot(kk_UMAP,pch=20,col=as.factor(clu))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-9-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
+<pre><code>[1] &quot;151669&quot;
+[1] &quot;151670&quot;
+[1] &quot;151671&quot;
+[1] &quot;151672&quot;</code></pre>
+<pre class="r"><code>u=unique(samples)
+for(j in u){
+  sel=samples==j
+  print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+}</code></pre>
+<pre><code>[1] 0.7544595
+[1] 0.7439858
+[1] 0.8009988
+[1] 0.7287486</code></pre>
+<pre class="r"><code>      ###########
+      
+    
+cols_cluster &lt;- c(&quot;#0000b6&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quot;,&quot;#e07a5f&quot;,
+          &quot;#cc00b6&quot;, &quot;#81ccff&quot;, &quot;#33b233&quot;)
+
+plot_slide(xy,samples,ref,col=cols_cluster)</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-9-3.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>kk_UMAP_Br5595=kk_UMAP
+samples_Br5595=samples
+xy_Br5595=xy
+labels_Br5595=labels
+subject_names_Br5595=subject_names
+ref_Br5595=ref
+clu_Br5595=clu
+
+save(kk_UMAP_Br5595,pca_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_names_Br5595,ref_Br5595,clu_Br5595,selFB,file=&quot;output/DLFPC-Br5595.RData&quot;)</code></pre>
+</div>
+</div>
+<div id="patient-br5292" class="section level1">
+<h1>Patient Br5292</h1>
+<pre class="r"><code>subject_names=&quot;Br5292&quot;
+nclusters=7
+
+  spe_sub &lt;- spe[, colData(spe)$subject ==  subject_names]
+  dim(spe_sub)</code></pre>
+<pre><code>[1]  6623 17734</code></pre>
+<pre class="r"><code>#  spe_sub &lt;- runPCA(spe_sub, 50,subset_row = top[1:gene_number], scale=TRUE)
+
+  #pca=reducedDim(spe_sub,type = &quot;PCA&quot;)[,1:50]
+  
+  
+  
+    
+        
+        spe_sub &lt;- spe[, colData(spe)$subject ==  subject_names]
+        sel= subjects ==  subject_names
+        
+
+        data_sub=data[sel,top[1:gene_number]]
+        
+        RNA.scaled=scale(data_sub)
+        pca_results &lt;- irlba(A = RNA.scaled, nv = 50)
+        pca_Br5292 &lt;- pca_results$u %*% diag(pca_results$d)[,1:50]
+        rownames(pca_Br5292)=rownames(data_sub)
+        colnames(pca_Br5292)=paste(&quot;PC&quot;,1:50,sep=&quot;&quot;)
+        labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+        names(labels)=rownames(colData(spe_sub))
+        xy=as.matrix(spatialCoords(spe_sub))
+        rownames(xy)=rownames(colData(spe_sub))
+        samples=colData(spe_sub)$sample_id
+        
+  plot(pca_Br5292, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="kodama-analysis-1" class="section level2">
+<h2>KODAMA analysis</h2>
+<pre class="r"><code>set.seed(seed)
+kk=KODAMA.matrix.parallel(pca_Br5292,
+                            spatial = xy,
+                            samples=samples,
+                            FUN= &quot;PLS&quot; ,
+                            landmarks = 100000,
+                            splitting = splitting,
+                            f.par.pls = 50,
+                            spatial.resolution = spatial.resolution,
+                            n.cores=n.cores,
+                            aa_noise=aa_noise,
+                          seed = seed)</code></pre>
+<pre><code>Calculating Network
+
+Calculating Network spatial
+socket cluster with 40 nodes on host &#39;localhost&#39;
+================================================================================
+Finished parallel computation
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================</code></pre>
+<pre class="r"><code>  print(&quot;KODAMA finished&quot;)</code></pre>
+<pre><code>[1] &quot;KODAMA finished&quot;</code></pre>
+<pre class="r"><code>     config=umap.defaults
+     config$n_threads = n.cores
+     config$n_sgd_threads = &quot;auto&quot;
+     kk_UMAP=KODAMA.visualization(kk,method=&quot;UMAP&quot;,config=config)
+
+     plot(kk_UMAP,pch=20,col=as.factor(labels))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-based-clustering-1" class="section level2">
+<h2>Graph-based clustering</h2>
+<pre class="r"><code>    # Graph-based clustering
+
+  
+        
+        g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+        
+        g_walk &lt;- igraph::cluster_walktrap(g)
+        clu &lt;- as.character(igraph::cut_at(g_walk, no = nclusters))
+        
+    plot(kk_UMAP,pch=20,col=as.factor(clu))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>        ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
+<pre><code>[1] &quot;151507&quot;
+[1] &quot;151508&quot;
+[1] &quot;151509&quot;
+[1] &quot;151510&quot;</code></pre>
+<pre class="r"><code>        u=unique(samples)
+        for(j in u){
+          sel=samples==j
+          
+            print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+        }</code></pre>
+<pre><code>[1] 0.4341138
+[1] 0.4596648
+[1] 0.4339466
+[1] 0.4457113</code></pre>
+<pre class="r"><code>        ###########
+
+          g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+          
+          g_walk &lt;- igraph::cluster_walktrap(g)
+          clu &lt;- as.character(igraph::cut_at(g_walk, no = nclusters))
+          ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
+<pre><code>[1] &quot;151507&quot;
+[1] &quot;151508&quot;
+[1] &quot;151509&quot;
+[1] &quot;151510&quot;</code></pre>
+<pre class="r"><code>          u=unique(samples)
+          for(j in u){
+            sel=samples==j
+            print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+          }</code></pre>
+<pre><code>[1] 0.4341138
+[1] 0.4596648
+[1] 0.4339466
+[1] 0.4457113</code></pre>
+<pre class="r"><code>      ###########
+      
+    
+cols_cluster &lt;- c(&quot;#0000b6&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quot;,&quot;#e07a5f&quot;,
+          &quot;#cc00b6&quot;, &quot;#81ccff&quot;, &quot;#33b233&quot;)
+
+    plot_slide(xy,samples,ref,col=cols_cluster)</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>kk_UMAP_Br5292=kk_UMAP
+samples_Br5292=samples
+xy_Br5292=xy
+labels_Br5292=labels
+subject_names_Br5292=subject_names
+ref_Br5292=ref
+clu_Br5292=clu
+save(kk_UMAP_Br5292,pca_Br5292,samples_Br5292,xy_Br5292,subject_names_Br5292,labels_Br5292,ref_Br5292,clu_Br5292,file=&quot;output/DLFPC-Br5292.RData&quot;)</code></pre>
+</div>
+</div>
+<div id="patient-br8100" class="section level1">
+<h1>Patient Br8100</h1>
+<pre class="r"><code>subject_names=&quot;Br8100&quot;
+
+nclusters=7
+
+  spe_sub &lt;- spe[, colData(spe)$subject ==  subject_names]
+  dim(spe_sub)</code></pre>
+<pre><code>[1]  6623 13938</code></pre>
+<pre class="r"><code>#  spe_sub &lt;- runPCA(spe_sub, 50,subset_row = top[1:gene_number], scale=TRUE)
+
+  #pca=reducedDim(spe_sub,type = &quot;PCA&quot;)[,1:50]
+  
+  
+  
+    
+        
+        spe_sub &lt;- spe[, colData(spe)$subject ==  subject_names]
+        sel= subjects ==  subject_names
+        
+
+        data_sub=data[sel,top[1:gene_number]]
+        
+        RNA.scaled=scale(data_sub)
+        pca_results &lt;- irlba(A = RNA.scaled, nv = 50)
+        pca_Br8100 &lt;- pca_results$u %*% diag(pca_results$d)[,1:50]
+        rownames(pca_Br8100)=rownames(data_sub)
+        colnames(pca_Br8100)=paste(&quot;PC&quot;,1:50,sep=&quot;&quot;)
+        labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+        names(labels)=rownames(colData(spe_sub))
+        xy=as.matrix(spatialCoords(spe_sub))
+        rownames(xy)=rownames(colData(spe_sub))
+        samples=colData(spe_sub)$sample_id
+        
+  plot(pca_Br8100, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="kodama-analysis-2" class="section level2">
+<h2>KODAMA analysis</h2>
+<pre class="r"><code>set.seed(seed)
+kk=KODAMA.matrix.parallel(pca_Br8100,
+                            spatial = xy,
+                            samples=samples,
+                            FUN= &quot;PLS&quot; ,
+                            landmarks = 100000,
+                            splitting = splitting,
+                            f.par.pls = 50,
+                            spatial.resolution = spatial.resolution,
+                            n.cores=n.cores,
+                            aa_noise=aa_noise,
+                          seed = seed)</code></pre>
+<pre><code>Calculating Network
+
+Calculating Network spatial
+socket cluster with 40 nodes on host &#39;localhost&#39;
+================================================================================
+Finished parallel computation
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================</code></pre>
+<pre class="r"><code>  print(&quot;KODAMA finished&quot;)</code></pre>
+<pre><code>[1] &quot;KODAMA finished&quot;</code></pre>
+<pre class="r"><code>     config=umap.defaults
+     config$n_threads = n.cores
+     config$n_sgd_threads = &quot;auto&quot;
+     kk_UMAP=KODAMA.visualization(kk,method=&quot;UMAP&quot;,config=config)
+
+     plot(kk_UMAP,pch=20,col=as.factor(labels))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-based-clustering-2" class="section level2">
+<h2>Graph-based clustering</h2>
+<pre class="r"><code>    # Graph-based clustering
+
+  
+        
+        g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+        
+        g_walk &lt;- igraph::cluster_walktrap(g)
+        clu &lt;- as.character(igraph::cut_at(g_walk, no = nclusters))
+        ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
+<pre><code>[1] &quot;151673&quot;
+[1] &quot;151674&quot;
+[1] &quot;151675&quot;
+[1] &quot;151676&quot;</code></pre>
+<pre class="r"><code>        u=unique(samples)
+        for(j in u){
+          sel=samples==j
+          
+            print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+        }</code></pre>
+<pre><code>[1] 0.5669588
+[1] 0.6068739
+[1] 0.6405827
+[1] 0.5830579</code></pre>
+<pre class="r"><code>        ###########
+
+          g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+          
+          g_walk &lt;- igraph::cluster_walktrap(g)
+          clu &lt;- as.character(igraph::cut_at(g_walk, no = nclusters))
+          
+           plot(kk_UMAP,pch=20,col=as.factor(clu))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>          ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
+<pre><code>[1] &quot;151673&quot;
+[1] &quot;151674&quot;
+[1] &quot;151675&quot;
+[1] &quot;151676&quot;</code></pre>
+<pre class="r"><code>          u=unique(samples)
+          for(j in u){
+            sel=samples==j
+            print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+          }</code></pre>
+<pre><code>[1] 0.5669588
+[1] 0.6068739
+[1] 0.6405827
+[1] 0.5830579</code></pre>
+<pre class="r"><code>      ###########
+      
+    
+cols_cluster &lt;- c(&quot;#0000b6&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quot;,&quot;#e07a5f&quot;,
+          &quot;#cc00b6&quot;, &quot;#81ccff&quot;, &quot;#33b233&quot;)
+
+    plot_slide(xy,samples,ref,col=cols_cluster)</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-15-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>kk_UMAP_Br8100=kk_UMAP
+samples_Br8100=samples
+xy_Br8100=xy
+labels_Br8100=labels
+subject_names_Br8100=subject_names
+ref_Br8100=ref
+clu_Br8100=clu 
+save(kk_UMAP_Br8100,pca_Br8100,samples_Br8100,xy_Br8100,subject_names_Br8100,labels_Br8100,ref_Br8100,clu_Br8100,file=&quot;output/DLFPC-Br8100.RData&quot;)</code></pre>
+</div>
+</div>
+<div id="slides" class="section level1">
+<h1>12 Slides</h1>
+<p>PCA and HARMONY</p>
+<pre class="r"><code> dim(spe_sub)</code></pre>
+<pre><code>[1]  6623 13938</code></pre>
+<pre class="r"><code> spe &lt;- runPCA(spe, 50,subset_row = top[1:gene_number], scale=TRUE)
+
+
+ subjects=colData(spe)$subject
+ labels=as.factor(colData(spe)$layer_guess_reordered)
+ xy=as.matrix(spatialCoords(spe))
+ samples=colData(spe)$sample_id
+
+ spe &lt;- RunHarmony(spe, &quot;subject&quot;,lambda=NULL)
+ pca=reducedDim(spe,type = &quot;HARMONY&quot;)[,1:50]
+ 
+ plot(pca, pch=20,col=as.factor(colData(spe_sub)$sample_id))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>KODAMA</p>
+<pre class="r"><code>set.seed(seed)
+kk=KODAMA.matrix.parallel(pca,
+                          spatial = xy,
+                          samples=samples,
+                          FUN= &quot;PLS&quot; ,
+                          landmarks = 100000,
+                          splitting = 300,
+                          f.par.pls = 50,
+                          spatial.resolution = spatial.resolution,
+                          n.cores=n.cores,
+                          aa_noise=aa_noise,
+                          seed = seed)</code></pre>
+<pre><code>Calculating Network
+
+Calculating Network spatial
+socket cluster with 40 nodes on host &#39;localhost&#39;
+================================================================================
+Finished parallel computation
+
+[1] &quot;Calculation of dissimilarity matrix...&quot;
+================================================================================</code></pre>
+<pre class="r"><code>print(&quot;KODAMA finished&quot;)</code></pre>
+<pre><code>[1] &quot;KODAMA finished&quot;</code></pre>
+<pre class="r"><code>config=umap.defaults
+config$n_threads = n.cores
+config$n_sgd_threads = &quot;auto&quot;
+
+kk_UMAP=KODAMA.visualization(kk,method=&quot;UMAP&quot;,config=config)
+plot(kk_UMAP,pch=20,col=as.factor(labels))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>CLUSTER</p>
+<pre class="r"><code>        g &lt;- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+        g_walk &lt;- igraph::cluster_walktrap(g)
+        clu &lt;- as.character(igraph::cut_at(g_walk, no = 7))
+        plot(kk_UMAP,pch=20,col=as.factor(clu)) </code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>        ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
+<pre><code>[1] &quot;151507&quot;
+[1] &quot;151508&quot;
+[1] &quot;151509&quot;
+[1] &quot;151510&quot;
+[1] &quot;151669&quot;
+[1] &quot;151670&quot;
+[1] &quot;151671&quot;
+[1] &quot;151672&quot;
+[1] &quot;151673&quot;
+[1] &quot;151674&quot;
+[1] &quot;151675&quot;
+[1] &quot;151676&quot;</code></pre>
+<pre class="r"><code>cols_cluster &lt;- c(&quot;#0000b6&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quot;,&quot;#e07a5f&quot;,
+          &quot;#cc00b6&quot;, &quot;#81ccff&quot;, &quot;#33b233&quot;)
+
+    plot_slide(xy,samples,ref,col=cols_cluster)</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-19-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>CLUSTER</p>
+<pre class="r"><code>  clu=kmeans(kk_UMAP,7,nstart = 100)$cluster
+  plot(kk_UMAP,col=labels,pch=20)</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>  plot(kk_UMAP,col=cols_cluster,pch=20)</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-21-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>u=unique(samples)
+for(i in 1:length(u)){
+  sel=samples==u[i]
+  print(adjustedRandIndex(labels[sel],clu[sel]))
+}</code></pre>
+<pre><code>[1] 0.5288116
+[1] 0.4877292
+[1] 0.481946
+[1] 0.4745069
+[1] 0.3383263
+[1] 0.3134543
+[1] 0.3824082
+[1] 0.4147871
+[1] 0.5592069
+[1] 0.5823183
+[1] 0.5883825
+[1] 0.5441986</code></pre>
+<pre class="r"><code>ref=refine_SVM(xy,clu,samples,cost=100)</code></pre>
+<pre><code>[1] &quot;151507&quot;
+[1] &quot;151508&quot;
+[1] &quot;151509&quot;
+[1] &quot;151510&quot;
+[1] &quot;151669&quot;
+[1] &quot;151670&quot;
+[1] &quot;151671&quot;
+[1] &quot;151672&quot;
+[1] &quot;151673&quot;
+[1] &quot;151674&quot;
+[1] &quot;151675&quot;
+[1] &quot;151676&quot;</code></pre>
+<pre class="r"><code>u=unique(samples)
+for(i in 1:length(u)){
+  sel=samples==u[i]
+  print(adjustedRandIndex(labels[sel],ref[sel]))
+}</code></pre>
+<pre><code>[1] 0.5647819
+[1] 0.5251003
+[1] 0.5009507
+[1] 0.5012029
+[1] 0.3820756
+[1] 0.3675069
+[1] 0.4422044
+[1] 0.5062146
+[1] 0.6038788
+[1] 0.626517
+[1] 0.6395328
+[1] 0.6115001</code></pre>
+<pre class="r"><code>plot_slide(xy,samples,ref,col=cols_cluster)</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-21-3.png" width="960" style="display: block; margin: auto;" /></p>
+<p>TRAJECTORY</p>
+<pre class="r"><code>d &lt;- slingshot(kk_UMAP, clusterLabels = clu)
+trajectory=d@metadata$curves$Lineage1$s
+k=knn_Armadillo(trajectory,kk_UMAP,1)
+map_color=rainbow(nrow(trajectory))[k$nn_index]
+plot(kk_UMAP,pch=20,col=map_color)</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_slide(xy,samples,k$nn_index,col=rainbow(nrow(trajectory)))</code></pre>
+<p><img src="figure/DLPFC2.Rmd/unnamed-chunk-22-2.png" width="960" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.4.1 (2024-06-14)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 20.04.6 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0 
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: Etc/UTC
+tzcode source: system (glibc)
+
+attached base packages:
+[1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] irlba_2.3.5.1               Matrix_1.7-0               
+ [3] slingshot_2.12.0            TrajectoryUtils_1.12.0     
+ [5] princurve_2.1.6             mclust_6.1.1               
+ [7] KODAMAextra_1.0             bigmemory_4.6.4            
+ [9] rgl_1.3.1                   misc3d_0.9-1               
+[11] e1071_1.7-16                doParallel_1.0.17          
+[13] iterators_1.0.14            foreach_1.5.2              
+[15] KODAMA_3.1                  umap_0.2.10.0              
+[17] Rtsne_0.17                  minerva_1.5.10             
+[19] spatialLIBD_1.16.2          SpatialExperiment_1.14.0   
+[21] Seurat_5.1.0                SeuratObject_5.0.2         
+[23] sp_2.1-4                    harmony_1.2.1              
+[25] Rcpp_1.0.12                 SPARK_1.1.1                
+[27] scry_1.16.0                 scran_1.32.0               
+[29] scater_1.32.1               ggplot2_3.5.1              
+[31] scuttle_1.14.0              SingleCellExperiment_1.26.0
+[33] SummarizedExperiment_1.34.0 Biobase_2.64.0             
+[35] GenomicRanges_1.56.1        GenomeInfoDb_1.40.1        
+[37] IRanges_2.38.1              S4Vectors_0.42.1           
+[39] BiocGenerics_0.50.0         MatrixGenerics_1.16.0      
+[41] matrixStats_1.3.0           nnSVG_1.8.0                
+[43] workflowr_1.7.1            
+
+loaded via a namespace (and not attached):
+  [1] goftest_1.2-3             DT_0.33                  
+  [3] Biostrings_2.72.1         vctrs_0.6.5              
+  [5] spatstat.random_3.3-2     digest_0.6.36            
+  [7] png_0.1-8                 proxy_0.4-27             
+  [9] git2r_0.33.0              ggrepel_0.9.5            
+ [11] deldir_2.0-4              parallelly_1.38.0        
+ [13] magick_2.8.4              MASS_7.3-61              
+ [15] reshape2_1.4.4            httpuv_1.6.15            
+ [17] withr_3.0.0               xfun_0.45                
+ [19] survival_3.7-0            memoise_2.0.1            
+ [21] benchmarkme_1.0.8         ggbeeswarm_0.7.2         
+ [23] zoo_1.8-12                pbapply_1.7-2            
+ [25] rematch2_2.1.2            KEGGREST_1.44.1          
+ [27] promises_1.3.0            httr_1.4.7               
+ [29] restfulr_0.0.15           globals_0.16.3           
+ [31] fitdistrplus_1.2-1        ps_1.8.0                 
+ [33] rstudioapi_0.16.0         UCSC.utils_1.0.0         
+ [35] miniUI_0.1.1.1            generics_0.1.3           
+ [37] base64enc_0.1-3           processx_3.8.4           
+ [39] curl_5.2.1                fields_16.3              
+ [41] zlibbioc_1.50.0           ScaledMatrix_1.12.0      
+ [43] polyclip_1.10-7           doSNOW_1.0.20            
+ [45] GenomeInfoDbData_1.2.12   ExperimentHub_2.12.0     
+ [47] SparseArray_1.4.8         golem_0.5.1              
+ [49] xtable_1.8-4              stringr_1.5.1            
+ [51] pracma_2.4.4              evaluate_0.24.0          
+ [53] S4Arrays_1.4.1            BiocFileCache_2.12.0     
+ [55] colorspace_2.1-0          filelock_1.0.3           
+ [57] ROCR_1.0-11               reticulate_1.38.0        
+ [59] spatstat.data_3.1-2       shinyWidgets_0.8.7       
+ [61] magrittr_2.0.3            lmtest_0.9-40            
+ [63] later_1.3.2               viridis_0.6.5            
+ [65] lattice_0.22-6            spatstat.geom_3.3-3      
+ [67] future.apply_1.11.2       getPass_0.2-4            
+ [69] scattermore_1.2           XML_3.99-0.17            
+ [71] cowplot_1.1.3             RcppAnnoy_0.0.22         
+ [73] class_7.3-22              pillar_1.9.0             
+ [75] nlme_3.1-166              compiler_4.4.1           
+ [77] beachmat_2.20.0           RSpectra_0.16-1          
+ [79] stringi_1.8.4             tensor_1.5               
+ [81] GenomicAlignments_1.40.0  plyr_1.8.9               
+ [83] crayon_1.5.3              abind_1.4-5              
+ [85] BiocIO_1.14.0             locfit_1.5-9.10          
+ [87] bit_4.5.0                 dplyr_1.1.4              
+ [89] whisker_0.4.1             codetools_0.2-20         
+ [91] BiocSingular_1.20.0       openssl_2.2.0            
+ [93] bslib_0.7.0               paletteer_1.6.0          
+ [95] plotly_4.10.4             mime_0.12                
+ [97] splines_4.4.1             fastDummies_1.7.4        
+ [99] dbplyr_2.5.0              sparseMatrixStats_1.16.0 
+[101] attempt_0.3.1             knitr_1.48               
+[103] blob_1.2.4                utf8_1.2.4               
+[105] BiocVersion_3.19.1        fs_1.6.4                 
+[107] listenv_0.9.1             DelayedMatrixStats_1.26.0
+[109] rdist_0.0.5               tibble_3.2.1             
+[111] callr_3.7.6               statmod_1.5.0            
+[113] pkgconfig_2.0.3           tools_4.4.1              
+[115] BRISC_1.0.6               cachem_1.1.0             
+[117] RhpcBLASctl_0.23-42       RSQLite_2.3.7            
+[119] viridisLite_0.4.2         DBI_1.2.3                
+[121] fastmap_1.2.0             rmarkdown_2.27           
+[123] scales_1.3.0              grid_4.4.1               
+[125] ica_1.0-3                 Rsamtools_2.20.0         
+[127] AnnotationHub_3.12.0      sass_0.4.9               
+[129] patchwork_1.3.0           BiocManager_1.30.25      
+[131] dotCall64_1.1-1           RANN_2.6.2               
+[133] snow_0.4-4                farver_2.1.2             
+[135] yaml_2.3.9                rtracklayer_1.64.0       
+[137] cli_3.6.3                 purrr_1.0.2              
+[139] leiden_0.4.3.1            lifecycle_1.0.4          
+[141] askpass_1.2.0             uwot_0.2.2               
+[143] bluster_1.14.0            sessioninfo_1.2.2        
+[145] BiocParallel_1.38.0       gtable_0.3.5             
+[147] rjson_0.2.23              ggridges_0.5.6           
+[149] progressr_0.14.0          limma_3.60.3             
+[151] jsonlite_1.8.8            edgeR_4.2.1              
+[153] RcppHNSW_0.6.0            bitops_1.0-8             
+[155] bigmemory.sri_0.1.8       benchmarkmeData_1.0.4    
+[157] bit64_4.5.2               spatstat.utils_3.1-0     
+[159] BiocNeighbors_1.22.0      matlab_1.0.4.1           
+[161] highr_0.11                jquerylib_0.1.4          
+[163] metapod_1.12.0            config_0.3.2             
+[165] dqrng_0.4.1               spatstat.univar_3.0-1    
+[167] lazyeval_0.2.2            shiny_1.9.1              
+[169] htmltools_0.5.8.1         sctransform_0.4.1        
+[171] rappdirs_0.3.3            glue_1.7.0               
+[173] tcltk_4.4.1               spam_2.10-0              
+[175] XVector_0.44.0            RCurl_1.98-1.16          
+[177] rprojroot_2.0.4           gridExtra_2.3            
+[179] igraph_2.0.3              R6_2.5.1                 
+[181] tidyr_1.3.1               labeling_0.4.3           
+[183] CompQuadForm_1.4.3        cluster_2.1.6            
+[185] DelayedArray_0.30.1       tidyselect_1.2.1         
+[187] vipor_0.4.7               maps_3.4.2               
+[189] AnnotationDbi_1.66.0      future_1.34.0            
+[191] rsvd_1.0.5                munsell_0.5.1            
+[193] KernSmooth_2.23-24        data.table_1.15.4        
+[195] htmlwidgets_1.6.4         RColorBrewer_1.1-3       
+[197] rlang_1.1.4               spatstat.sparse_3.1-0    
+[199] spatstat.explore_3.3-2    uuid_1.2-1               
+[201] fansi_1.0.6               beeswarm_0.4.0           </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
