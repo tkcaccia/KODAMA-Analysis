@@ -43,10 +43,10 @@ spatial.resolution = 0.3
 aa_noise=3
 gene_number=2000
 graph = 20
-seed=1111
+seed=123
+
 
 set.seed(seed)
-
 ID=unlist(lapply(strsplit(rownames(colData(spe)),"-"),function(x) x[1]))
 samples=colData(spe)$sample_id
 rownames(colData(spe))=paste(ID,samples,sep="-")
@@ -128,12 +128,6 @@ subjects=colData(spe)$subject
 ```
 
 
-#seurat list preprocessing
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-source("code/DLFPC_preprocessing.R")
-```
-
 
 
 
@@ -154,12 +148,12 @@ dim(spe_sub)
 spe_sub <- spe[, colData(spe)$subject ==  subject_names]
 sel= subjects ==  subject_names
         
-data_sub=data[sel,top[1:gene_number]]
+data_Br5595=data[sel,top[1:gene_number]]
         
-RNA.scaled=scale(data_sub)
+RNA.scaled=scale(data_Br5595)
 pca_results <- irlba(A = RNA.scaled, nv = 50)
 pca_Br5595 <- pca_results$u %*% diag(pca_results$d)[,1:50]
-rownames(pca_Br5595)=rownames(data_sub)
+rownames(pca_Br5595)=rownames(data_Br5595)
 colnames(pca_Br5595)=paste("PC",1:50,sep="")
 labels=as.factor(colData(spe_sub)$layer_guess_reordered)
 names(labels)=rownames(colData(spe_sub))
@@ -175,6 +169,7 @@ plot(pca_Br5595, pch=20,col=as.factor(colData(spe_sub)$sample_id))
 ## KODAMA analysis
 
 ```{r, fig.width=10, fig.height=4}
+set.seed(seed)
 kk=KODAMA.matrix.parallel(pca_Br5595,
                           spatial = xy,
                           samples=samples,
@@ -211,7 +206,9 @@ g_walk <- igraph::cluster_walktrap(g)
 clu <- as.character(igraph::cut_at(g_walk, no = 2))
 plot(kk_UMAP,pch=20,col=as.factor(clu))
 
-selFB=clu!=3
+
+FB=names(which.min(table(clu)))
+selFB=clu!=FB
 
   kk_UMAP=kk_UMAP[selFB,]
   labels=labels[selFB]
@@ -249,7 +246,11 @@ subject_names_Br5595=subject_names
 ref_Br5595=ref
 clu_Br5595=clu
 
-save(kk_UMAP_Br5595,pca_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_names_Br5595,ref_Br5595,clu_Br5595,selFB,file="output/DLFPC-Br5595.RData")
+save(kk_UMAP_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_names_Br5595,ref_Br5595,clu_Br5595,selFB,file="output/DLFPC-Br5595.RData")
+
+save(data_Br5595,pca_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_names_Br5595,selFB,file="data/DLFPC-Br5595-input.RData")
+
+
 
 ```
 
@@ -279,12 +280,12 @@ nclusters=7
         sel= subjects ==  subject_names
         
 
-        data_sub=data[sel,top[1:gene_number]]
+        data_Br5292=data[sel,top[1:gene_number]]
         
-        RNA.scaled=scale(data_sub)
+        RNA.scaled=scale(data_Br5292)
         pca_results <- irlba(A = RNA.scaled, nv = 50)
         pca_Br5292 <- pca_results$u %*% diag(pca_results$d)[,1:50]
-        rownames(pca_Br5292)=rownames(data_sub)
+        rownames(pca_Br5292)=rownames(data_Br5292)
         colnames(pca_Br5292)=paste("PC",1:50,sep="")
         labels=as.factor(colData(spe_sub)$layer_guess_reordered)
         names(labels)=rownames(colData(spe_sub))
@@ -300,6 +301,7 @@ nclusters=7
 ## KODAMA analysis
 
 ```{r, fig.width=10, fig.height=4}
+set.seed(seed)
 kk=KODAMA.matrix.parallel(pca_Br5292,
                             spatial = xy,
                             samples=samples,
@@ -383,6 +385,9 @@ clu_Br5292=clu
 save(kk_UMAP_Br5292,pca_Br5292,samples_Br5292,xy_Br5292,subject_names_Br5292,labels_Br5292,ref_Br5292,clu_Br5292,file="output/DLFPC-Br5292.RData")
 
 
+
+save(data_Br5292,pca_Br5292,samples_Br5292,xy_Br5292,labels_Br5292,subject_names_Br5292,file="data/DLFPC-Br5292-input.RData")
+
 ```
 
 
@@ -412,12 +417,12 @@ nclusters=7
         sel= subjects ==  subject_names
         
 
-        data_sub=data[sel,top[1:gene_number]]
+        data_Br8100=data[sel,top[1:gene_number]]
         
-        RNA.scaled=scale(data_sub)
+        RNA.scaled=scale(data_Br8100)
         pca_results <- irlba(A = RNA.scaled, nv = 50)
         pca_Br8100 <- pca_results$u %*% diag(pca_results$d)[,1:50]
-        rownames(pca_Br8100)=rownames(data_sub)
+        rownames(pca_Br8100)=rownames(data_Br8100)
         colnames(pca_Br8100)=paste("PC",1:50,sep="")
         labels=as.factor(colData(spe_sub)$layer_guess_reordered)
         names(labels)=rownames(colData(spe_sub))
@@ -433,6 +438,7 @@ nclusters=7
 ## KODAMA analysis
 
 ```{r, fig.width=10, fig.height=4}
+set.seed(seed)
 kk=KODAMA.matrix.parallel(pca_Br8100,
                             spatial = xy,
                             samples=samples,
@@ -513,9 +519,38 @@ ref_Br8100=ref
 clu_Br8100=clu 
 save(kk_UMAP_Br8100,pca_Br8100,samples_Br8100,xy_Br8100,subject_names_Br8100,labels_Br8100,ref_Br8100,clu_Br8100,file="output/DLFPC-Br8100.RData")
 
+
+save(data_Br8100,pca_Br8100,samples_Br8100,xy_Br8100,labels_Br8100,subject_names_Br8100,file="data/DLFPC-Br8100-input.RData")
+
+```
+# Saving the results
+
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+
+results_KODAMA <- list()
+results_KODAMA$cluster <- list()
+results_KODAMA$feature_extraction <- list()
+
+
+results_KODAMA$cluster=c(results_KODAMA$cluster,tapply(ref_Br5292,samples_Br5292,function(x) x))
+results_KODAMA$cluster=c(results_KODAMA$cluster,tapply(ref_Br5595,samples_Br5595,function(x) x))
+results_KODAMA$cluster=c(results_KODAMA$cluster,tapply(ref_Br8100,samples_Br8100,function(x) x))
+
+results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br5292,samples_Br5292,function(x) x))
+results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br5595,samples_Br5595,function(x) x))
+results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br8100,samples_Br8100,function(x) x))
+
+save(results_KODAMA,file="output/KODAMA-results.RData")
+
 ```
 
 
+#seurat list preprocessing
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+source("code/DLFPC_preprocessing.R")
+```
 
 
 
@@ -547,7 +582,7 @@ PCA and HARMONY
 KODAMA
 
 ```{r, fig.width=10, fig.height=4}
-
+set.seed(seed)
 kk=KODAMA.matrix.parallel(pca,
                           spatial = xy,
                           samples=samples,
@@ -643,6 +678,9 @@ plot_slide(xy,samples,k$nn_index,col=rainbow(nrow(trajectory)))
 
 ```
 
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+source("code/DLPFC_comparison.R")
+```
 
 
 
