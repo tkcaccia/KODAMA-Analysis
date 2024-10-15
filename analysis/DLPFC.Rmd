@@ -678,6 +678,9 @@ plot_slide(xy,samples,k$nn_index,col=rainbow(nrow(trajectory)))
 
 ```
 
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+source("code/DLPFC_comparison.R")
+```
 
 
 
