@@ -210,23 +210,23 @@ plot(kk_UMAP,pch=20,col=as.factor(clu))
 FB=names(which.min(table(clu)))
 selFB=clu!=FB
 
-  kk_UMAP=kk_UMAP[selFB,]
-  labels=labels[selFB]
-  samples=samples[selFB]
-  xy=xy[selFB,]
+ # kk_UMAP=kk_UMAP[selFB,]
+#  labels=labels[selFB]
+#  samples=samples[selFB]
+#  xy=xy[selFB,]
     
       
-g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+g <- bluster::makeSNNGraph(as.matrix(kk_UMAP[selFB,]), k = graph)
 g_walk <- igraph::cluster_walktrap(g)
 clu <- as.character(igraph::cut_at(g_walk, no = nclusters))
-plot(kk_UMAP,pch=20,col=as.factor(clu))
+plot(kk_UMAP[selFB,],pch=20,col=as.factor(clu))
 
-ref=refine_SVM(xy,clu,samples,cost=100)
+ref=refine_SVM(xy[selFB,],clu,samples[selFB],cost=100)
 
-u=unique(samples)
+u=unique(samples[selFB])
 for(j in u){
-  sel=samples==j
-  print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+  sel=samples[selFB]==j
+  print(mclust::adjustedRandIndex(labels[selFB][sel],ref[sel]))
 }
         
       ###########
@@ -235,7 +235,7 @@ for(j in u){
 cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
           "#cc00b6", "#81ccff", "#33b233")
 
-plot_slide(xy,samples,ref,col=cols_cluster)
+plot_slide(xy[selFB,],samples[selFB],ref,col=cols_cluster)
   
 
 kk_UMAP_Br5595=kk_UMAP
@@ -640,7 +640,7 @@ CLUSTER
     
   clu=kmeans(kk_UMAP,7,nstart = 100)$cluster
   plot(kk_UMAP,col=labels,pch=20)
-  plot(kk_UMAP,col=cols_cluster,pch=20)
+  plot(kk_UMAP,col=cols_cluster[clu],pch=20)
 
 
 u=unique(samples)
