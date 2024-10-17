@@ -532,6 +532,7 @@ results_KODAMA <- list()
 results_KODAMA$clusters <- list()
 results_KODAMA$labels <- list()
 results_KODAMA$feature_extraction <- list()
+results_KODAMA$xy <- list()
 
 
 results_KODAMA$clusters=c(results_KODAMA$clusters,tapply(ref_Br5292,samples_Br5292,function(x) x))
@@ -543,8 +544,12 @@ results_KODAMA$labels=c(results_KODAMA$labels,tapply(labels_Br5595[selFB],sample
 results_KODAMA$labels=c(results_KODAMA$labels,tapply(labels_Br8100,samples_Br8100,function(x) x))
 
 results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br5292,samples_Br5292,function(x) x))
-results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br5595,samples_Br5595,function(x) x))
+results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br5595[selFB,],samples_Br5595[selFB],function(x) x))
 results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br8100,samples_Br8100,function(x) x))
+
+results_KODAMA$xy=c(results_KODAMA$xy,by(xy_Br5292,samples_Br5292,function(x) x))
+results_KODAMA$xy=c(results_KODAMA$xy,by(xy_Br5595[selFB,],samples_Br5595[selFB],function(x) x))
+results_KODAMA$xy=c(results_KODAMA$xy,by(xy_Br8100,samples_Br8100,function(x) x))
 
 save(results_KODAMA,file="output/KODAMA-results.RData")
 
