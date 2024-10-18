@@ -591,7 +591,11 @@ source("code/DLFPC_preprocessing.R")
 PCA and HARMONY
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
+          "#cc00b6", "#81ccff", "#33b233")
 
+    plot_slide(xy,samples,labels,col=cols_cluster)
+  
 
  dim(spe_sub)
  spe <- runPCA(spe, 50,subset_row = top[1:gene_number], scale=TRUE)
