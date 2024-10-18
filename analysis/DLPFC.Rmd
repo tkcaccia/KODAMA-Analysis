@@ -206,6 +206,12 @@ g_walk <- igraph::cluster_walktrap(g)
 clu <- as.character(igraph::cut_at(g_walk, no = 2))
 plot(kk_UMAP,pch=20,col=as.factor(clu))
 
+cols_cluster <- c("#0000b6", "#f2cc8f")
+
+
+  plot_slide(xy,as.factor(samples),clu,col=cols_cluster)
+  
+
 
 FB=names(which.min(table(clu)))
 selFB=clu!=FB
@@ -221,6 +227,9 @@ g_walk <- igraph::cluster_walktrap(g)
 clu <- as.character(igraph::cut_at(g_walk, no = nclusters))
 plot(kk_UMAP[selFB,],pch=20,col=as.factor(clu))
 
+
+
+
 ref=refine_SVM(xy[selFB,],clu,samples[selFB],cost=100)
 
 u=unique(samples[selFB])
@@ -234,6 +243,10 @@ for(j in u){
     
 cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
           "#cc00b6", "#81ccff", "#33b233")
+
+
+plot_slide(xy,samples,labels,col=cols_cluster)
+  
 
 plot_slide(xy[selFB,],samples[selFB],ref,col=cols_cluster)
   
@@ -372,6 +385,9 @@ kk=KODAMA.matrix.parallel(pca_Br5292,
 cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
           "#cc00b6", "#81ccff", "#33b233")
 
+          
+plot_slide(xy,samples,labels,col=cols_cluster)
+  
     plot_slide(xy,samples,ref,col=cols_cluster)
   
 
@@ -507,6 +523,10 @@ kk=KODAMA.matrix.parallel(pca_Br8100,
     
 cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
           "#cc00b6", "#81ccff", "#33b233")
+
+          
+ plot_slide(xy,samples,labels,col=cols_cluster)
+  
 
     plot_slide(xy,samples,ref,col=cols_cluster)
   
@@ -688,12 +708,9 @@ plot_slide(xy,samples,k$nn_index,col=rainbow(nrow(trajectory)))
 
 ```
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
 source("code/DLPFC_comparison.R")
 ```
-
-
-
 
 
 
