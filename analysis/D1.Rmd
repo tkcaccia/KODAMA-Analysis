@@ -1,0 +1,592 @@
+---
+title: "DLPFC"
+output:
+  workflowr::wflow_html:
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+# Introduction
+Here, we apply KODAMA to analyze the human dorsolateral prefrontal cortex (DLPFC) data by 10x Visium from [Maynard et al., 2021](https://www.nature.com/articles/s41593-020-00787-0). The links to download the raw data and H&E full resolution images can be found in the [LieberInstitute/spatialLIBD](https://github.com/LieberInstitute/spatialLIBD) github page.
+
+# Loading the required libraries
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+library("nnSVG")
+library("scater")
+library("scran")
+library("scry")
+library("SPARK")
+library("harmony")
+library("Seurat")
+library("spatialLIBD")
+library("KODAMAextra")
+library("mclust")
+library("slingshot")
+library("irlba")
+```
+
+# Download the dataset
+```{r, eval=FALSE}
+spe <- fetch_data(type = 'spe')
+```
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+load("../DLFPC.RData")
+```
+
+## Extract the metadata information
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+n.cores=40
+splitting = 100
+spatial.resolution = 0.3
+aa_noise=3
+gene_number=2000
+graph = 20
+seed=123
+
+
+set.seed(seed)
+ID=unlist(lapply(strsplit(rownames(colData(spe)),"-"),function(x) x[1]))
+samples=colData(spe)$sample_id
+rownames(colData(spe))=paste(ID,samples,sep="-")
+
+txtfile=paste(splitting,spatial.resolution,aa_noise,2,gene_number,sep="_")
+
+sample_names=c("151507",
+               "151508",
+               "151509",
+               "151510",
+               "151669",
+               "151670",
+               "151671",
+               "151672",
+               "151673",
+               "151674",
+               "151675",
+               "151676")
+subject_names= c("Br5292","Br5595", "Br8100")
+metaData = SingleCellExperiment::colData(spe)
+expr = SingleCellExperiment::counts(spe)
+sample_names <- paste0("sample_", unique(colData(spe)$sample_id))
+sample_names <-  unique(colData(spe)$sample_id)
+dim(spe)
+# identify mitochondrial genes
+is_mito <- grepl("(^MT-)|(^mt-)", rowData(spe)$gene_name)
+table(is_mito)
+
+# calculate per-spot QC metrics
+spe <- addPerCellQC(spe, subsets = list(mito = is_mito))
+
+# select QC thresholds
+qc_lib_size <- colData(spe)$sum < 500
+qc_detected <- colData(spe)$detected < 250
+qc_mito <- colData(spe)$subsets_mito_percent > 30
+qc_cell_count <- colData(spe)$cell_count > 12
+
+# spots to discard
+discard <- qc_lib_size | qc_detected | qc_mito | qc_cell_count
+table(discard)
+colData(spe)$discard <- discard
+# filter low-quality spots
+spe <- spe[, !colData(spe)$discard]
+dim(spe)
+
+
+spe <- filter_genes(
+  spe,
+  filter_genes_ncounts = 2,   #ncounts
+  filter_genes_pcspots = 0.5,
+  filter_mito = TRUE
+)
+
+dim(spe)
+
+sel= !is.na(colData(spe)$layer_guess_reordered)
+spe = spe[,sel]
+dim(spe)
+
+spe <- computeLibraryFactors(spe)
+spe <- logNormCounts(spe)
+
+ subjects=colData(spe)$subject
+ labels=as.factor(colData(spe)$layer_guess_reordered)
+ xy=as.matrix(spatialCoords(spe))
+ samples=colData(spe)$sample_id
+ 
+ cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
+          "#cc00b6", "#81ccff", "#33b233")
+
+  plot_slide(xy,samples,labels,col=cols_cluster)
+  
+```
+
+## Gene selection
+The identification of genes that display spatial expression patterns is performed using the SPARKX method ([Zhu et al. (2021)](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02404-0)). The genes are ranked based on the median value of the logarithm value of the p-value obtained in each slide individually.
+
+
+```{r, fig.width=10, fig.height=4,results = "hide"}
+
+
+top=multi_SPARKX(spe,n.cores=n.cores)
+
+data=as.matrix(t(logcounts(spe)[top[1:gene_number],]))
+samples=colData(spe)$sample_id
+labels=as.factor(colData(spe)$layer_guess_reordered)
+names(labels)=rownames(colData(spe))
+subjects=colData(spe)$subject
+  
+```
+
+
+
+
+
+# Patient Br5595
+
+
+```{r, fig.width=10, fig.height=4}
+
+subject_names="Br5595"
+nclusters=5
+
+spe_sub <- spe[, colData(spe)$subject ==  subject_names]
+ # subjects=colData(spe_sub)$subject
+dim(spe_sub)
+#  spe_sub <- runPCA(spe_sub, 50,subset_row = top[1:gene_number], scale=TRUE)
+#pca=reducedDim(spe_sub,type = "PCA")[,1:50]
+  
+spe_sub <- spe[, colData(spe)$subject ==  subject_names]
+sel= subjects ==  subject_names
+        
+data_Br5595=data[sel,top[1:gene_number]]
+        
+RNA.scaled=scale(data_Br5595)
+pca_results <- irlba(A = RNA.scaled, nv = 50)
+pca_Br5595 <- pca_results$u %*% diag(pca_results$d)[,1:50]
+rownames(pca_Br5595)=rownames(data_Br5595)
+colnames(pca_Br5595)=paste("PC",1:50,sep="")
+labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+names(labels)=rownames(colData(spe_sub))
+xy=as.matrix(spatialCoords(spe_sub))
+rownames(xy)=rownames(colData(spe_sub))
+samples=colData(spe_sub)$sample_id
+
+
+plot(pca_Br5595, pch=20,col=as.factor(colData(spe_sub)$sample_id))
+
+```
+
+## KODAMA analysis
+
+```{r, fig.width=10, fig.height=4}
+set.seed(seed)
+kk=KODAMA.matrix.parallel(pca_Br5595,
+                          spatial = xy,
+                          samples=samples,
+                          FUN= "fastpls" ,
+                          landmarks = 100000,
+                          splitting = splitting,
+                          ncomp = 50,
+                          spatial.resolution = spatial.resolution,
+                          n.cores=n.cores,
+                          seed = seed)
+print("KODAMA finished")
+           
+
+config=umap.defaults
+config$n_threads = n.cores
+config$n_sgd_threads = "auto"
+
+kk_UMAP=KODAMA.visualization(kk,method="UMAP",config=config)
+plot(kk_UMAP,pch=20,col=as.factor(labels))
+     
+```
+ 
+
+
+## Graph-based clustering
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+
+    # Graph-based clustering
+
+g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = 20)
+g_walk <- igraph::cluster_walktrap(g)
+clu <- as.character(igraph::cut_at(g_walk, no = 2))
+plot(kk_UMAP,pch=20,col=as.factor(clu))
+
+cols_cluster <- c("#0000b6", "#f2cc8f")
+
+
+  plot_slide(xy,as.factor(samples),clu,col=cols_cluster)
+  
+
+
+FB=names(which.min(table(clu)))
+selFB=clu!=FB
+
+ # kk_UMAP=kk_UMAP[selFB,]
+#  labels=labels[selFB]
+#  samples=samples[selFB]
+#  xy=xy[selFB,]
+    
+      
+g <- bluster::makeSNNGraph(as.matrix(kk_UMAP[selFB,]), k = graph)
+g_walk <- igraph::cluster_walktrap(g)
+clu <- as.character(igraph::cut_at(g_walk, no = nclusters))
+plot(kk_UMAP[selFB,],pch=20,col=as.factor(clu))
+
+
+
+
+ref=refine_SVM(xy[selFB,],clu,samples[selFB],cost=100)
+
+u=unique(samples[selFB])
+for(j in u){
+  sel=samples[selFB]==j
+  print(mclust::adjustedRandIndex(labels[selFB][sel],ref[sel]))
+}
+        
+      ###########
+      
+    
+cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
+          "#cc00b6", "#81ccff", "#33b233")
+
+
+plot_slide(xy,samples,labels,col=cols_cluster)
+  
+
+plot_slide(xy[selFB,],samples[selFB],ref,col=cols_cluster)
+  
+
+kk_UMAP_Br5595=kk_UMAP
+samples_Br5595=samples
+xy_Br5595=xy
+labels_Br5595=labels
+subject_names_Br5595=subject_names
+ref_Br5595=ref
+clu_Br5595=clu
+
+save(kk_UMAP_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_names_Br5595,ref_Br5595,clu_Br5595,selFB,file="output/DLFPC-Br5595.RData")
+
+save(data_Br5595,pca_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_names_Br5595,selFB,file="data/DLFPC-Br5595-input.RData")
+
+
+
+```
+
+
+
+
+
+# Patient Br5292
+
+
+```{r, fig.width=10, fig.height=4}
+
+subject_names="Br5292"
+nclusters=7
+
+  spe_sub <- spe[, colData(spe)$subject ==  subject_names]
+  dim(spe_sub)
+#  spe_sub <- runPCA(spe_sub, 50,subset_row = top[1:gene_number], scale=TRUE)
+
+  #pca=reducedDim(spe_sub,type = "PCA")[,1:50]
+  
+  
+  
+    
+        
+        spe_sub <- spe[, colData(spe)$subject ==  subject_names]
+        sel= subjects ==  subject_names
+        
+
+        data_Br5292=data[sel,top[1:gene_number]]
+        
+        RNA.scaled=scale(data_Br5292)
+        pca_results <- irlba(A = RNA.scaled, nv = 50)
+        pca_Br5292 <- pca_results$u %*% diag(pca_results$d)[,1:50]
+        rownames(pca_Br5292)=rownames(data_Br5292)
+        colnames(pca_Br5292)=paste("PC",1:50,sep="")
+        labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+        names(labels)=rownames(colData(spe_sub))
+        xy=as.matrix(spatialCoords(spe_sub))
+        rownames(xy)=rownames(colData(spe_sub))
+        samples=colData(spe_sub)$sample_id
+        
+  plot(pca_Br5292, pch=20,col=as.factor(colData(spe_sub)$sample_id))
+
+
+```
+
+## KODAMA analysis
+
+```{r, fig.width=10, fig.height=4}
+set.seed(seed)
+kk=KODAMA.matrix.parallel(pca_Br5292,
+                            spatial = xy,
+                            samples=samples,
+                            FUN= "fastpls" ,
+                            landmarks = 100000,
+                            splitting = splitting,
+                            ncomp = 50,
+                            spatial.resolution = spatial.resolution,
+                            n.cores=n.cores,
+                          seed = seed)
+
+  print("KODAMA finished")
+            
+     config=umap.defaults
+     config$n_threads = n.cores
+     config$n_sgd_threads = "auto"
+     kk_UMAP=KODAMA.visualization(kk,method="UMAP",config=config)
+
+     plot(kk_UMAP,pch=20,col=as.factor(labels))
+     
+     
+ 
+```
+ 
+
+
+## Graph-based clustering
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+
+    # Graph-based clustering
+
+  
+        
+        g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+        
+        g_walk <- igraph::cluster_walktrap(g)
+        clu <- as.character(igraph::cut_at(g_walk, no = nclusters))
+        
+    plot(kk_UMAP,pch=20,col=as.factor(clu))
+        
+        ref=refine_SVM(xy,clu,samples,cost=100)
+        
+        u=unique(samples)
+        for(j in u){
+          sel=samples==j
+          
+            print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+        }
+        ###########
+
+          g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+          
+          g_walk <- igraph::cluster_walktrap(g)
+          clu <- as.character(igraph::cut_at(g_walk, no = nclusters))
+          ref=refine_SVM(xy,clu,samples,cost=100)
+          
+          u=unique(samples)
+          for(j in u){
+            sel=samples==j
+            print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+          }
+        
+      ###########
+      
+    
+cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
+          "#cc00b6", "#81ccff", "#33b233")
+
+          
+plot_slide(xy,samples,labels,col=cols_cluster)
+  
+    plot_slide(xy,samples,ref,col=cols_cluster)
+  
+
+kk_UMAP_Br5292=kk_UMAP
+samples_Br5292=samples
+xy_Br5292=xy
+labels_Br5292=labels
+subject_names_Br5292=subject_names
+ref_Br5292=ref
+clu_Br5292=clu
+save(kk_UMAP_Br5292,pca_Br5292,samples_Br5292,xy_Br5292,subject_names_Br5292,labels_Br5292,ref_Br5292,clu_Br5292,file="output/DLFPC-Br5292.RData")
+
+
+
+save(data_Br5292,pca_Br5292,samples_Br5292,xy_Br5292,labels_Br5292,subject_names_Br5292,file="data/DLFPC-Br5292-input.RData")
+
+```
+
+
+
+
+
+# Patient Br8100
+
+
+```{r, fig.width=10, fig.height=4}
+
+subject_names="Br8100"
+
+nclusters=7
+
+  spe_sub <- spe[, colData(spe)$subject ==  subject_names]
+  dim(spe_sub)
+#  spe_sub <- runPCA(spe_sub, 50,subset_row = top[1:gene_number], scale=TRUE)
+
+  #pca=reducedDim(spe_sub,type = "PCA")[,1:50]
+  
+  
+  
+    
+        
+        spe_sub <- spe[, colData(spe)$subject ==  subject_names]
+        sel= subjects ==  subject_names
+        
+
+        data_Br8100=data[sel,top[1:gene_number]]
+        
+        RNA.scaled=scale(data_Br8100)
+        pca_results <- irlba(A = RNA.scaled, nv = 50)
+        pca_Br8100 <- pca_results$u %*% diag(pca_results$d)[,1:50]
+        rownames(pca_Br8100)=rownames(data_Br8100)
+        colnames(pca_Br8100)=paste("PC",1:50,sep="")
+        labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+        names(labels)=rownames(colData(spe_sub))
+        xy=as.matrix(spatialCoords(spe_sub))
+        rownames(xy)=rownames(colData(spe_sub))
+        samples=colData(spe_sub)$sample_id
+        
+  plot(pca_Br8100, pch=20,col=as.factor(colData(spe_sub)$sample_id))
+
+
+```
+
+## KODAMA analysis
+
+```{r, fig.width=10, fig.height=4}
+set.seed(seed)
+kk=KODAMA.matrix.parallel(pca_Br8100,
+                            spatial = xy,
+                            samples=samples,
+                            FUN= "fastpls" ,
+                            landmarks = 100000,
+                            splitting = splitting,
+                            ncomp = 50,
+                            spatial.resolution = spatial.resolution,
+                            n.cores=n.cores,
+                          seed = seed)
+
+  print("KODAMA finished")
+            
+     config=umap.defaults
+     config$n_threads = n.cores
+     config$n_sgd_threads = "auto"
+     kk_UMAP=KODAMA.visualization(kk,method="UMAP",config=config)
+
+     plot(kk_UMAP,pch=20,col=as.factor(labels))
+     
+     
+```
+ 
+
+
+## Graph-based clustering
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+
+    # Graph-based clustering
+
+  
+        
+        g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+        
+        g_walk <- igraph::cluster_walktrap(g)
+        clu <- as.character(igraph::cut_at(g_walk, no = nclusters))
+        ref=refine_SVM(xy,clu,samples,cost=100)
+        
+        u=unique(samples)
+        for(j in u){
+          sel=samples==j
+          
+            print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+        }
+        ###########
+
+          g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+          
+          g_walk <- igraph::cluster_walktrap(g)
+          clu <- as.character(igraph::cut_at(g_walk, no = nclusters))
+          
+           plot(kk_UMAP,pch=20,col=as.factor(clu))
+          
+          ref=refine_SVM(xy,clu,samples,cost=100)
+          
+          u=unique(samples)
+          for(j in u){
+            sel=samples==j
+            print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
+          }
+        
+      ###########
+      
+    
+cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
+          "#cc00b6", "#81ccff", "#33b233")
+
+          
+ plot_slide(xy,samples,labels,col=cols_cluster)
+  
+
+    plot_slide(xy,samples,ref,col=cols_cluster)
+  
+kk_UMAP_Br8100=kk_UMAP
+samples_Br8100=samples
+xy_Br8100=xy
+labels_Br8100=labels
+subject_names_Br8100=subject_names
+ref_Br8100=ref
+clu_Br8100=clu 
+save(kk_UMAP_Br8100,pca_Br8100,samples_Br8100,xy_Br8100,subject_names_Br8100,labels_Br8100,ref_Br8100,clu_Br8100,file="output/DLFPC-Br8100.RData")
+
+
+save(data_Br8100,pca_Br8100,samples_Br8100,xy_Br8100,labels_Br8100,subject_names_Br8100,file="data/DLFPC-Br8100-input.RData")
+
+```
+# Saving the results
+
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+
+results_KODAMA <- list()
+results_KODAMA$clusters <- list()
+results_KODAMA$labels <- list()
+results_KODAMA$feature_extraction <- list()
+results_KODAMA$xy <- list()
+
+
+results_KODAMA$clusters=c(results_KODAMA$clusters,tapply(ref_Br5292,samples_Br5292,function(x) x))
+results_KODAMA$clusters=c(results_KODAMA$clusters,tapply(ref_Br5595,samples_Br5595[selFB],function(x) x))
+results_KODAMA$clusters=c(results_KODAMA$clusters,tapply(ref_Br8100,samples_Br8100,function(x) x))
+
+results_KODAMA$labels=c(results_KODAMA$labels,tapply(labels_Br5292,samples_Br5292,function(x) x))
+results_KODAMA$labels=c(results_KODAMA$labels,tapply(labels_Br5595[selFB],samples_Br5595[selFB],function(x) x))
+results_KODAMA$labels=c(results_KODAMA$labels,tapply(labels_Br8100,samples_Br8100,function(x) x))
+
+results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br5292,samples_Br5292,function(x) x))
+results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br5595[selFB,],samples_Br5595[selFB],function(x) x))
+results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br8100,samples_Br8100,function(x) x))
+
+results_KODAMA$xy=c(results_KODAMA$xy,by(xy_Br5292,samples_Br5292,function(x) x))
+results_KODAMA$xy=c(results_KODAMA$xy,by(xy_Br5595[selFB,],samples_Br5595[selFB],function(x) x))
+results_KODAMA$xy=c(results_KODAMA$xy,by(xy_Br8100,samples_Br8100,function(x) x))
+
+save(results_KODAMA,file="output/KODAMA-results.RData")
+
+```
+
+
+
+
+
+
+
+
