@@ -216,7 +216,7 @@ g_walk <- igraph::cluster_walktrap(g)
 clu <- as.character(igraph::cut_at(g_walk, no = 2))
 plot(kk_UMAP,pch=20,col=as.factor(clu))
 
-cols_cluster <- c("#0000b6", "#f2cc8f")
+cols_cluster <- c("#0000b6", "#f2cc8f", "#33b233")
 
 
   plot_slide(xy,as.factor(samples),clu,col=cols_cluster)
