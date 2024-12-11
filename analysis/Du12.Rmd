@@ -43,7 +43,7 @@ spatial.resolution = 0.3
 aa_noise=3
 gene_number=2000
 graph = 20
-seed=1983
+seed=543210
 
 
 set.seed(seed)
