@@ -24,6 +24,7 @@ library("KODAMAextra")
 library("mclust")
 library("slingshot")
 library("irlba")
+library("Rnanoflann")
 ```
 
 # Download the dataset
@@ -43,7 +44,7 @@ spatial.resolution = 0.3
 aa_noise=3
 gene_number=2000
 graph = 20
-seed=123
+seed=543210
 
 
 set.seed(seed)
@@ -121,6 +122,12 @@ spe <- logNormCounts(spe)
   
 ```
 
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+svg("output/DLPFC1.svg")
+plot_slide(xy,samples,labels,col=cols_cluster)
+dev.off()
+```
+
 ## Gene selection
 The identification of genes that display spatial expression patterns is performed using the SPARKX method ([Zhu et al. (2021)](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02404-0)). The genes are ranked based on the median value of the logarithm value of the p-value obtained in each slide individually.
 
@@ -184,14 +191,14 @@ set.seed(seed)
 kk=KODAMA.matrix.parallel(pca_Br5595,
                           spatial = xy,
                           samples=samples,
-                          FUN= "PLS" ,
+                          FUN= "fastpls" ,
                           landmarks = 100000,
                           splitting = splitting,
-                          f.par.pls = 50,
+                          ncomp = 50,
                           spatial.resolution = spatial.resolution,
                           n.cores=n.cores,
-                          aa_noise=aa_noise,
                           seed = seed)
+
 print("KODAMA finished")
            
 
@@ -200,7 +207,8 @@ config$n_threads = n.cores
 config$n_sgd_threads = "auto"
 
 kk_UMAP=KODAMA.visualization(kk,method="UMAP",config=config)
-plot(kk_UMAP,pch=20,col=as.factor(labels))
+labels
+plot(kk_UMAP,pch=20,col=cols_cluster[labels])
      
 ```
  
@@ -217,7 +225,7 @@ g_walk <- igraph::cluster_walktrap(g)
 clu <- as.character(igraph::cut_at(g_walk, no = 2))
 plot(kk_UMAP,pch=20,col=as.factor(clu))
 
-cols_cluster <- c("#0000b6", "#f2cc8f")
+cols_cluster <- c("#0000b6", "#f2cc8f","#33b233")
 
 
   plot_slide(xy,as.factor(samples),clu,col=cols_cluster)
@@ -327,17 +335,16 @@ nclusters=7
 ```{r, fig.width=10, fig.height=4}
 set.seed(seed)
 kk=KODAMA.matrix.parallel(pca_Br5292,
-                            spatial = xy,
-                            samples=samples,
-                            FUN= "PLS" ,
-                            landmarks = 100000,
-                            splitting = splitting,
-                            f.par.pls = 50,
-                            spatial.resolution = spatial.resolution,
-                            n.cores=n.cores,
-                            aa_noise=aa_noise,
+                          
+                          spatial = xy,
+                          samples=samples,
+                          FUN= "fastpls" ,
+                          landmarks = 100000,
+                          splitting = splitting,
+                          ncomp = 50,
+                          spatial.resolution = spatial.resolution,
+                          n.cores=n.cores,
                           seed = seed)
-
   print("KODAMA finished")
             
      config=umap.defaults
@@ -467,15 +474,14 @@ nclusters=7
 ```{r, fig.width=10, fig.height=4}
 set.seed(seed)
 kk=KODAMA.matrix.parallel(pca_Br8100,
-                            spatial = xy,
-                            samples=samples,
-                            FUN= "PLS" ,
-                            landmarks = 100000,
-                            splitting = splitting,
-                            f.par.pls = 50,
-                            spatial.resolution = spatial.resolution,
-                            n.cores=n.cores,
-                            aa_noise=aa_noise,
+                          spatial = xy,
+                          samples=samples,
+                          FUN= "fastpls" ,
+                          landmarks = 100000,
+                          splitting = splitting,
+                          ncomp = 50,
+                          spatial.resolution = spatial.resolution,
+                          n.cores=n.cores,
                           seed = seed)
 
   print("KODAMA finished")
@@ -630,13 +636,12 @@ set.seed(seed)
 kk=KODAMA.matrix.parallel(pca,
                           spatial = xy,
                           samples=samples,
-                          FUN= "PLS" ,
+                          FUN= "fastpls" ,
                           landmarks = 100000,
-                          splitting = 300,
-                          f.par.pls = 50,
+                          splitting = splitting,
+                          ncomp = 50,
                           spatial.resolution = spatial.resolution,
                           n.cores=n.cores,
-                          aa_noise=aa_noise,
                           seed = seed)
 print("KODAMA finished")
            
@@ -715,15 +720,15 @@ TRAJECTORY
 
 d <- slingshot(kk_UMAP, clusterLabels = clu)
 trajectory=d@metadata$curves$Lineage1$s
-k=knn_Armadillo(trajectory,kk_UMAP,1)
-map_color=rainbow(nrow(trajectory))[k$nn_index]
+k=Rnanoflann::nn(trajectory,kk_UMAP,1)
+map_color=rainbow(nrow(trajectory))[k$indices]
 plot(kk_UMAP,pch=20,col=map_color)
-plot_slide(xy,samples,k$nn_index,col=rainbow(nrow(trajectory)))
+plot_slide(xy,samples,k$indices,col=rainbow(nrow(trajectory)))
 
 ```
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-source("code/DLPFC_comparison.R")
+#source("code/DLPFC_comparison.R")
 ```
 
 
