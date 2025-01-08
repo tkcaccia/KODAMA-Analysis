@@ -41,7 +41,7 @@ tissues <- c("Normal_prostate",
              "Acinar_Cell_Carcinoma",
              "Adjacent_normal_section",
              "Adenocarcinoma")
-n.cores=16
+n.cores=12
 
 ```
 
@@ -56,6 +56,8 @@ address <- file.path(dir, tissues, "")
 spe <- read10xVisium(address, tissues,
                      type = "sparse", data = "raw",
                      images = "lowres", load = FALSE)
+rownames(colData(spe))=paste(gsub("-1","",rownames(colData(spe))),colData(spe)$sample_id,sep="-")
+
 ```
 
 Visualization
@@ -89,7 +91,24 @@ mtext("Adjacent Normal section with IF")
 To begin the pathology data analysis, load the corresponding pathology data for adenocarcinoma samples. Ensure to replace the file path with the correct location of your data.
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-patho <- read.csv("data/Pathology.csv")
+
+ss <- read.csv("data/Adenocarcinoma.csv")
+annotation_Adenocarcinoma= ss[,2]
+names(annotation_Adenocarcinoma)=ss[,1]
+annotation_Adenocarcinoma=annotation_Adenocarcinoma[annotation_Adenocarcinoma!=""]
+names(annotation_Adenocarcinoma)=paste(gsub("-1","",names(annotation_Adenocarcinoma)),"Adenocarcinoma",sep="-")
+annotation_Acinar_Cell_Carcinoma=read_annotations("data/spots_classification_Acinar_Cell_Carcinoma.csv")
+names(annotation_Acinar_Cell_Carcinoma)=paste(gsub("-1","",names(annotation_Acinar_Cell_Carcinoma)),"Acinar_Cell_Carcinoma",sep="-")
+annotation_Adjacent_normal_section=read_annotations("data/spots_classification_IF.csv")
+names(annotation_Adjacent_normal_section)=paste(gsub("-1","",names(annotation_Adjacent_normal_section)),"Adjacent_normal_section",sep="-")
+annotation_Normal_Prostate=read_annotations("data/spots_classification_Normal_prostate.csv")
+names(annotation_Normal_Prostate)=paste(gsub("-1","",names(annotation_Normal_Prostate)),"Normal_prostate",sep="-")
+
+annotations = c(annotation_Normal_Prostate,
+                annotation_Acinar_Cell_Carcinoma,
+                annotation_Adjacent_normal_section,
+                annotation_Adenocarcinoma)
+
 ```
 
 #### Loading Preprocessed Data
@@ -177,19 +196,7 @@ After preprocessing the data, the next step involves feature selection using SPA
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE,results = "hide"}
 
-multi_SPARKX.SpatialExperiment = function(object, ...) {
-  if (!is(object, "SpatialExperiment")) {
-    stop("object is not a spatialExperiment object")
-  }
-  
-  data=as.matrix(t(logcounts(object)))
-  spatial=as.matrix(spatialCoords(object))
-  samples=as.factor(colData(object)$sample_id)
-  top=multi_SPARKX(data,spatial,samples)
-  return(top)
-}
-
-top=multi_SPARKX.SpatialExperiment(spe,n.cores=n.cores)
+top=multi_SPARKX(spe,n.cores=n.cores)
 
 ```
 ### Principal Component Analysis (PCA)
@@ -213,7 +220,7 @@ spe <- RunHarmony(spe, group.by.vars = "sample_id", lambda = NULL)
 
 # Visualize PCA and Harmony results
 df <- data.frame(reducedDim(spe,type = "PCA")[,1:2], tissue=as.factor(colData(spe)$sample_id))
-ggplot(df, aes(PC1, PC2, color = tissue)) +labs(title="PCA") +
+plot1 = ggplot(df, aes(PC1, PC2, color = tissue)) +labs(title="PCA") +
   geom_point(size = 2) +
   theme_bw() + theme(legend.position = "bottom")+
   scale_color_manual("Domain", values = cols_tissue) +
@@ -221,7 +228,7 @@ ggplot(df, aes(PC1, PC2, color = tissue)) +labs(title="PCA") +
                               override.aes = list(size = 2)))
 
 df <- data.frame(reducedDim(spe,type = "HARMONY")[,1:2], tissue=as.factor(colData(spe)$sample_id))
-ggplot(df, aes(HARMONY_1, HARMONY_2, color = tissue)) +labs(title="PCA") +
+plot2 = ggplot(df, aes(HARMONY_1, HARMONY_2, color = tissue)) +labs(title="PCA") +
   geom_point(size = 2) +
   theme_bw() + theme(legend.position = "bottom")+
   scale_color_manual("Domain", values = cols_tissue) +
@@ -233,6 +240,15 @@ pca=reducedDim(spe,type = "HARMONY")[,1:50]
 samples=as.factor(colData(spe)$sample_id)
 xy=as.matrix(spatialCoords(spe))
 data=t(logcounts(spe))
+plot1
+plot2
+svg("output/prostate1.svg",height = 3)
+plot1
+dev.off()
+svg("output/prostate2.svg",height = 3)
+plot2
+dev.off()
+
 ```
 
 
@@ -243,18 +259,10 @@ The processing involves creating row names and associating pathology information
 
 ```{r, fig.width=10, fig.height=6, warning=FALSE, message=FALSE}
 
-rownames(patho) <- patho[,1]
-pathology <- rep(NA, ncol(spe))
-sel <- colData(spe)$sample_id == "Adenocarcinoma"
-pathology[sel] <- patho[rownames(colData(spe))[sel], "Pathology"]
-pathology[pathology == ""] <- NA
-pathology <- factor(pathology, levels = c("Invasive carcinoma",
-                                          "Blood vessel",
-                                          "Fibro-muscular tissue",
-                                          "Fibrous tissue",
-                                          "Immune Cells",
-                                          "Nerve",
-                                          "Normal gland"))
+
+annotations=annotations[rownames(colData(spe))]
+annotations[annotations=="fibrous"]="fibromuscular"
+names(annotations)=rownames(colData(spe))
 ```
 ### Visualization of Pathology Data
 
@@ -263,17 +271,22 @@ Assign specific colors to each pathology category and visualize the samples on a
 
 ```{r, fig.width=10, fig.height=6, warning=FALSE, message=FALSE}
 
-cols_pathology <- c("#0000ff", "#e41a1c", "#006400", "#000000", "#ffd700", "#00ff00", "#b2dfee")
+cols_pathology <- c("#0000ff", "#e41a1c", "#006400", "#000000", "#ffd700", 
+                    "#00ff00", "#b2dfee","#669bbc", "#81b29a", "#f2cc8f",
+                    "#adc178", "#aa1133", "#1166dc", "#e5989b", "#e07a5f")
 
-
-df <- data.frame(reducedDim(spe,type = "HARMONY")[,1:2], tissue=pathology)
-df=df[!is.na(pathology),]
-ggplot(df, aes(HARMONY_1, HARMONY_2, color = tissue)) +labs(title="PCA") +
+df <- data.frame(pca[,1:2], tissue=annotations)
+df=df[!is.na(annotations),]
+plot3=ggplot(df, aes(HARMONY_1, HARMONY_2, color = tissue)) +labs(title="PCA") +
   geom_point(size = 2) +
   theme_bw() + theme(legend.position = "bottom")+
   scale_color_manual("Domain", values = cols_pathology) +
   guides(color = guide_legend(nrow = 2, 
                               override.aes = list(size = 2)))
+svg("output/prostate3.svg",height = 3)
+plot3
+dev.off()
+
 ```
 
 ### Running KODAMA for Analysis
@@ -282,17 +295,17 @@ The next step is running KODAMA, a method for dimensionality reduction and visua
 
 ```{r, fig.width=10, fig.height=6, warning=FALSE, message=FALSE}
 
+spe=RunKODAMAmatrix(spe,
+                          reduction = "HARMONY",
+                          FUN= "fastpls" ,
+                          landmarks = 100000,
+                          splitting = 300,
+                          ncomp = 50,
+                          spatial.resolution = 0.3,
+                          n.cores=n.cores,
+                          seed = 543210)
 
 
-spe <- RunKODAMAmatrix(spe,
-                       reduction = "HARMONY",
-                       FUN = "PLS",
-                       landmarks = 100000,
-                       splitting = 300,
-                       f.par.pls = 50,
-                       spatial.resolution = 0.2,
-                       n.cores = n.cores,
-                       aa_noise=3)
 
 config <- umap.defaults
 config$n_threads = n.cores
@@ -302,7 +315,7 @@ spe=RunKODAMAvisualization(spe,method="UMAP",config=config)
 
 
 df <- data.frame(reducedDim(spe,type = "KODAMA")[,1:2], tissue=as.factor(colData(spe)$sample_id))
-ggplot(df, aes(Dimension.1, Dimension.2, color = tissue)) +labs(title="PCA") +
+plot4=ggplot(df, aes(Dimension.1, Dimension.2, color = tissue)) +labs(title="KODAMA") +
   geom_point(size = 2) +
   theme_bw() + theme(legend.position = "bottom")+
   scale_color_manual("Domain", values = cols_tissue) +
@@ -310,15 +323,24 @@ ggplot(df, aes(Dimension.1, Dimension.2, color = tissue)) +labs(title="PCA") +
                               override.aes = list(size = 2)))
 
 
-df <- data.frame(reducedDim(spe,type = "KODAMA")[,1:2], tissue=pathology)
-ggplot(df, aes(Dimension.1, Dimension.2, color = tissue)) +labs(title="PCA") +
+
+
+df <- data.frame(reducedDim(spe,type = "KODAMA")[,1:2], tissue=annotations)
+plot5=ggplot(df, aes(Dimension.1, Dimension.2, color = tissue)) +labs(title="KODAMA") +
   geom_point(size = 2) +
   theme_bw() + theme(legend.position = "bottom")+
   scale_color_manual("Domain", values = cols_pathology) +
-  guides(color = guide_legend(nrow = 2, 
+  guides(color = guide_legend(nrow = 3, 
                               override.aes = list(size = 2)))
+plot4
+plot5
 
-
+svg("output/prostate4.svg",height = 4)
+plot4
+dev.off()
+svg("output/prostate5.svg",height = 4)
+plot5
+dev.off()
 
 ```
 
@@ -336,7 +358,7 @@ g <- bluster::makeSNNGraph(as.matrix(ko), k = 50)
 g_walk <- igraph::cluster_louvain(g,resolution = 0.2)
 clu = g_walk$membership
 
-
+table(clu,annotations)
 
 cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
           "#cc00b6", "#81ccff", "#00cc8f","#e0aa5f",
@@ -345,35 +367,27 @@ cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
 
 df <- data.frame(reducedDim(spe,type = "KODAMA")[,1:2], cluster=as.factor(clu))
 df$cluster=as.factor(df$cluster)
-ggplot(df, aes(Dimension.1, Dimension.2, color = cluster)) +
+plot6=ggplot(df, aes(Dimension.1, Dimension.2, color = cluster)) +
   geom_point(size = 2) +
   theme_bw() +
   theme(legend.position = "bottom")+
   
   scale_color_manual("Domain", values = cols_cluster) +
-  guides(color = guide_legend(nrow = 1, 
+  guides(color = guide_legend(nrow = 2, 
                               override.aes = list(size = 2)))
 
-  
 
-df <- data.frame(spatialCoords(spe),as.factor(colData(spe)$sample_id),as.factor(clu))
-colnames(df)=c("x","y","tissue","cluster")
-df$tissue=as.factor(df$tissue)
-df$cluster=as.factor(df$cluster)
-ggplot(df, aes(x, y, color = cluster)) +
-  geom_point(size = 2) +
-   facet_grid(~tissue) +
-  theme_bw() +
-  theme(
-    legend.position = "bottom",
-    axis.title = element_blank(),
-    axis.text = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid = element_blank())+
-  
-  scale_color_manual("Domain", values = cols_cluster) +
-  guides(color = guide_legend(nrow = 1, override.aes = list(size = 2)))
+plot7=plot_slide(xy,samples,as.factor(clu),nrow=1,col = cols_cluster)
 
+plot6
+plot7
+
+svg("output/prostate6.svg",height = 4)
+plot6
+dev.off()
+svg("output/prostate7.svg",height = 4)
+plot7
+dev.off()
 ```
 
 ### Trajectory
