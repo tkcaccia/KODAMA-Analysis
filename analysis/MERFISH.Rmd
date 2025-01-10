@@ -101,7 +101,18 @@ plot(pca,col=tissue_segments)
 
 ```{r, message=FALSE, warning=FALSE}
 # Apply KODAMA to the PCA results
-jj <- KODAMA.matrix.parallel(pca[,1:30],spatial = xyz,f.par.pls = 50, FUN = "PLS", landmarks = 100000, n.cores = n.cores,splitting=100)
+jj=KODAMA.matrix.parallel(pca[,1:30],
+                          spatial = xyz,
+                          FUN= "fastpls" ,
+                          landmarks = 100000,
+                          splitting = 100,
+                          ncomp = 50,
+                          spatial.resolution = 0.3,
+                          n.cores=n.cores,
+                          seed = 543210)
+
+print("KODAMA finished")
+           
 
 config=umap.defaults
 config$n_neighbors=30
@@ -109,7 +120,7 @@ config$n_threads = n.cores
 vis <- KODAMA.visualization(jj, method = "UMAP",config=config)
 
 g <- bluster::makeSNNGraph(as.matrix(vis), k = 100)
-g_louvain <- igraph::cluster_louvain(g,resolution = 0.2)
+g_louvain <- igraph::cluster_louvain(g,resolution = 0.15)
 clu = g_louvain$membership
 
 # Plot the clusters
@@ -186,7 +197,7 @@ library(misc3d)
 #save(vis,xyz,ref,cols,file="MERFISH-test.RData")
 
 
-volume_rendering(xyz[!is.na(ref),],ref[!is.na(ref)],selection = c("V3","PVH","PV","fx"),alpha = c(0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8) ,colors = cols,cells=c(20, 20, 20),level=exp(2.8))
+volume_rendering(xyz[!is.na(ref),],ref[!is.na(ref)],selection = c("V3","PVH","PV","fx"),alpha = c(0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8) ,colors = cols,cells=c(20, 20, 20),level=exp(2.4))
 
 
 ```
