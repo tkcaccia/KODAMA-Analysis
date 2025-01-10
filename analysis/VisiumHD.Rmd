@@ -314,9 +314,9 @@ RNA.sel = RNA.sel[sel, ]
 
 ```{r}
 
-labels = coad.sel[, "pathology_T_stage"]
-labels[labels %in% c("t1", "t2", "t3", "tis")] = "low"
-labels[labels %in% c("t4", "t4a", "t4b")] = "high"
+labelsTCGA = coad.sel[, "pathology_T_stage"]
+labelsTCGA[labelsTCGA %in% c("t1", "t2", "t3", "tis")] = "low"
+labelsTCGA[labelsTCGA %in% c("t4", "t4a", "t4b")] = "high"
 
 ```
 
@@ -333,7 +333,7 @@ LCN2 <- log(1 + RNA.sel[,"LCN2|3934" ])
 colors=c("#0073c2bb","#efc000bb","#868686bb","#cd534cbb","#7aabdcbb","#003c67bb")
 
 library(ggpubr)
-df=data.frame(variable=CXCL2,labels=labels)
+df=data.frame(variable=CXCL2,labels=labelsTCGA)
 
 my_comparisons=list()
 my_comparisons[[1]]=c(1,2)
