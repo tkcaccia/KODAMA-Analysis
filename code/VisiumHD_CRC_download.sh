@@ -1,4 +1,4 @@
-mkdir Colrectal
+mkdir Colorectal
 cd Colorectal
 mkdir outs
 cd outs

@@ -130,6 +130,11 @@ rr=rr[n==1,]
 rownames(rr)=rr[,1]
 rr=rr[rownames(kk_UMAP),]
 
+rr[,2]=substring(rr[,2],2)
+                     
+    
+  
+
 table(rr[,"classification"])
 
 
@@ -139,15 +144,36 @@ library(ggplot2)
 
 cols=sample(rainbow(15))
 labels=as.factor(rr[,"classification"])
+
+
+
+cols_tissue <- c("#0000ff", "#e41a1c", "#006400",  "#ffd700","#0088dd",
+                    "#00ff00", "#b2dfee","#669bbc", "#81b29a", "#f2cc8f",
+                    "#adc178", "#aa1133", "#1166dc", "#e5989b", "#e07a5f",
+                    "#cc00b6", "#81ccff", "#00cc8f","#e0aa5f","#33b233", "#aa228f","#aa7a6f")
+
+
+df <- data.frame(kk_UMAP[,1:2], tissue=labels)
+plot1 = ggplot(df, aes(Dimensions_1, Dimensions_2, color = tissue)) +labs(title="KODAMA") +
+  geom_point(size = 1) +
+  theme_bw() + theme(legend.position = "bottom")+
+  scale_color_manual("Domain", values = cols_tissue) +
+  guides(color = guide_legend(nrow = 4, 
+                              override.aes = list(size = 4)))
+plot1
+png("output/CRC.png",height = 2000,width = 2000)
+plot1
+dev.off()
+
+
 par(xpd = T, mar = par()$mar + c(0,0,0,7))
 
-plot(kk_UMAP,cex=0.5,pch=20,col=cols[labels])
+plot1=plot(kk_UMAP,cex=0.5,pch=20,col=cols_tissue[labels])
 legend(max(kk_UMAP[,1])+0.05*dist(range(kk_UMAP[,1])), max(kk_UMAP[,2]),
        levels(labels),
        col = cols,
        cex = 0.8,
        pch=20)
-
 
 load("data/trajectories_VISIUMHD.RData")
 
@@ -177,38 +203,296 @@ colnames(ma)=c("Feature   ","rho   ","p-value   ","FDR   ")
 knitr::kable(ma[1:30,],row.names=FALSE)
 ```
 
-```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE,results = "hide"}
+# miRseq Analysis:
+
+**Analysing miRseq Gene Expression Data from a Colerectal Adenocarcinoma Cohort:**
+
+```{r, message=FALSE}
+# install.packages("readxl")
+library(readxl)
+
+```
+
+***Prepare Clinical Data:***
+
+```{r}
+# Read in Clinical Data:
+coad=read.csv("../TCGA/COAD/COAD.clin.merged.picked.txt",sep="\t",check.names = FALSE, row.names = 1)
+
+coad <- as.data.frame(coad) 
+
+# Clean column names: replace dots with dashes & convert to uppercase
+colnames(coad) = toupper(colnames(coad))
+
+ # Transpose the dataframe so that rows become columns and vice versa
+coad = t(coad) 
+```
+
+***Prepare miRNA-seq expression data:***
+
+```{r}
+# Read RNA-seq expression data:
+r = read.csv("../TCGA/COAD/COAD.rnaseqv2__illuminahiseq_rnaseqv2__unc_edu__Level_3__RSEM_genes_normalized__data.data.txt", sep = "\t", check.names = FALSE, row.names = 1)
+# Remove the first row:
+r = r[-1,]
+# Convert expression data to numeric matrix format
+temp = matrix(as.numeric(as.matrix(r)), ncol=ncol(r))
+colnames(temp) = colnames(r)  
+rownames(temp) = rownames(r)  
+RNA = temp  
+
+# Transpose the matrix so that genes are rows and samples are columns
+RNA = t(RNA)  
+
+```
+
+***Extract patient and tissue information from column names:***
+
+```{r}
+
+tcgaID = list()
+ # Extract sample ID
+tcgaID$sample.ID <- substr(colnames(r), 1, 16)
+# Extract patient ID
+tcgaID$patient <- substr(colnames(r), 1, 12)  
+# Extract tissue type
+tcgaID$tissue <- substr(colnames(r), 14, 16)  
+
+tcgaID = as.data.frame(tcgaID)  
+```
+
+***Select Primary Solid Tumor tissue data ("01A"):***
+
+```{r}
+sel=tcgaID$tissue == "01A"
+tcgaID.sel = tcgaID[sel, ]
+
+# Subset the RNA expression data to match selected samples
+RNA.sel = RNA[sel, ]
+```
+
+***Intersect patient IDs between clinical and RNA data:***
+
+```{r}
+sel = intersect(tcgaID.sel$patient, rownames(coad))
+# Subset the clinical data to include only selected patients:
+coad.sel = coad[sel, ]
+# Assign patient IDs as row names to the RNA data:
+rownames(RNA.sel) = tcgaID.sel$patient
+# Subset the RNA data to include only selected patients
+RNA.sel = RNA.sel[sel, ]
+```
+
+***Prepare labels for pathology stages:***
+
+- Classify stages `t1`, `t2`, & `t3` as "low"
+
+- Classify stages `t4`, `t4a`, & `t4b` as "high"
+
+- Convert any `tis` stages to `NA`
+
+```{r}
+
+labelsTCGA = coad.sel[, "pathology_T_stage"]
+labelsTCGA[labelsTCGA %in% c("t1", "t2", "t3", "tis")] = "low"
+labelsTCGA[labelsTCGA %in% c("t4", "t4a", "t4b")] = "high"
+
+```
+
+***Log Transform the expression data for our selected gene `CXCL2`:***
+
+```{r}
+CXCL2 <- log(1 + RNA.sel[, "CXCL2|2920"])
+LCN2 <- log(1 + RNA.sel[,"LCN2|3934" ])
+```
+
+***Boxplot to visualize the distribution of log transformed gene expression by pathology stage:***
+
+```{r}
+colors=c("#0073c2bb","#efc000bb","#868686bb","#cd534cbb","#7aabdcbb","#003c67bb")
+
+library(ggpubr)
+df=data.frame(variable=CXCL2,labels=labelsTCGA)
+
+my_comparisons=list()
+my_comparisons[[1]]=c(1,2)
+
+Nplot1=ggboxplot(df, x = "labels", y = "variable",fill="labels",
+                 width = 0.8,
+                 palette=colors,
+                 add = "jitter",            
+                 add.params = list(size = 2, jitter = 0.2,fill="#ff0000aa", shape=21))+  
+  ylab("CXCL2 gene expression (FPKM)")+ xlab("")+
+  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")
+
+Nplot1
+
+svg("output/CRC_boxplot.svg")
+Nplot1
+dev.off()
 
 
-lab=rr[,"classification"]
-sel=lab==" stroma invasive carcinoma" | lab==" stroma intermediate"
-data.sel=data[which(sel),]
-data.sel=data.sel[,colSums(data.sel)>0]
-lab=as.factor(as.vector(lab[which(sel)]))
-
-ma=multi_analysis(data.sel,lab,range="95%CI")
-
-ma=ma[order(as.numeric(ma$`p-value`)),]
 ```
 
 
-```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
-knitr::kable(ma[1:30,],row.names=FALSE)
-```
-
-
 ```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE,results = "hide"}
+xy2=xy
+xy2[,1]=xy[,2]
+xy2[,2]=-xy[,1]
+plot(xy2,col=cols_tissue[labels],pch=20,cex=0.5)
 
-lab=rr[,"classification"]
-sel=lab==" stroma invasive carcinoma" | lab==" desmoplastic submucosa"
-data.sel=data[which(sel),]
-data.sel=data.sel[,colSums(data.sel)>0]
+df <- data.frame(xy2, tissue=labels)
+plot2 = ggplot(df, aes(x, y, color = tissue)) +labs(title="KODAMA") +
+  geom_point(size = 1) +
+  theme_bw() + theme(legend.position = "bottom")+
+  scale_color_manual("Domain", values = cols_tissue) +
+  guides(color = guide_legend(nrow = 4, 
+                              override.aes = list(size = 4)))
+plot2
 
-lab=as.factor(as.vector(lab[which(sel)]))
+png("output/CRC2.png",height = 2000,width = 2000)
+plot2
+dev.off()
 
-ma=multi_analysis(data.sel,lab,range="95%CI")
+sel_desmoplastic_submucosa=which(labels=="desmoplastic submucosa")
+kk_desmoplastic_submucosa=kk_UMAP[sel_desmoplastic_submucosa,]
+xy_desmoplastic_submucosa=xy2[sel_desmoplastic_submucosa,]
 
-ma=ma[order(as.numeric(ma$`p-value`)),]
+
+g <- bluster::makeSNNGraph(as.matrix(kk_desmoplastic_submucosa), k = 20)
+g_walk <- igraph::cluster_louvain(g,resolution = 0.005)
+clu = g_walk$membership
+names(clu)=rownames(kk_desmoplastic_submucosa)
+
+
+
+df <- data.frame(kk_desmoplastic_submucosa[,1:2], tissue=as.factor(clu))
+plot3 = ggplot(df, aes(Dimensions_1, Dimensions_2, color = tissue)) +labs(title="KODAMA") +
+  geom_point(size = 1) +
+  theme_bw() + theme(legend.position = "bottom")+
+  scale_color_manual("Domain", values = cols_tissue) +
+  guides(color = guide_legend(nrow = 4, 
+                              override.aes = list(size = 4)))
+plot3
+png("output/CRC7.png",height = 2000,width = 2000)
+plot3
+dev.off()
+
+
+df <- data.frame(xy_desmoplastic_submucosa, tissue=as.factor(clu))
+plot4 = ggplot(df, aes(x, y, color = tissue)) +labs(title="KODAMA") +
+  geom_point(size = 1) +
+  theme_bw() + theme(legend.position = "bottom")+
+  scale_color_manual("Domain", values = cols_tissue) +
+  guides(color = guide_legend(nrow = 4, 
+                              override.aes = list(size = 4)))
+plot4
+
+png("output/CRC8.png",height = 2000,width = 2000)
+plot4
+dev.off()
+
+
+
+sel_desmoplastic_submucosa_selected=names(which(clu==names(which.max(table(clu)))))
+kk_desmoplastic_submucosa_selected=kk_UMAP[sel_desmoplastic_submucosa_selected,]
+xy_desmoplastic_submucosa_selected=xy2[sel_desmoplastic_submucosa_selected,]
+data_desmoplastic_submucosa_selected=data[sel_desmoplastic_submucosa_selected,]
+data_desmoplastic_submucosa_selected=data_desmoplastic_submucosa_selected[,-which(colMeans(data_desmoplastic_submucosa_selected==0)>0.95)]
+
+sel_invasive_carcinoma=which(labels=="invasive carcinoma" | labels=="intermediate dysplasia")
+kk_invasive_carcinoma=kk_UMAP[sel_invasive_carcinoma,]
+xy_invasive_carcinoma=xy2[sel_invasive_carcinoma,]
+
+knn=Rnanoflann::nn(xy_invasive_carcinoma,xy_desmoplastic_submucosa_selected,1)	
+
+y=knn$distances[,1]
+
+
+
+ma=multi_analysis(data_desmoplastic_submucosa_selected,y,FUN="correlation.test",method="spearman")
+ma=ma[order(abs(as.numeric(ma$rho)),decreasing = TRUE),]
+colnames(ma)=c("Feature   ","rho   ","p-value   ","FDR   ")
+
+
+
+# 2) Define custom intervals
+break_points <-c(quantile(y,probs=c(seq(0,1,0.005))))
+
+# 3) Convert continuous data to intervals
+distance_binned <- cut(y, breaks = break_points)
+
+gene_binned=apply(data_desmoplastic_submucosa_selected,2,function(x)  tapply(x,distance_binned,mean))
+break_points=break_points[-length(break_points)]
+
+ma=multi_analysis(gene_binned,break_points,FUN="correlation.test",method="MINE")
+ma=ma[order(as.numeric(ma$MIC),decreasing = TRUE),]
+ma[1:10,]
+rownames(ma)=ma[,"Feature"]
+#plot(knn$distances,PMdata[,3])
+
+zmax=NULL
+for(i in 1:ncol(gene_binned)){
+ df=data.frame(x=break_points,y=gene_binned[,i])
+ ll=loess(y~x,data = df,span = 0.3)
+ z=predict(ll,newdata = data.frame(x=break_points))
+ zmax[i]=break_points[which.max(z)]
+# points(break_points,z,type="l",col=2)
+}
+genes=colnames(gene_binned)
+names(zmax)=genes
+
+
+plot(log(1+zmax[genes]),ma[genes,]$MIC,cex=0.2)
+text(log(1+zmax[genes]),ma[genes,]$MIC,labels=genes,cex=0.7)
+
+
+plot(log(1+break_points),gene_binned[,1],ylim=c(0,1),type="n")
+ df=data.frame(x=break_points,
+               HTRA3=gene_binned[,"HTRA3"],
+               IGFBP5=gene_binned[,"IGFBP5"],
+               CXCL14=gene_binned[,"CXCL14"],
+               MMP11=gene_binned[,"MMP11"],
+               TIMP3=gene_binned[,"TIMP3"],
+               MGP=gene_binned[,"MGP"])
+ 
+ ll=loess(IGFBP5~x,data = df,span = 0.3)
+ IGFBP5=predict(ll,newdata = data.frame(x=break_points))
+ 
+ ll=loess(CXCL14~x,data = df,span = 0.3)
+ CXCL14=predict(ll,newdata = data.frame(x=break_points))
+ 
+ ll=loess(MMP11~x,data = df,span = 0.3)
+ MMP11=predict(ll,newdata = data.frame(x=break_points))
+ 
+ ll=loess(TIMP3~x,data = df,span = 0.3)
+ TIMP3=predict(ll,newdata = data.frame(x=break_points))
+ 
+ ll=loess(HTRA3~x,data = df,span = 0.3)
+ HTRA3=predict(ll,newdata = data.frame(x=break_points))
+ 
+ ll=loess(MGP~x,data = df,span = 0.3)
+ MGP=predict(ll,newdata = data.frame(x=break_points))
+ points(log(1+break_points),HTRA3/max(HTRA3),type="l",col=2,lwd=3)
+ points(log(1+break_points),IGFBP5/max(IGFBP5),type="l",col=3,lwd=3)
+ points(log(1+break_points),CXCL14/max(CXCL14),type="l",col=4,lwd=3)
+ points(log(1+break_points),MMP11/max(MMP11),type="l",col=5,lwd=3)
+ points(log(1+break_points),TIMP3/max(TIMP3),type="l",col=6,lwd=3)
+ points(log(1+break_points),MGP/max(MGP),type="l",col=7,lwd=3)
+
+ 
+svg("output/CRC_linee.svg")
+plot(log(1+break_points),gene_binned[,1],ylim=c(0,1),type="n")
+
+ points(log(1+break_points),HTRA3/max(HTRA3),type="l",col=2,lwd=3)
+ points(log(1+break_points),IGFBP5/max(IGFBP5),type="l",col=3,lwd=3)
+ points(log(1+break_points),CXCL14/max(CXCL14),type="l",col=4,lwd=3)
+ points(log(1+break_points),MMP11/max(MMP11),type="l",col=5,lwd=3)
+ points(log(1+break_points),TIMP3/max(TIMP3),type="l",col=6,lwd=3)
+ points(log(1+break_points),MGP/max(MGP),type="l",col=7,lwd=3)
+
+dev.off()
+
 ```
 
 

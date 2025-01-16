@@ -29,7 +29,9 @@ library(SPARK)
 library(ggplot2)
 library(plotly)
 library(mclust)
-
+library(harmony)
+library(bluster)
+library(igraph)
 n.cores=16
 ```
 
@@ -37,6 +39,10 @@ n.cores=16
 ```{r, message=FALSE, warning=FALSE}
 # Load the MERFISH data
 load("../MERFISH_Animal1.RData")
+
+cols <- c("#669bbc", "#81b29a", "#f2cc8f", "#adc178",
+          "#dde5b6", "#a8dadc", "#e5989b", "#e07a5f",
+          "#aae5b6", "#a8aadc", "#e59811", "#aa7900")
 
 # Define the slides to be analyzed
 slides <- c("-0.04", "-0.09", "-0.14", "-0.19", "-0.24")
@@ -83,17 +89,64 @@ top=multi_SPARKX(RNA,xyz[,-3],as.factor(xyz[,3]),n.cores = n.cores)
 ```{r, message=FALSE, warning=FALSE}
 
 
-RNA.sel.3=passing.message(RNA[,top[1:100]],xyz)
+passing.message = 
+  function (data, spatial, number_knn = 15, quantile = 0.5, n.cores = 1) 
+  {
+    data=as.matrix(data)
+    spatial=as.matrix(spatial)
+    # Get dimensions of the input data
+    nspots = nrow(data)
+    nvariables = ncol(data)
+
+    # Initialize result matrix
+    data.2 <- matrix(0, nrow = nspots, ncol = nvariables)
+    knn=Rnanoflann::nn(spatial,spatial,number_knn)
+    for(h in 1:nspots){       
+      # Find nearest neighbors using spatial information
+      
+      
+      # Initialize a temporary vector for computations
+      temp = rep(0, nvariables)
+      RNA.temp = data[knn$indices[h,], ]
+      knn_gene = Rnanoflann::nn(RNA.temp, RNA.temp[1, , drop = FALSE], round(number_knn * quantile))$indices
+
+      knn$distances=knn$distances/max(knn$distances)
+      # Compute weighted sum for each variable
+      for (i in 1:number_knn) {
+        temp = temp + RNA.temp[i, ]/exp(knn$distances[h,i])
+      }
+      # Return the computed row
+      data.2[h, ] <-temp
+    }
+
+    rownames(data.2) = rownames(data)
+    colnames(data.2) = colnames(data)
+    data.2
+  }
+
+RNA.PM=passing.message(RNA[,top[1:100]],xyz)
 
 ```
 
 ## Dimensionality reduction
 
 ```{r, message=FALSE, warning=FALSE}
-RNA.scaled=scale(RNA.sel.3)
+RNA.PM.scaled=scale(RNA.PM)
+pca_results <- irlba(A = RNA.PM.scaled, nv = 50)
+pca.PM <- pca_results$u %*% diag(pca_results$d)
+
+pca.PM=RunHarmony(pca.PM,data.frame(z=xyz[,3]),"z")
+
+
+RNA.scaled=scale(RNA[,top[1:100]])
 pca_results <- irlba(A = RNA.scaled, nv = 50)
 pca <- pca_results$u %*% diag(pca_results$d)
-plot(pca,col=tissue_segments)
+
+
+par(mfrow = c(1, 2))
+plot(pca, col = cols[tissue_segments], main = "KODAMA tissue",pch=20)
+plot(pca.PM, col = cols[tissue_segments], main = "KODAMA Clusters",pch=20)
+
 
 ```
 
@@ -101,24 +154,92 @@ plot(pca,col=tissue_segments)
 
 ```{r, message=FALSE, warning=FALSE}
 # Apply KODAMA to the PCA results
-jj <- KODAMA.matrix.parallel(pca[,1:30],spatial = xyz,f.par.pls = 50, FUN = "PLS", landmarks = 100000, n.cores = n.cores,splitting=100)
+jj=KODAMA.matrix.parallel(pca.PM[,1:20],
+                          spatial = xyz,
+                          FUN= "fastpls" ,
+                          landmarks = 100000,
+                          splitting = 300,
+                          ncomp = 50,
+                          spatial.resolution = 0.3,
+                          n.cores=n.cores,
+                          seed = 543210)
+
+print("KODAMA finished")
+           
 
 config=umap.defaults
 config$n_neighbors=30
 config$n_threads = n.cores
 vis <- KODAMA.visualization(jj, method = "UMAP",config=config)
 
-g <- bluster::makeSNNGraph(as.matrix(vis), k = 100)
-g_louvain <- igraph::cluster_louvain(g,resolution = 0.2)
-clu = g_louvain$membership
+g <- makeSNNGraph(as.matrix(vis), k = 100)
+ncluster=8
+res = 0.15
+clu= cluster_louvain(g, resolution = res)$membership
+lclu=length(unique(clu ))
+while (lclu<8) {
+  res = res + 0.01
+  clu=cluster_louvain(g, resolution = res)$membership
+  lclu=length(unique(clu))
+}
 
-# Plot the clusters
-par(mfrow = c(1, 2))
-plot(vis, col = tissue_segments, main = "KODAMA tissue")
-plot(vis, col = clu, main = "KODAMA Clusters")
 
 
-ref=refine_SVM(xyz,clu,cost=10000)
+
+```
+
+
+
+# Refinement and Visualization
+
+```{r, message=FALSE, warning=FALSE}
+
+ref=refine_SVM(xyz,clu,cost=1000)
+
+
+zlabels=ref
+
+z=xyz[,3]
+uz=unique(z)
+
+result_KODAMA=list()
+result_KODAMA$clusters=list()
+result_KODAMA$feature_extraction=list()
+result_KODAMA$tissue_segments=list()
+result_KODAMA$xy=list()
+
+ground_true=list()
+ground_true$tissue_segments=list()
+ground_true$clusters=list()
+ground_true$xy=list()
+
+for(i in 1:5){
+  sel=z==uz[i]
+  
+    
+  ground_true$tissue_segments[[i]]=tissue_segments[sel]
+  ground_true$clusters[[i]]=tissue_segments[sel]
+  ground_true$xy[[i]]=xyz[sel,-3]
+  
+  result_KODAMA$clusters[[i]]=zlabels[sel]
+  result_KODAMA$tissue_segments[[i]]=tissue_segments[sel]
+  result_KODAMA$xy[[i]]=xyz[sel,-3]
+  result_KODAMA$feature_extraction[[i]]=vis[sel,]
+}
+result_KODAMA$xyz=xyz
+result_KODAMA$clusters_allslide=zlabels
+result_KODAMA$feature_extraction_allslide=vis
+
+ground_true$xyz=xyz
+ground_true$clusters_allslide=tissue_segments
+
+
+
+
+
+
+save(ground_true,result_KODAMA,file="output/MERFISH-KODAMA-results.RData")
+save(tissue_segments,vis,xyz,pca,pca.PM,RNA,RNA.PM,top,file="data/MERFISH-input.RData")
 
 ARI=NULL
 slides=unique(xyz[,3])
@@ -127,48 +248,14 @@ for(i in 1:length(slides)){
   ARI[i]=adjustedRandIndex(ref[sel], tissue_segments[sel])
 }
 print(ARI)
-```
+
+# Plot the clusters
+par(mfrow = c(1, 2))
+plot(vis, col = cols[tissue_segments], main = "KODAMA tissue",pch=20)
+plot(vis, col = cols[clu], main = "KODAMA Clusters",pch=20)
 
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-save(ref,tissue_segments,vis,xyz,file="output/MERFISH.RData")
-```
-
-
-# Refinement and Visualization
-
-```{r, message=FALSE, warning=FALSE}
-
-
-cols <- c("#669bbc", "#81b29a", "#f2cc8f", "#adc178",
-          "#dde5b6", "#a8dadc", "#e5989b", "#e07a5f")
-
-change=sort(tapply(ref,tissue_segments,function(x) which.max(table(x))))
-ref=names(change)[ref]
-ref=factor(ref,levels = levels(tissue_segments))
-
-df <- data.frame(xyz, tissue_segments)
-df <- data.frame(xyz, ref)
-colnames(df)=c("x","y","z","tissue_segments")
-df$z=as.factor(df$z)
-df$tissue_segments=as.factor(df$tissue_segments)
-ggplot(df, aes(x, y, color = tissue_segments)) +
-  geom_point(size = 1) +
-  facet_grid(~z) +
-  theme_bw() +
-  theme(
-    legend.position = "bottom",
-    axis.title = element_blank(),
-    axis.text = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid = element_blank())+
-  
-  scale_color_manual("Domain", values = cols) +
-  guides(color = guide_legend(nrow = 1, 
-                              override.aes = list(size = 2)))
-
-
-
+plot_slide(xyz[,-3],as.factor(xyz[,3]),ref,nrow=1,col=cols)
 
 
 ```
@@ -186,7 +273,12 @@ library(misc3d)
 #save(vis,xyz,ref,cols,file="MERFISH-test.RData")
 
 
-volume_rendering(xyz[!is.na(ref),],ref[!is.na(ref)],selection = c("V3","PVH","PV","fx"),alpha = c(0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8) ,colors = cols,cells=c(20, 20, 20),level=exp(2.8))
+#volume_rendering(xyz[!is.na(ref),],ref[!is.na(ref)],selection = c("V3","PVH","PV","fx"),alpha = c(0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8) ,colors = cols,cells=c(20, 20, 20),level=exp(2.4))
 
 
+```
+
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+source("code/MERFISH_comparison.R")
 ```
