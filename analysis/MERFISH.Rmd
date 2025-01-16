@@ -144,8 +144,9 @@ pca <- pca_results$u %*% diag(pca_results$d)
 
 
 par(mfrow = c(1, 2))
-plot(pca, col = cols[tissue_segments], main = "KODAMA tissue",pch=20)
-plot(pca.PM, col = cols[tissue_segments], main = "KODAMA Clusters",pch=20)
+plot(pca, col = cols[tissue_segments], main = "PCA",pch=20,xlab="PC1",ylab="PC2")
+plot(pca.PM, col = cols[tissue_segments], main = "PCA.PM",pch=20,xlab="PC1",ylab="PC2")
+
 
 
 ```
@@ -255,6 +256,7 @@ plot(vis, col = cols[tissue_segments], main = "KODAMA tissue",pch=20)
 plot(vis, col = cols[clu], main = "KODAMA Clusters",pch=20)
 
 
+plot_slide(xyz[,-3],as.factor(xyz[,3]),tissue_segments,nrow=1,col=cols)
 plot_slide(xyz[,-3],as.factor(xyz[,3]),ref,nrow=1,col=cols)
 
 
@@ -265,20 +267,15 @@ plot_slide(xyz[,-3],as.factor(xyz[,3]),ref,nrow=1,col=cols)
 
 
 library(rgl)
-
 library(MASS)
-
 library(misc3d)
 
-#save(vis,xyz,ref,cols,file="MERFISH-test.RData")
-
-
-#volume_rendering(xyz[!is.na(ref),],ref[!is.na(ref)],selection = c("V3","PVH","PV","fx"),alpha = c(0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8) ,colors = cols,cells=c(20, 20, 20),level=exp(2.4))
+volume_rendering(xyz[!is.na(ref),],ref[!is.na(ref)],selection = c("3","7","8","6"),alpha = c(0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8) ,colors = cols,cells=c(20, 20, 20),level=exp(2.4))
 
 
 ```
 
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE,results = "hide"}
 source("code/MERFISH_comparison.R")
 ```
