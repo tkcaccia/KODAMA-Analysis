@@ -269,10 +269,6 @@ for(j in u){
   print(mclust::adjustedRandIndex(labels[selFB][sel],ref[sel]))
 }
         
-      ###########
-      
-
-
 plot_slide(xy,samples,labels,col=cols_cluster)
   
 
@@ -406,10 +402,6 @@ kk=KODAMA.matrix.parallel(pca_Br5292,
             print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
           }
         
-      ###########
-      
-
-
 plot_slide(xy,samples,labels,col=cols_cluster)
   
     plot_slide(xy,samples,ref,col=cols_cluster)

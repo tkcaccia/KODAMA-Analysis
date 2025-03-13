@@ -410,7 +410,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -421,8 +421,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -431,13 +431,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-01-08
+<strong>Last updated:</strong> 2025-03-05
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
@@ -460,18 +460,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -562,15 +565,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree2077f7129829f5e7a2ebe5e915ac61690d54afc0targetblank2077f71a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree7de0c7444fdebf22d8827606a2b840417e344179targetblank7de0c74a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/2077f7129829f5e7a2ebe5e915ac61690d54afc0" target="_blank">2077f71</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/7de0c7444fdebf22d8827606a2b840417e344179" target="_blank">7de0c74</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree2077f7129829f5e7a2ebe5e915ac61690d54afc0targetblank2077f71a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree7de0c7444fdebf22d8827606a2b840417e344179targetblank7de0c74a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -580,7 +583,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/2077f7129829f5e7a2ebe5e915ac61690d54afc0" target="_blank">2077f71</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/7de0c7444fdebf22d8827606a2b840417e344179" target="_blank">7de0c74</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -601,9 +604,8 @@ Ignored files:
     Ignored:    analysis/figure/
 
 Untracked files:
-    Untracked:  Elemina.RData
     Untracked:  KODAMA.svg
-    Untracked:  Rplots.pdf
+    Untracked:  analysis/old_DLPFC.Rmd
     Untracked:  code/Acinar_Cell_Carcinoma.ipynb
     Untracked:  code/Adenocarcinoma.ipynb
     Untracked:  code/Adjacent_normal_section.ipynb
@@ -615,7 +617,15 @@ Untracked files:
     Untracked:  code/DLPFC - PRECAST.R
     Untracked:  code/DLPFC_comparison.R
     Untracked:  code/DLPFC_results_analysis.R
+    Untracked:  code/MERFISH - BANKSY.R
+    Untracked:  code/MERFISH - BASS.R
+    Untracked:  code/MERFISH - BAYESPACE.R
+    Untracked:  code/MERFISH - Nonspatial.R
+    Untracked:  code/MERFISH - PRECAST.R
+    Untracked:  code/MERFISH_comparison.R
+    Untracked:  code/MERFISH_results_analysis.R
     Untracked:  code/VisiumHD-CRC.ipynb
+    Untracked:  code/deep learning code DLPFC.R
     Untracked:  code/save tiles.py
     Untracked:  data/Adenocarcinoma.csv
     Untracked:  data/Annotations/
@@ -623,6 +633,7 @@ Untracked files:
     Untracked:  data/DLFPC-Br5595-input.RData
     Untracked:  data/DLFPC-Br8100-input.RData
     Untracked:  data/DLPFC-general.RData
+    Untracked:  data/MERFISH-input.RData
     Untracked:  data/spots_classification_ALL.csv
     Untracked:  data/spots_classification_Acinar_Cell_Carcinoma.csv
     Untracked:  data/spots_classification_IF.csv
@@ -634,33 +645,45 @@ Untracked files:
     Untracked:  output/BayesSpace-results.RData
     Untracked:  output/CRC-image.RData
     Untracked:  output/CRC-image2.RData
+    Untracked:  output/CRC.png
+    Untracked:  output/CRC2.png
+    Untracked:  output/CRC7.png
+    Untracked:  output/CRC8.png
+    Untracked:  output/CRC_boxplot.png
+    Untracked:  output/CRC_boxplot.svg
+    Untracked:  output/CRC_linee.svg
     Untracked:  output/DL.RData
     Untracked:  output/DLFPC-All-2.RData
     Untracked:  output/DLFPC-All.RData
     Untracked:  output/DLFPC-Br5292.RData
     Untracked:  output/DLFPC-Br5595.RData
     Untracked:  output/DLFPC-Br8100.RData
+    Untracked:  output/DLPFC-BANSKY-results.RData
+    Untracked:  output/DLPFC-BASS-results.RData
+    Untracked:  output/DLPFC-BayesSpace-results.RData
+    Untracked:  output/DLPFC-Nonspatial-results.RData
+    Untracked:  output/DLPFC-PRECAST-results.RData
     Untracked:  output/DLPFC1.svg
     Untracked:  output/DLPFC_all_cluster.svg
     Untracked:  output/Figure 1 - boxplot.pdf
     Untracked:  output/Figure 2 - DLPFC 10.pdf
+    Untracked:  output/Figures/
     Untracked:  output/KODAMA-results.RData
     Untracked:  output/KODAMA_DLPFC_All_original.svg
     Untracked:  output/KODAMA_DLPFC_Br5595.svg
     Untracked:  output/KODAMA_DLPFC_Br5595_slide.svg
+    Untracked:  output/MERFISH-BANSKY-results.RData
+    Untracked:  output/MERFISH-BASS-results.RData
+    Untracked:  output/MERFISH-BayesSpace-results.RData
+    Untracked:  output/MERFISH-KODAMA-results.RData
+    Untracked:  output/MERFISH-NONSPATIAL-results.RData
+    Untracked:  output/MERFISH-PRECAST-results.RData
     Untracked:  output/MERFISH.RData
     Untracked:  output/Nonspatial-results.RData
-    Untracked:  output/PRECAST-results.RData
     Untracked:  output/Prostate.RData
+    Untracked:  output/RGB_DLPFC.png
+    Untracked:  output/VisiumHD.RData
     Untracked:  output/VisiumHD3.RData
-    Untracked:  output/a1.RData
-    Untracked:  output/a2.RData
-    Untracked:  output/a3.RData
-    Untracked:  output/a4.RData
-    Untracked:  output/a5.RData
-    Untracked:  output/a6.RData
-    Untracked:  output/a7.RData
-    Untracked:  output/a8.RData
     Untracked:  output/image.RData
     Untracked:  output/pp.RData
     Untracked:  output/pp2.RData
@@ -675,13 +698,12 @@ Untracked files:
     Untracked:  output/prostate6.svg
     Untracked:  output/prostate7.svg
     Untracked:  output/tight_boundary.geojson
-    Untracked:  remove.RData
-    Untracked:  remove2.RData
 
 Unstaged changes:
     Deleted:    analysis/D1.Rmd
     Deleted:    analysis/DLPFC-12.Rmd
     Deleted:    analysis/DLPFC-4.Rmd
+    Modified:   analysis/DLPFC.Rmd
     Deleted:    analysis/DLPFC1.Rmd
     Deleted:    analysis/DLPFC10.Rmd
     Deleted:    analysis/DLPFC2.Rmd
@@ -713,6 +735,24 @@ Unstaged changes:
     Deleted:    analysis/Du8.Rmd
     Deleted:    analysis/Du9.Rmd
     Modified:   analysis/Giotto.Rmd
+    Modified:   analysis/MERFISH.Rmd
+    Deleted:    analysis/MERFISH1a (copy).Rmd
+    Deleted:    analysis/MERFISH1a.Rmd
+    Deleted:    analysis/MERFISH1b (copy).Rmd
+    Deleted:    analysis/MERFISH1b.Rmd
+    Deleted:    analysis/MERFISH2a (copy).Rmd
+    Deleted:    analysis/MERFISH2a.Rmd
+    Deleted:    analysis/MERFISH2b (copy).Rmd
+    Deleted:    analysis/MERFISH2b.Rmd
+    Deleted:    analysis/MERFISH3a (copy).Rmd
+    Deleted:    analysis/MERFISH3a.Rmd
+    Deleted:    analysis/MERFISH3b (copy).Rmd
+    Deleted:    analysis/MERFISH3b.Rmd
+    Deleted:    analysis/MERFISH4a (copy).Rmd
+    Deleted:    analysis/MERFISH4a.Rmd
+    Deleted:    analysis/MERFISH4b (copy).Rmd
+    Deleted:    analysis/MERFISH4b.Rmd
+    Modified:   analysis/Prostate.Rmd
     Deleted:    analysis/STARmap.Rmd
     Modified:   analysis/VisiumHD.Rmd
     Modified:   code/VisiumHD_CRC_download.sh
@@ -761,6 +801,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/24f5fe4a315861bbb8d1f5ce232a2b8aab7a1dc8/docs/Prostate.html" target="_blank">24f5fe4</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2025-01-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1420,7 +1477,57 @@ tissues &lt;- c(&quot;Normal_prostate&quot;,
              &quot;Acinar_Cell_Carcinoma&quot;,
              &quot;Adjacent_normal_section&quot;,
              &quot;Adenocarcinoma&quot;)
-n.cores=12</code></pre>
+n.cores=12
+
+passing.message</code></pre>
+<pre><code>function (data, spatial, number_knn = 10, quantile = 0.5, n.cores = 1) 
+{
+    data = as.matrix(data)
+    spatial = as.matrix(spatial)
+    nspots = nrow(data)
+    nvariables = ncol(data)
+    data.2 &lt;- matrix(0, nrow = nspots, ncol = nvariables)
+    knn = Rnanoflann::nn(spatial, spatial, number_knn)
+    for (h in 1:nspots) {
+        temp = rep(0, nvariables)
+        RNA.temp = data[knn$indices[h, ], ]
+        knn_gene = Rnanoflann::nn(RNA.temp, RNA.temp[1, , drop = FALSE], 
+            round(number_knn * quantile))$indices
+        for (i in 1:number_knn) {
+            temp = temp + RNA.temp[i, ]/(1 + knn$distances[h, 
+                i]^2)
+        }
+        data.2[h, ] &lt;- temp
+    }
+    rownames(data.2) = rownames(data)
+    colnames(data.2) = colnames(data)
+    data.2
+}
+&lt;bytecode: 0x55a80ea7afa8&gt;
+&lt;environment: namespace:KODAMAextra&gt;</code></pre>
+<pre class="r"><code>passing.message =
+function (data, spatial, number_knn = 15, n.cores = 1) 
+{
+    data = as.matrix(data)
+    spatial = as.matrix(spatial)
+    nspots = nrow(data)
+    nvariables = ncol(data)
+    data.2 &lt;- matrix(0, nrow = nspots, ncol = nvariables)
+    knn = Rnanoflann::nn(spatial, spatial, number_knn)
+    for (h in 1:nspots) {
+        temp = rep(0, nvariables)
+        RNA.temp = data[knn$indices[h, ], ]
+        knn$distances = knn$distances/max(knn$distances)
+        for (i in 1:number_knn) {
+            temp = temp + RNA.temp[i, ]/exp(knn$distances[h, 
+                i])
+        }
+        data.2[h, ] &lt;- temp
+    }
+    rownames(data.2) = rownames(data)
+    colnames(data.2) = colnames(data)
+    data.2
+}</code></pre>
 <p>Begin by loading the necessary libraries for the analysis. Next,
 define the different types of prostate tissues to be studied: normal
 prostate, acinar cell carcinoma, adjacent normal sections, and
@@ -1480,6 +1587,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/24f5fe4a315861bbb8d1f5ce232a2b8aab7a1dc8/docs/figure/Prostate.Rmd/unnamed-chunk-3-1.png" target="_blank">24f5fe4</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2025-01-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/46cbd5a6b6c9b35122025648081caaacdfcc659e/docs/figure/Prostate.Rmd/unnamed-chunk-3-1.png" target="_blank">46cbd5a</a>
@@ -1631,10 +1749,14 @@ relationships.</p>
 <pre class="r"><code>samples=as.factor(colData(spe)$sample_id)
 xy=as.matrix(spatialCoords(spe))
 rownames(xy)=rownames(colData(spe))
-data=t(logcounts(spe))
-
-library(ggplot2)
+data=as.matrix(t(logcounts(spe)))</code></pre>
+<pre class="r"><code>library(ggplot2)
 cols_tissue &lt;- c(&quot;#0000b6cc&quot;, &quot;#81b29acc&quot;, &quot;#f2cc8fcc&quot;,&quot;#e07a5fcc&quot;)
+
+
+
+
+
 
 # Run PCA with top selected genes
 spe &lt;- runPCA(spe, subset_row = top[1:3000], scale = TRUE)
@@ -1663,13 +1785,13 @@ plot2 = ggplot(df, aes(HARMONY_1, HARMONY_2, color = tissue)) +labs(title=&quot;
 pca=reducedDim(spe,type = &quot;HARMONY&quot;)[,1:50]
 
 plot1</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div id="fig-unnamed-chunk-12-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1688,57 +1810,24 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/46cbd5a6b6c9b35122025648081caaacdfcc659e/docs/figure/Prostate.Rmd/unnamed-chunk-11-1.png" target="_blank">46cbd5a</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/b1a5ea0a6f3df5fb99f8d37509de9c60563f7a14/docs/figure/Prostate.Rmd/unnamed-chunk-12-1.png" target="_blank">b1a5ea0</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
-2024-09-02
+2024-08-26
 </td>
 </tr>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6f7daaccbcc7b968bc736664a45f9ebcaf73fba3/docs/figure/Prostate.Rmd/unnamed-chunk-11-1.png" target="_blank">6f7daac</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6f7daaccbcc7b968bc736664a45f9ebcaf73fba3/docs/figure/Prostate.Rmd/unnamed-chunk-12-1.png" target="_blank">6f7daac</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
 2024-07-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/f8ca54aee4428df50d2cd0f41cbf2a0ceae01d7d/docs/figure/Prostate.Rmd/unnamed-chunk-11-1.png" target="_blank">f8ca54a</a>
-</td>
-<td>
-tkcaccia
-</td>
-<td>
-2024-07-14
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/4c3b887c19649034f2bef550df62b42791818738/docs/figure/Prostate.Rmd/unnamed-chunk-11-1.png" target="_blank">4c3b887</a>
-</td>
-<td>
-GitHub
-</td>
-<td>
-2024-07-12
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/fe5a2ba3ad736099b8b1fce2a4cd08711f6ef09c/docs/figure/Prostate.Rmd/unnamed-chunk-11-1.png" target="_blank">fe5a2ba</a>
-</td>
-<td>
-GitHub
-</td>
-<td>
-2024-07-12
 </td>
 </tr>
 </tbody>
@@ -1746,13 +1835,13 @@ GitHub
 </div>
 </div>
 <pre class="r"><code>plot2</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-11-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
-Past versions of unnamed-chunk-11-2.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-2">
+Past versions of unnamed-chunk-12-2.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-11-2" class="collapse">
+<div id="fig-unnamed-chunk-12-2" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1771,57 +1860,24 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/46cbd5a6b6c9b35122025648081caaacdfcc659e/docs/figure/Prostate.Rmd/unnamed-chunk-11-2.png" target="_blank">46cbd5a</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/b1a5ea0a6f3df5fb99f8d37509de9c60563f7a14/docs/figure/Prostate.Rmd/unnamed-chunk-12-2.png" target="_blank">b1a5ea0</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
-2024-09-02
+2024-08-26
 </td>
 </tr>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6f7daaccbcc7b968bc736664a45f9ebcaf73fba3/docs/figure/Prostate.Rmd/unnamed-chunk-11-2.png" target="_blank">6f7daac</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6f7daaccbcc7b968bc736664a45f9ebcaf73fba3/docs/figure/Prostate.Rmd/unnamed-chunk-12-2.png" target="_blank">6f7daac</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
 2024-07-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/f8ca54aee4428df50d2cd0f41cbf2a0ceae01d7d/docs/figure/Prostate.Rmd/unnamed-chunk-11-2.png" target="_blank">f8ca54a</a>
-</td>
-<td>
-tkcaccia
-</td>
-<td>
-2024-07-14
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/3bb99e37a11ec3731c956ad9e4312581f93a5c78/docs/figure/Prostate.Rmd/unnamed-chunk-11-2.png" target="_blank">3bb99e3</a>
-</td>
-<td>
-GitHub
-</td>
-<td>
-2024-07-12
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/fe5a2ba3ad736099b8b1fce2a4cd08711f6ef09c/docs/figure/Prostate.Rmd/unnamed-chunk-11-2.png" target="_blank">fe5a2ba</a>
-</td>
-<td>
-GitHub
-</td>
-<td>
-2024-07-12
 </td>
 </tr>
 </tbody>
@@ -1852,9 +1908,10 @@ names(annotations)=rownames(colData(spe))</code></pre>
 <p>Assign specific colors to each pathology category and visualize the
 samples on a reduced dimension map (HARMONY), with each point colored
 according to its pathology category.</p>
-<pre class="r"><code>cols_pathology &lt;- c(&quot;#0000ff&quot;, &quot;#e41a1c&quot;, &quot;#006400&quot;, &quot;#000000&quot;, &quot;#ffd700&quot;, 
-                    &quot;#00ff00&quot;, &quot;#b2dfee&quot;,&quot;#669bbc&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quot;,
-                    &quot;#adc178&quot;, &quot;#aa1133&quot;, &quot;#1166dc&quot;, &quot;#e5989b&quot;, &quot;#e07a5f&quot;)
+<pre class="r"><code>cols_pathology &lt;- c(&quot;#0000ffcc&quot;, &quot;#e41a1ccc&quot;, &quot;#006400cc&quot;, &quot;#000000cc&quot;, &quot;#ffd700cc&quot;, 
+                    &quot;#00ff00cc&quot;, &quot;#b2dfeecc&quot;,&quot;#669bbccc&quot;, &quot;#81b29acc&quot;, &quot;#f2cc8fcc&quot;,
+                    &quot;#adc178cc&quot;, &quot;#aa1133cc&quot;, &quot;#1166dccc&quot;, &quot;#e5989bcc&quot;, &quot;#e07a5fcc&quot;)
+
 
 df &lt;- data.frame(pca[,1:2], tissue=annotations)
 df=df[!is.na(annotations),]
@@ -1918,13 +1975,13 @@ plot5=ggplot(df, aes(Dimension.1, Dimension.2, color = tissue)) +labs(title=&quo
   guides(color = guide_legend(nrow = 3, 
                               override.aes = list(size = 2)))
 plot4</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div id="fig-unnamed-chunk-15-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1943,29 +2000,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/a11cbcc9f436fd435922631916317c91ae0464df/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">a11cbcc</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-09-14
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/46cbd5a6b6c9b35122025648081caaacdfcc659e/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">46cbd5a</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-09-02
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/b1a5ea0a6f3df5fb99f8d37509de9c60563f7a14/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">b1a5ea0</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/b1a5ea0a6f3df5fb99f8d37509de9c60563f7a14/docs/figure/Prostate.Rmd/unnamed-chunk-15-1.png" target="_blank">b1a5ea0</a>
 </td>
 <td>
 Stefano Cacciatore
@@ -1976,7 +2011,7 @@ Stefano Cacciatore
 </tr>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6f7daaccbcc7b968bc736664a45f9ebcaf73fba3/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">6f7daac</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6f7daaccbcc7b968bc736664a45f9ebcaf73fba3/docs/figure/Prostate.Rmd/unnamed-chunk-15-1.png" target="_blank">6f7daac</a>
 </td>
 <td>
 Stefano Cacciatore
@@ -1987,18 +2022,7 @@ Stefano Cacciatore
 </tr>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/f8ca54aee4428df50d2cd0f41cbf2a0ceae01d7d/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">f8ca54a</a>
-</td>
-<td>
-tkcaccia
-</td>
-<td>
-2024-07-14
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/c4d73d405ebc511eb38e54bb2b405561bd8e55fe/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">c4d73d4</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/4ca7edab0931509417b6174b7047c47c4cceebc5/docs/figure/Prostate.Rmd/unnamed-chunk-15-1.png" target="_blank">4ca7eda</a>
 </td>
 <td>
 GitHub
@@ -2009,18 +2033,7 @@ GitHub
 </tr>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/e20ceb25b4d4fa38fdca8470165d44317466a2e1/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">e20ceb2</a>
-</td>
-<td>
-GitHub
-</td>
-<td>
-2024-07-12
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/fe5a2ba3ad736099b8b1fce2a4cd08711f6ef09c/docs/figure/Prostate.Rmd/unnamed-chunk-14-1.png" target="_blank">fe5a2ba</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/fe5a2ba3ad736099b8b1fce2a4cd08711f6ef09c/docs/figure/Prostate.Rmd/unnamed-chunk-15-1.png" target="_blank">fe5a2ba</a>
 </td>
 <td>
 GitHub
@@ -2034,13 +2047,13 @@ GitHub
 </div>
 </div>
 <pre class="r"><code>plot5</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-14-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-15-2.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-2">
-Past versions of unnamed-chunk-14-2.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-2">
+Past versions of unnamed-chunk-15-2.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-14-2" class="collapse">
+<div id="fig-unnamed-chunk-15-2" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2059,29 +2072,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/a11cbcc9f436fd435922631916317c91ae0464df/docs/figure/Prostate.Rmd/unnamed-chunk-14-2.png" target="_blank">a11cbcc</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/b1a5ea0a6f3df5fb99f8d37509de9c60563f7a14/docs/figure/Prostate.Rmd/unnamed-chunk-15-2.png" target="_blank">b1a5ea0</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
-2024-09-14
+2024-08-26
 </td>
 </tr>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/46cbd5a6b6c9b35122025648081caaacdfcc659e/docs/figure/Prostate.Rmd/unnamed-chunk-14-2.png" target="_blank">46cbd5a</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-09-02
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6f7daaccbcc7b968bc736664a45f9ebcaf73fba3/docs/figure/Prostate.Rmd/unnamed-chunk-14-2.png" target="_blank">6f7daac</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6f7daaccbcc7b968bc736664a45f9ebcaf73fba3/docs/figure/Prostate.Rmd/unnamed-chunk-15-2.png" target="_blank">6f7daac</a>
 </td>
 <td>
 Stefano Cacciatore
@@ -2092,18 +2094,18 @@ Stefano Cacciatore
 </tr>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/f8ca54aee4428df50d2cd0f41cbf2a0ceae01d7d/docs/figure/Prostate.Rmd/unnamed-chunk-14-2.png" target="_blank">f8ca54a</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/b8fa0b8a40568357ae8234cde71e3218483570f8/docs/figure/Prostate.Rmd/unnamed-chunk-15-2.png" target="_blank">b8fa0b8</a>
 </td>
 <td>
-tkcaccia
+GitHub
 </td>
 <td>
-2024-07-14
+2024-07-12
 </td>
 </tr>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/c4d73d405ebc511eb38e54bb2b405561bd8e55fe/docs/figure/Prostate.Rmd/unnamed-chunk-14-2.png" target="_blank">c4d73d4</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/fe5a2ba3ad736099b8b1fce2a4cd08711f6ef09c/docs/figure/Prostate.Rmd/unnamed-chunk-15-2.png" target="_blank">fe5a2ba</a>
 </td>
 <td>
 GitHub
@@ -2116,12 +2118,12 @@ GitHub
 </table>
 </div>
 </div>
-<pre class="r"><code>svg(&quot;output/prostate4.svg&quot;,height = 4)
+<pre class="r"><code>svg(&quot;output/Figures/Prostate/prostate4.svg&quot;,height = 6,width = 10)
 plot4
 dev.off()</code></pre>
 <pre><code>png 
   2 </code></pre>
-<pre class="r"><code>svg(&quot;output/prostate5.svg&quot;,height = 4)
+<pre class="r"><code>svg(&quot;output/Figures/Prostate/prostate5.svg&quot;,height = 6,width = 10)
 plot5
 dev.off()</code></pre>
 <pre><code>png 
@@ -2129,6 +2131,12 @@ dev.off()</code></pre>
 </div>
 <div id="clustering" class="section level3">
 <h3>Clustering</h3>
+<pre class="r"><code>ko=reducedDim(spe,type = &quot;KODAMA&quot;)
+g &lt;- bluster::makeSNNGraph(as.matrix(ko), k = 50)
+g_walk &lt;- igraph::cluster_louvain(g,resolution = 0.2)
+clu = g_walk$membership
+
+table(clu,annotations)</code></pre>
 <pre><code>    annotations
 clu  benign blood vessel fibromuscular Gleason 3 Gleason 4 Gleason 5
   1       0            0             5         0         0         0
@@ -2171,6 +2179,26 @@ clu  normal gland normal stroma tumor stroma
   10            0             0           20
   11            0             0            0
   12           95             0            1</code></pre>
+<pre class="r"><code>cols_cluster &lt;- c(&quot;#0000b6cc&quot;, &quot;#81b29acc&quot;, &quot;#f2cc8fcc&quot;,&quot;#e07a5fcc&quot;,
+          &quot;#cc00b6cc&quot;, &quot;#81ccffcc&quot;, &quot;#00cc8fcc&quot;,&quot;#e0aa5fcc&quot;,
+          &quot;#0088ddcc&quot;, &quot;#33b233cc&quot;, &quot;#aa228fcc&quot;,&quot;#aa7a6fcc&quot;)
+
+
+df &lt;- data.frame(reducedDim(spe,type = &quot;KODAMA&quot;)[,1:2], cluster=as.factor(clu))
+df$cluster=as.factor(df$cluster)
+plot6=ggplot(df, aes(Dimension.1, Dimension.2, color = cluster)) +
+  geom_point(size = 2) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;)+
+  
+  scale_color_manual(&quot;Domain&quot;, values = cols_cluster) +
+  guides(color = guide_legend(nrow = 2, 
+                              override.aes = list(size = 2)))
+
+
+plot7=plot_slide(xy,samples,as.factor(clu),nrow=1,col = cols_cluster)
+
+plot6</code></pre>
 <p><img src="figure/Prostate.Rmd/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
@@ -2194,6 +2222,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/24f5fe4a315861bbb8d1f5ce232a2b8aab7a1dc8/docs/figure/Prostate.Rmd/unnamed-chunk-16-1.png" target="_blank">24f5fe4</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2025-01-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/a11cbcc9f436fd435922631916317c91ae0464df/docs/figure/Prostate.Rmd/unnamed-chunk-16-1.png" target="_blank">a11cbcc</a>
@@ -2220,6 +2259,7 @@ Stefano Cacciatore
 </table>
 </div>
 </div>
+<pre class="r"><code>plot7</code></pre>
 <p><img src="figure/Prostate.Rmd/unnamed-chunk-16-2.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-2">
@@ -2243,6 +2283,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/24f5fe4a315861bbb8d1f5ce232a2b8aab7a1dc8/docs/figure/Prostate.Rmd/unnamed-chunk-16-2.png" target="_blank">24f5fe4</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2025-01-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/a11cbcc9f436fd435922631916317c91ae0464df/docs/figure/Prostate.Rmd/unnamed-chunk-16-2.png" target="_blank">a11cbcc</a>
@@ -2269,8 +2320,14 @@ Stefano Cacciatore
 </table>
 </div>
 </div>
+<pre class="r"><code>svg(&quot;output/Figures/Prostate/prostate6.svg&quot;,height = 6,width = 10)
+plot6
+dev.off()</code></pre>
 <pre><code>png 
   2 </code></pre>
+<pre class="r"><code>svg(&quot;output/Figures/Prostate/prostate7.svg&quot;,height = 4,width = 10)
+plot7
+dev.off()</code></pre>
 <pre><code>png 
   2 </code></pre>
 </div>
@@ -2410,6 +2467,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/24f5fe4a315861bbb8d1f5ce232a2b8aab7a1dc8/docs/figure/Prostate.Rmd/unnamed-chunk-17-2.png" target="_blank">24f5fe4</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2025-01-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/ac43fcfa920f4778dd0e36911bd39f4506f6762c/docs/figure/Prostate.Rmd/unnamed-chunk-17-2.png" target="_blank">ac43fcf</a>
 </td>
 <td>
@@ -2461,6 +2529,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/24f5fe4a315861bbb8d1f5ce232a2b8aab7a1dc8/docs/figure/Prostate.Rmd/unnamed-chunk-17-3.png" target="_blank">24f5fe4</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2025-01-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/ac43fcfa920f4778dd0e36911bd39f4506f6762c/docs/figure/Prostate.Rmd/unnamed-chunk-17-3.png" target="_blank">ac43fcf</a>
 </td>
 <td>
@@ -2487,14 +2566,48 @@ Stefano Cacciatore
 </div>
 <pre class="r"><code>rowData(spe)[c(&quot;ENSG00000134339&quot;,&quot;ENSG00000166741&quot;),]</code></pre>
 <pre><code>[1] &quot;SAA2&quot; &quot;NNMT&quot;</code></pre>
-<pre class="r"><code>samples_sub=as.factor(colData(spe_sub)$sample_id)
+<pre class="r"><code>passing.message = 
+  function (data, spatial, number_knn = 15, n.cores = 1) 
+  {
+    data=as.matrix(data)
+    spatial=as.matrix(spatial)
+    # Get dimensions of the input data
+    nspots = nrow(data)
+    nvariables = ncol(data)
+
+    # Initialize result matrix
+    data.2 &lt;- matrix(0, nrow = nspots, ncol = nvariables)
+    knn=Rnanoflann::nn(spatial,spatial,number_knn)
+    for(h in 1:nspots){       
+      # Find nearest neighbors using spatial information
+      
+      
+      # Initialize a temporary vector for computations
+      temp = rep(0, nvariables)
+      RNA.temp = data[knn$indices[h,], ]
+
+      knn$distances=knn$distances/max(knn$distances)
+      # Compute weighted sum for each variable
+      for (i in 1:number_knn) {
+        temp = temp + RNA.temp[i, ]/exp(knn$distances[h,i])
+      }
+      # Return the computed row
+      data.2[h, ] &lt;-temp
+    }
+
+    rownames(data.2) = rownames(data)
+    colnames(data.2) = colnames(data)
+    data.2
+  }
+
+samples_sub=as.factor(colData(spe_sub)$sample_id)
 xy_sub=as.matrix(spatialCoords(spe_sub))
-PMdata=passing.message(data_sub,xy_sub/1000)
+PMdata=passing.message(data_sub,xy_sub,number_knn = 7)
 
 par(mfrow=c(1,2))
 
-a=data[,&quot;ENSG00000134339&quot;]
-b=data[,&quot;ENSG00000166741&quot;]
+a=data_sub[,&quot;ENSG00000134339&quot;]
+b=data_sub[,&quot;ENSG00000166741&quot;]
 cc=cor.test(a,b)
 txt=paste(&quot;r=&quot;,round(cc$estimate,digits=2))
 plot(a,b,main=&quot;Pearson correlation&quot;,xlab=&quot;SAA2&quot;,ylab=&quot;NNMT&quot;)
@@ -2507,13 +2620,13 @@ cc=cor.test(a,b)
 txt=paste(&quot;r=&quot;,round(cc$estimate,digits=2))
 plot(a,b,main=&quot;APM correlation&quot;,xlab=&quot;SAA2&quot;,ylab=&quot;NNMT&quot;)
 mtext(txt)</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-17-4.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-4">
-Past versions of unnamed-chunk-17-4.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-17-4" class="collapse">
+<div id="fig-unnamed-chunk-18-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2532,21 +2645,48 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/a11cbcc9f436fd435922631916317c91ae0464df/docs/figure/Prostate.Rmd/unnamed-chunk-17-4.png" target="_blank">a11cbcc</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/ac43fcfa920f4778dd0e36911bd39f4506f6762c/docs/figure/Prostate.Rmd/unnamed-chunk-18-1.png" target="_blank">ac43fcf</a>
 </td>
 <td>
 Stefano Cacciatore
 </td>
 <td>
-2024-09-14
+2024-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/46cbd5a6b6c9b35122025648081caaacdfcc659e/docs/figure/Prostate.Rmd/unnamed-chunk-18-1.png" target="_blank">46cbd5a</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-09-02
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<pre class="r"><code>aaa=1
-save(aaa,file=&quot;output/a1.RData&quot;)</code></pre>
+<pre class="r"><code>svg(&quot;output/Figures/Prostate/prostate-correlation.svg&quot;,height = 8,width = 14)
+par(mfrow=c(1,2))
+
+a=data[,&quot;ENSG00000134339&quot;]
+b=data[,&quot;ENSG00000166741&quot;]
+cc=cor.test(a,b)
+txt=paste(&quot;r=&quot;,round(cc$estimate,digits=2))
+plot(a,b,main=&quot;Pearson correlation&quot;,xlab=&quot;SAA2&quot;,ylab=&quot;NNMT&quot;,pch=20,col=&quot;#000000aa&quot;)
+mtext(txt)
+
+
+a=PMdata[,&quot;ENSG00000134339&quot;]
+b=PMdata[,&quot;ENSG00000166741&quot;]
+cc=cor.test(a,b)
+txt=paste(&quot;r=&quot;,round(cc$estimate,digits=2))
+plot(a,b,main=&quot;APM correlation&quot;,xlab=&quot;SAA2&quot;,ylab=&quot;NNMT&quot;,pch=20,col=&quot;#000000aa&quot;)
+mtext(txt)
+dev.off()</code></pre>
 <p>This extended analysis includes principal component analysis (PCA),
 pathology data analysis, and the application of KODAMA for
 dimensionality reduction and visualization, enhancing the understanding
@@ -2656,7 +2796,6 @@ ma[1:10,]</code></pre>
 library(gridExtra)
 par(mai=c(3,3,3,3))
 
-save(aaa,file=&quot;output/a2.RData&quot;)
 df=data.frame(variable=pathway[,&quot;HALLMARK_MYC_TARGETS_V1&quot;],labels=annotations)
 df=df[!is.na(df$labels) &amp; samples==&quot;Adenocarcinoma&quot;,]
 
@@ -2670,7 +2809,6 @@ Nplot1=ggboxplot(df, x = &quot;labels&quot;, y = &quot;variable&quot;, width = 0
   stat_compare_means(comparisons = my_comparisons,method=&quot;wilcox.test&quot;)+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),legend.position = &quot;none&quot;,plot.margin = unit(c(2,1,1,1), &quot;cm&quot;))
 
-save(aaa,file=&quot;output/a3.RData&quot;)
 
 
 cols=cols_cluster[c(1,2,3,6,11)]
@@ -2686,62 +2824,14 @@ Nplot2=ggboxplot(df, x = &quot;labels&quot;, y = &quot;variable&quot;, width = 0
   xlab(&quot;&quot;)+
   stat_compare_means(comparisons = my_comparisons,method=&quot;wilcox.test&quot;)+
   theme(legend.position = &quot;none&quot;,plot.margin = unit(c(2,1,1,1), &quot;cm&quot;))
-save(aaa,file=&quot;output/a4.RData&quot;)
-egg::ggarrange(Nplot1,Nplot2,widths = c(2,1.2),nrow=1,labels = c(&#39;A&#39;, &#39;B&#39;))</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
-Past versions of unnamed-chunk-19-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-19-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/a11cbcc9f436fd435922631916317c91ae0464df/docs/figure/Prostate.Rmd/unnamed-chunk-19-1.png" target="_blank">a11cbcc</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-09-14
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/ac43fcfa920f4778dd0e36911bd39f4506f6762c/docs/figure/Prostate.Rmd/unnamed-chunk-19-1.png" target="_blank">ac43fcf</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-09-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>save(aaa,file=&quot;output/a5.RData&quot;)</code></pre>
-<p>QuPath</p>
-<pre class="r"><code>save(aaa,file=&quot;output/a6.RData&quot;)
 
-xy=as.matrix(spatialCoords(spe))
+egg::ggarrange(Nplot1,Nplot2,widths = c(2,1.2),nrow=1,labels = c(&#39;A&#39;, &#39;B&#39;))</code></pre>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>svg(&quot;output/Figures/Prostate/prostate-boxplot.svg&quot;,height = 9,width = 20)
+egg::ggarrange(Nplot1,Nplot2,widths = c(2,1.2),nrow=1,labels = c(&#39;A&#39;, &#39;B&#39;))
+dev.off()</code></pre>
+<p>QuPath</p>
+<pre class="r"><code>xy=as.matrix(spatialCoords(spe))
 rownames(xy)=rownames(colData(spe))
 
 x_HR=seq(range(xy[,1])[1],range(xy[,1])[2],length.out =200)
@@ -2763,12 +2853,6 @@ clu2[clu %in% names(which(ta[&quot;normal gland&quot;,]&gt;50 &amp; ta[&quot;Inv
 
 
 clu3=refine_SVM(xy,clu2,samples,cost=100,tiles=c(5,5),newdata = xy_HR_final,newsamples = newsamples )
-save(aaa,file=&quot;output/a7.RData&quot;)
-par(opar)
-plot(xy_HR_final[newsamples==levels(newsamples)[3],],col=clu3[newsamples==levels(newsamples)[3]])</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>     save(aaa,file=&quot;output/a8.RData&quot;)
-
 
 library(sf)
 library(concaveman)
@@ -2824,7 +2908,7 @@ ggplot() +
   geom_sf(data = sf_points, aes(color = factor(cluster)), size = 2) +
   geom_sf(data = smoothed_polygons, fill = NA, color = &quot;black&quot;, size = 0.8) +
   labs(title = &quot;Concave Hull by Cluster&quot;, color = &quot;Cluster&quot;)</code></pre>
-<p><img src="figure/Prostate.Rmd/unnamed-chunk-20-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Prostate.Rmd/unnamed-chunk-23-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code># 7. Write all polygons to a single GeoJSON file
 #    Each polygon has the &#39;cluster&#39; attribute, so you&#39;ll see multiple features.
 st_write(smoothed_polygons, &quot;output/tight_boundary.geojson&quot;,
@@ -2928,18 +3012,18 @@ loaded via a namespace (and not attached):
  [79] DropletUtils_1.24.0       pracma_2.4.4             
  [81] units_0.8-5               fields_16.3              
  [83] bluster_1.14.0            statmod_1.5.0            
- [85] bit64_4.5.2               filelock_1.0.3           
+ [85] bit64_4.6.0-1             filelock_1.0.3           
  [87] rprojroot_2.0.4           bslib_0.8.0              
  [89] irlba_2.3.5.1             KernSmooth_2.23-26       
  [91] vipor_0.4.7               matlab_1.0.4.1           
  [93] colorspace_2.1-1          DBI_1.2.3                
- [95] tidyselect_1.2.1          processx_3.8.4           
+ [95] tidyselect_1.2.1          processx_3.8.5           
  [97] BRISC_1.0.6               bit_4.5.0.1              
  [99] compiler_4.4.2            curl_6.0.1               
 [101] git2r_0.33.0              graph_1.82.0             
 [103] BiocNeighbors_1.22.0      DelayedArray_0.30.1      
 [105] plotly_4.10.4             rtracklayer_1.64.0       
-[107] scales_1.3.0              classInt_0.4-10          
+[107] scales_1.3.0              classInt_0.4-11          
 [109] callr_3.7.6               rappdirs_0.3.3           
 [111] stringr_1.5.1             digest_0.6.37            
 [113] rmarkdown_2.29            benchmarkmeData_1.0.4    
