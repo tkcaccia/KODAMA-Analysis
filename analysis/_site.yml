@@ -10,10 +10,14 @@ navbar:
       href: "about.html"
     - text: "Installation"
       href: "Installation.html"
+    - text: "Single-cell"
+      menu:
+        - text: "Data matrix"
+          href: "singlecell_datamatrix.html"
+        - text: "Seurat"
+          href: "singlecell_seurat.html"
     - text: "Spatial"
       menu:
-        - text: "Simulation"
-          href: "Simulation.html"
         - text: "MERFISH (Moffitt et al., 2018)"
           href: "MERFISH.html"
         - text: "Visium DLPFC (Maynard et al., 2021)"
