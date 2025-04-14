@@ -1,10 +1,4 @@
-A set of histological image tiles from subject “Br5595” was selected, focusing on layer 3 with reference classes 1, 4, and 5, and balanced by randomly drawing 700 tiles per class for training while the remaining tiles formed the test set. Each tile was stored as a 128×128 RGB TIFF image, and a custom R function read these files into a four-dimensional tensor suitable for convolutional input. The network architecture comprised two convolutional blocks, each with ReLU activation and 16 or 32 filters, followed by 2×2 max pooling to reduce spatial dimensions. Rather than using a flattening layer, global average pooling aggregated feature maps into a single value per channel, and a final dense layer with a softmax activation classified tiles into three possible reference classes. The model was compiled using the Adam optimizer and a sparse categorical crossentropy loss, and was trained for 20 epochs. Performance was evaluated on a held-out test set, where accuracy and loss were measured, and class predictions were compared to ground-truth labels via a confusion matrix.
-
-setwd("/Users/stefano/Downloads/Tiles2/")
-
-
-load("/Users/stefano/Downloads/DL.RData")
-
+#A set of histological image tiles from subject “Br5595” was selected, focusing on layer 3 with reference classes 1, 4, and 5, and balanced by randomly drawing 700 tiles per class for training while the remaining tiles formed the test set. Each tile was stored as a 128×128 RGB TIFF image, and a custom R function read these files into a four-dimensional tensor suitable for convolutional input. The network architecture comprised two convolutional blocks, each with ReLU activation and 16 or 32 filters, followed by 2×2 max pooling to reduce spatial dimensions. Rather than using a flattening layer, global average pooling aggregated feature maps into a single value per channel, and a final dense layer with a softmax activation classified tiles into three possible reference classes. The model was compiled using the Adam optimizer and a sparse categorical crossentropy loss, and was trained for 20 epochs. Performance was evaluated on a held-out test set, where accuracy and loss were measured, and class predictions were compared to ground-truth labels via a confusion matrix.
 
 library(keras)
 
@@ -28,21 +22,29 @@ load_tiles <- function(samples) {
 }
 
 
+load("/Users/stefano/HPC-scratch/KODAMA-Analysis/output/DLFPC-variablesXdeeplearning.RData")
+
 
 setwd("/Users/stefano/Downloads/Tiles2/")
 
 
+names(ref_ordered)=names(labels_clear)
+names(subjects_clear)=names(labels_clear)
+
+sel_t=names(ref_ordered[subjects_clear=="Br5595" & (ref_ordered==2 | ref_ordered==3 | ref_ordered==4) & (labels_clear=="Layer3")])
+
+#sel_t=names(ref_ordered[(ref_ordered==2 | ref_ordered==3 | ref_ordered==4) & (labels_clear=="Layer3")])
 
 
 
-sel_t=names(ref[sel_subcluster_layer3])
-
-ref2=ref
-ref2[ref2==5]=3
+ref2=ref_ordered
+ref2[ref2==4]=3
 
 acc=NULL
 for (i in 1:100){
-ss=c(sample(which(ref2[sel_t]==1),2566),sample(which(ref2[sel_t]==3),2566))
+  ss=c(sample(which(ref2[sel_t]==2),2566),sample(which(ref2[sel_t]==3),2566))
+
+ # ss=c(sample(which(ref2[sel_t]==2),5000),sample(which(ref2[sel_t]==3),5000))
 
 
 

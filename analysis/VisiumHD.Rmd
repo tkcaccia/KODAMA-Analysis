@@ -1,5 +1,5 @@
 ---
-title: "Visium HD: colonrectal cancer"
+title: "About"
 output:
   workflowr::wflow_html:
     toc: true
@@ -7,17 +7,12 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Introduction
 
-The recently released VisiumHD platform by 10x Genomics significantly improves spatial transcriptomics resolution by reducing the spot size from 55 µm to an edge length of just 2 µm. This advancement eliminates gaps between spots, enabling truly gap-free and bias-free single-cell resolution. The high-density array allows for flexible data analysis at multiple resolutions, enabling researchers to tailor spatial granularity to specific biological questions. In the following analysis, we applied KODAMA to data at an 8 µm resolution.
+Describe your project.
+The data can be downloaded using the following script: [VisiumHD_CRC_download.sh](code/VisiumHD_CRC_download.sh). This script facilitates access to the raw data, which will then be preprocessed and analyzed in the subsequent steps of our pipeline.
 
+The data can be downloaded using the following script: [VisiumHD_CRC_download.sh](https://github.com/tkcaccia/KODAMA-Analysis/blob/main/code/VisiumHD_CRC_download.sh). This script facilitates access to the raw data, which will then be preprocessed and analyzed in the subsequent steps of our pipeline.
 
-
-# Loading and Preprocessing Data
-
-The dataset can be downloaded using the following script:  [VisiumHD_CRC_download.sh](https://github.com/tkcaccia/KODAMA-Analysis/blob/main/code/VisiumHD_CRC_download.sh). This script provides access to the raw data, which will be preprocessed and analyzed in the subsequent steps of our pipeline.
-
-The dataset will be then loaded in the R environment using the Seurat pipeline.
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 library("ggplot2")
@@ -30,43 +25,56 @@ library("bigmemory")
 
 localdir="../Colorectal/outs/"
 object <- Load10X_Spatial(data.dir = localdir, bin.size = c(8))
-```
 
-We perform quality control on a spatial transcriptomics dataset by removing low-quality spots with fewer than 100 UMIs, filtering out mitochondrial genes, and retaining genes expressed with at least 1 count in at least 0.5% of spots. The remaining high-quality genes are set as variable features for downstream analysis.
+image=as.raster(object@images$slice1.008um@image)
+save(image,file="output/CRC-image.RData")
+#object@images$slice1.008um@scale.factors$hires
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+# plot(image,xlim=c(320,530),ylim=c(200,410))
+# points(xy[,2]*0.007973422,nrow(image)-xy[,1]*0.007973422,pch=20)
+
+#xy=as.matrix(GetTissueCoordinates(sp_obj)[,1:2])
+
+#image=as.raster(imgData(object)$data[[1]])
+
+#xy_sel=spatialCoords(spe_sub)
+#xy_sel=xy_sel*scaleFactors(spe_sub)
+#xy_sel[,2]=nrow(image)-xy_sel[,2]
+
+
+ vln.plot <- VlnPlot(object, features = "nCount_Spatial.008um", pt.size = 0) + NoLegend()
+ count.plot <- SpatialFeaturePlot(object, features = "nCount_Spatial.008um", pt.size.factor = 1.2) +
+   theme(legend.position = "right")
+
 nCount_Spatial=colSums(object@assays$Spatial.008um$counts)
-
-
+#w= which(nCount_Spatial >10)
+#object@assays$Spatial.008um$counts= object@assays$Spatial.008um$counts[,w]
+#object@meta.data=object@meta.data[w,]
 
 sp_obj <- subset(
   object,
   subset = nCount_Spatial.008um > 100)
 
+
+
 nCount_Spatial=colSums(sp_obj@assays$Spatial.008um$counts)
 
 
+ counts=sp_obj@assays$Spatial.008um$counts
+ is_mito <- grepl("(^MT-)|(^mt-)", rownames(counts))
+ counts <- counts[!is_mito,]
 
-counts=sp_obj@assays$Spatial.008um$counts
-is_mito <- grepl("(^MT-)|(^mt-)", rownames(counts))
-counts <- counts[!is_mito,]
+ filter_genes_ncounts=1
+ filter_genes_pcspots=0.5
+ nspots <- ceiling(filter_genes_pcspots/100 *  ncol(counts))
+ ix_remove <- rowSums(counts >= filter_genes_ncounts) <   nspots
+ counts <- counts[!ix_remove,]
 
-filter_genes_ncounts=1
-filter_genes_pcspots=0.5
-nspots <- ceiling(filter_genes_pcspots/100 *  ncol(counts))
-ix_remove <- rowSums(counts >= filter_genes_ncounts) <   nspots
-counts <- counts[!ix_remove,]
+ QCgenes <- rownames(counts)
 
-QCgenes <- rownames(counts)
+ VariableFeatures(sp_obj) = QCgenes
 
-VariableFeatures(sp_obj) = QCgenes
-
-rm(counts)
-```
-
-We prepare the filtered spatial transcriptomics data for dimensionality reduction using principal component analysis (PCA). We set the default assay, normalize the data, identify variable features, and scale the data. We then extract the tissue coordinates and we perform PCA using the filtered genes, storing the result as "pca.008um". Finally, PCA is displayed in a scatterplot.
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+ rm(counts)
 
 
 DefaultAssay(sp_obj) <- "Spatial.008um"
@@ -85,45 +93,31 @@ dim(sp_obj)
 plot(Seurat::Embeddings(sp_obj, reduction = "pca.008um"))
 ```
 
-# KODAMA analysis
-
-We performed the KODAMA analysis using as input the 50 principal components of PCA and using 10000 landmarks.
-
-```{r, eval=FALSE}
-
-n.cores=8
-
-sp_obj=RunKODAMAmatrix(sp_obj,
-                       reduction = "pca.008um",
-                       landmarks = 10000,
-                       n.cores=n.cores,
-                       seed = 543210)
-
-config <- umap.defaults
-config$n_threads = n.cores
-config$n_sgd_threads = "auto"
-
-sp_obj=RunKODAMAvisualization(sp_obj,method="UMAP",config=config)
-
-
-kk_UMAP=Seurat::Embeddings(sp_obj, reduction = "KODAMA")
-
-```
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE,results = "hide"}
-#save(kk_UMAP,xy,file="output/VisiumHD.RData")
-load("output/VisiumHD.RData")   
-```
-
-# Tissue annotation
-
-The tissue was manually annotated using QuPath software and the annotations were save in [Visium_HD_Human_Colon_Cancer_290325.geojson](https://github.com/tkcaccia/KODAMA-Analysis/blob/main/data/Annotations/Visium_HD_Human_Colon_Cancer_290325.geojson). 
-
-Using the script [VisiumHDassignment.py](https://github.com/tkcaccia/KODAMA-Analysis/blob/main/code/VisiumHDassignment.py) the annotations saved as *.geojson were assigned to the Visium spots and saved in [spots_classification_VisiumHD.csv](https://github.com/tkcaccia/KODAMA-Analysis/blob/main/data/Annotations/spots_classification_VisiumHD.csv). 
-
-
 ```{r, fig.width=10, fig.height=8}
-rr=read.csv("data/Annotations/spots_classification_VisiumHD.csv",sep=",")
+
+#sp_obj <- RunKODAMAmatrix(sp_obj, reduction = "pca.008um",
+#                          FUN= "PLS" ,
+#                          landmarks = 10000,
+#                          splitting = 100,
+#                          f.par.pls = 50,
+#                          spatial.resolution = 0.4,
+#                          n.cores=8)
+
+#  print("KODAMA finished")
+  
+#     config=umap.defaults
+#     config$n_threads = 8
+#     config$n_sgd_threads = "auto"
+#     sp_obj <- RunKODAMAvisualization(sp_obj, method = "UMAP",config=config)
+
+     
+# kk_UMAP=Seurat::Embeddings(sp_obj, reduction = "KODAMA")
+
+# save(kk_UMAP,xy,file="output/VisiumHD.RData")
+
+load("output/VisiumHD3.RData")   
+
+rr=read.csv("data/spots_classification_ALL.csv",sep=",")
 ss=strsplit(rr[,2],":")
 ss=unlist(lapply(ss, function(x) x[2]))
 ss=strsplit(ss,",")
@@ -137,8 +131,13 @@ rownames(rr)=rr[,1]
 rr=rr[rownames(kk_UMAP),]
 
 rr[,2]=substring(rr[,2],2)
+                     
+    
+  
 
 table(rr[,"classification"])
+
+
 
 library(ggplot2)
 
@@ -146,11 +145,12 @@ library(ggplot2)
 cols=sample(rainbow(15))
 labels=as.factor(rr[,"classification"])
 
-cols_tissue <- c("#0000ff", "#e41a1c", "#006400", "#00cc8f" ,"#0088dd",
-                 "#00ff00", "#b2dfee","#669bbc", "#81b29a", "#ffd700",
-                 "#adc178", "#aa1133", "#1166dc", "#e5989b", "#e07a5f",
-                 "#cc00b6", "#81ccff", "#f2cc8f","#e0aa5f","#33b233", "#aa228f","#aa7a6f")
 
+
+cols_tissue <- c("#0000ff", "#e41a1c", "#006400",  "#ffd700","#0088dd",
+                    "#00ff00", "#b2dfee","#669bbc", "#81b29a", "#f2cc8f",
+                    "#adc178", "#aa1133", "#1166dc", "#e5989b", "#e07a5f",
+                    "#cc00b6", "#81ccff", "#00cc8f","#e0aa5f","#33b233", "#aa228f","#aa7a6f")
 
 
 df <- data.frame(kk_UMAP[,1:2], tissue=labels)
@@ -161,53 +161,26 @@ plot1 = ggplot(df, aes(Dimensions_1, Dimensions_2, color = tissue)) +labs(title=
   guides(color = guide_legend(nrow = 4, 
                               override.aes = list(size = 4)))
 plot1
-```
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE,results = "hide"}
-png("output/Figures/CRC/CRC.png",height = 2000,width = 2000)
+png("output/CRC.png",height = 2000,width = 2000)
 plot1
 dev.off()
-```
-
-# Trajectory analysis
-
-The function new_trajectory allows us to draw manually a trajectory into the KODAMA plot to identify the gradual changes in the gene expression. The trajectory were previously drew and saved in the file [trajectories_VISIUMHD.RData](https://github.com/tkcaccia/KODAMA-Analysis/blob/main/data/trajectories_VISIUMHD.RData). 
 
 
-
-```{r, fig.width=10, fig.height=8}
 par(xpd = T, mar = par()$mar + c(0,0,0,7))
 
-
-
-data=sp_obj@assays$Spatial.008um$data[rownames(sp_obj@assays$Spatial.008um$scale.data),]
-data=as.matrix(data)
-data=t(data)
-data=data[,-which(colMeans(data==0)>0.99)]
-```
-
-
-
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE,results = "hide"}
-
-save(data,file="output/VisiumHD-RNA.RData")
-```
-
-
-
-
-
-
-```{r, fig.width=10, fig.height=8}
-load("data/trajectories_VISIUMHD.RData")
-
-plot(kk_UMAP,cex=0.5,pch=20,col=cols_tissue[labels])
+plot1=plot(kk_UMAP,cex=0.5,pch=20,col=cols_tissue[labels])
 legend(max(kk_UMAP[,1])+0.05*dist(range(kk_UMAP[,1])), max(kk_UMAP[,2]),
        levels(labels),
        col = cols,
        cex = 0.8,
        pch=20)
+
+load("data/trajectories_VISIUMHD.RData")
+
+data=sp_obj@assays$Spatial.008um$data[rownames(sp_obj@assays$Spatial.008um$scale.data),]
+data=as.matrix(data)
+data=t(data)
+
 mm1=new_trajectory (kk_UMAP,data = data,trace=tra1$xy)
 mm2=new_trajectory (kk_UMAP,data = data,trace=tra2$xy)
 mm3=new_trajectory (kk_UMAP,data = data,trace=tra3$xy)
@@ -220,118 +193,32 @@ y=rep(1:20,3)
 
 ```
 
-The genes were were correlated with the trajectory using the Spearman correlation test.
-
 ```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
 ma=multi_analysis(traj,y,FUN="correlation.test",method="spearman")
 ma=ma[order(as.numeric(ma$`p-value`)),]
 colnames(ma)=c("Feature   ","rho   ","p-value   ","FDR   ")
-knitr::kable(ma[1:10,],row.names=FALSE)
-
 ```
 
-
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE,results = "hide"}
-write.csv(ma,"output/trajectory.csv")
-
-Barcode=rownames(kk_UMAP)
-Genes=rep(NA,length(Barcode))
-Genes[data[,"CXCL3"]>0]="CXCL3"
-isna=is.na(Genes)
-Loupe=data.frame(Barcode,Genes)
-Loupe=Loupe[!isna,]
-write.csv(Loupe,"output/Loupe_CXCL3.csv",row.names = FALSE)
-###
-Barcode=rownames(kk_UMAP)
-Genes=rep(NA,length(Barcode))
-Genes[data[,"HTRA3"]>0]="HTRA3"
-isna=is.na(Genes)
-Loupe=data.frame(Barcode,Genes)
-Loupe=Loupe[!isna,]
-write.csv(Loupe,"output/Loupe_HTRA3.csv",row.names = FALSE)
-###
-Barcode=rownames(kk_UMAP)
-Genes=rep(NA,length(Barcode))
-Genes[data[,"IGFBP5"]>0]="IGFBP5"
-isna=is.na(Genes)
-Loupe=data.frame(Barcode,Genes)
-Loupe=Loupe[!isna,]
-write.csv(Loupe,"output/Loupe_IGFBP5.csv",row.names = FALSE)
-###
-Barcode=rownames(kk_UMAP)
-Genes=rep(NA,length(Barcode))
-Genes[data[,"CXCL14"]>0]="CXCL14"
-isna=is.na(Genes)
-Loupe=data.frame(Barcode,Genes)
-Loupe=Loupe[!isna,]
-write.csv(Loupe,"output/Loupe_CXCL14.csv",row.names = FALSE)
-###
-Barcode=rownames(kk_UMAP)
-Genes=rep(NA,length(Barcode))
-Genes[data[,"MMP11"]>0]="MMP11"
-isna=is.na(Genes)
-Loupe=data.frame(Barcode,Genes)
-Loupe=Loupe[!isna,]
-write.csv(Loupe,"output/Loupe_MMP11.csv",row.names = FALSE)
-###
-Barcode=rownames(kk_UMAP)
-Genes=rep(NA,length(Barcode))
-Genes[data[,"TIMP3"]>0]="TIMP3"
-isna=is.na(Genes)
-Loupe=data.frame(Barcode,Genes)
-Loupe=Loupe[!isna,]
-write.csv(Loupe,"output/Loupe_TIMP3.csv",row.names = FALSE)
-###
-Barcode=rownames(kk_UMAP)
-Genes=rep(NA,length(Barcode))
-Genes[data[,"MGP"]>0]="MGP"
-isna=is.na(Genes)
-Loupe=data.frame(Barcode,Genes)
-Loupe=Loupe[!isna,]
-write.csv(Loupe,"output/Loupe_MGP.csv",row.names = FALSE)
-###
-Barcode=rownames(kk_UMAP)
-Genes=rep(NA,length(Barcode))
-Genes[data[,"GREM1"]>0]="GREM1"
-isna=is.na(Genes)
-Loupe=data.frame(Barcode,Genes)
-Loupe=Loupe[!isna,]
-write.csv(Loupe,"output/Loupe_GREM1.csv",row.names = FALSE)
-###
-Barcode=rownames(kk_UMAP)
-Genes=rep(NA,length(Barcode))
-Genes[data[,"IGFBP3"]>0]="IGFBP3"
-isna=is.na(Genes)
-Loupe=data.frame(Barcode,Genes)
-Loupe=Loupe[!isna,]
-write.csv(Loupe,"output/Loupe_IGFBP3.csv",row.names = FALSE)
-###
-Barcode=rownames(kk_UMAP)
-Genes=rep(NA,length(Barcode))
-Genes[data[,"SFRP4"]>0]="SFRP4"
-isna=is.na(Genes)
-Loupe=data.frame(Barcode,Genes)
-Loupe=Loupe[!isna,]
-write.csv(Loupe,"output/Loupe_SFRP4.csv",row.names = FALSE)
-###
-
-
-
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
+knitr::kable(ma[1:30,],row.names=FALSE)
 ```
 
+# miRseq Analysis:
 
-
-## Validation of the results in the COAD TCGA cohort
-
-The downregulation of CXCL3 across the progression of the carcinoma was validated using the RNAseq data of the COAD TGCA cohort. Clinical and gene expression data were downloaded from [FireBrowse](http://firebrowse.org/).
+**Analysing miRseq Gene Expression Data from a Colerectal Adenocarcinoma Cohort:**
 
 ```{r, message=FALSE}
 # install.packages("readxl")
 library(readxl)
 
+```
+
+***Prepare Clinical Data:***
+
+```{r}
 # Read in Clinical Data:
 coad=read.csv("../TCGA/COAD/COAD.clin.merged.picked.txt",sep="\t",check.names = FALSE, row.names = 1)
+
 coad <- as.data.frame(coad) 
 
 # Clean column names: replace dots with dashes & convert to uppercase
@@ -341,9 +228,9 @@ colnames(coad) = toupper(colnames(coad))
 coad = t(coad) 
 ```
 
-***Prepare RNA-seq expression data:***
+***Prepare miRNA-seq expression data:***
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 # Read RNA-seq expression data:
 r = read.csv("../TCGA/COAD/COAD.rnaseqv2__illuminahiseq_rnaseqv2__unc_edu__Level_3__RSEM_genes_normalized__data.data.txt", sep = "\t", check.names = FALSE, row.names = 1)
 # Remove the first row:
@@ -361,7 +248,7 @@ RNA = t(RNA)
 
 ***Extract patient and tissue information from column names:***
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 
 tcgaID = list()
  # Extract sample ID
@@ -376,8 +263,7 @@ tcgaID = as.data.frame(tcgaID)
 
 ***Select Primary Solid Tumor tissue data ("01A"):***
 
-```{r, message=FALSE, warning=FALSE}
-
+```{r}
 sel=tcgaID$tissue == "01A"
 tcgaID.sel = tcgaID[sel, ]
 
@@ -387,8 +273,7 @@ RNA.sel = RNA[sel, ]
 
 ***Intersect patient IDs between clinical and RNA data:***
 
-```{r, message=FALSE, warning=FALSE}
-
+```{r}
 sel = intersect(tcgaID.sel$patient, rownames(coad))
 # Subset the clinical data to include only selected patients:
 coad.sel = coad[sel, ]
@@ -400,31 +285,34 @@ RNA.sel = RNA.sel[sel, ]
 
 ***Prepare labels for pathology stages:***
 
-The tumor samples were classified based on their T stage:
-- `t1`, `t2`, & `t3` as "low"
-- `t4`, `t4a`, & `t4b` as "high"
-- `tis` stages to `NA`
+- Classify stages `t1`, `t2`, & `t3` as "low"
 
-```{r, message=FALSE, warning=FALSE}
+- Classify stages `t4`, `t4a`, & `t4b` as "high"
+
+- Convert any `tis` stages to `NA`
+
+```{r}
+
 labelsTCGA = coad.sel[, "pathology_T_stage"]
 labelsTCGA[labelsTCGA %in% c("t1", "t2", "t3", "tis")] = "low"
 labelsTCGA[labelsTCGA %in% c("t4", "t4a", "t4b")] = "high"
-table(labelsTCGA)
+
 ```
 
+***Log Transform the expression data for our selected gene `CXCL2`:***
+
+```{r}
+CXCL2 <- log(1 + RNA.sel[, "CXCL2|2920"])
+LCN2 <- log(1 + RNA.sel[,"LCN2|3934" ])
+```
 
 ***Boxplot to visualize the distribution of log transformed gene expression by pathology stage:***
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 colors=c("#0073c2bb","#efc000bb","#868686bb","#cd534cbb","#7aabdcbb","#003c67bb")
 
 library(ggpubr)
-
-gene.selected="CXCL3"
-gene.selected.RNA=colnames(RNA.sel)[pmatch(gene.selected,colnames(RNA.sel))]
-
-CXCL3 <- log(1 + RNA.sel[, gene.selected.RNA])
-df=data.frame(variable=CXCL3,labels=labelsTCGA)
+df=data.frame(variable=CXCL2,labels=labelsTCGA)
 
 my_comparisons=list()
 my_comparisons[[1]]=c(1,2)
@@ -434,23 +322,24 @@ Nplot1=ggboxplot(df, x = "labels", y = "variable",fill="labels",
                  palette=colors,
                  add = "jitter",            
                  add.params = list(size = 2, jitter = 0.2,fill="#ff0000aa", shape=21))+  
-  ylab("CXCL3 gene expression (FPKM)")+ xlab("")+
+  ylab("CXCL2 gene expression (FPKM)")+ xlab("")+
   stat_compare_means(comparisons = my_comparisons,method="wilcox.test")
 
 Nplot1
-```
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE,results = "hide"}
-svg("output/Figures/CRC/CRC_boxplot.svg")
+svg("output/CRC_boxplot.svg")
 Nplot1
 dev.off()
+
+
 ```
 
 
-```{r, message=FALSE, warning=FALSE}
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE,results = "hide"}
 xy2=xy
 xy2[,1]=xy[,2]
 xy2[,2]=-xy[,1]
+plot(xy2,col=cols_tissue[labels],pch=20,cex=0.5)
 
 df <- data.frame(xy2, tissue=labels)
 plot2 = ggplot(df, aes(x, y, color = tissue)) +labs(title="KODAMA") +
@@ -460,74 +349,112 @@ plot2 = ggplot(df, aes(x, y, color = tissue)) +labs(title="KODAMA") +
   guides(color = guide_legend(nrow = 4, 
                               override.aes = list(size = 4)))
 plot2
-```
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE,results = "hide"}
-png("output/Figures/CRC/CRC2.png",height = 2000,width = 2000)
+png("output/CRC2.png",height = 2000,width = 2000)
 plot2
 dev.off()
-```
 
-# Proximity analysis
-The gene expression of the desmoplastic submucosa are analyzed. The genes with gene expression correlates with the distance from the invasive carcinoma are identified.
-
-
-
-```{r, message=FALSE, warning=FALSE}
 sel_desmoplastic_submucosa=which(labels=="desmoplastic submucosa")
-xy_desmoplastic_submucosa=xy[sel_desmoplastic_submucosa,]
-data_desmoplastic_submucosa=data[sel_desmoplastic_submucosa,]
-data_desmoplastic_submucosa=data_desmoplastic_submucosa[,-which(colMeans(data_desmoplastic_submucosa==0)>0.95)]
-dim(data_desmoplastic_submucosa)
+kk_desmoplastic_submucosa=kk_UMAP[sel_desmoplastic_submucosa,]
+xy_desmoplastic_submucosa=xy2[sel_desmoplastic_submucosa,]
 
-sel_invasive_carcinoma=which(labels=="invasive carcinoma" | labels=="intramucosal carcinoma")
-xy_invasive_carcinoma=xy[sel_invasive_carcinoma,]
 
-knn=Rnanoflann::nn(xy_invasive_carcinoma,xy_desmoplastic_submucosa,1)	
+g <- bluster::makeSNNGraph(as.matrix(kk_desmoplastic_submucosa), k = 20)
+g_walk <- igraph::cluster_louvain(g,resolution = 0.005)
+clu = g_walk$membership
+names(clu)=rownames(kk_desmoplastic_submucosa)
+
+
+
+df <- data.frame(kk_desmoplastic_submucosa[,1:2], tissue=as.factor(clu))
+plot3 = ggplot(df, aes(Dimensions_1, Dimensions_2, color = tissue)) +labs(title="KODAMA") +
+  geom_point(size = 1) +
+  theme_bw() + theme(legend.position = "bottom")+
+  scale_color_manual("Domain", values = cols_tissue) +
+  guides(color = guide_legend(nrow = 4, 
+                              override.aes = list(size = 4)))
+plot3
+png("output/CRC7.png",height = 2000,width = 2000)
+plot3
+dev.off()
+
+
+df <- data.frame(xy_desmoplastic_submucosa, tissue=as.factor(clu))
+plot4 = ggplot(df, aes(x, y, color = tissue)) +labs(title="KODAMA") +
+  geom_point(size = 1) +
+  theme_bw() + theme(legend.position = "bottom")+
+  scale_color_manual("Domain", values = cols_tissue) +
+  guides(color = guide_legend(nrow = 4, 
+                              override.aes = list(size = 4)))
+plot4
+
+png("output/CRC8.png",height = 2000,width = 2000)
+plot4
+dev.off()
+
+
+
+sel_desmoplastic_submucosa_selected=names(which(clu==names(which.max(table(clu)))))
+kk_desmoplastic_submucosa_selected=kk_UMAP[sel_desmoplastic_submucosa_selected,]
+xy_desmoplastic_submucosa_selected=xy2[sel_desmoplastic_submucosa_selected,]
+data_desmoplastic_submucosa_selected=data[sel_desmoplastic_submucosa_selected,]
+data_desmoplastic_submucosa_selected=data_desmoplastic_submucosa_selected[,-which(colMeans(data_desmoplastic_submucosa_selected==0)>0.95)]
+
+sel_invasive_carcinoma=which(labels=="invasive carcinoma" | labels=="intermediate dysplasia")
+kk_invasive_carcinoma=kk_UMAP[sel_invasive_carcinoma,]
+xy_invasive_carcinoma=xy2[sel_invasive_carcinoma,]
+
+knn=Rnanoflann::nn(xy_invasive_carcinoma,xy_desmoplastic_submucosa_selected,1)	
 
 y=knn$distances[,1]
 
-```
+
+
+ma=multi_analysis(data_desmoplastic_submucosa_selected,y,FUN="correlation.test",method="spearman")
+ma=ma[order(abs(as.numeric(ma$rho)),decreasing = TRUE),]
+colnames(ma)=c("Feature   ","rho   ","p-value   ","FDR   ")
 
 
 
-```{r, message=FALSE, warning=FALSE}
-
-# Define custom intervals
+# 2) Define custom intervals
 break_points <-c(quantile(y,probs=c(seq(0,1,0.005))))
 
-# Convert continuous data to intervals
+# 3) Convert continuous data to intervals
 distance_binned <- cut(y, breaks = break_points)
 
-gene_binned=apply(data_desmoplastic_submucosa,2,function(x)  tapply(x,distance_binned,mean))
+gene_binned=apply(data_desmoplastic_submucosa_selected,2,function(x)  tapply(x,distance_binned,mean))
 break_points=break_points[-length(break_points)]
-
 
 ma=multi_analysis(gene_binned,break_points,FUN="correlation.test",method="MINE")
 ma=ma[order(as.numeric(ma$MIC),decreasing = TRUE),]
+ma[1:10,]
 rownames(ma)=ma[,"Feature"]
+#plot(knn$distances,PMdata[,3])
+
+zmax=NULL
+for(i in 1:ncol(gene_binned)){
+ df=data.frame(x=break_points,y=gene_binned[,i])
+ ll=loess(y~x,data = df,span = 0.3)
+ z=predict(ll,newdata = data.frame(x=break_points))
+ zmax[i]=break_points[which.max(z)]
+# points(break_points,z,type="l",col=2)
+}
+genes=colnames(gene_binned)
+names(zmax)=genes
 
 
+plot(log(1+zmax[genes]),ma[genes,]$MIC,cex=0.2)
+text(log(1+zmax[genes]),ma[genes,]$MIC,labels=genes,cex=0.7)
 
-knitr::kable(ma[1:20,],row.names=FALSE)
-```
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE,results = "hide"}
-write.csv(ma,"output/desmoplastic_distance_carcinoma.csv")
-```
-
-```{r, message=FALSE, warning=FALSE}
-
+plot(log(1+break_points),gene_binned[,1],ylim=c(0,1),type="n")
  df=data.frame(x=break_points,
                HTRA3=gene_binned[,"HTRA3"],
                IGFBP5=gene_binned[,"IGFBP5"],
                CXCL14=gene_binned[,"CXCL14"],
                MMP11=gene_binned[,"MMP11"],
                TIMP3=gene_binned[,"TIMP3"],
-               MGP=gene_binned[,"MGP"],
-               GREM1=gene_binned[,"GREM1"],
-               IGFBP3=gene_binned[,"IGFBP3"],
-               SFRP4=gene_binned[,"SFRP4"])
+               MGP=gene_binned[,"MGP"])
  
  ll=loess(IGFBP5~x,data = df,span = 0.3)
  IGFBP5=predict(ll,newdata = data.frame(x=break_points))
@@ -546,62 +473,32 @@ write.csv(ma,"output/desmoplastic_distance_carcinoma.csv")
  
  ll=loess(MGP~x,data = df,span = 0.3)
  MGP=predict(ll,newdata = data.frame(x=break_points))
- 
- 
- ll=loess(GREM1~x,data = df,span = 0.3)
- GREM1=predict(ll,newdata = data.frame(x=break_points))
- 
- 
- ll=loess(IGFBP3~x,data = df,span = 0.3)
- IGFBP3=predict(ll,newdata = data.frame(x=break_points))
- 
- 
- ll=loess(SFRP4~x,data = df,span = 0.3)
- SFRP4=predict(ll,newdata = data.frame(x=break_points))
- 
- 
- 
-cols_lines <- c( "#006400", "#00cc8f" ,"#0088dd",
-                  "#b2dfee", "#ffd700",   "#adc178", "#aa1133", "#e07a5f",
-                 "#cc00b6", "#f2cc8f", "#aa228f","#aa7a6f")
+ points(log(1+break_points),HTRA3/max(HTRA3),type="l",col=2,lwd=3)
+ points(log(1+break_points),IGFBP5/max(IGFBP5),type="l",col=3,lwd=3)
+ points(log(1+break_points),CXCL14/max(CXCL14),type="l",col=4,lwd=3)
+ points(log(1+break_points),MMP11/max(MMP11),type="l",col=5,lwd=3)
+ points(log(1+break_points),TIMP3/max(TIMP3),type="l",col=6,lwd=3)
+ points(log(1+break_points),MGP/max(MGP),type="l",col=7,lwd=3)
 
+ 
+svg("output/CRC_linee.svg")
 plot(log(1+break_points),gene_binned[,1],ylim=c(0,1),type="n")
 
- 
- 
- points(log(1+break_points),HTRA3/max(HTRA3),type="l",col=cols_lines[1],lwd=3)
- points(log(1+break_points),IGFBP5/max(IGFBP5),type="l",col=cols_lines[2],lwd=3)
- points(log(1+break_points),CXCL14/max(CXCL14),type="l",col=cols_lines[3],lwd=3)
- points(log(1+break_points),MMP11/max(MMP11),type="l",col=cols_lines[4],lwd=3)
- points(log(1+break_points),TIMP3/max(TIMP3),type="l",col=cols_lines[5],lwd=3)
- points(log(1+break_points),MGP/max(MGP),type="l",col=cols_lines[6],lwd=3)
- points(log(1+break_points),GREM1/max(GREM1),type="l",col=cols_lines[7],lwd=3)
- points(log(1+break_points),IGFBP3/max(IGFBP3),type="l",col=cols_lines[8],lwd=3)
- points(log(1+break_points),SFRP4/max(SFRP4),type="l",col=cols_lines[9],lwd=3)
-
-```
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE,results = "hide"}
-svg("output/Figures/CRC/CRC_linee.svg")
-plot(log(1+break_points),gene_binned[,1],ylim=c(0,1),type="n")
-
-
- points(log(1+break_points),HTRA3/max(HTRA3),type="l",col=cols_lines[1],lwd=3)
- points(log(1+break_points),IGFBP5/max(IGFBP5),type="l",col=cols_lines[2],lwd=3)
- points(log(1+break_points),CXCL14/max(CXCL14),type="l",col=cols_lines[3],lwd=3)
- points(log(1+break_points),MMP11/max(MMP11),type="l",col=cols_lines[4],lwd=3)
- points(log(1+break_points),TIMP3/max(TIMP3),type="l",col=cols_lines[5],lwd=3)
- points(log(1+break_points),MGP/max(MGP),type="l",col=cols_lines[6],lwd=3)
- points(log(1+break_points),GREM1/max(GREM1),type="l",col=cols_lines[7],lwd=3)
- points(log(1+break_points),IGFBP3/max(IGFBP3),type="l",col=cols_lines[8],lwd=3)
- points(log(1+break_points),SFRP4/max(SFRP4),type="l",col=cols_lines[9],lwd=3)
-
- 
+ points(log(1+break_points),HTRA3/max(HTRA3),type="l",col=2,lwd=3)
+ points(log(1+break_points),IGFBP5/max(IGFBP5),type="l",col=3,lwd=3)
+ points(log(1+break_points),CXCL14/max(CXCL14),type="l",col=4,lwd=3)
+ points(log(1+break_points),MMP11/max(MMP11),type="l",col=5,lwd=3)
+ points(log(1+break_points),TIMP3/max(TIMP3),type="l",col=6,lwd=3)
+ points(log(1+break_points),MGP/max(MGP),type="l",col=7,lwd=3)
 
 dev.off()
 
 ```
 
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
+knitr::kable(ma[1:30,],row.names=FALSE)
+```
 
 
 

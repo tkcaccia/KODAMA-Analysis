@@ -6,12 +6,10 @@ library(Banksy)
 
 
 
-result_BANKSY=list(clusters=list(),
-                   tissue_segments=list(),
-                   feature_extraction=list(),
-                   xy=xy_list,
-                   samples=samples_list,
-                   subjects=subjects_list)
+results_BANKSY=list()
+results_BANKSY$clusters=list()
+results_BANKSY$labels=list()
+results_BANKSY$feature_extraction=list()
 
 compute_agf <- FALSE
 k_geom <- 6
@@ -62,16 +60,15 @@ for(j in 1:3){
   smooth <- sprintf("clust_M%s_lam%s_k50_res%s_smooth", as.numeric(use_agf), lambda, res)
 
   for(i in 1:4){
-    spe_list_banksy[[i]]=smoothLabels(spe_list_banksy[[i]],coord_names = xy_list[[i+4*(j-1)]],cluster_names = cnm, k = 6L, verbose = FALSE)
-    result_BANKSY$clusters[[i+4*(j-1)]]=spe_list_banksy[[i]][[smooth]]
-    result_BANKSY$tissue_segments[[i+4*(j-1)]]=spe_list_banksy[[i]]$layer_guess_reordered
-    result_BANKSY$feature_extraction[[i+4*(j-1)]]=reducedDim(spe_joint2,type = "UMAP_M0_lam0.2")[slide==slide_names[i],]
+    spe_list_banksy[[i]]=smoothLabels(spe_list_banksy[[i]],coord_names = xy[[i+4*(j-1)]],cluster_names = cnm, k = 6L, verbose = FALSE)
+
+    results_BANKSY$clusters[[i+4*(j-1)]]=spe_list_banksy[[i]][[smooth]]
+    results_BANKSY$labels[[i+4*(j-1)]]=spe_list_banksy[[i]]$layer_guess_reordered
+    results_BANKSY$feature_extraction[[i+4*(j-1)]]=reducedDim(spe_joint2,type = "UMAP_M0_lam0.2")[slide==slide_names[i],]
   }
 
 }
 ############################################################################################3
 
-
-
- save(result_BANKSY,file="output/DLPFC-BANSKY-results.RData")
+ save(results_BANKSY,file="output/BANSKY-results.RData")
 

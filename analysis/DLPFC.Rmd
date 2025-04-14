@@ -26,9 +26,7 @@ library("slingshot")
 library("irlba")
 library("Rnanoflann")
 library("ggpubr")
-
 ```
-
 
 # Download the dataset
 ```{r, eval=FALSE}
@@ -37,55 +35,6 @@ spe <- fetch_data(type = 'spe')
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
 load("../DLFPC.RData")
-
- 
-plot_slide =  function (xy, slide, labels, col = NULL, nrow = 1, scales = "free",size.dot = 1,
-                        size.legend.text=10,size.legend.title=10,size.legend.dot=5,size.strip.text=10)
-{
-  if (is.null(col)) {
-    labels = as.factor(labels)
-    nn = length(levels(labels))
-    col = rainbow(nn)
-  }
-  df <- data.frame(xy, slide, labels)
-  colnames(df) = c("x", "y", "slide", "labels")
-  df$slide = as.factor(df$slide)
-  df$labels = as.factor(df$labels)
-  ggplot(df, aes(x, y, color = labels)) + geom_point(size = size.dot) +
-    facet_wrap(~slide, nrow = nrow, scales = scales) + theme_bw() +
-    theme(legend.position = "bottom", axis.title = element_blank(),
-          legend.text = element_text(size = size.legend.text),  
-          legend.title = element_text(size = size.legend.title), 
-          strip.text = element_text(size = size.strip.text, face = "bold"), 
-          axis.text = element_blank(), axis.ticks = element_blank(),
-          panel.grid = element_blank()) +
-    scale_color_manual("Domain",  values = col, drop = FALSE) + guides(color = guide_legend(nrow = 1,  override.aes = list(size = size.legend.dot)))  # Legend
-}
-plot_slide_minimal <- function(xy, slide, labels, col = NULL, nrow = 1,
-                               size.dot = 3, size.legend.dot = 5) {
-  if (is.null(col)) {
-    labels <- as.factor(labels)
-    nn <- length(levels(labels))
-    col <- rainbow(nn)
-  }
-
-  df <- data.frame(xy, slide, labels)
-  colnames(df) <- c("x", "y", "slide", "labels")
-  df$slide <- as.factor(df$slide)
-  df$labels <- as.factor(df$labels)
-
-  ggplot(df, aes(x, y, color = labels)) +
-    geom_point(size = size.dot) +
-    facet_wrap(~slide, nrow = nrow) +
-    theme_void() +
-    theme(
-      legend.position = "none",
-      strip.background = element_blank(),
-      strip.text = element_blank(),
-      panel.spacing = unit(0, "lines")  # 👈 Make facets closer
-    ) +
-    scale_color_manual(values = col)
-}
 ```
 
 ## Extract the metadata information
@@ -170,13 +119,13 @@ spe <- logNormCounts(spe)
  cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
           "#cc00b6", "#81ccff", "#33b233")
 
-  plot_slide(xy,samples,labels,col=cols_cluster,size.dot = 1)
+  plot_slide(xy,samples,labels,col=cols_cluster)
   
 ```
 
 ```{r, fig.width=14, fig.height=3, warning=FALSE, message=FALSE, echo=FALSE}
-png("output/Figures/DLPFC/Fig 3a.png",width = 12000,height = 1100,bg = "transparent")
-plot_slide_minimal(xy,samples,labels,col=cols_cluster,size.dot = 5)
+svg("output/DLPFC1.svg",height = 3)
+plot_slide(xy,samples,labels,col=cols_cluster)
 dev.off()
 ```
 
@@ -190,20 +139,15 @@ The identification of genes that display spatial expression patterns is performe
 top=multi_SPARKX(spe,n.cores=n.cores)
 
 data=as.matrix(t(logcounts(spe)[top[1:gene_number],]))
-
-genes=spe@rowRanges@elementMetadata$gene_name
-names(genes)=spe@rowRanges@elementMetadata$gene_id
-
 samples=colData(spe)$sample_id
 labels=as.factor(colData(spe)$layer_guess_reordered)
 names(labels)=rownames(colData(spe))
 subjects=colData(spe)$subject
-genes=rowData(spe)[,"gene_name"]
-names(genes)=rowData(spe)$gene_id
-genes_top=genes[top[1:gene_number]]
-
-
+  
 ```
+
+
+
 
 
 # Patient Br5595
@@ -236,11 +180,8 @@ xy=as.matrix(spatialCoords(spe_sub))
 rownames(xy)=rownames(colData(spe_sub))
 samples=colData(spe_sub)$sample_id
 
-        subject_names_Br5595=colData(spe_sub)$subject
 
 plot(pca_Br5595, pch=20,col=as.factor(colData(spe_sub)$sample_id))
-
-
 
 ```
 
@@ -251,6 +192,7 @@ set.seed(seed)
 kk=KODAMA.matrix.parallel(pca_Br5595,
                           spatial = xy,
                           samples=samples,
+                          FUN= "fastpls" ,
                           landmarks = 100000,
                           splitting = splitting,
                           ncomp = 50,
@@ -289,14 +231,14 @@ plot(kk_UMAP,pch=20,col=cols_cluster[as.factor(clu)])
 
 
 
-  plot_slide(xy,as.factor(samples),clu,col=cols_cluster,size.dot = 1)
+  plot_slide(xy,as.factor(samples),clu,col=cols_cluster)
 
 ``` 
  
   
 ```{r, fig.width=14, fig.height=3, warning=FALSE, message=FALSE, echo=FALSE}
 svg("output/KODAMA_DLPFC_Br5595_slide.svg",height =  3)
-plot_slide(xy,samples,labels,col=cols_cluster,size.dot = 1)
+plot_slide(xy,samples,labels,col=cols_cluster)
 dev.off()
 ``` 
 
@@ -327,30 +269,28 @@ for(j in u){
   print(mclust::adjustedRandIndex(labels[selFB][sel],ref[sel]))
 }
         
-
-      
-
-
-plot_slide(xy,samples,labels,col=cols_cluster,size.dot = 1)
+plot_slide(xy,samples,labels,col=cols_cluster)
   
 
-plot_slide(xy[selFB,],samples[selFB],ref,col=cols_cluster,size.dot = 1)
+plot_slide(xy[selFB,],samples[selFB],ref,col=cols_cluster)
   
 
 kk_UMAP_Br5595=kk_UMAP
 samples_Br5595=samples
 xy_Br5595=xy
 labels_Br5595=labels
+subject_names_Br5595=subject_names
 ref_Br5595=ref
 clu_Br5595=clu
 
-save(top,kk_UMAP_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_names_Br5595,ref_Br5595,clu_Br5595,selFB,file="output/DLFPC-Br5595.RData")
+save(kk_UMAP_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_names_Br5595,ref_Br5595,clu_Br5595,selFB,file="output/DLFPC-Br5595.RData")
 
-save(top,data_Br5595,pca_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_names_Br5595,selFB,file="data/DLFPC-Br5595-input.RData")
+save(data_Br5595,pca_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_names_Br5595,selFB,file="data/DLFPC-Br5595-input.RData")
 
 
 
 ```
+
 
 
 
@@ -363,28 +303,36 @@ save(top,data_Br5595,pca_Br5595,samples_Br5595,xy_Br5595,labels_Br5595,subject_n
 subject_names="Br5292"
 nclusters=7
 
-spe_sub <- spe[, colData(spe)$subject ==  subject_names]
-dim(spe_sub)
+  spe_sub <- spe[, colData(spe)$subject ==  subject_names]
+  dim(spe_sub)
+#  spe_sub <- runPCA(spe_sub, 50,subset_row = top[1:gene_number], scale=TRUE)
 
-spe_sub <- spe[, colData(spe)$subject ==  subject_names]
-sel= subjects ==  subject_names
-data_Br5292=data[sel,top[1:gene_number]]
-RNA.scaled=scale(data_Br5292)
-pca_results <- irlba(A = RNA.scaled, nv = 50)
-pca_Br5292 <- pca_results$u %*% diag(pca_results$d)[,1:50]
-rownames(pca_Br5292)=rownames(data_Br5292)
-colnames(pca_Br5292)=paste("PC",1:50,sep="")
-labels=as.factor(colData(spe_sub)$layer_guess_reordered)
-names(labels)=rownames(colData(spe_sub))
-xy=as.matrix(spatialCoords(spe_sub))
-rownames(xy)=rownames(colData(spe_sub))
-samples=colData(spe_sub)$sample_id
-subject_names_Br5292=colData(spe_sub)$subject
-plot(pca_Br5292, pch=20,col=as.factor(colData(spe_sub)$sample_id))
-
-
-
+  #pca=reducedDim(spe_sub,type = "PCA")[,1:50]
   
+  
+  
+    
+        
+        spe_sub <- spe[, colData(spe)$subject ==  subject_names]
+        sel= subjects ==  subject_names
+        
+
+        data_Br5292=data[sel,top[1:gene_number]]
+        
+        RNA.scaled=scale(data_Br5292)
+        pca_results <- irlba(A = RNA.scaled, nv = 50)
+        pca_Br5292 <- pca_results$u %*% diag(pca_results$d)[,1:50]
+        rownames(pca_Br5292)=rownames(data_Br5292)
+        colnames(pca_Br5292)=paste("PC",1:50,sep="")
+        labels=as.factor(colData(spe_sub)$layer_guess_reordered)
+        names(labels)=rownames(colData(spe_sub))
+        xy=as.matrix(spatialCoords(spe_sub))
+        rownames(xy)=rownames(colData(spe_sub))
+        samples=colData(spe_sub)$sample_id
+        
+  plot(pca_Br5292, pch=20,col=as.factor(colData(spe_sub)$sample_id))
+
+
 ```
 
 ## KODAMA analysis
@@ -395,6 +343,7 @@ kk=KODAMA.matrix.parallel(pca_Br5292,
                           
                           spatial = xy,
                           samples=samples,
+                          FUN= "fastpls" ,
                           landmarks = 100000,
                           splitting = splitting,
                           ncomp = 50,
@@ -439,7 +388,7 @@ kk=KODAMA.matrix.parallel(pca_Br5292,
           
             print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
         }
-
+        ###########
 
           g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
           
@@ -453,30 +402,25 @@ kk=KODAMA.matrix.parallel(pca_Br5292,
             print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
           }
         
-
-      
-
-
-plot_slide(xy,samples,labels,col=cols_cluster,size.dot = 1)
+plot_slide(xy,samples,labels,col=cols_cluster)
   
-    plot_slide(xy,samples,ref,col=cols_cluster,size.dot = 1)
+    plot_slide(xy,samples,ref,col=cols_cluster)
   
 
 kk_UMAP_Br5292=kk_UMAP
 samples_Br5292=samples
 xy_Br5292=xy
 labels_Br5292=labels
+subject_names_Br5292=subject_names
 ref_Br5292=ref
 clu_Br5292=clu
-save(top,kk_UMAP_Br5292,pca_Br5292,samples_Br5292,xy_Br5292,subject_names_Br5292,labels_Br5292,ref_Br5292,clu_Br5292,file="output/DLFPC-Br5292.RData")
+save(kk_UMAP_Br5292,pca_Br5292,samples_Br5292,xy_Br5292,subject_names_Br5292,labels_Br5292,ref_Br5292,clu_Br5292,file="output/DLFPC-Br5292.RData")
 
-save(top,data_Br5292,pca_Br5292,samples_Br5292,xy_Br5292,labels_Br5292,subject_names_Br5292,file="data/DLFPC-Br5292-input.RData")
+
+
+save(data_Br5292,pca_Br5292,samples_Br5292,xy_Br5292,labels_Br5292,subject_names_Br5292,file="data/DLFPC-Br5292-input.RData")
 
 ```
-
-
-
-
 
 
 
@@ -517,8 +461,7 @@ nclusters=7
         xy=as.matrix(spatialCoords(spe_sub))
         rownames(xy)=rownames(colData(spe_sub))
         samples=colData(spe_sub)$sample_id
-        subject_names_Br8100=colData(spe_sub)$subject
-
+        
   plot(pca_Br8100, pch=20,col=as.factor(colData(spe_sub)$sample_id))
 
 
@@ -531,6 +474,7 @@ set.seed(seed)
 kk=KODAMA.matrix.parallel(pca_Br8100,
                           spatial = xy,
                           samples=samples,
+                          FUN= "fastpls" ,
                           landmarks = 100000,
                           splitting = splitting,
                           ncomp = 50,
@@ -572,7 +516,7 @@ kk=KODAMA.matrix.parallel(pca_Br8100,
           
             print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
         }
-
+        ###########
 
           g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
           
@@ -589,98 +533,66 @@ kk=KODAMA.matrix.parallel(pca_Br8100,
             print(mclust::adjustedRandIndex(labels[sel],ref[sel]))
           }
         
-
+      ###########
       
         
 
 
           
- plot_slide(xy,samples,labels,col=cols_cluster,size.dot = 1)
+ plot_slide(xy,samples,labels,col=cols_cluster)
   
 
-    plot_slide(xy,samples,ref,col=cols_cluster,size.dot = 1)
+    plot_slide(xy,samples,ref,col=cols_cluster)
   
 kk_UMAP_Br8100=kk_UMAP
 samples_Br8100=samples
 xy_Br8100=xy
 labels_Br8100=labels
-
+subject_names_Br8100=subject_names
 ref_Br8100=ref
 clu_Br8100=clu 
-save(top,kk_UMAP_Br8100,pca_Br8100,samples_Br8100,xy_Br8100,subject_names_Br8100,labels_Br8100,ref_Br8100,clu_Br8100,file="output/DLFPC-Br8100.RData")
+save(kk_UMAP_Br8100,pca_Br8100,samples_Br8100,xy_Br8100,subject_names_Br8100,labels_Br8100,ref_Br8100,clu_Br8100,file="output/DLFPC-Br8100.RData")
 
 
-save(top,data_Br8100,pca_Br8100,samples_Br8100,xy_Br8100,labels_Br8100,subject_names_Br8100,file="data/DLFPC-Br8100-input.RData")
+save(data_Br8100,pca_Br8100,samples_Br8100,xy_Br8100,labels_Br8100,subject_names_Br8100,file="data/DLFPC-Br8100-input.RData")
 
 ```
 # Saving the results
 
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
-result_KODAMA <- list(clusters=list(),
-                      tissue_segments=list(),
-                      feature_extraction=list(),
-                      xy=list(),
-                      subjects=list(),
-                      samples=list())
-
-result_KODAMA$clusters=c(result_KODAMA$clusters,tapply(ref_Br5292,samples_Br5292,function(x) x))
-result_KODAMA$clusters=c(result_KODAMA$clusters,tapply(ref_Br5595,samples_Br5595[selFB],function(x) x))
-result_KODAMA$clusters=c(result_KODAMA$clusters,tapply(ref_Br8100,samples_Br8100,function(x) x))
-
-result_KODAMA$tissue_segments=c(result_KODAMA$tissue_segments,tapply(labels_Br5292,samples_Br5292,function(x) x))
-result_KODAMA$tissue_segments=c(result_KODAMA$tissue_segments,tapply(labels_Br5595[selFB],samples_Br5595[selFB],function(x) x))
-result_KODAMA$tissue_segments=c(result_KODAMA$tissue_segments,tapply(labels_Br8100,samples_Br8100,function(x) x))
-
-result_KODAMA$feature_extraction=c(result_KODAMA$feature_extraction,by(kk_UMAP_Br5292,samples_Br5292,function(x) x))
-result_KODAMA$feature_extraction=c(result_KODAMA$feature_extraction,by(kk_UMAP_Br5595[selFB,],samples_Br5595[selFB],function(x) x))
-result_KODAMA$feature_extraction=c(result_KODAMA$feature_extraction,by(kk_UMAP_Br8100,samples_Br8100,function(x) x))
-
-result_KODAMA$xy=c(result_KODAMA$xy,by(xy_Br5292,samples_Br5292,function(x) x))
-result_KODAMA$xy=c(result_KODAMA$xy,by(xy_Br5595[selFB,],samples_Br5595[selFB],function(x) x))
-result_KODAMA$xy=c(result_KODAMA$xy,by(xy_Br8100,samples_Br8100,function(x) x))
-
-result_KODAMA$samples=c(result_KODAMA$samples,tapply(samples_Br5292,samples_Br5292,function(x) x))
-result_KODAMA$samples=c(result_KODAMA$samples,tapply(samples_Br5595[selFB],samples_Br5595[selFB],function(x) x))
-result_KODAMA$samples=c(result_KODAMA$samples,tapply(samples_Br8100,samples_Br8100,function(x) x))
-
-result_KODAMA$subjects=c(result_KODAMA$subjects,tapply(subject_names_Br5292,samples_Br5292,function(x) x))
-result_KODAMA$subjects=c(result_KODAMA$subjects,tapply(subject_names_Br5595[selFB],samples_Br5595[selFB],function(x) x))
-result_KODAMA$subjects=c(result_KODAMA$subjects,tapply(subject_names_Br8100,samples_Br8100,function(x) x))
+results_KODAMA <- list()
+results_KODAMA$clusters <- list()
+results_KODAMA$labels <- list()
+results_KODAMA$feature_extraction <- list()
+results_KODAMA$xy <- list()
 
 
-ground_true <- list(clusters=list(),
-                    tissue_segments=list(),
-                    xy=list(),
-                    subjects=list(),
-                    samples=list())
+results_KODAMA$clusters=c(results_KODAMA$clusters,tapply(ref_Br5292,samples_Br5292,function(x) x))
+results_KODAMA$clusters=c(results_KODAMA$clusters,tapply(ref_Br5595,samples_Br5595[selFB],function(x) x))
+results_KODAMA$clusters=c(results_KODAMA$clusters,tapply(ref_Br8100,samples_Br8100,function(x) x))
 
-ground_true$tissue_segments=c(ground_true$tissue_segments,tapply(labels_Br5292,samples_Br5292,function(x) x))
-ground_true$tissue_segments=c(ground_true$tissue_segments,tapply(labels_Br5595,samples_Br5595,function(x) x))
-ground_true$tissue_segments=c(ground_true$tissue_segments,tapply(labels_Br8100,samples_Br8100,function(x) x))
+results_KODAMA$labels=c(results_KODAMA$labels,tapply(labels_Br5292,samples_Br5292,function(x) x))
+results_KODAMA$labels=c(results_KODAMA$labels,tapply(labels_Br5595[selFB],samples_Br5595[selFB],function(x) x))
+results_KODAMA$labels=c(results_KODAMA$labels,tapply(labels_Br8100,samples_Br8100,function(x) x))
 
-ground_true$xy=c(ground_true$xy,by(xy_Br5292,samples_Br5292,function(x) x))
-ground_true$xy=c(ground_true$xy,by(xy_Br5595,samples_Br5595,function(x) x))
-ground_true$xy=c(ground_true$xy,by(xy_Br8100,samples_Br8100,function(x) x))
+results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br5292,samples_Br5292,function(x) x))
+results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br5595[selFB,],samples_Br5595[selFB],function(x) x))
+results_KODAMA$feature_extraction=c(results_KODAMA$feature_extraction,by(kk_UMAP_Br8100,samples_Br8100,function(x) x))
 
-ground_true$clusters=ground_true$tissue_segments
+results_KODAMA$xy=c(results_KODAMA$xy,by(xy_Br5292,samples_Br5292,function(x) x))
+results_KODAMA$xy=c(results_KODAMA$xy,by(xy_Br5595[selFB,],samples_Br5595[selFB],function(x) x))
+results_KODAMA$xy=c(results_KODAMA$xy,by(xy_Br8100,samples_Br8100,function(x) x))
 
+save(results_KODAMA,file="output/KODAMA-results.RData")
 
-
-ground_true$samples=c(ground_true$samples,tapply(samples_Br5292,samples_Br5292,function(x) x))
-ground_true$samples=c(ground_true$samples,tapply(samples_Br5595,samples_Br5595,function(x) x))
-ground_true$samples=c(ground_true$samples,tapply(samples_Br8100,samples_Br8100,function(x) x))
-
-ground_true$subjects=c(ground_true$subjects,tapply(subject_names_Br5292,samples_Br5292,function(x) x))
-ground_true$subjects=c(ground_true$subjects,tapply(subject_names_Br5595,samples_Br5595,function(x) x))
-ground_true$subjects=c(ground_true$subjects,tapply(subject_names_Br8100,samples_Br8100,function(x) x))
+```
 
 
-save(result_KODAMA,ground_true,file="output/KODAMA-results.RData")
+#seurat list preprocessing
 
-
-
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 source("code/DLFPC_preprocessing.R")
 ```
 
@@ -695,6 +607,7 @@ PCA and HARMONY
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
 
+ dim(spe_sub)
  spe <- runPCA(spe, 50,subset_row = top[1:gene_number], scale=TRUE)
 
 
@@ -720,6 +633,7 @@ set.seed(seed)
 kk=KODAMA.matrix.parallel(pca,
                           spatial = xy,
                           samples=samples,
+                          FUN= "fastpls" ,
                           landmarks = 100000,
                           splitting = splitting,
                           ncomp = 50,
@@ -735,30 +649,10 @@ config$n_sgd_threads = "auto"
 
 kk_UMAP=KODAMA.visualization(kk,method="UMAP",config=config)
 plot(kk_UMAP,pch=20,col=as.factor(labels))
-
-df <- data.frame(kk_UMAP[,1:2], tissue=labels,check.names = FALSE)
- 
-plot1 = ggplot(df, aes(`Dimension 1`, `Dimension 2`, color = tissue)) +labs(title="KODAMA") +
-     geom_point(size = 1) +
-     theme_bw() + theme(legend.position = "bottom",
-                        legend.text = element_text(size = 20),
-                        legend.title = element_text(size = 20),
-                        axis.title = element_text(size = 22),       # x and y axis labels
-                        axis.text = element_text(size = 16),        # tick labels
-                        plot.title = element_text(size = 26, face = "bold", hjust = 0) )+
-     scale_color_manual("Domain", values = cols_cluster) +
-     
-     guides(color = guide_legend(nrow = 1,override.aes = list(size = 10)))
-plot1
-
 ```
 
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-png("output/Figures/DLPFC/Fig S9.png",width = 1200,height = 1200)
-print(plot1)
-dev.off()
-
 save(kk_UMAP,samples,xy,labels,file="output/DLFPC-All.RData")
 ```
 
@@ -766,61 +660,35 @@ save(kk_UMAP,samples,xy,labels,file="output/DLFPC-All.RData")
 CLUSTER
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-  g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
-  g_walk <- igraph::cluster_walktrap(g)
-  clu <- as.character(igraph::cut_at(g_walk, no = 7))
-  plot(kk_UMAP,pch=20,col=cols_cluster[as.factor(clu)]) 
+        g <- bluster::makeSNNGraph(as.matrix(kk_UMAP), k = graph)
+        g_walk <- igraph::cluster_walktrap(g)
+        clu <- as.character(igraph::cut_at(g_walk, no = 7))
+        plot(kk_UMAP,pch=20,col=as.factor(clu)) 
 
-  plot_slide(xy,samples,clu,col=cols_cluster,size.dot = 1)
 
-  mito=colData(spe)$subsets_mito_percent
-  sel_local=(labels=="Layer3" | labels=="Layer4") & 
-    (samples=="151669" | samples=="151670" | samples=="151671" | samples=="151672") &
-    (clu==1 | clu==6)
+    plot_slide(xy,samples,clu,col=cols_cluster)
 
-  
-   
-   
-library(ggpubr)
-library(ggplot2)
-
-df=data.frame(mito=mito[sel_local],labels=as.character(clu[sel_local]))
-
-my_comparisons=list(c("1","6"))
-Nplot1=ggboxplot(df, x = "labels", y = "mito", width = 0.8,palette = cols_cluster[c(1,6)] ,las=2,
-                 fill="labels",
-                 shape=21)+  
-    ylab("Mitochondrial gene percentage")+ 
-    xlab("")+
-    
-    stat_compare_means(comparisons = my_comparisons,method="wilcox.test")+
-    theme(legend.position = "none",plot.margin = unit(c(2,1,1,1), "cm"))
-
-Nplot1
-
-   
+    mito=colData(spe)$subsets_mito_percent
+    sel_local=(labels=="Layer3" | labels=="Layer4") & 
+      (samples=="151669" | samples=="151670" | samples=="151671" | samples=="151672") &
+      (clu==1 | clu==6)
+  boxplot(mito[sel_local]~clu[sel_local],col=cols_cluster[c(1,6)] ,ylab="mito percent")
+   wilcox.test(mito[sel_local]~clu[sel_local])
 ```
 
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-pdf("output/Figures/DLPFC/Fig S10.pdf")
-print(Nplot1)
-dev.off()
-png("output/Figures/DLPFC/Fig S10.png")
-print(Nplot1)
-dev.off()
-save(kk_UMAP,data,samples,xy,labels,clu,mito,file="output/DLFPC-All.RData")
+save(kk_UMAP,samples,xy,labels,clu,mito,file="output/DLFPC-All.RData")
 ```
 
 
 CLUSTER
 
-We removed the spots with uncertain quality level.
+
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
     
-  sel_rem=which((clu %in% names(sort(table(clu)))[1:2]) |
-                 rownames(kk_UMAP) %in% rownames(xy_Br5595[!selFB,]))
+  sel_rem=which(clu %in% names(sort(table(clu)))[1:2])
 
   kk_UMAP_clear=kk_UMAP[-sel_rem,]
   labels_clear=labels[-sel_rem]
@@ -829,270 +697,304 @@ We removed the spots with uncertain quality level.
   data_clear=data[-sel_rem,]
   subjects_clear=subjects[-sel_rem]
   
-  clu_clear=kmeans(kk_UMAP_clear,7,nstart = 100)$cluster
+  clu=kmeans(kk_UMAP_clear,7,nstart = 100)$cluster
   plot(kk_UMAP_clear,col=cols_cluster[labels_clear],pch=20)
 ```  
   
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
   svg("output/KODAMA_DLPFC_All_original.svg")
   plot(kk_UMAP_clear,col=cols_cluster[labels_clear],pch=20)
 dev.off()
 ```
 
-KODAMA plot colored by cluster.
-
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
    
-  plot(kk_UMAP_clear,col=cols_cluster[clu_clear],pch=20)
+  plot(kk_UMAP_clear,col=cols_cluster[clu],pch=20)
 
 
 u=unique(samples)
 for(i in 1:length(u)){
   sel=samples==u[i]
-  print(adjustedRandIndex(labels_clear[sel],clu_clear[sel]))
+  print(adjustedRandIndex(labels_clear[sel],clu[sel]))
 }
 
-ref=refine_SVM(xy_clear,clu_clear,samples_clear,cost=100)
+ref=refine_SVM(xy_clear,clu,samples_clear,cost=100)
 names(ref)=rownames(data_clear)
 names(labels_clear)=rownames(data_clear)
+save(labels_clear,ref,subjects_clear,samples_clear,file="output/DL.RData")
 
 u=unique(samples)
 for(i in 1:length(u)){
   sel=samples[-sel_rem]==u[i]
   print(adjustedRandIndex(labels_clear[sel],ref[sel]))
 }
+plot_slide(xy_clear,samples_clear,ref,col=cols_cluster)
 
 ```
   
   
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-save(kk_UMAP,data,samples,xy,labels,clu,mito,
-     labels_clear,ref,subjects_clear,samples_clear,
-     kk_UMAP_clear,data_clear,xy_clear,ref,clu_clear,
-     file="output/DLFPC-All.RData")
-
-
-
-```
-
-
-# Trajectory color
-
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-
-
-d <- slingshot(kk_UMAP_clear, clusterLabels = clu_clear)
-trajectory=d@metadata$curves$Lineage1$s
-k=Rnanoflann::nn(trajectory,kk_UMAP_clear,1)
-map_color=rainbow(nrow(trajectory))[k$indices]
-plot(kk_UMAP_clear,pch=20,col=map_color)
-points(trajectory,pch=21,bg="white",col=2,lwd=2)
-plot_slide(xy_clear,samples_clear,k$indices,col=rainbow(nrow(trajectory)),size.dot = 1)
-```
-
 
 ```{r, fig.width=14, fig.height=3, warning=FALSE, message=FALSE, echo=FALSE}
-png("output/Figures/DLPFC/Fig 3h.png",width = 4000,height = 3300,bg = "transparent")
-plot_slide_minimal(xy_clear,samples_clear,k$indices,col=rainbow(nrow(trajectory)),size.dot = 5,nrow=3)
-dev.off()
-```
-
-
-The cluster number is reorder based on the trajectory
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-oo=order(tapply(k$indices,ref,mean))
-tra=1:7
-names(tra)=oo
-ref_ordered=tra[as.character(ref)]
-   
-plot_slide(xy_clear,samples_clear,ref_ordered,col=cols_cluster,size.dot = 1)
-
-```
-
-
-```{r, fig.width=14, fig.height=3, warning=FALSE, message=FALSE, echo=FALSE}
-png("output/Figures/DLPFC/Fig 3g.png",width = 12000,height = 1100,bg = "transparent")
-plot_slide_minimal(xy_clear,samples_clear,ref_ordered,col=cols_cluster,size.dot = 5)
-dev.off()
-```
-
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-png("output/Figures/DLPFC/RGB_DLPFC.png",width = 2000,height = 2000)
-plot(kk_UMAP_clear,pch=20,col=map_color,axes=FALSE,xlab="",ylab="")
-points(trajectory,pch=21,bg="white",col=2,lwd=3,cex=3)
-dev.off()
-
 svg("output/DLPFC_all_cluster.svg",height = 3)
-plot_slide(xy_clear,samples_clear,ref_ordered,col=cols_cluster,size.dot = 1)
+plot_slide(xy_clear,samples_clear,ref,col=cols_cluster)
 dev.off()
 ```
 
-
-The variable to be used into the deep learning approach
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-
-save(ref_ordered,samples_clear,subjects_clear,labels_clear,
-     file="output/DLFPC-variablesXdeeplearning.RData")
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+save(kk_UMAP_clear,samples_clear,xy_clear,labels_clear,ref,clu,file="output/DLFPC-All-2.RData")
 ```
 
 
 
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+subclusters=sort(names(sort(table(ref,labels_clear)[,"Layer3"],decreasing = TRUE)[1:3]))
+
+sa_sel=(samples_clear=="151669" | samples_clear=="151670" | samples_clear=="151671" | samples_clear=="151672")
+
+aa=apply(data_clear,2,function(x) wilcox.test(x[ref==subclusters[1] & sa_sel],x[(ref==subclusters[2] ) & sa_sel],alternative = "greater")$p.value) +
+  apply(data_clear,2,function(x) wilcox.test(x[ref==subclusters[1] & sa_sel],x[(ref==subclusters[3]) & sa_sel],alternative = "greater")$p.value)
+sort(aa)[1:10]
+box_sel=(samples_clear=="151669" | samples_clear=="151670" | samples_clear=="151671" | samples_clear=="151672") & (ref==subclusters[1] | ref==subclusters[2] | ref==subclusters[3])
+tapply(data_clear[box_sel,names(sort(aa)[1])],as.numeric(as.vector(ref[box_sel])),mean)
+
+df=data.frame(variable=data_clear[box_sel,names(sort(aa)[1])],labels=as.numeric(as.vector(ref[box_sel])))
+
+my_comparisons=list()
+my_comparisons[[1]]=c(1,3)
+my_comparisons[[2]]=c(1,2)
+
+Nplot1=ggboxplot(df, x = "labels", y = "variable",fill="labels",
+                 width = 0.8,
+                 palette=cols_cluster)+  
+  ylab(names(sort(aa)[1]))+ xlab("")+
+  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")
+
+Nplot1
 
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE,results = "hide"}
+
+a1=apply(data_clear,2,function(x) wilcox.test(x[ref==subclusters[2] & sa_sel],x[(ref==subclusters[3]) & sa_sel],alternative = "greater")$p.value)
+  a2=apply(data_clear,2,function(x) wilcox.test(x[ref==subclusters[2] & sa_sel],x[(ref==subclusters[1] ) & sa_sel],alternative = "greater")$p.value)
+  
+aa=a1+a2
+  
+sort(aa)[1:10]
+a_choice=names(sort(aa)[1])
+tapply(data_clear[box_sel,a_choice],as.numeric(as.vector(ref[box_sel])),mean)
+
+df=data.frame(variable=data_clear[box_sel,a_choice],labels=as.numeric(as.vector(ref[box_sel])))
+
+my_comparisons=list()
+my_comparisons[[1]]=c(2,3)
+my_comparisons[[2]]=c(1,2)
+
+Nplot2=ggboxplot(df, x = "labels", y = "variable",fill="labels",
+                 width = 0.8,
+                 palette=cols_cluster)+  
+  ylab(a_choice)+ xlab("")+
+  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")
+
+Nplot2
+
+aa=apply(data_clear,2,function(x) wilcox.test(x[ref==subclusters[3] & sa_sel],x[(ref==subclusters[1] ) & sa_sel],alternative = "greater")$p.value) +
+  apply(data_clear,2,function(x) wilcox.test(x[ref==subclusters[3] & sa_sel],x[(ref==subclusters[2]) & sa_sel],alternative = "greater")$p.value)
+sort(aa)[1:10]
+tapply(data_clear[box_sel,names(sort(aa)[1])],as.numeric(as.vector(ref[box_sel])),mean)
+
+
+df=data.frame(variable=data_clear[box_sel,names(sort(aa)[1])],labels=as.numeric(as.vector(ref[box_sel])))
+
+my_comparisons=list()
+my_comparisons[[1]]=c(2,3)
+my_comparisons[[2]]=c(1,3)
+
+Nplot3=ggboxplot(df, x = "labels", y = "variable",fill="labels",
+                 width = 0.8,
+                 palette=cols_cluster)+  
+  ylab(names(sort(aa)[1]))+ xlab("")+
+  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")
+
+Nplot3
+
+
 
 
 library(ggalluvial)
 
+sel_sub=subjects_clear=="Br5292"
+al=data.frame(expand.grid(list(levels(labels_clear),1:7)),freq=as.numeric(table(labels_clear[sel_sub],ref[sel_sub])))
+al$Var2=as.factor(al$Var2)
 
-plot_sankey_subject <- function(subject_id, labels_clear, ref_ordered, subjects_clear, cols_cluster) {
-  sel_sub <- subjects_clear == subject_id
-  al <- data.frame(
-    expand.grid(list(levels(labels_clear), 1:7)),
-    freq = as.numeric(table(labels_clear[sel_sub], ref_ordered[sel_sub]))
-  )
-  al$Var2 <- as.factor(al$Var2)
+
+ggplot(data = al,
+       aes(axis1 = Var1, axis2 = Var2, y = freq)) +
+  geom_alluvium(aes(fill = Var2)) +
+  geom_stratum() +
+  geom_text(stat = "stratum",
+            aes(label = after_stat(stratum))) +
+  theme_void()
+
+
+sel_sub=subjects_clear=="Br5595"
+al=data.frame(expand.grid(list(levels(labels_clear),1:7)),freq=as.numeric(table(labels_clear[sel_sub],ref[sel_sub])))
+al$Var2=as.factor(al$Var2)
+
+
+ggplot(data = al,
+       aes(axis1 = Var1, axis2 = Var2, y = freq)) +
+  geom_alluvium(aes(fill = Var2)) +
+  geom_stratum() +
+  geom_text(stat = "stratum",
+            aes(label = after_stat(stratum))) +
+  theme_void()
+
+
+
+sel_sub=subjects_clear=="Br8100"
+al=data.frame(expand.grid(list(levels(labels_clear),1:7)),freq=as.numeric(table(labels_clear[sel_sub],ref[sel_sub])))
+al$Var2=as.factor(al$Var2)
+
+
+ggplot(data = al,
+       aes(axis1 = Var1, axis2 = Var2, y = freq)) +
+  geom_alluvium(aes(fill = Var2)) +
+  geom_stratum() +
+  geom_text(stat = "stratum",
+            aes(label = after_stat(stratum))) +
+  theme_void()
+
+
+
+
+
+
+
+
+
+
+
+ library("GSVA")
+ library("GSA")
+ library("VAM")
+ geneset=GSA.read.gmt("../Genesets/msigdb_v2023.2.Hs_GMTs/h.all.v2023.2.Hs.symbols.gmt")
+ names(geneset$genesets)=geneset$geneset.names
+ genesets=geneset$genesets
+
+countdata <- as.matrix(t(logcounts(spe)))
+
+# library("gprofiler2")
+# genes=gconvert(rownames(spe),organism="hsapiens",target="GENECARDS",filter_na = F)$target
+
+genes=rowData(spe)[,"gene_name"]
+spot_name=colnames(spe)
+colnames(countdata)=genes
+
+
+
+li=lapply(genesets,function(x) which(genes %in% x))
+
+VAM=vamForCollection(gene.expr=countdata, gene.set.collection=li)
+pathway=VAM$distance.sq
+  pathway_clear=pathway[-sel_rem,]
+
+
+
+
+
+
+
+aa=apply(pathway_clear,2,function(x) wilcox.test(x[ref==subclusters[1] & sa_sel],x[(ref==subclusters[2] ) & sa_sel],alternative = "greater")$p.value) +
+  apply(pathway_clear,2,function(x) wilcox.test(x[ref==subclusters[1] & sa_sel],x[(ref==subclusters[3]) & sa_sel],alternative = "greater")$p.value)
+sort(aa)[1:10]
+
+box_sel=(samples_clear=="151669" | samples_clear=="151670" | samples_clear=="151671" | samples_clear=="151672") & (ref==subclusters[1] | ref==subclusters[2] | ref==subclusters[3])
+tapply(pathway_clear[box_sel,names(sort(aa)[1])],as.numeric(as.vector(ref[box_sel])),mean)
+
+df=data.frame(variable=log(1+pathway_clear[box_sel,names(sort(aa)[1])]),labels=as.numeric(as.vector(ref[box_sel])))
+
+my_comparisons=list()
+my_comparisons[[1]]=c(1,3)
+my_comparisons[[2]]=c(1,2)
+
+Nplot1=ggboxplot(df, x = "labels", y = "variable",fill="labels",
+                 width = 0.8,
+                 palette=cols_cluster)+  
+  ylab(names(sort(aa)[1]))+ xlab("")+
+  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")
+
+Nplot1
+
+
+
+a1=apply(pathway_clear,2,function(x) wilcox.test(x[ref==subclusters[2] & sa_sel],x[(ref==subclusters[3]) & sa_sel],alternative = "greater")$p.value)
+  a2=apply(pathway_clear,2,function(x) wilcox.test(x[ref==subclusters[2] & sa_sel],x[(ref==subclusters[1] ) & sa_sel],alternative = "greater")$p.value)
   
-  ggplot(data = al, aes(axis1 = Var1, axis2 = Var2, y = freq)) +
-    geom_alluvium(aes(fill = Var2)) +
-    geom_stratum() +
-    scale_fill_manual(values = cols_cluster) +
-    geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
-    theme_void()
-}
+aa=a1+a2
+  
+sort(aa)[1:10]
+a_choice=names(sort(aa)[1])
+tapply(pathway_clear[box_sel,a_choice],as.numeric(as.vector(ref[box_sel])),mean)
 
-Sankey_Br5595 <- plot_sankey_subject("Br5595", labels_clear, ref_ordered, subjects_clear, cols_cluster)
-Sankey_Br5595
-Sankey_Br5292 <- plot_sankey_subject("Br5292", labels_clear, ref_ordered, subjects_clear, cols_cluster)
-Sankey_Br5292
-Sankey_Br8100 <- plot_sankey_subject("Br8100", labels_clear, ref_ordered, subjects_clear, cols_cluster)
-Sankey_Br8100
+df=data.frame(variable=pathway_clear[box_sel,a_choice],labels=as.numeric(as.vector(ref[box_sel])))
+
+my_comparisons=list()
+my_comparisons[[1]]=c(2,3)
+my_comparisons[[2]]=c(1,2)
+
+Nplot2=ggboxplot(df, x = "labels", y = "variable",fill="labels",
+                 width = 0.8,
+                 palette=cols_cluster)+  
+  ylab(a_choice)+ xlab("")+
+  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")
+
+Nplot2
+
+aa=apply(pathway_clear,2,function(x) wilcox.test(x[ref==subclusters[3] & sa_sel],x[(ref==subclusters[1] ) & sa_sel],alternative = "greater")$p.value) +
+  apply(pathway_clear,2,function(x) wilcox.test(x[ref==subclusters[3] & sa_sel],x[(ref==subclusters[2]) & sa_sel],alternative = "greater")$p.value)
+sort(aa)[1:10]
+tapply(pathway_clear[box_sel,names(sort(aa)[1])],as.numeric(as.vector(ref[box_sel])),mean)
+
+
+df=data.frame(variable=pathway_clear[box_sel,names(sort(aa)[1])],labels=as.numeric(as.vector(ref[box_sel])))
+
+my_comparisons=list()
+my_comparisons[[1]]=c(2,3)
+my_comparisons[[2]]=c(1,3)
+
+Nplot3=ggboxplot(df, x = "labels", y = "variable",fill="labels",
+                 width = 0.8,
+                 palette=cols_cluster)+  
+  ylab(names(sort(aa)[1]))+ xlab("")+
+  stat_compare_means(comparisons = my_comparisons,method="wilcox.test")
+
+Nplot3
+
 
 
 ```
 
+TRAJECTORY
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-library(patchwork)
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
-# Remove individual legends
-Sankey_Br5595 <- Sankey_Br5595 + theme(legend.position = "none")
-Sankey_Br5292 <- Sankey_Br5292 + theme(legend.position = "none")
-# Keep legend in the last plot (or any one of them)
-Sankey_Br8100 <- Sankey_Br8100 + theme(legend.position = "right")
 
-# Combine horizontally and collect the legend
-combined_plot <- (Sankey_Br5292 | Sankey_Br5595 | Sankey_Br8100) + plot_layout(guides = "collect")
+d <- slingshot(kk_UMAP_clear, clusterLabels = clu)
+trajectory=d@metadata$curves$Lineage1$s
+k=Rnanoflann::nn(trajectory,kk_UMAP_clear,1)
+map_color=rainbow(nrow(trajectory))[k$indices]
+plot(kk_UMAP_clear,pch=20,col=map_color)
 
-pdf("output/Figures/DLPFC/Fig 3i.pdf",width = 8)
-print(combined_plot)
-dev.off()
-
+plot_slide(xy_clear,samples_clear,k$indices,col=rainbow(nrow(trajectory)))
 
 ```
-
-
-
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE,results = "hide"}
-subclusters=sort(names(sort(table(ref_ordered,labels_clear)[,"Layer3"],decreasing = TRUE)[1:3]))
-print(subclusters)
-
-
-
-
-sa_sel=(ref_ordered %in% subclusters) & (samples_clear %in% c("151669","151670","151671","151672")) & c(labels_clear %in% "Layer3")
-
-
-plot_slide(xy_clear[sa_sel,],samples_clear[sa_sel],ref_ordered[sa_sel],col=cols_cluster,size.dot = 1)
-
-s1=rownames(data_clear)[which(ref_ordered==subclusters[1] & sa_sel)]
-s2=rownames(data_clear)[which(ref_ordered==subclusters[2] & sa_sel)]
-s3=rownames(data_clear)[which(ref_ordered==subclusters[3] & sa_sel)]
-
-
-
-data_clear_N=data_clear[c(s1,s2,s3),]
-data_clear_N=10*t(t(data_clear_N)/colMaxs(data_clear_N))
-colnames(data_clear_N)=genes[colnames(data_clear_N)]
-
-lab_S123 <- factor(rep(c("Group1", "Group2", "Group3"), times = c(length(s1), length(s2), length(s3))),levels=c("Group1","Group2","Group3"))
-da123=multi_analysis(data_clear_N[c(s1,s2,s3),],lab_S123,FUN="continuous.test",range="95%CI")
-
-
-lab_S12 <- factor(rep(c("Group1", "Group2"), times = c(length(s1), length(s2))))
-lab_S13 <- factor(rep(c("Group1", "Group3"), times = c(length(s1), length(s3))))
-da12=multi_analysis(data_clear_N[c(s1,s2),],lab_S12,FUN="continuous.test",alternative = "greater")
-da13=multi_analysis(data_clear_N[c(s1,s3),],lab_S13,FUN="continuous.test",alternative = "greater")
-
-rank=order(-log(1+as.numeric(da12$`p-value`))-log(1+as.numeric(da13$`p-value`)),decreasing = TRUE)[1:50]
-
-df=data.frame(da123[,1],
-           sublayer1=da123[,2],
-           sublayer3=da123[,3],
-           sublayer5=da123[,4],
-           L1vsL3_pvalue=da12[,4],
-           L1vsL3_FDR=da12[,5],
-           L1vsL5_pvalue=da13[,4],
-           L1vsL5_FDR=da13[,5])[rank,]
-
-
-write.csv(df,"output/subclusters1.csv")
-####
-
-lab_S21 <- factor(rep(c("Group2", "Group1"), times = c(length(s2), length(s1))),levels=c("Group2","Group1"))
-lab_S23 <- factor(rep(c("Group2", "Group3"), times = c(length(s2), length(s3))),levels=c("Group2","Group3"))
-da21=multi_analysis(data_clear_N[c(s2,s1),],lab_S21,FUN="continuous.test",alternative = "greater",range="95%CI")
-da23=multi_analysis(data_clear_N[c(s2,s3),],lab_S23,FUN="continuous.test",alternative = "greater",range="95%CI")
-
-rank=order(-log(1+as.numeric(da21$`p-value`))-log(1+as.numeric(da23$`p-value`)),decreasing = TRUE)[1:50]
-
-df=data.frame(da123[,1],
-           sublayer1=da123[,2],
-           sublayer3=da123[,3],
-           sublayer5=da123[,4],
-           L3vsL1_pvalue=da21[,4],
-           L3vsL1_FDR=da21[,5],
-           L3vsL5_pvalue=da23[,4],
-           L3vsL5_FDR=da23[,5])[rank,]
-
-
-write.csv(df,"output/subclusters2.csv")
-
-####
-
-
-lab_S31 <- factor(rep(c("Group3", "Group1"), times = c(length(s3), length(s1))),levels=c("Group3","Group1"))
-lab_S32 <- factor(rep(c("Group3", "Group2"), times = c(length(s3), length(s2))),levels=c("Group3","Group2"))
-da31=multi_analysis(data_clear_N[c(s3,s1),],lab_S31,FUN="continuous.test",alternative = "greater")
-da32=multi_analysis(data_clear_N[c(s3,s2),],lab_S32,FUN="continuous.test",alternative = "greater")
-
-rank=order(-log(1+as.numeric(da31$`p-value`))-log(1+as.numeric(da32$`p-value`)),decreasing = TRUE)[1:50]
-
-df=data.frame(da123[,1],
-           sublayer1=da123[,2],
-           sublayer3=da123[,3],
-           sublayer5=da123[,4],
-           L5vsL1_pvalue=da31[,4],
-           L5vsL1_FDR=da31[,5],
-           L5vsL3_pvalue=da32[,4],
-           L5vsL3_FDR=da32[,5])[rank,]
-
-
-write.csv(df,"output/subclusters3.csv")
-
-
-```
-
-
-
-
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
 #source("code/DLPFC_comparison.R")
 ```
+
+
+
+
+
+
 

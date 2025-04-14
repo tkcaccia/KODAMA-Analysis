@@ -39,6 +39,7 @@ spe_list=NULL
 subjects_list=NULL
 data_list=NULL
 pca_list=NULL
+ma=0
 for(i in 1:length(sample_names)){
   print(i)
   spe_list[[i]] <- spe[top[1:gene_number], colData(spe)$sample_id ==  sample_names[i]]
@@ -47,7 +48,14 @@ for(i in 1:length(sample_names)){
   rownames(pca_list[[i]])=rownames(colData(spe_list[[i]]))
   labels_list[[i]]=as.factor(colData(spe_list[[i]])$layer_guess_reordered)
   names(labels_list[[i]])=rownames(colData(spe_list[[i]]))
-  xy_list[[i]]=as.matrix(spatialCoords(spe_list[[i]]))
+
+#Orizontalization of the slides
+  xy_temp=as.matrix(spatialCoords(spe_list[[i]]))
+  xy_temp[,1]=xy_temp[,1]+ma
+  ran=range(xy_temp[, 1])
+  ma=ran[2]+ dist(ran)[1]*0.5
+  xy_list[[i]]=xy_temp
+  
   rownames(xy_list[[i]])=rownames(colData(spe_list[[i]]))
   samples_list[[i]]=colData(spe_list[[i]])$sample_id
   names(samples_list[[i]])=rownames(colData(spe_list[[i]]))

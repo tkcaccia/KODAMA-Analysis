@@ -1,11 +1,7 @@
-
-load("data/MERFISH-input.RData")
-
-library(KODAMAextra)
 library(igraph)
 library(bluster)
-library(Rtsne)
 
+load("data/MERFISH-input.RData")
 
 # Clustering with Walktrap, Leiden, and Louvain
 Walktrap <- list()
@@ -47,26 +43,53 @@ g.PM <- makeSNNGraph(pca.PM[,1:20], k = 20)
 # Clustering with Walktrap
 g_walk <- cluster_walktrap(g)
 clu_walktrap = as.character(igraph::cut_at(g_walk, no = ncluster))
-result_Walktrap$clusters_allslide = clu_walktrap
+Walktrap$clusters = clu_walktrap
 
 
 g_walk <- cluster_walktrap(g.PM)
 clu_walktrap = as.character(igraph::cut_at(g_walk, no = ncluster))
-result_Walktrap.PM$clusters_allslide = clu_walktrap
-result_Walktrap.PM.ref$clusters_allslide=refine_SVM(xyz,clu_walktrap,cost=1000)
+Walktrap$clusters.PM = clu_walktrap
+Walktrap$ref=refine_SVM(xyz,clu_walktrap,cost=1000)
 
 
 #Clustering with Leiden
-result_Leiden$clusters_allslide = leiden(g,ncluster)$membership
-result_Leiden.PM$clusters_allslide = leiden(g.PM,ncluster)$membership
-result_Leiden.PM.ref$clusters_allslide=refine_SVM(xyz,result_Leiden.PM$clusters_allslide,cost=1000)
+t=Inf
+res=0.012
+while(ncluster!=t){
+  clu_leiden = cluster_leiden(g, resolution_parameter = res)
+  res = res + 0.001
+  t = clu_leiden$nb_clusters
+  print(t)
+}
+clu_leiden = clu_leiden$membership
+Leiden$clusters = clu_leiden
+#Clustering with Leiden
+t=Inf
+res=0.012
+while(ncluster!=t){
+  clu_leiden = cluster_leiden(g.PM, resolution_parameter = res)
+  res = res + 0.001
+  t = clu_leiden$nb_clusters
+  print(t)
+}
+clu_leiden = clu_leiden$membership
+Leiden$clusters.PM = clu_leiden
+Leiden$ref=refine_SVM(xyz,clu_leiden,cost=1000)
 
 
 # Clustering with Louvain
-result_Louvain$clusters_allslide = louvain(g,ncluster)$membership
-result_Louvain.PM$clusters_allslide = louvain(g.PM,ncluster)$membership
-result_Louvain.PM.ref$clusters_allslide=refine_SVM(xyz,result_Louvain.PM$clusters_allslide,cost=1000)
+res = 0.05
+while (ncluster != length(unique(clu_louvain <- cluster_louvain(g, resolution = res)$membership))) {
+  res = res + 0.07
+}
+Louvain$clusters = clu_louvain
 
+res = 0.05
+while (ncluster != length(unique(clu_louvain <- cluster_louvain(g.PM, resolution = res)$membership))) {
+  res = res + 0.07
+}
+Louvain$clusters.PM = clu_louvain
+Louvain$ref=refine_SVM(xyz,clu_louvain,cost=1000)
 
 
 
@@ -102,17 +125,17 @@ for(i in 1:5){
   result_Leiden.PM.ref$xy[[i]]=xyz[sel,-3]
   result_Louvain.PM.ref$xy[[i]]=xyz[sel,-3]
 #############################################
-  result_Walktrap$clusters[[i]] <- result_Walktrap$clusters_allslide[sel]
-  result_Leiden$clusters[[i]] <- result_Leiden$clusters_allslide[sel]
-  result_Louvain$clusters[[i]] <- result_Louvain$clusters_allslide[sel]
+  result_Walktrap$clusters[[i]] <- Walktrap$clusters[sel]
+  result_Leiden$clusters[[i]] <- Leiden$clusters[sel]
+  result_Louvain$clusters[[i]] <- Louvain$clusters[sel]
 
-  result_Walktrap.PM$clusters[[i]] <- result_Walktrap.PM$clusters_allslide[sel]
-  result_Leiden.PM$clusters[[i]] <- result_Leiden.PM$clusters_allslide[sel]
-  result_Louvain.PM$clusters[[i]] <- result_Louvain.PM$clusters_allslide[sel]
+  result_Walktrap.PM$clusters[[i]] <- Walktrap$clusters.PM[sel]
+  result_Leiden.PM$clusters[[i]] <- Leiden$clusters.PM[sel]
+  result_Louvain.PM$clusters[[i]] <- Louvain$clusters.PM[sel]
 
-  result_Walktrap.PM.ref$clusters[[i]] <- result_Walktrap.PM.ref$clusters_allslide[sel]
-  result_Leiden.PM.ref$clusters[[i]] <- result_Leiden.PM.ref$clusters_allslide[sel]
-  result_Louvain.PM.ref$clusters[[i]] <- result_Louvain.PM.ref$clusters_allslide[sel]
+  result_Walktrap.PM.ref$clusters[[i]] <- Walktrap$ref[sel]
+  result_Leiden.PM.ref$clusters[[i]] <- Leiden$ref[sel]
+  result_Louvain.PM.ref$clusters[[i]] <- Louvain$ref[sel]
 
   #############################################
 
@@ -125,16 +148,31 @@ for(i in 1:5){
 
 }
 result_Louvain$xyz=xyz
+result_Louvain$clusters_allslide=Louvain$clusters
+
 result_Leiden$xyz=xyz
+result_Leiden$clusters_allslide=Leiden$clusters
+
 result_Walktrap$xyz=xyz
+result_Walktrap$clusters_allslide=Walktrap$clusters
 
 result_Louvain.PM$xyz=xyz
+result_Louvain.PM$clusters_allslide=Louvain$clusters.PM
+
 result_Leiden.PM$xyz=xyz
+result_Leiden.PM$clusters_allslide=Leiden$clusters.PM
+
 result_Walktrap.PM$xyz=xyz
+result_Walktrap.PM$clusters_allslide=Walktrap$clusters.PM
 
 result_Louvain.PM.ref$xyz=xyz
+result_Louvain.PM.ref$clusters_allslide=Louvain$ref
+
 result_Leiden.PM.ref$xyz=xyz
+result_Leiden.PM.ref$clusters_allslide=Leiden$ref
+
 result_Walktrap.PM.ref$xyz=xyz
+result_Walktrap.PM.ref$clusters_allslide=Walktrap$ref
 
 result_UMAP$feature_extraction_allslide=u1
 result_UMAP.PM$feature_extraction_allslide=u2
@@ -158,4 +196,4 @@ save(result_Walktrap, result_Leiden, result_Louvain,
      result_Walktrap.PM, result_Leiden.PM, result_Louvain.PM,
      result_Walktrap.PM.ref, result_Leiden.PM.ref, result_Louvain.PM.ref,
      result_UMAP,result_UMAP.PM,result_tSNE,result_tSNE.PM,result_PCA,result_PCA.PM,
-     file = "output/MERFISH-Nonspatial-results.RData")
+     file = "output/MERFISH-NONSPATIAL-results.RData")

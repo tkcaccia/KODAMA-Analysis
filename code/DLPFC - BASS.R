@@ -9,10 +9,9 @@ load("data/DLPFC-general.RData")
 subject_names <- c("Br5292", "Br5595", "Br8100")
 
 # Initialize the BASS list
-result_BASS <- list(clusters=list(),
-                    tissue_segments=list(),
-                    xy=list())
-
+results_BASS <- list()
+results_BASS$clusters <- list()
+results_BASS$labels <- list()
 
 # Loop over each subject
 
@@ -48,16 +47,11 @@ for(i in 1:3){
   # Get the cluster labels
   zlabels <- res@results$z
 
-  result_BASS$clusters = c(result_BASS$clusters, zlabels)
-  result_BASS$xy=c(result_BASS$xy,by(xy_subject[[i]],samples_subject[[i]],function(x) x))
+  results_BASS$clusters = c(results_BASS$clusters, zlabels)
 
-  result_BASS$tissue_segments=c(result_BASS$tissue_segments,tapply(labels_subject[[i]],samples_subject[[i]],function(x) x))
+  results_BASS$labels=c(results_BASS$labels,tapply(labels_subject[[i]],samples_subject[[i]],function(x) x))
 }
-
-result_BASS$samples=samples_list
-result_BASS$subjects=subjects_list
-
 
 
 # Save the results
-save(result_BASS, file = "output/DLPFC-BASS-results.RData")
+save(results_BASS, file = "output/BASS-results.RData")

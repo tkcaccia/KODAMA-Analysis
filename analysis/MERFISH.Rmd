@@ -1,5 +1,5 @@
 ---
-title: "MERFISH data analysis"
+title: "About"
 output:
   workflowr::wflow_html:
     toc: true
@@ -7,15 +7,17 @@ editor_options:
   chunk_output_type: console
 ---
 
+# MERFISH Data Analysis
+
 # Introduction
 
-Here, we apply KODAMA to analyze the spatial transcriptomic data that measured the mouse preoptic region of the hypothalamus using the MERFISH technology from Moffitt et al., 2018. [Link to study](https://www.science.org/doi/10.1126/science.aau5324).
-We focus on the tissue sections Bregma -0.04, -0.09, -0.14, -0.19, and -0.24 mm from a consecutive brain hypothalamic region of animal 1. Data was retrieved from the [BASS GitHub repository](https://zhengli09.github.io/BASS-Analysis/MERFISH.html)
+Spatial transcriptomics is a powerful technique for studying the spatial organization of gene expression within tissues.
+Here, we apply KODAMA to analyze the spatial transcriptomic data that measured the mouse preoptic region of the hypothalamus
+using the MERFISH technology from Moffitt et al., 2018. [Link to study](https://www.science.org/doi/10.1126/science.aau5324).
+We focus on the tissue sections Bregma -0.04, -0.09, -0.14, -0.19, and -0.24 mm from a consecutive brain hypothalamic region of animal 1.
 The original data can be downloaded from [Dryad](https://datadryad.org/stash/dataset/doi:10.5061/dryad.8t8s248).
 
 # Loading and Preprocessing Data
-
-The R library are loaded and the number of parallel computation is set.
 
 ```{r, message=FALSE, warning=FALSE}
 # Load the necessary libraries
@@ -30,12 +32,9 @@ library(mclust)
 library(harmony)
 library(bluster)
 library(igraph)
-
 n.cores=16
 ```
 
-
-The spatial ttranscriptomic data and relative spatial coordinates are loaded in the R environment.
 
 ```{r, message=FALSE, warning=FALSE}
 # Load the MERFISH data
@@ -78,23 +77,58 @@ xyz <- matrix(as.numeric(as.matrix(xyz)), ncol = ncol(xyz))
 
 # Identifying Differentially Expressed Genes
 
-
-Genes are ranked using the SPARK-X algorithm independently for each slide. The top gene are the spatially expressed genes.
-
 ```{r, fig.width=10, fig.height=4,results = "hide"}
+# Initialize matrix to store p-values
+
 top=multi_SPARKX(RNA,xyz[,-3],as.factor(xyz[,3]),n.cores = n.cores)
 ```
 
 # Passing message
-The gene expression value are processed using the passing-message function.
+
 
 ```{r, message=FALSE, warning=FALSE}
+
+
+passing.message = 
+  function (data, spatial, number_knn = 15, quantile = 0.5, n.cores = 1) 
+  {
+    data=as.matrix(data)
+    spatial=as.matrix(spatial)
+    # Get dimensions of the input data
+    nspots = nrow(data)
+    nvariables = ncol(data)
+
+    # Initialize result matrix
+    data.2 <- matrix(0, nrow = nspots, ncol = nvariables)
+    knn=Rnanoflann::nn(spatial,spatial,number_knn)
+    for(h in 1:nspots){       
+      # Find nearest neighbors using spatial information
+      
+      
+      # Initialize a temporary vector for computations
+      temp = rep(0, nvariables)
+      RNA.temp = data[knn$indices[h,], ]
+      knn_gene = Rnanoflann::nn(RNA.temp, RNA.temp[1, , drop = FALSE], round(number_knn * quantile))$indices
+
+      knn$distances=knn$distances/max(knn$distances)
+      # Compute weighted sum for each variable
+      for (i in 1:number_knn) {
+        temp = temp + RNA.temp[i, ]/exp(knn$distances[h,i])
+      }
+      # Return the computed row
+      data.2[h, ] <-temp
+    }
+
+    rownames(data.2) = rownames(data)
+    colnames(data.2) = colnames(data)
+    data.2
+  }
+
 RNA.PM=passing.message(RNA[,top[1:100]],xyz)
+
 ```
 
 ## Dimensionality reduction
-
-The dimensionality of the dataset is reduced using the principal component analysis (PCA) and batch-effect is removed using the harmony function.
 
 ```{r, message=FALSE, warning=FALSE}
 RNA.PM.scaled=scale(RNA.PM)
@@ -114,46 +148,55 @@ plot(pca, col = cols[tissue_segments], main = "PCA",pch=20,xlab="PC1",ylab="PC2"
 plot(pca.PM, col = cols[tissue_segments], main = "PCA.PM",pch=20,xlab="PC1",ylab="PC2")
 
 
+
 ```
 
 # Applying KODAMA
-
-KODAMA is performed of the first 20 principal components of PCA.
 
 ```{r, message=FALSE, warning=FALSE}
 # Apply KODAMA to the PCA results
 jj=KODAMA.matrix.parallel(pca.PM[,1:20],
                           spatial = xyz,
+                          FUN= "fastpls" ,
                           landmarks = 100000,
+                          splitting = 300,
+                          ncomp = 50,
+                          spatial.resolution = 0.3,
                           n.cores=n.cores,
                           seed = 543210)
+
+print("KODAMA finished")
+           
 
 config=umap.defaults
 config$n_neighbors=30
 config$n_threads = n.cores
 vis <- KODAMA.visualization(jj, method = "UMAP",config=config)
-```
 
-
-# Clustering and Refinement
-
-A louvain clustering is performed.
-
-```{r, message=FALSE, warning=FALSE}
 g <- makeSNNGraph(as.matrix(vis), k = 100)
-clu= louvain(g,ncluster = 8)$membership
+ncluster=8
+res = 0.15
+clu= cluster_louvain(g, resolution = res)$membership
+lclu=length(unique(clu ))
+while (lclu<8) {
+  res = res + 0.01
+  clu=cluster_louvain(g, resolution = res)$membership
+  lclu=length(unique(clu))
+}
+
+
+
+
 ```
 
 
 
+# Refinement and Visualization
 
 ```{r, message=FALSE, warning=FALSE}
 
 ref=refine_SVM(xyz,clu,cost=1000)
-```
 
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
 
 zlabels=ref
 
@@ -171,10 +214,10 @@ ground_true$tissue_segments=list()
 ground_true$clusters=list()
 ground_true$xy=list()
 
-
 for(i in 1:5){
   sel=z==uz[i]
   
+    
   ground_true$tissue_segments[[i]]=tissue_segments[sel]
   ground_true$clusters[[i]]=tissue_segments[sel]
   ground_true$xy[[i]]=xyz[sel,-3]
@@ -187,17 +230,17 @@ for(i in 1:5){
 result_KODAMA$xyz=xyz
 result_KODAMA$clusters_allslide=zlabels
 result_KODAMA$feature_extraction_allslide=vis
-result_KODAMA$tissue_segments_allslide=tissue_segments
 
 ground_true$xyz=xyz
 ground_true$clusters_allslide=tissue_segments
 
+
+
+
+
+
 save(ground_true,result_KODAMA,file="output/MERFISH-KODAMA-results.RData")
 save(tissue_segments,vis,xyz,pca,pca.PM,RNA,RNA.PM,top,file="data/MERFISH-input.RData")
-```
-
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
 
 ARI=NULL
 slides=unique(xyz[,3])
@@ -218,20 +261,7 @@ plot_slide(xyz[,-3],as.factor(xyz[,3]),ref,nrow=1,col=cols)
 
 
 ```
-
-
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-
- cols <- c("#669bbc", "#81b29a", "#f2cc8f", "#adc178",
-           "#dde5b6", "#a8dadc", "#e5989b", "#e07a5f",
-           "#aae5b6", "#a8aadc", "#e59811", "#aa7900")
-png("output/Figures/MERFISH/Fig 2b.png",width = 1500,height = 1500,bg = "transparent")
-plot(vis, col = cols[tissue_segments],pch=20,axes=FALSE,xlab="",ylab="")
-dev.off()
-```
-
-
-# 3D Visualization of Slice -0.14
+# 3D Visualization for Slice -0.14
 
 ```{r, message=FALSE, warning=FALSE}
 
@@ -240,7 +270,9 @@ library(rgl)
 library(MASS)
 library(misc3d)
 
-volume_rendering(xyz[!is.na(ref),],ref[!is.na(ref)],selection = c("3","6","7","8"),alpha = c(0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8) ,colors = cols,cells=c(40, 40, 40),level=exp(2.7))
+volume_rendering(xyz[!is.na(ref),],ref[!is.na(ref)],selection = c("3","7","8","6"),alpha = c(0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8) ,colors = cols,cells=c(20, 20, 20),level=exp(2.4))
+
+
 ```
 
 
