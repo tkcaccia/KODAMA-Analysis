@@ -1,0 +1,97 @@
+---
+title: "Single-cell pipeline"
+output:
+  workflowr::wflow_html:
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+
+
+## Single-cell data
+
+The data set from Tasic et al. encompasses 23,822 cells from adult mouse cortex, split by the authors into 133 clusters with strong hierarchical organisation. A standard preprocessing pipeline consisting of sequencing depth normalisation, feature selection, log-transformation, and reducing the dimensionality to 50 PCs was applied as described by Kobak & Berens in [The art of using t-SNE for single-cell transcriptomics](https://www.nature.com/articles/s41467-019-13056-x).
+
+
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+library(irlba)
+library(KODAMA)
+library(KODAMAextra)
+```
+
+
+
+### Tutorial
+
+Download the data from [here](http://celltypes.brain-map.org/rnaseq) and unpack. Direct links: [VISp](http://celltypes.brain-map.org/api/v2/well_known_file_download/694413985), [ALM](http://celltypes.brain-map.org/api/v2/well_known_file_download/694413179).
+To get the information about cluster colors and labels (sample_heatmap_plot_data.csv), open the interactive [data browser](http://celltypes.brain-map.org/rnaseq/mouse/v1-alm), go to "Sample Heatmaps", click "Build Plot!" and then "Download data as CSV".
+
+
+
+
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+ta=read.csv("../singlecell_tutorial/sample_heatmap_plot_data.csv")
+rownames(ta)=ta[,1]
+VIS=read.csv("../singlecell_tutorial/mouse_VISp_2018-06-14_exon-matrix.csv")
+ALM=read.csv("../singlecell_tutorial/mouse_ALM_2018-06-14_exon-matrix.csv")
+```
+
+
+The intron and exon data are merged, and the zeros columns are removed.
+
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+data=t(cbind(ALM,VIS))
+colnames(data)=as.character(data[1,])
+data=data[-1,]
+ii=intersect(rownames(data),rownames(ta))
+data=data[ii,]
+data=data[,colSums(data)!=0]
+near.zero.counts=colMeans(data<32)
+```
+
+The data are normalized and converted to log ratios.
+
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+temp=data
+temp[temp<=32]=NA
+temp=log2(temp)
+m=colMeans(temp,na.rm = TRUE)
+y=exp(-1.5*(m-6.56))+0.02
+data=data[,which(near.zero.counts>y)]
+su=rowSums(data)
+data=((data/su)*10^6)*median(su)
+data=log2(data+1)
+```
+
+The first 50 principal components are calculated.
+
+```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
+
+data.scaled=scale(data)
+pca_results <- irlba(A = data.scaled, nv = 50)
+pca <- pca_results$u %*% diag(pca_results$d)
+```
+
+
+
+```{r,fig.width=10,fig.height=8,warning=FALSE,message=FALSE}
+jj=KODAMA.matrix.parallel(pca,
+                          splitting = 100,
+                          n.cores=12,
+                          seed = 543210)
+
+vis <- KODAMA.visualization(jj)
+plot(vis,pch=21,bg=ta[,"cluster_color"])
+
+
+vis <- KODAMA.visualization(jj,method="t-SNE")
+plot(vis,pch=21,bg=ta[,"cluster_color"])
+
+```
+
+
+
+
+
+

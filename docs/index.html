@@ -13,7 +13,7 @@
 
 <title>KODAMA</title>
 
-<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -35,8 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -341,14 +341,26 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Spatial
+    Single-cell
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Simulation.html">Simulation</a>
+      <a href="singlecell_datamatrix.html">Data matrix</a>
     </li>
+    <li>
+      <a href="singlecell_seurat.html">Seurat</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Spatial
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
     <li>
       <a href="MERFISH.html">MERFISH (Moffitt et al., 2018)</a>
     </li>
@@ -431,7 +443,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-08-12
+<strong>Last updated:</strong> 2025-04-13
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -478,15 +490,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5ef81484e2db340df5c626c8a7dd61d34f295f48targetblank5ef8148a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5f5ac634a8274a7b7c4cb315454f9c9aa7a12f86targetblank5f5ac63a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5ef81484e2db340df5c626c8a7dd61d34f295f48" target="_blank">5ef8148</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5f5ac634a8274a7b7c4cb315454f9c9aa7a12f86" target="_blank">5f5ac63</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5ef81484e2db340df5c626c8a7dd61d34f295f48targetblank5ef8148a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5f5ac634a8274a7b7c4cb315454f9c9aa7a12f86targetblank5f5ac63a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -496,7 +508,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5ef81484e2db340df5c626c8a7dd61d34f295f48" target="_blank">5ef8148</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5f5ac634a8274a7b7c4cb315454f9c9aa7a12f86" target="_blank">5f5ac63</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -510,23 +522,180 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Ignored files:
+    Ignored:    .RData
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
 Untracked files:
-    Untracked:  output/DLFPC-All-2-3000-300-0.4.RData
+    Untracked:  KODAMA.svg
+    Untracked:  analysis/singlecell_datamatrix.Rmd
+    Untracked:  analysis/singlecell_seurat.Rmd
+    Untracked:  code/Acinar_Cell_Carcinoma.ipynb
+    Untracked:  code/Adenocarcinoma.ipynb
+    Untracked:  code/Adjacent_normal_section.ipynb
+    Untracked:  code/DLFPC_preprocessing.R
+    Untracked:  code/DLPFC - BANKSY.R
+    Untracked:  code/DLPFC - BASS.R
+    Untracked:  code/DLPFC - BAYESPACE.R
+    Untracked:  code/DLPFC - Nonspatial.R
+    Untracked:  code/DLPFC - PRECAST.R
+    Untracked:  code/DLPFC_comparison.R
+    Untracked:  code/DLPFC_results_analysis.R
+    Untracked:  code/MERFISH - BANKSY.R
+    Untracked:  code/MERFISH - BASS.R
+    Untracked:  code/MERFISH - BAYESPACE.R
+    Untracked:  code/MERFISH - Nonspatial.R
+    Untracked:  code/MERFISH - PRECAST.R
+    Untracked:  code/MERFISH_comparison.R
+    Untracked:  code/MERFISH_results_analysis.R
+    Untracked:  code/VisiumHD-CRC.ipynb
+    Untracked:  code/VisiumHDassignment.py
+    Untracked:  code/deep learning code DLPFC.R
+    Untracked:  code/save tiles.py
+    Untracked:  data/Adenocarcinoma.csv
+    Untracked:  data/Annotations/
+    Untracked:  data/DLFPC-Br5292-input.RData
+    Untracked:  data/DLFPC-Br5595-input.RData
+    Untracked:  data/DLFPC-Br8100-input.RData
+    Untracked:  data/DLPFC-general.RData
+    Untracked:  data/MERFISH-input.RData
+    Untracked:  data/spots_classification_ALL.csv
+    Untracked:  data/spots_classification_Acinar_Cell_Carcinoma.csv
+    Untracked:  data/spots_classification_IF.csv
+    Untracked:  data/spots_classification_Normal_prostate.csv
+    Untracked:  data/trajectories.RData
+    Untracked:  data/trajectories_VISIUMHD.RData
+    Untracked:  output/BANSKY-results.RData
+    Untracked:  output/BASS-results.RData
+    Untracked:  output/BayesSpace-results.RData
+    Untracked:  output/CRC-image.RData
+    Untracked:  output/CRC-image2.RData
+    Untracked:  output/CRC.png
+    Untracked:  output/CRC2.png
+    Untracked:  output/CRC7.png
+    Untracked:  output/CRC8.png
+    Untracked:  output/CRC_boxplot.png
+    Untracked:  output/CRC_boxplot.svg
+    Untracked:  output/CRC_boxplot2.svg
+    Untracked:  output/CRC_linee.svg
+    Untracked:  output/DL.RData
+    Untracked:  output/DLFPC-All-2.RData
     Untracked:  output/DLFPC-All.RData
-    Untracked:  output/DLFPC-Br5292-2-3000-300-0.3.RData
     Untracked:  output/DLFPC-Br5292.RData
-    Untracked:  output/DLFPC-Br5595-2-3000-300-0.3.RData
     Untracked:  output/DLFPC-Br5595.RData
-    Untracked:  output/DLFPC-Br8100-2-3000-300-0.3.RData
     Untracked:  output/DLFPC-Br8100.RData
+    Untracked:  output/DLFPC-variablesXdeeplearning.RData
+    Untracked:  output/DLPFC-BANSKY-results.RData
+    Untracked:  output/DLPFC-BASS-results.RData
+    Untracked:  output/DLPFC-BayesSpace-results.RData
+    Untracked:  output/DLPFC-Nonspatial-results.RData
+    Untracked:  output/DLPFC-PRECAST-results.RData
+    Untracked:  output/DLPFC_all_cluster.svg
+    Untracked:  output/DLPFCpathway.RData
+    Untracked:  output/Figure 1 - boxplot.pdf
+    Untracked:  output/Figure 2 - DLPFC 10.pdf
+    Untracked:  output/Figures/
+    Untracked:  output/KODAMA-results.RData
+    Untracked:  output/KODAMA_DLPFC_All_original.svg
+    Untracked:  output/KODAMA_DLPFC_Br5595.svg
+    Untracked:  output/KODAMA_DLPFC_Br5595_slide.svg
+    Untracked:  output/Loupe.csv
+    Untracked:  output/MERFISH-BANSKY-results.RData
+    Untracked:  output/MERFISH-BASS-results.RData
+    Untracked:  output/MERFISH-BayesSpace-results.RData
+    Untracked:  output/MERFISH-KODAMA-results.RData
+    Untracked:  output/MERFISH-Nonspatial-results.RData
+    Untracked:  output/MERFISH-PRECAST-results.RData
+    Untracked:  output/MERFISH.RData
+    Untracked:  output/Nonspatial-results.RData
+    Untracked:  output/Prostate.RData
+    Untracked:  output/VisiumHD-RNA.RData
+    Untracked:  output/VisiumHD-genes.pdf
     Untracked:  output/VisiumHD.RData
-    Untracked:  output/VisiumHD2.RData
+    Untracked:  output/boh.svg
+    Untracked:  output/desmoplastic_distance_carcinoma.csv
+    Untracked:  output/image.RData
+    Untracked:  output/pp.RData
+    Untracked:  output/pp2.RData
+    Untracked:  output/pp3.RData
+    Untracked:  output/pp4.RData
+    Untracked:  output/pp5.RData
+    Untracked:  output/prostate1.svg
+    Untracked:  output/prostate2.svg
+    Untracked:  output/prostate3.svg
+    Untracked:  output/prostate4.svg
+    Untracked:  output/prostate5.svg
+    Untracked:  output/prostate6.svg
+    Untracked:  output/prostate7.svg
+    Untracked:  output/subclusters1.csv
+    Untracked:  output/subclusters2.csv
+    Untracked:  output/subclusters3.csv
+    Untracked:  output/tight_boundary.geojson
+    Untracked:  output/trajectory.csv
 
 Unstaged changes:
+    Deleted:    analysis/D1.Rmd
     Deleted:    analysis/DLPFC-12.Rmd
     Deleted:    analysis/DLPFC-4.Rmd
+    Modified:   analysis/DLPFC.Rmd
+    Deleted:    analysis/DLPFC1.Rmd
+    Deleted:    analysis/DLPFC10.Rmd
+    Deleted:    analysis/DLPFC2.Rmd
+    Deleted:    analysis/DLPFC3.Rmd
+    Deleted:    analysis/DLPFC4.Rmd
+    Deleted:    analysis/DLPFC5.Rmd
+    Deleted:    analysis/DLPFC6.Rmd
+    Deleted:    analysis/DLPFC7.Rmd
+    Deleted:    analysis/DLPFC8.Rmd
+    Deleted:    analysis/DLPFC9.Rmd
+    Deleted:    analysis/Du1.Rmd
+    Deleted:    analysis/Du10.Rmd
+    Deleted:    analysis/Du11.Rmd
+    Deleted:    analysis/Du12.Rmd
+    Deleted:    analysis/Du13.Rmd
+    Deleted:    analysis/Du14.Rmd
+    Deleted:    analysis/Du15.Rmd
+    Deleted:    analysis/Du16.Rmd
+    Deleted:    analysis/Du17.Rmd
+    Deleted:    analysis/Du18.Rmd
+    Deleted:    analysis/Du19.Rmd
+    Deleted:    analysis/Du2.Rmd
+    Deleted:    analysis/Du20.Rmd
+    Deleted:    analysis/Du3.Rmd
+    Deleted:    analysis/Du4.Rmd
+    Deleted:    analysis/Du5.Rmd
+    Deleted:    analysis/Du6.Rmd
+    Deleted:    analysis/Du7.Rmd
+    Deleted:    analysis/Du8.Rmd
+    Deleted:    analysis/Du9.Rmd
+    Modified:   analysis/Giotto.Rmd
+    Modified:   analysis/MERFISH.Rmd
+    Deleted:    analysis/MERFISH1a (copy).Rmd
+    Deleted:    analysis/MERFISH1a.Rmd
+    Deleted:    analysis/MERFISH1b (copy).Rmd
+    Deleted:    analysis/MERFISH1b.Rmd
+    Deleted:    analysis/MERFISH2a (copy).Rmd
+    Deleted:    analysis/MERFISH2a.Rmd
+    Deleted:    analysis/MERFISH2b (copy).Rmd
+    Deleted:    analysis/MERFISH2b.Rmd
+    Deleted:    analysis/MERFISH3a (copy).Rmd
+    Deleted:    analysis/MERFISH3a.Rmd
+    Deleted:    analysis/MERFISH3b (copy).Rmd
+    Deleted:    analysis/MERFISH3b.Rmd
+    Deleted:    analysis/MERFISH4a (copy).Rmd
+    Deleted:    analysis/MERFISH4a.Rmd
+    Deleted:    analysis/MERFISH4b (copy).Rmd
+    Deleted:    analysis/MERFISH4b.Rmd
+    Modified:   analysis/Prostate.Rmd
     Deleted:    analysis/STARmap.Rmd
-    Deleted:    analysis/figure/DLPFC-12.Rmd/unnamed-chunk-10-1.png
+    Modified:   analysis/Seurat.Rmd
+    Deleted:    analysis/Simulation.Rmd
+    Deleted:    analysis/Single-cell.Rmd
+    Modified:   analysis/SpatialExperiment.Rmd
+    Modified:   analysis/VisiumHD.Rmd
+    Modified:   code/VisiumHD_CRC_download.sh
+    Deleted:    data/Pathology.csv
 
 </code></pre>
 <p>
@@ -570,6 +739,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/d1192e95a8ed7985fb6d9678ce0a6d850f882066/docs/index.html" target="_blank">d1192e9</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2024-08-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html

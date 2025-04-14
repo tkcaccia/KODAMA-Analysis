@@ -11,7 +11,7 @@
 
 
 
-<title>About</title>
+<title>Visium HD: colonrectal cancer</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -341,14 +341,26 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Spatial
+    Single-cell
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Simulation.html">Simulation</a>
+      <a href="singlecell_datamatrix.html">Data matrix</a>
     </li>
+    <li>
+      <a href="singlecell_seurat.html">Seurat</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Spatial
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
     <li>
       <a href="MERFISH.html">MERFISH (Moffitt et al., 2018)</a>
     </li>
@@ -402,7 +414,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">About</h1>
+<h1 class="title toc-ignore">Visium HD: colonrectal cancer</h1>
 
 </div>
 
@@ -410,7 +422,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -421,8 +433,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -431,13 +443,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-01-10
+<strong>Last updated:</strong> 2025-04-14
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>KODAMA-Analysis/</code> <span
@@ -460,18 +472,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -562,15 +577,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree86be707edff6acecf81558deefc732ce37df9149targetblank86be707a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5f5ac634a8274a7b7c4cb315454f9c9aa7a12f86targetblank5f5ac63a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/86be707edff6acecf81558deefc732ce37df9149" target="_blank">86be707</a>
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5f5ac634a8274a7b7c4cb315454f9c9aa7a12f86" target="_blank">5f5ac63</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree86be707edff6acecf81558deefc732ce37df9149targetblank86be707a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomtkcacciaKODAMAAnalysistree5f5ac634a8274a7b7c4cb315454f9c9aa7a12f86targetblank5f5ac63a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -580,7 +595,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/86be707edff6acecf81558deefc732ce37df9149" target="_blank">86be707</a>.
+<a href="https://github.com/tkcaccia/KODAMA-Analysis/tree/5f5ac634a8274a7b7c4cb315454f9c9aa7a12f86" target="_blank">5f5ac63</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -598,12 +613,11 @@ Ignored files:
     Ignored:    .RData
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
 
 Untracked files:
-    Untracked:  Elemina.RData
     Untracked:  KODAMA.svg
-    Untracked:  Rplots.pdf
+    Untracked:  analysis/singlecell_datamatrix.Rmd
+    Untracked:  analysis/singlecell_seurat.Rmd
     Untracked:  code/Acinar_Cell_Carcinoma.ipynb
     Untracked:  code/Adenocarcinoma.ipynb
     Untracked:  code/Adjacent_normal_section.ipynb
@@ -615,19 +629,23 @@ Untracked files:
     Untracked:  code/DLPFC - PRECAST.R
     Untracked:  code/DLPFC_comparison.R
     Untracked:  code/DLPFC_results_analysis.R
+    Untracked:  code/MERFISH - BANKSY.R
+    Untracked:  code/MERFISH - BASS.R
+    Untracked:  code/MERFISH - BAYESPACE.R
+    Untracked:  code/MERFISH - Nonspatial.R
+    Untracked:  code/MERFISH - PRECAST.R
+    Untracked:  code/MERFISH_comparison.R
+    Untracked:  code/MERFISH_results_analysis.R
     Untracked:  code/VisiumHD-CRC.ipynb
+    Untracked:  code/VisiumHDassignment.py
     Untracked:  code/deep learning code DLPFC.R
     Untracked:  code/save tiles.py
-    Untracked:  data/Adenocarcinoma.csv
     Untracked:  data/Annotations/
     Untracked:  data/DLFPC-Br5292-input.RData
     Untracked:  data/DLFPC-Br5595-input.RData
     Untracked:  data/DLFPC-Br8100-input.RData
     Untracked:  data/DLPFC-general.RData
-    Untracked:  data/spots_classification_ALL.csv
-    Untracked:  data/spots_classification_Acinar_Cell_Carcinoma.csv
-    Untracked:  data/spots_classification_IF.csv
-    Untracked:  data/spots_classification_Normal_prostate.csv
+    Untracked:  data/MERFISH-input.RData
     Untracked:  data/trajectories.RData
     Untracked:  data/trajectories_VISIUMHD.RData
     Untracked:  output/BANSKY-results.RData
@@ -637,33 +655,51 @@ Untracked files:
     Untracked:  output/CRC-image2.RData
     Untracked:  output/CRC.png
     Untracked:  output/CRC2.png
+    Untracked:  output/CRC7.png
+    Untracked:  output/CRC8.png
+    Untracked:  output/CRC_boxplot.png
+    Untracked:  output/CRC_boxplot.svg
+    Untracked:  output/CRC_boxplot2.svg
+    Untracked:  output/CRC_linee.svg
     Untracked:  output/DL.RData
     Untracked:  output/DLFPC-All-2.RData
     Untracked:  output/DLFPC-All.RData
     Untracked:  output/DLFPC-Br5292.RData
     Untracked:  output/DLFPC-Br5595.RData
     Untracked:  output/DLFPC-Br8100.RData
-    Untracked:  output/DLPFC1.svg
+    Untracked:  output/DLFPC-variablesXdeeplearning.RData
+    Untracked:  output/DLPFC-BANSKY-results.RData
+    Untracked:  output/DLPFC-BASS-results.RData
+    Untracked:  output/DLPFC-BayesSpace-results.RData
+    Untracked:  output/DLPFC-Nonspatial-results.RData
+    Untracked:  output/DLPFC-PRECAST-results.RData
     Untracked:  output/DLPFC_all_cluster.svg
+    Untracked:  output/DLPFCpathway.RData
     Untracked:  output/Figure 1 - boxplot.pdf
     Untracked:  output/Figure 2 - DLPFC 10.pdf
+    Untracked:  output/Figures/
     Untracked:  output/KODAMA-results.RData
     Untracked:  output/KODAMA_DLPFC_All_original.svg
     Untracked:  output/KODAMA_DLPFC_Br5595.svg
     Untracked:  output/KODAMA_DLPFC_Br5595_slide.svg
+    Untracked:  output/Loupe.csv
+    Untracked:  output/MERFISH-BANSKY-results.RData
+    Untracked:  output/MERFISH-BASS-results.RData
+    Untracked:  output/MERFISH-BayesSpace-results.RData
+    Untracked:  output/MERFISH-KODAMA-results.RData
+    Untracked:  output/MERFISH-Nonspatial-results.RData
+    Untracked:  output/MERFISH-PRECAST-results.RData
     Untracked:  output/MERFISH.RData
     Untracked:  output/Nonspatial-results.RData
-    Untracked:  output/PRECAST-results.RData
+    Untracked:  output/Prostate-GSEA.csv
+    Untracked:  output/Prostate-KODAMA.RData
+    Untracked:  output/Prostate-trajectory.csv
     Untracked:  output/Prostate.RData
-    Untracked:  output/VisiumHD3.RData
-    Untracked:  output/a1.RData
-    Untracked:  output/a2.RData
-    Untracked:  output/a3.RData
-    Untracked:  output/a4.RData
-    Untracked:  output/a5.RData
-    Untracked:  output/a6.RData
-    Untracked:  output/a7.RData
-    Untracked:  output/a8.RData
+    Untracked:  output/VisiumHD-RNA.RData
+    Untracked:  output/VisiumHD-genes.pdf
+    Untracked:  output/VisiumHD.RData
+    Untracked:  output/boh.svg
+    Untracked:  output/desmoplastic_distance_carcinoma.csv
     Untracked:  output/image.RData
     Untracked:  output/pp.RData
     Untracked:  output/pp2.RData
@@ -673,18 +709,17 @@ Untracked files:
     Untracked:  output/prostate1.svg
     Untracked:  output/prostate2.svg
     Untracked:  output/prostate3.svg
-    Untracked:  output/prostate4.svg
-    Untracked:  output/prostate5.svg
-    Untracked:  output/prostate6.svg
-    Untracked:  output/prostate7.svg
+    Untracked:  output/subclusters1.csv
+    Untracked:  output/subclusters2.csv
+    Untracked:  output/subclusters3.csv
     Untracked:  output/tight_boundary.geojson
-    Untracked:  remove.RData
-    Untracked:  remove2.RData
+    Untracked:  output/trajectory.csv
 
 Unstaged changes:
     Deleted:    analysis/D1.Rmd
     Deleted:    analysis/DLPFC-12.Rmd
     Deleted:    analysis/DLPFC-4.Rmd
+    Modified:   analysis/DLPFC.Rmd
     Deleted:    analysis/DLPFC1.Rmd
     Deleted:    analysis/DLPFC10.Rmd
     Deleted:    analysis/DLPFC2.Rmd
@@ -716,10 +751,34 @@ Unstaged changes:
     Deleted:    analysis/Du8.Rmd
     Deleted:    analysis/Du9.Rmd
     Modified:   analysis/Giotto.Rmd
+    Modified:   analysis/MERFISH.Rmd
+    Deleted:    analysis/MERFISH1a (copy).Rmd
+    Deleted:    analysis/MERFISH1a.Rmd
+    Deleted:    analysis/MERFISH1b (copy).Rmd
+    Deleted:    analysis/MERFISH1b.Rmd
+    Deleted:    analysis/MERFISH2a (copy).Rmd
+    Deleted:    analysis/MERFISH2a.Rmd
+    Deleted:    analysis/MERFISH2b (copy).Rmd
+    Deleted:    analysis/MERFISH2b.Rmd
+    Deleted:    analysis/MERFISH3a (copy).Rmd
+    Deleted:    analysis/MERFISH3a.Rmd
+    Deleted:    analysis/MERFISH3b (copy).Rmd
+    Deleted:    analysis/MERFISH3b.Rmd
+    Deleted:    analysis/MERFISH4a (copy).Rmd
+    Deleted:    analysis/MERFISH4a.Rmd
+    Deleted:    analysis/MERFISH4b (copy).Rmd
+    Deleted:    analysis/MERFISH4b.Rmd
     Modified:   analysis/Prostate.Rmd
     Deleted:    analysis/STARmap.Rmd
+    Modified:   analysis/Seurat.Rmd
+    Deleted:    analysis/Simulation.Rmd
+    Deleted:    analysis/Single-cell.Rmd
+    Modified:   analysis/SpatialExperiment.Rmd
+    Modified:   analysis/VisiumHD.Rmd
     Modified:   code/VisiumHD_CRC_download.sh
     Deleted:    data/Pathology.csv
+    Deleted:    data/merfish.Rmd
+    Deleted:    data/vis.R
 
 </code></pre>
 <p>
@@ -764,6 +823,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/tkcaccia/KODAMA-Analysis/5b7dd635afa5a03cc9aa0f58e83d4ef96e087923/docs/VisiumHD.html" target="_blank">5b7dd63</a>
+</td>
+<td>
+Stefano Cacciatore
+</td>
+<td>
+2025-01-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1264,15 +1340,25 @@ Add files via upload
 </div>
 </div>
 </div>
-<p>Describe your project. The data can be downloaded using the following
-script: <a
-href="code/VisiumHD_CRC_download.sh">VisiumHD_CRC_download.sh</a>. This
-script facilitates access to the raw data, which will then be
-preprocessed and analyzed in the subsequent steps of our pipeline.</p>
-<p>The data can be downloaded using the following script: <a
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The recently released VisiumHD platform by 10x Genomics significantly
+improves spatial transcriptomics resolution by reducing the spot size
+from 55 µm to an edge length of just 2 µm. This advancement eliminates
+gaps between spots, enabling truly gap-free and bias-free single-cell
+resolution. The high-density array allows for flexible data analysis at
+multiple resolutions, enabling researchers to tailor spatial granularity
+to specific biological questions. In the following analysis, we applied
+KODAMA to data at an 8 µm resolution.</p>
+</div>
+<div id="loading-and-preprocessing-data" class="section level1">
+<h1>Loading and Preprocessing Data</h1>
+<p>The dataset can be downloaded using the following script: <a
 href="https://github.com/tkcaccia/KODAMA-Analysis/blob/main/code/VisiumHD_CRC_download.sh">VisiumHD_CRC_download.sh</a>.
-This script facilitates access to the raw data, which will then be
-preprocessed and analyzed in the subsequent steps of our pipeline.</p>
+This script provides access to the raw data, which will be preprocessed
+and analyzed in the subsequent steps of our pipeline.</p>
+<p>The dataset will be then loaded in the R environment using the Seurat
+pipeline.</p>
 <pre class="r"><code>library(&quot;ggplot2&quot;)
 library(&quot;patchwork&quot;)
 library(&quot;dplyr&quot;)
@@ -1282,60 +1368,46 @@ library(&quot;KODAMAextra&quot;)
 library(&quot;bigmemory&quot;)
 
 localdir=&quot;../Colorectal/outs/&quot;
-object &lt;- Load10X_Spatial(data.dir = localdir, bin.size = c(8))
-
-image=as.raster(object@images$slice1.008um@image)
-save(image,file=&quot;output/CRC-image.RData&quot;)
-#object@images$slice1.008um@scale.factors$hires
-
-# plot(image,xlim=c(320,530),ylim=c(200,410))
-# points(xy[,2]*0.007973422,nrow(image)-xy[,1]*0.007973422,pch=20)
-
-#xy=as.matrix(GetTissueCoordinates(sp_obj)[,1:2])
-
-#image=as.raster(imgData(object)$data[[1]])
-
-#xy_sel=spatialCoords(spe_sub)
-#xy_sel=xy_sel*scaleFactors(spe_sub)
-#xy_sel[,2]=nrow(image)-xy_sel[,2]
+object &lt;- Load10X_Spatial(data.dir = localdir, bin.size = c(8))</code></pre>
+<p>We perform quality control on a spatial transcriptomics dataset by
+removing low-quality spots with fewer than 100 UMIs, filtering out
+mitochondrial genes, and retaining genes expressed with at least 1 count
+in at least 0.5% of spots. The remaining high-quality genes are set as
+variable features for downstream analysis.</p>
+<pre class="r"><code>nCount_Spatial=colSums(object@assays$Spatial.008um$counts)
 
 
- vln.plot &lt;- VlnPlot(object, features = &quot;nCount_Spatial.008um&quot;, pt.size = 0) + NoLegend()
- count.plot &lt;- SpatialFeaturePlot(object, features = &quot;nCount_Spatial.008um&quot;, pt.size.factor = 1.2) +
-   theme(legend.position = &quot;right&quot;)
-
-nCount_Spatial=colSums(object@assays$Spatial.008um$counts)
-#w= which(nCount_Spatial &gt;10)
-#object@assays$Spatial.008um$counts= object@assays$Spatial.008um$counts[,w]
-#object@meta.data=object@meta.data[w,]
 
 sp_obj &lt;- subset(
   object,
   subset = nCount_Spatial.008um &gt; 100)
 
-
-
 nCount_Spatial=colSums(sp_obj@assays$Spatial.008um$counts)
 
 
- counts=sp_obj@assays$Spatial.008um$counts
- is_mito &lt;- grepl(&quot;(^MT-)|(^mt-)&quot;, rownames(counts))
- counts &lt;- counts[!is_mito,]
 
- filter_genes_ncounts=1
- filter_genes_pcspots=0.5
- nspots &lt;- ceiling(filter_genes_pcspots/100 *  ncol(counts))
- ix_remove &lt;- rowSums(counts &gt;= filter_genes_ncounts) &lt;   nspots
- counts &lt;- counts[!ix_remove,]
+counts=sp_obj@assays$Spatial.008um$counts
+is_mito &lt;- grepl(&quot;(^MT-)|(^mt-)&quot;, rownames(counts))
+counts &lt;- counts[!is_mito,]
 
- QCgenes &lt;- rownames(counts)
+filter_genes_ncounts=1
+filter_genes_pcspots=0.5
+nspots &lt;- ceiling(filter_genes_pcspots/100 *  ncol(counts))
+ix_remove &lt;- rowSums(counts &gt;= filter_genes_ncounts) &lt;   nspots
+counts &lt;- counts[!ix_remove,]
 
- VariableFeatures(sp_obj) = QCgenes
+QCgenes &lt;- rownames(counts)
 
- rm(counts)
+VariableFeatures(sp_obj) = QCgenes
 
-
-DefaultAssay(sp_obj) &lt;- &quot;Spatial.008um&quot;
+rm(counts)</code></pre>
+<p>We prepare the filtered spatial transcriptomics data for
+dimensionality reduction using principal component analysis (PCA). We
+set the default assay, normalize the data, identify variable features,
+and scale the data. We then extract the tissue coordinates and we
+perform PCA using the filtered genes, storing the result as “pca.008um”.
+Finally, PCA is displayed in a scatterplot.</p>
+<pre class="r"><code>DefaultAssay(sp_obj) &lt;- &quot;Spatial.008um&quot;
 sp_obj &lt;- NormalizeData(sp_obj)
 
 
@@ -1349,100 +1421,40 @@ sp_obj &lt;- RunPCA(sp_obj, reduction.name = &quot;pca.008um&quot;)
 dim(sp_obj)</code></pre>
 <pre><code>[1]  18085 428381</code></pre>
 <pre class="r"><code>plot(Seurat::Embeddings(sp_obj, reduction = &quot;pca.008um&quot;))</code></pre>
-<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-1-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
-Past versions of unnamed-chunk-1-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/51b04520c087f1b30229cf2939f79c567fedcd51/docs/figure/VisiumHD.Rmd/unnamed-chunk-1-1.png" target="_blank">51b0452</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-09-03
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/d1192e95a8ed7985fb6d9678ce0a6d850f882066/docs/figure/VisiumHD.Rmd/unnamed-chunk-1-1.png" target="_blank">d1192e9</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-08-12
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/6f7daaccbcc7b968bc736664a45f9ebcaf73fba3/docs/figure/VisiumHD.Rmd/unnamed-chunk-1-1.png" target="_blank">6f7daac</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-07-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/7be8f59b0c4d82e877c5dfc8cfbfb7936ceceeb6/docs/figure/VisiumHD.Rmd/unnamed-chunk-1-1.png" target="_blank">7be8f59</a>
-</td>
-<td>
-tkcaccia
-</td>
-<td>
-2024-07-15
-</td>
-</tr>
-</tbody>
-</table>
+<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
+<div id="kodama-analysis" class="section level1">
+<h1>KODAMA analysis</h1>
+<p>We performed the KODAMA analysis using as input the 50 principal
+components of PCA and using 10000 landmarks.</p>
+<pre class="r"><code>n.cores=8
+
+sp_obj=RunKODAMAmatrix(sp_obj,
+                       reduction = &quot;pca.008um&quot;,
+                       landmarks = 10000,
+                       n.cores=n.cores,
+                       seed = 543210)
+
+config &lt;- umap.defaults
+config$n_threads = n.cores
+config$n_sgd_threads = &quot;auto&quot;
+
+sp_obj=RunKODAMAvisualization(sp_obj,method=&quot;UMAP&quot;,config=config)
+
+
+kk_UMAP=Seurat::Embeddings(sp_obj, reduction = &quot;KODAMA&quot;)</code></pre>
 </div>
-<pre class="r"><code>#sp_obj &lt;- RunKODAMAmatrix(sp_obj, reduction = &quot;pca.008um&quot;,
-#                          FUN= &quot;PLS&quot; ,
-#                          landmarks = 10000,
-#                          splitting = 100,
-#                          f.par.pls = 50,
-#                          spatial.resolution = 0.4,
-#                          n.cores=8)
-
-#  print(&quot;KODAMA finished&quot;)
-  
-#     config=umap.defaults
-#     config$n_threads = 8
-#     config$n_sgd_threads = &quot;auto&quot;
-#     sp_obj &lt;- RunKODAMAvisualization(sp_obj, method = &quot;UMAP&quot;,config=config)
-
-     
-# kk_UMAP=Seurat::Embeddings(sp_obj, reduction = &quot;KODAMA&quot;)
-
-# save(kk_UMAP,xy,file=&quot;output/VisiumHD.RData&quot;)
-
-load(&quot;output/VisiumHD3.RData&quot;)   
-
-rr=read.csv(&quot;data/spots_classification_ALL.csv&quot;,sep=&quot;,&quot;)
+<div id="tissue-annotation" class="section level1">
+<h1>Tissue annotation</h1>
+<p>The tissue was manually annotated using QuPath software and the
+annotations were save in <a
+href="https://github.com/tkcaccia/KODAMA-Analysis/blob/main/data/Annotations/Visium_HD_Human_Colon_Cancer_290325.geojson">Visium_HD_Human_Colon_Cancer_290325.geojson</a>.</p>
+<p>Using the script <a
+href="https://github.com/tkcaccia/KODAMA-Analysis/blob/main/code/VisiumHDassignment.py">VisiumHDassignment.py</a>
+the annotations saved as *.geojson were assigned to the Visium spots and
+saved in <a
+href="https://github.com/tkcaccia/KODAMA-Analysis/blob/main/data/Annotations/spots_classification_VisiumHD.csv">spots_classification_VisiumHD.csv</a>.</p>
+<pre class="r"><code>rr=read.csv(&quot;data/Annotations/spots_classification_VisiumHD.csv&quot;,sep=&quot;,&quot;)
 ss=strsplit(rr[,2],&quot;:&quot;)
 ss=unlist(lapply(ss, function(x) x[2]))
 ss=strsplit(ss,&quot;,&quot;)
@@ -1455,58 +1467,33 @@ rr=rr[n==1,]
 rownames(rr)=rr[,1]
 rr=rr[rownames(kk_UMAP),]
 
-  rr[rr==&quot; blood vessel&quot;]=&quot;blood vessel&quot;
-  rr[rr==&quot; blood vessels&quot;]=&quot;blood vessel&quot;
-  rr[rr==&quot; cabilari&quot;]=&quot;lymphovascular channels&quot;
-  rr[rr==&quot; desmoplastic mecuosa&quot;]=&quot;desmoplastic submucosa&quot;
-  rr[rr==&quot; desmoplastic submucosa&quot;]=&quot;desmoplastic submucosa&quot;
-  rr[rr==&quot; dysplasia&quot;]=&quot;dysplasia&quot;
-  rr[rr==&quot; dysplasia_to_verify&quot;]=&quot;intermediate dysplasia&quot;
-  rr[rr==&quot; dystrophic calcification&quot;]=&quot;dystrophic calcification&quot;
-  rr[rr==&quot; exocrine duct&quot;]=&quot;exocrine duct&quot;
-  rr[rr==&quot; external glands&quot;]=&quot;external glands&quot;
-  rr[rr==&quot; high-grade dysplasia&quot;]=&quot;high-grade dysplasia&quot;
-  rr[rr==&quot; Immune cells&quot;]=&quot;immune cells&quot;
-  rr[rr==&quot; Invasive_carcinoma&quot;]=&quot;invasive carcinoma&quot;
-  rr[rr==&quot; lamina propria dysplasia&quot;]=&quot;lamina propria dysplasia&quot;
-  rr[rr==&quot; lymphovascular channels&quot;]=&quot;lymphovascular channels&quot;
-  rr[rr==&quot; muscularis mucosa&quot;]=&quot;muscularis mucosa&quot;
-  rr[rr==&quot; muscularis propria&quot;]=&quot;muscularis propria&quot;
-  rr[rr==&quot; Nerve fibers&quot;]=&quot;nerve fibers&quot;
-  rr[rr==&quot; normal gland&quot;]=&quot;normal gland&quot;
-  rr[rr==&quot; normal lamina propria&quot;]=&quot;normal lamina propria&quot;
-  rr[rr==&quot; oedematous submucosa&quot;]=&quot;oedematous submucosa&quot;
-  
-                     
-    
-  
+rr[,2]=substring(rr[,2],2)
 
 table(rr[,&quot;classification&quot;])</code></pre>
 <pre><code>
             blood vessel   desmoplastic submucosa                dysplasia 
-                    1886                    64470                    72067 
+                    1969                    55409                    89290 
 dystrophic calcification            exocrine duct          external glands 
-                     490                      158                     3115 
-    high-grade dysplasia             immune cells   intermediate dysplasia 
-                     815                     2713                    61742 
+                     488                      158                     3108 
+            immune cells   intramucosal carcinoma      intratumoral stroma 
+                    2713                    69214                    13336 
       invasive carcinoma lamina propria dysplasia  lymphovascular channels 
-                   37594                     6471                     1493 
+                   37283                    26834                     1505 
        muscularis mucosa       muscularis propria             nerve fibers 
-                    4859                    18023                      457 
+                    4785                    18023                      457 
             normal gland    normal lamina propria     oedematous submucosa 
-                   30194                    16514                     5877 </code></pre>
+                   30199                    16502                     5865 </code></pre>
 <pre class="r"><code>library(ggplot2)
 
 
 cols=sample(rainbow(15))
 labels=as.factor(rr[,&quot;classification&quot;])
 
+cols_tissue &lt;- c(&quot;#0000ff&quot;, &quot;#e41a1c&quot;, &quot;#006400&quot;, &quot;#00cc8f&quot; ,&quot;#0088dd&quot;,
+                 &quot;#00ff00&quot;, &quot;#b2dfee&quot;,&quot;#669bbc&quot;, &quot;#81b29a&quot;, &quot;#ffd700&quot;,
+                 &quot;#adc178&quot;, &quot;#aa1133&quot;, &quot;#1166dc&quot;, &quot;#e5989b&quot;, &quot;#e07a5f&quot;,
+                 &quot;#cc00b6&quot;, &quot;#81ccff&quot;, &quot;#f2cc8f&quot;,&quot;#e0aa5f&quot;,&quot;#33b233&quot;, &quot;#aa228f&quot;,&quot;#aa7a6f&quot;)
 
-
-cols_tissue &lt;- c(&quot;#0000ff&quot;, &quot;#e41a1c&quot;, &quot;#006400&quot;,  &quot;#ffd700&quot;,&quot;#0088dd&quot;,
-                    &quot;#00ff00&quot;, &quot;#b2dfee&quot;,&quot;#669bbc&quot;, &quot;#81b29a&quot;, &quot;#f2cc8f&quot;,
-                    &quot;#adc178&quot;, &quot;#aa1133&quot;, &quot;#1166dc&quot;, &quot;#e5989b&quot;, &quot;#e07a5f&quot;,
-                    &quot;#cc00b6&quot;, &quot;#81ccff&quot;, &quot;#00cc8f&quot;,&quot;#e0aa5f&quot;,&quot;#33b233&quot;, &quot;#aa228f&quot;,&quot;#aa7a6f&quot;)
 
 
 df &lt;- data.frame(kk_UMAP[,1:2], tissue=labels)
@@ -1517,122 +1504,46 @@ plot1 = ggplot(df, aes(Dimensions_1, Dimensions_2, color = tissue)) +labs(title=
   guides(color = guide_legend(nrow = 4, 
                               override.aes = list(size = 4)))
 plot1</code></pre>
-<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
-Past versions of unnamed-chunk-2-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-2-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/098b08e3a2bdf95f877bd7e921d8123bac8d459d/docs/figure/VisiumHD.Rmd/unnamed-chunk-2-1.png" target="_blank">098b08e</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-09-04
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/0010f3c6d5aa17bd4ac1b77564565534156f3a69/docs/figure/VisiumHD.Rmd/unnamed-chunk-2-1.png" target="_blank">0010f3c</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-09-04
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/51b04520c087f1b30229cf2939f79c567fedcd51/docs/figure/VisiumHD.Rmd/unnamed-chunk-2-1.png" target="_blank">51b0452</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-09-03
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/d1192e95a8ed7985fb6d9678ce0a6d850f882066/docs/figure/VisiumHD.Rmd/unnamed-chunk-2-1.png" target="_blank">d1192e9</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-08-12
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/tkcaccia/KODAMA-Analysis/blob/82fe167363197a5889eb59cb7e39511dfde2f22e/docs/figure/VisiumHD.Rmd/unnamed-chunk-2-1.png" target="_blank">82fe167</a>
-</td>
-<td>
-Stefano Cacciatore
-</td>
-<td>
-2024-07-24
-</td>
-</tr>
-</tbody>
-</table>
+<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-</div>
-<pre class="r"><code>png(&quot;output/CRC.png&quot;,height = 2000,width = 2000)
-plot1
-dev.off()</code></pre>
-<pre><code>png 
-  2 </code></pre>
+<div id="trajectory-analysis" class="section level1">
+<h1>Trajectory analysis</h1>
+<p>The function new_trajectory allows us to draw manually a trajectory
+into the KODAMA plot to identify the gradual changes in the gene
+expression. The trajectory were previously drew and saved in the file <a
+href="https://github.com/tkcaccia/KODAMA-Analysis/blob/main/data/trajectories_VISIUMHD.RData">trajectories_VISIUMHD.RData</a>.</p>
 <pre class="r"><code>par(xpd = T, mar = par()$mar + c(0,0,0,7))
 
-plot1=plot(kk_UMAP,cex=0.5,pch=20,col=cols_tissue[labels])
-legend(max(kk_UMAP[,1])+0.05*dist(range(kk_UMAP[,1])), max(kk_UMAP[,2]),
-       levels(labels),
-       col = cols,
-       cex = 0.8,
-       pch=20)
 
-load(&quot;data/trajectories_VISIUMHD.RData&quot;)
 
 data=sp_obj@assays$Spatial.008um$data[rownames(sp_obj@assays$Spatial.008um$scale.data),]
 data=as.matrix(data)</code></pre>
 <pre><code>Warning in asMethod(object): sparse-&gt;dense coercion: allocating vector of size
 6.4 GiB</code></pre>
 <pre class="r"><code>data=t(data)
+data=data[,-which(colMeans(data==0)&gt;0.99)]</code></pre>
+<pre class="r"><code>load(&quot;data/trajectories_VISIUMHD.RData&quot;)
 
+plot(kk_UMAP,cex=0.5,pch=20,col=cols_tissue[labels])
+legend(max(kk_UMAP[,1])+0.05*dist(range(kk_UMAP[,1])), max(kk_UMAP[,2]),
+       levels(labels),
+       col = cols,
+       cex = 0.8,
+       pch=20)
 mm1=new_trajectory (kk_UMAP,data = data,trace=tra1$xy)
 mm2=new_trajectory (kk_UMAP,data = data,trace=tra2$xy)
 mm3=new_trajectory (kk_UMAP,data = data,trace=tra3$xy)</code></pre>
-<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-2-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>traj=rbind(mm1$trajectory,
            mm2$trajectory,
            mm3$trajectory)
 y=rep(1:20,3)</code></pre>
+<p>The genes were were correlated with the trajectory using the Spearman
+correlation test.</p>
 <pre class="r"><code>ma=multi_analysis(traj,y,FUN=&quot;correlation.test&quot;,method=&quot;spearman&quot;)
 ma=ma[order(as.numeric(ma$`p-value`)),]
-colnames(ma)=c(&quot;Feature   &quot;,&quot;rho   &quot;,&quot;p-value   &quot;,&quot;FDR   &quot;)</code></pre>
-<pre class="r"><code>knitr::kable(ma[1:30,],row.names=FALSE)</code></pre>
+colnames(ma)=c(&quot;Feature   &quot;,&quot;rho   &quot;,&quot;p-value   &quot;,&quot;FDR   &quot;)
+knitr::kable(ma[1:10,],row.names=FALSE)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1645,196 +1556,78 @@ colnames(ma)=c(&quot;Feature   &quot;,&quot;rho   &quot;,&quot;p-value   &quot;,
 <tbody>
 <tr class="odd">
 <td align="left">LCN2</td>
-<td align="right">-0.90</td>
-<td align="left">1.22e-22</td>
-<td align="left">1.50e-19</td>
-</tr>
-<tr class="even">
-<td align="left">CXCL2</td>
-<td align="right">-0.78</td>
-<td align="left">2.82e-13</td>
-<td align="left">1.48e-10</td>
-</tr>
-<tr class="odd">
-<td align="left">CXCL3</td>
-<td align="right">-0.78</td>
-<td align="left">3.62e-13</td>
-<td align="left">1.48e-10</td>
-</tr>
-<tr class="even">
-<td align="left">PI3</td>
-<td align="right">-0.77</td>
-<td align="left">1.04e-12</td>
-<td align="left">3.21e-10</td>
-</tr>
-<tr class="odd">
-<td align="left">GPX2</td>
-<td align="right">-0.76</td>
-<td align="left">1.57e-12</td>
-<td align="left">3.85e-10</td>
+<td align="right">-0.88</td>
+<td align="left">6.92e-21</td>
+<td align="left">6.94e-18</td>
 </tr>
 <tr class="even">
 <td align="left">SOD2</td>
-<td align="right">-0.72</td>
-<td align="left">5.82e-11</td>
-<td align="left">1.19e-08</td>
+<td align="right">-0.81</td>
+<td align="left">3.83e-15</td>
+<td align="left">1.92e-12</td>
 </tr>
 <tr class="odd">
-<td align="left">CCL20</td>
-<td align="right">-0.72</td>
-<td align="left">9.89e-11</td>
-<td align="left">1.74e-08</td>
+<td align="left">CEBPD</td>
+<td align="right">-0.81</td>
+<td align="left">5.75e-15</td>
+<td align="left">1.92e-12</td>
 </tr>
 <tr class="even">
-<td align="left">MUC1</td>
-<td align="right">-0.68</td>
-<td align="left">2.03e-09</td>
-<td align="left">3.12e-07</td>
-</tr>
-<tr class="odd">
-<td align="left">TRIM31</td>
-<td align="right">-0.66</td>
-<td align="left">8.18e-09</td>
-<td align="left">1.12e-06</td>
-</tr>
-<tr class="even">
-<td align="left">BACE2</td>
-<td align="right">-0.65</td>
-<td align="left">1.46e-08</td>
-<td align="left">1.79e-06</td>
-</tr>
-<tr class="odd">
-<td align="left">SPINK1</td>
-<td align="right">-0.65</td>
-<td align="left">2.39e-08</td>
-<td align="left">2.67e-06</td>
-</tr>
-<tr class="even">
-<td align="left">CXCL1</td>
-<td align="right">-0.64</td>
-<td align="left">5.02e-08</td>
-<td align="left">5.15e-06</td>
-</tr>
-<tr class="odd">
-<td align="left">CDC25B</td>
-<td align="right">-0.63</td>
-<td align="left">6.51e-08</td>
-<td align="left">6.16e-06</td>
-</tr>
-<tr class="even">
-<td align="left">S100P</td>
-<td align="right">-0.60</td>
-<td align="left">4.58e-07</td>
-<td align="left">4.03e-05</td>
+<td align="left">CXCL3</td>
+<td align="right">-0.77</td>
+<td align="left">7.34e-13</td>
+<td align="left">1.67e-10</td>
 </tr>
 <tr class="odd">
 <td align="left">ID1</td>
-<td align="right">-0.59</td>
-<td align="left">6.07e-07</td>
-<td align="left">4.98e-05</td>
+<td align="right">-0.77</td>
+<td align="left">8.35e-13</td>
+<td align="left">1.67e-10</td>
 </tr>
 <tr class="even">
-<td align="left">LRATD1</td>
-<td align="right">-0.58</td>
-<td align="left">1.38e-06</td>
-<td align="left">1.06e-04</td>
+<td align="left">IL32</td>
+<td align="right">-0.75</td>
+<td align="left">4.17e-12</td>
+<td align="left">6.97e-10</td>
 </tr>
 <tr class="odd">
-<td align="left">FXYD3</td>
-<td align="right">-0.57</td>
-<td align="left">1.89e-06</td>
-<td align="left">1.37e-04</td>
+<td align="left">PI3</td>
+<td align="right">-0.74</td>
+<td align="left">1.34e-11</td>
+<td align="left">1.91e-09</td>
 </tr>
 <tr class="even">
-<td align="left">SELENBP1</td>
-<td align="right">-0.57</td>
-<td align="left">2.29e-06</td>
-<td align="left">1.56e-04</td>
+<td align="left">CCL20</td>
+<td align="right">-0.74</td>
+<td align="left">1.73e-11</td>
+<td align="left">2.17e-09</td>
 </tr>
 <tr class="odd">
-<td align="left">NAMPT</td>
-<td align="right">-0.57</td>
-<td align="left">2.5e-06</td>
-<td align="left">1.62e-04</td>
+<td align="left">CXCL1</td>
+<td align="right">-0.74</td>
+<td align="left">2.16e-11</td>
+<td align="left">2.40e-09</td>
 </tr>
 <tr class="even">
-<td align="left">LGR5</td>
-<td align="right">0.56</td>
-<td align="left">2.72e-06</td>
-<td align="left">1.67e-04</td>
-</tr>
-<tr class="odd">
-<td align="left">AREG</td>
-<td align="right">-0.56</td>
-<td align="left">3.32e-06</td>
-<td align="left">1.94e-04</td>
-</tr>
-<tr class="even">
-<td align="left">CDC20</td>
-<td align="right">-0.56</td>
-<td align="left">3.69e-06</td>
-<td align="left">2.07e-04</td>
-</tr>
-<tr class="odd">
-<td align="left">STMN3</td>
-<td align="right">-0.56</td>
-<td align="left">3.95e-06</td>
-<td align="left">2.11e-04</td>
-</tr>
-<tr class="even">
-<td align="left">NCOA7</td>
-<td align="right">-0.55</td>
-<td align="left">6.49e-06</td>
-<td align="left">3.32e-04</td>
-</tr>
-<tr class="odd">
-<td align="left">S100A9</td>
-<td align="right">-0.54</td>
-<td align="left">7.43e-06</td>
-<td align="left">3.65e-04</td>
-</tr>
-<tr class="even">
-<td align="left">DNTTIP1</td>
-<td align="right">-0.54</td>
-<td align="left">8.47e-06</td>
-<td align="left">4.01e-04</td>
-</tr>
-<tr class="odd">
-<td align="left">PTP4A3</td>
-<td align="right">-0.53</td>
-<td align="left">1.22e-05</td>
-<td align="left">5.55e-04</td>
-</tr>
-<tr class="even">
-<td align="left">UBE2C</td>
-<td align="right">-0.53</td>
-<td align="left">1.28e-05</td>
-<td align="left">5.55e-04</td>
-</tr>
-<tr class="odd">
-<td align="left">CFB</td>
-<td align="right">-0.53</td>
-<td align="left">1.31e-05</td>
-<td align="left">5.55e-04</td>
-</tr>
-<tr class="even">
-<td align="left">NOS2</td>
-<td align="right">-0.52</td>
-<td align="left">1.71e-05</td>
-<td align="left">7.00e-04</td>
+<td align="left">TRIM31</td>
+<td align="right">-0.73</td>
+<td align="left">2.89e-11</td>
+<td align="left">2.90e-09</td>
 </tr>
 </tbody>
 </table>
-<div id="mirseq-analysis" class="section level1">
-<h1>miRseq Analysis:</h1>
-<p><strong>Analysing miRseq Gene Expression Data from a Colerectal
-Adenocarcinoma Cohort:</strong></p>
+<div id="validation-of-the-results-in-the-coad-tcga-cohort"
+class="section level2">
+<h2>Validation of the results in the COAD TCGA cohort</h2>
+<p>The downregulation of CXCL3 across the progression of the carcinoma
+was validated using the RNAseq data of the COAD TGCA cohort. Clinical
+and gene expression data were downloaded from <a
+href="http://firebrowse.org/">FireBrowse</a>.</p>
 <pre class="r"><code># install.packages(&quot;readxl&quot;)
-library(readxl)</code></pre>
-<p><strong><em>Prepare Clinical Data:</em></strong></p>
-<pre class="r"><code># Read in Clinical Data:
-coad=read.csv(&quot;../TCGA/COAD/COAD.clin.merged.picked.txt&quot;,sep=&quot;\t&quot;,check.names = FALSE, row.names = 1)
+library(readxl)
 
+# Read in Clinical Data:
+coad=read.csv(&quot;../TCGA/COAD/COAD.clin.merged.picked.txt&quot;,sep=&quot;\t&quot;,check.names = FALSE, row.names = 1)
 coad &lt;- as.data.frame(coad) 
 
 # Clean column names: replace dots with dashes &amp; convert to uppercase
@@ -1842,7 +1635,7 @@ colnames(coad) = toupper(colnames(coad))
 
  # Transpose the dataframe so that rows become columns and vice versa
 coad = t(coad) </code></pre>
-<p><strong><em>Prepare miRNA-seq expression data:</em></strong></p>
+<p><strong><em>Prepare RNA-seq expression data:</em></strong></p>
 <pre class="r"><code># Read RNA-seq expression data:
 r = read.csv(&quot;../TCGA/COAD/COAD.rnaseqv2__illuminahiseq_rnaseqv2__unc_edu__Level_3__RSEM_genes_normalized__data.data.txt&quot;, sep = &quot;\t&quot;, check.names = FALSE, row.names = 1)
 # Remove the first row:
@@ -1883,26 +1676,28 @@ rownames(RNA.sel) = tcgaID.sel$patient
 # Subset the RNA data to include only selected patients
 RNA.sel = RNA.sel[sel, ]</code></pre>
 <p><strong><em>Prepare labels for pathology stages:</em></strong></p>
-<ul>
-<li><p>Classify stages <code>t1</code>, <code>t2</code>, &amp;
-<code>t3</code> as “low”</p></li>
-<li><p>Classify stages <code>t4</code>, <code>t4a</code>, &amp;
-<code>t4b</code> as “high”</p></li>
-<li><p>Convert any <code>tis</code> stages to <code>NA</code></p></li>
-</ul>
+<p>The tumor samples were classified based on their T stage: -
+<code>t1</code>, <code>t2</code>, &amp; <code>t3</code> as “low” -
+<code>t4</code>, <code>t4a</code>, &amp; <code>t4b</code> as “high” -
+<code>tis</code> stages to <code>NA</code></p>
 <pre class="r"><code>labelsTCGA = coad.sel[, &quot;pathology_T_stage&quot;]
 labelsTCGA[labelsTCGA %in% c(&quot;t1&quot;, &quot;t2&quot;, &quot;t3&quot;, &quot;tis&quot;)] = &quot;low&quot;
-labelsTCGA[labelsTCGA %in% c(&quot;t4&quot;, &quot;t4a&quot;, &quot;t4b&quot;)] = &quot;high&quot;</code></pre>
-<p><strong><em>Log Transform the expression data for our selected gene
-<code>CXCL2</code>:</em></strong></p>
-<pre class="r"><code>CXCL2 &lt;- log(1 + RNA.sel[, &quot;CXCL2|2920&quot;])
-LCN2 &lt;- log(1 + RNA.sel[,&quot;LCN2|3934&quot; ])</code></pre>
+labelsTCGA[labelsTCGA %in% c(&quot;t4&quot;, &quot;t4a&quot;, &quot;t4b&quot;)] = &quot;high&quot;
+table(labelsTCGA)</code></pre>
+<pre><code>labelsTCGA
+high  low 
+  38  242 </code></pre>
 <p><strong><em>Boxplot to visualize the distribution of log transformed
 gene expression by pathology stage:</em></strong></p>
 <pre class="r"><code>colors=c(&quot;#0073c2bb&quot;,&quot;#efc000bb&quot;,&quot;#868686bb&quot;,&quot;#cd534cbb&quot;,&quot;#7aabdcbb&quot;,&quot;#003c67bb&quot;)
 
 library(ggpubr)
-df=data.frame(variable=CXCL2,labels=labelsTCGA)
+
+gene.selected=&quot;CXCL3&quot;
+gene.selected.RNA=colnames(RNA.sel)[pmatch(gene.selected,colnames(RNA.sel))]
+
+CXCL3 &lt;- log(1 + RNA.sel[, gene.selected.RNA])
+df=data.frame(variable=CXCL3,labels=labelsTCGA)
 
 my_comparisons=list()
 my_comparisons[[1]]=c(1,2)
@@ -1911,18 +1706,17 @@ Nplot1=ggboxplot(df, x = &quot;labels&quot;, y = &quot;variable&quot;,fill=&quot
                  width = 0.8,
                  palette=colors,
                  add = &quot;jitter&quot;,            
-                 add.params = list(size = 2, jitter = 0.2,fill=3, shape=10))+  
-  ylab(&quot;CXCL2 gene expression (FPKM)&quot;)+ xlab(&quot;&quot;)+
+                 add.params = list(size = 2, jitter = 0.2,fill=&quot;#ff0000aa&quot;, shape=21))+  
+  ylab(&quot;CXCL3 gene expression (FPKM)&quot;)+ xlab(&quot;&quot;)+
   stat_compare_means(comparisons = my_comparisons,method=&quot;wilcox.test&quot;)
 
 Nplot1</code></pre>
-<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>xy2=xy
 xy2[,1]=xy[,2]
 xy2[,2]=-xy[,1]
-plot(xy2,col=cols_tissue[labels],pch=20,cex=0.5)</code></pre>
-<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>df &lt;- data.frame(xy2, tissue=labels)
+
+df &lt;- data.frame(xy2, tissue=labels)
 plot2 = ggplot(df, aes(x, y, color = tissue)) +labs(title=&quot;KODAMA&quot;) +
   geom_point(size = 1) +
   theme_bw() + theme(legend.position = &quot;bottom&quot;)+
@@ -1930,112 +1724,185 @@ plot2 = ggplot(df, aes(x, y, color = tissue)) +labs(title=&quot;KODAMA&quot;) +
   guides(color = guide_legend(nrow = 4, 
                               override.aes = list(size = 4)))
 plot2</code></pre>
-<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-14-2.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>png(&quot;output/CRC2.png&quot;,height = 2000,width = 2000)
-plot2
-dev.off()
+<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="proximity-analysis" class="section level1">
+<h1>Proximity analysis</h1>
+<p>The gene expression of the desmoplastic submucosa are analyzed. The
+genes with gene expression correlates with the distance from the
+invasive carcinoma are identified.</p>
+<pre class="r"><code>sel_desmoplastic_submucosa=which(labels==&quot;desmoplastic submucosa&quot;)
+xy_desmoplastic_submucosa=xy[sel_desmoplastic_submucosa,]
+data_desmoplastic_submucosa=data[sel_desmoplastic_submucosa,]
+data_desmoplastic_submucosa=data_desmoplastic_submucosa[,-which(colMeans(data_desmoplastic_submucosa==0)&gt;0.95)]
+dim(data_desmoplastic_submucosa)</code></pre>
+<pre><code>[1] 55409   201</code></pre>
+<pre class="r"><code>sel_invasive_carcinoma=which(labels==&quot;invasive carcinoma&quot; | labels==&quot;intramucosal carcinoma&quot;)
+xy_invasive_carcinoma=xy[sel_invasive_carcinoma,]
 
-sel_desmoplastic_submucosa=which(labels==&quot;desmoplastic submucosa&quot;)
-kk_desmoplastic_submucosa=kk_UMAP[sel_desmoplastic_submucosa,]
-xy_desmoplastic_submucosa=xy2[sel_desmoplastic_submucosa,]
+knn=Rnanoflann::nn(xy_invasive_carcinoma,xy_desmoplastic_submucosa,1)   
 
-
-g &lt;- bluster::makeSNNGraph(as.matrix(kk_desmoplastic_submucosa), k = 20)
-g_walk &lt;- igraph::cluster_louvain(g,resolution = 0.005)
-clu = g_walk$membership
-names(clu)=rownames(kk_desmoplastic_submucosa)
-
-
-
-df &lt;- data.frame(kk_desmoplastic_submucosa[,1:2], tissue=as.factor(clu))
-plot3 = ggplot(df, aes(Dimensions_1, Dimensions_2, color = tissue)) +labs(title=&quot;KODAMA&quot;) +
-  geom_point(size = 1) +
-  theme_bw() + theme(legend.position = &quot;bottom&quot;)+
-  scale_color_manual(&quot;Domain&quot;, values = cols_tissue) +
-  guides(color = guide_legend(nrow = 4, 
-                              override.aes = list(size = 4)))
-plot3</code></pre>
-<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-14-3.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>png(&quot;output/CRC7.png&quot;,height = 2000,width = 2000)
-plot3
-dev.off()
-
-
-df &lt;- data.frame(xy_desmoplastic_submucosa, tissue=as.factor(clu))
-plot4 = ggplot(df, aes(x, y, color = tissue)) +labs(title=&quot;KODAMA&quot;) +
-  geom_point(size = 1) +
-  theme_bw() + theme(legend.position = &quot;bottom&quot;)+
-  scale_color_manual(&quot;Domain&quot;, values = cols_tissue) +
-  guides(color = guide_legend(nrow = 4, 
-                              override.aes = list(size = 4)))
-plot4</code></pre>
-<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-14-4.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>png(&quot;output/CRC8.png&quot;,height = 2000,width = 2000)
-plot4
-dev.off()
-
-
-
-sel_desmoplastic_submucosa_selected=names(which(clu==names(which.max(table(clu)))))
-kk_desmoplastic_submucosa_selected=kk_UMAP[sel_desmoplastic_submucosa_selected,]
-xy_desmoplastic_submucosa_selected=xy2[sel_desmoplastic_submucosa_selected,]
-data_desmoplastic_submucosa_selected=data[sel_desmoplastic_submucosa_selected,]
-data_desmoplastic_submucosa_selected=data_desmoplastic_submucosa_selected[,-which(colMeans(data_desmoplastic_submucosa_selected==0)&gt;0.95)]
-
-sel_invasive_carcinoma=which(labels==&quot;invasive carcinoma&quot; | labels==&quot;intermediate dysplasia&quot;)
-kk_invasive_carcinoma=kk_UMAP[sel_invasive_carcinoma,]
-xy_invasive_carcinoma=xy2[sel_invasive_carcinoma,]
-
-knn=Rnanoflann::nn(xy_invasive_carcinoma,xy_desmoplastic_submucosa_selected,1)  
-
-y=knn$distances[,1]
-
-
-
-ma=multi_analysis(data_desmoplastic_submucosa_selected,y,FUN=&quot;correlation.test&quot;,method=&quot;spearman&quot;)
-ma=ma[order(abs(as.numeric(ma$rho)),decreasing = TRUE),]
-colnames(ma)=c(&quot;Feature   &quot;,&quot;rho   &quot;,&quot;p-value   &quot;,&quot;FDR   &quot;)
-
-
-
-# 2) Define custom intervals
+y=knn$distances[,1]</code></pre>
+<pre class="r"><code># Define custom intervals
 break_points &lt;-c(quantile(y,probs=c(seq(0,1,0.005))))
 
-# 3) Convert continuous data to intervals
+# Convert continuous data to intervals
 distance_binned &lt;- cut(y, breaks = break_points)
 
-gene_binned=apply(data_desmoplastic_submucosa_selected,2,function(x)  tapply(x,distance_binned,mean))
+gene_binned=apply(data_desmoplastic_submucosa,2,function(x)  tapply(x,distance_binned,mean))
 break_points=break_points[-length(break_points)]
+
 
 ma=multi_analysis(gene_binned,break_points,FUN=&quot;correlation.test&quot;,method=&quot;MINE&quot;)
 ma=ma[order(as.numeric(ma$MIC),decreasing = TRUE),]
-ma[1:10,]
 rownames(ma)=ma[,&quot;Feature&quot;]
-#plot(knn$distances,PMdata[,3])
-
-zmax=NULL
-for(i in 1:ncol(gene_binned)){
- df=data.frame(x=break_points,y=gene_binned[,i])
- ll=loess(y~x,data = df,span = 0.3)
- z=predict(ll,newdata = data.frame(x=break_points))
- zmax[i]=break_points[which.max(z)]
-# points(break_points,z,type=&quot;l&quot;,col=2)
-}
-genes=colnames(gene_binned)
-names(zmax)=genes
 
 
-plot(log(1+zmax[genes]),ma[genes,]$MIC,cex=0.2)
-text(log(1+zmax[genes]),ma[genes,]$MIC,labels=genes,cex=0.7)</code></pre>
-<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-14-5.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>plot(log(1+break_points),gene_binned[,1],ylim=c(0,1),type=&quot;n&quot;)
- df=data.frame(x=break_points,
+
+knitr::kable(ma[1:20,],row.names=FALSE)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">MIC</th>
+<th align="left">p-value</th>
+<th align="left">FDR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">IGFBP5</td>
+<td align="right">1.00</td>
+<td align="left">3.9e-239</td>
+<td align="left">3.92e-237</td>
+</tr>
+<tr class="even">
+<td align="left">HTRA3</td>
+<td align="right">1.00</td>
+<td align="left">9.1e-261</td>
+<td align="left">1.83e-258</td>
+</tr>
+<tr class="odd">
+<td align="left">MGP</td>
+<td align="right">0.99</td>
+<td align="left">7.32e-191</td>
+<td align="left">3.68e-189</td>
+</tr>
+<tr class="even">
+<td align="left">TIMP3</td>
+<td align="right">0.92</td>
+<td align="left">1.88e-171</td>
+<td align="left">6.31e-170</td>
+</tr>
+<tr class="odd">
+<td align="left">GREM1</td>
+<td align="right">0.91</td>
+<td align="left">4.3e-206</td>
+<td align="left">2.88e-204</td>
+</tr>
+<tr class="even">
+<td align="left">IGFBP3</td>
+<td align="right">0.89</td>
+<td align="left">4.32e-176</td>
+<td align="left">1.74e-174</td>
+</tr>
+<tr class="odd">
+<td align="left">SFRP4</td>
+<td align="right">0.86</td>
+<td align="left">1.84e-170</td>
+<td align="left">5.29e-169</td>
+</tr>
+<tr class="even">
+<td align="left">CXCL14</td>
+<td align="right">0.84</td>
+<td align="left">9.84e-148</td>
+<td align="left">1.80e-146</td>
+</tr>
+<tr class="odd">
+<td align="left">COL1A1</td>
+<td align="right">0.83</td>
+<td align="left">7.49e-152</td>
+<td align="left">1.67e-150</td>
+</tr>
+<tr class="even">
+<td align="left">MMP11</td>
+<td align="right">0.80</td>
+<td align="left">1.07e-141</td>
+<td align="left">1.66e-140</td>
+</tr>
+<tr class="odd">
+<td align="left">SPARC</td>
+<td align="right">0.76</td>
+<td align="left">1.99e-128</td>
+<td align="left">2.50e-127</td>
+</tr>
+<tr class="even">
+<td align="left">AEBP1</td>
+<td align="right">0.76</td>
+<td align="left">6.24e-99</td>
+<td align="left">5.23e-98</td>
+</tr>
+<tr class="odd">
+<td align="left">CCDC80</td>
+<td align="right">0.75</td>
+<td align="left">2.47e-129</td>
+<td align="left">3.31e-128</td>
+</tr>
+<tr class="even">
+<td align="left">SFRP2</td>
+<td align="right">0.75</td>
+<td align="left">3.47e-90</td>
+<td align="left">2.49e-89</td>
+</tr>
+<tr class="odd">
+<td align="left">ISLR</td>
+<td align="right">0.75</td>
+<td align="left">3.13e-161</td>
+<td align="left">7.88e-160</td>
+</tr>
+<tr class="even">
+<td align="left">COL1A2</td>
+<td align="right">0.74</td>
+<td align="left">7.6e-102</td>
+<td align="left">7.27e-101</td>
+</tr>
+<tr class="odd">
+<td align="left">DCN</td>
+<td align="right">0.74</td>
+<td align="left">5.3e-98</td>
+<td align="left">4.26e-97</td>
+</tr>
+<tr class="even">
+<td align="left">COL3A1</td>
+<td align="right">0.73</td>
+<td align="left">6.96e-132</td>
+<td align="left">9.99e-131</td>
+</tr>
+<tr class="odd">
+<td align="left">COL14A1</td>
+<td align="right">0.73</td>
+<td align="left">2.01e-100</td>
+<td align="left">1.83e-99</td>
+</tr>
+<tr class="even">
+<td align="left">A2M</td>
+<td align="right">0.73</td>
+<td align="left">2.73e-99</td>
+<td align="left">2.38e-98</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code> df=data.frame(x=break_points,
                HTRA3=gene_binned[,&quot;HTRA3&quot;],
                IGFBP5=gene_binned[,&quot;IGFBP5&quot;],
                CXCL14=gene_binned[,&quot;CXCL14&quot;],
                MMP11=gene_binned[,&quot;MMP11&quot;],
                TIMP3=gene_binned[,&quot;TIMP3&quot;],
-               MGP=gene_binned[,&quot;MGP&quot;])
+               MGP=gene_binned[,&quot;MGP&quot;],
+               GREM1=gene_binned[,&quot;GREM1&quot;],
+               IGFBP3=gene_binned[,&quot;IGFBP3&quot;],
+               SFRP4=gene_binned[,&quot;SFRP4&quot;])
  
  ll=loess(IGFBP5~x,data = df,span = 0.3)
  IGFBP5=predict(ll,newdata = data.frame(x=break_points))
@@ -2054,206 +1921,39 @@ text(log(1+zmax[genes]),ma[genes,]$MIC,labels=genes,cex=0.7)</code></pre>
  
  ll=loess(MGP~x,data = df,span = 0.3)
  MGP=predict(ll,newdata = data.frame(x=break_points))
- points(log(1+break_points),HTRA3/max(HTRA3),type=&quot;l&quot;,col=2,lwd=3)
- points(log(1+break_points),IGFBP5/max(IGFBP5),type=&quot;l&quot;,col=3,lwd=3)
- points(log(1+break_points),CXCL14/max(CXCL14),type=&quot;l&quot;,col=4,lwd=3)
- points(log(1+break_points),MMP11/max(MMP11),type=&quot;l&quot;,col=5,lwd=3)
- points(log(1+break_points),TIMP3/max(TIMP3),type=&quot;l&quot;,col=6,lwd=3)
- points(log(1+break_points),MGP/max(MGP),type=&quot;l&quot;,col=7,lwd=3)</code></pre>
-<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-14-6.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::kable(ma[1:30,],row.names=FALSE)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Feature</th>
-<th align="right">MIC</th>
-<th align="left">p-value</th>
-<th align="left">FDR</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">IGFBP5</td>
-<td align="right">1.00</td>
-<td align="left">6.8e-241</td>
-<td align="left">3.52e-239</td>
-</tr>
-<tr class="even">
-<td align="left">MGP</td>
-<td align="right">1.00</td>
-<td align="left">1.79e-277</td>
-<td align="left">1.85e-275</td>
-</tr>
-<tr class="odd">
-<td align="left">HTRA3</td>
-<td align="right">0.98</td>
-<td align="left">0e+00</td>
-<td align="left">0.00e+00</td>
-</tr>
-<tr class="even">
-<td align="left">CXCL14</td>
-<td align="right">0.94</td>
-<td align="left">1.11e-256</td>
-<td align="left">7.68e-255</td>
-</tr>
-<tr class="odd">
-<td align="left">GREM1</td>
-<td align="right">0.89</td>
-<td align="left">5.49e-180</td>
-<td align="left">2.27e-178</td>
-</tr>
-<tr class="even">
-<td align="left">TIMP3</td>
-<td align="right">0.83</td>
-<td align="left">3.75e-142</td>
-<td align="left">9.71e-141</td>
-</tr>
-<tr class="odd">
-<td align="left">SFRP4</td>
-<td align="right">0.82</td>
-<td align="left">1.09e-139</td>
-<td align="left">2.50e-138</td>
-</tr>
-<tr class="even">
-<td align="left">AEBP1</td>
-<td align="right">0.82</td>
-<td align="left">2.46e-139</td>
-<td align="left">5.09e-138</td>
-</tr>
-<tr class="odd">
-<td align="left">ISLR</td>
-<td align="right">0.78</td>
-<td align="left">9.88e-115</td>
-<td align="left">1.46e-113</td>
-</tr>
-<tr class="even">
-<td align="left">MMP11</td>
-<td align="right">0.78</td>
-<td align="left">2.86e-143</td>
-<td align="left">8.46e-142</td>
-</tr>
-<tr class="odd">
-<td align="left">CCDC80</td>
-<td align="right">0.77</td>
-<td align="left">1.42e-92</td>
-<td align="left">1.47e-91</td>
-</tr>
-<tr class="even">
-<td align="left">IGFBP3</td>
-<td align="right">0.76</td>
-<td align="left">7.7e-145</td>
-<td align="left">2.66e-143</td>
-</tr>
-<tr class="odd">
-<td align="left">COL14A1</td>
-<td align="right">0.74</td>
-<td align="left">1.6e-95</td>
-<td align="left">1.84e-94</td>
-</tr>
-<tr class="even">
-<td align="left">IGKC</td>
-<td align="right">0.73</td>
-<td align="left">1.5e-112</td>
-<td align="left">2.07e-111</td>
-</tr>
-<tr class="odd">
-<td align="left">SFRP2</td>
-<td align="right">0.72</td>
-<td align="left">2.34e-73</td>
-<td align="left">1.80e-72</td>
-</tr>
-<tr class="even">
-<td align="left">COMP</td>
-<td align="right">0.70</td>
-<td align="left">3.01e-87</td>
-<td align="left">2.71e-86</td>
-</tr>
-<tr class="odd">
-<td align="left">SPARC</td>
-<td align="right">0.69</td>
-<td align="left">1.74e-96</td>
-<td align="left">2.11e-95</td>
-</tr>
-<tr class="even">
-<td align="left">ANGPTL2</td>
-<td align="right">0.69</td>
-<td align="left">2.66e-100</td>
-<td align="left">3.44e-99</td>
-</tr>
-<tr class="odd">
-<td align="left">COL1A1</td>
-<td align="right">0.69</td>
-<td align="left">1.88e-116</td>
-<td align="left">3.24e-115</td>
-</tr>
-<tr class="even">
-<td align="left">A2M</td>
-<td align="right">0.68</td>
-<td align="left">5.44e-95</td>
-<td align="left">5.93e-94</td>
-</tr>
-<tr class="odd">
-<td align="left">MMP2</td>
-<td align="right">0.68</td>
-<td align="left">3.48e-92</td>
-<td align="left">3.43e-91</td>
-</tr>
-<tr class="even">
-<td align="left">FN1</td>
-<td align="right">0.67</td>
-<td align="left">7.81e-72</td>
-<td align="left">5.58e-71</td>
-</tr>
-<tr class="odd">
-<td align="left">ELN</td>
-<td align="right">0.67</td>
-<td align="left">4.9e-115</td>
-<td align="left">7.80e-114</td>
-</tr>
-<tr class="even">
-<td align="left">LUM</td>
-<td align="right">0.67</td>
-<td align="left">2.02e-81</td>
-<td align="left">1.74e-80</td>
-</tr>
-<tr class="odd">
-<td align="left">COL11A1</td>
-<td align="right">0.66</td>
-<td align="left">8e-90</td>
-<td align="left">7.53e-89</td>
-</tr>
-<tr class="even">
-<td align="left">COL3A1</td>
-<td align="right">0.64</td>
-<td align="left">5.02e-72</td>
-<td align="left">3.71e-71</td>
-</tr>
-<tr class="odd">
-<td align="left">COL1A2</td>
-<td align="right">0.64</td>
-<td align="left">3.94e-55</td>
-<td align="left">2.26e-54</td>
-</tr>
-<tr class="even">
-<td align="left">IGHG1</td>
-<td align="right">0.64</td>
-<td align="left">4.41e-80</td>
-<td align="left">3.65e-79</td>
-</tr>
-<tr class="odd">
-<td align="left">INHBA</td>
-<td align="right">0.63</td>
-<td align="left">2.2e-61</td>
-<td align="left">1.42e-60</td>
-</tr>
-<tr class="even">
-<td align="left">CALD1</td>
-<td align="right">0.63</td>
-<td align="left">1.44e-130</td>
-<td align="left">2.71e-129</td>
-</tr>
-</tbody>
-</table>
+ 
+ 
+ ll=loess(GREM1~x,data = df,span = 0.3)
+ GREM1=predict(ll,newdata = data.frame(x=break_points))
+ 
+ 
+ ll=loess(IGFBP3~x,data = df,span = 0.3)
+ IGFBP3=predict(ll,newdata = data.frame(x=break_points))
+ 
+ 
+ ll=loess(SFRP4~x,data = df,span = 0.3)
+ SFRP4=predict(ll,newdata = data.frame(x=break_points))
+ 
+ 
+ 
+cols_lines &lt;- c( &quot;#006400&quot;, &quot;#00cc8f&quot; ,&quot;#0088dd&quot;,
+                  &quot;#b2dfee&quot;, &quot;#ffd700&quot;,   &quot;#adc178&quot;, &quot;#aa1133&quot;, &quot;#e07a5f&quot;,
+                 &quot;#cc00b6&quot;, &quot;#f2cc8f&quot;, &quot;#aa228f&quot;,&quot;#aa7a6f&quot;)
+
+plot(log(1+break_points),gene_binned[,1],ylim=c(0,1),type=&quot;n&quot;)
+
+ 
+ 
+ points(log(1+break_points),HTRA3/max(HTRA3),type=&quot;l&quot;,col=cols_lines[1],lwd=3)
+ points(log(1+break_points),IGFBP5/max(IGFBP5),type=&quot;l&quot;,col=cols_lines[2],lwd=3)
+ points(log(1+break_points),CXCL14/max(CXCL14),type=&quot;l&quot;,col=cols_lines[3],lwd=3)
+ points(log(1+break_points),MMP11/max(MMP11),type=&quot;l&quot;,col=cols_lines[4],lwd=3)
+ points(log(1+break_points),TIMP3/max(TIMP3),type=&quot;l&quot;,col=cols_lines[5],lwd=3)
+ points(log(1+break_points),MGP/max(MGP),type=&quot;l&quot;,col=cols_lines[6],lwd=3)
+ points(log(1+break_points),GREM1/max(GREM1),type=&quot;l&quot;,col=cols_lines[7],lwd=3)
+ points(log(1+break_points),IGFBP3/max(IGFBP3),type=&quot;l&quot;,col=cols_lines[8],lwd=3)
+ points(log(1+break_points),SFRP4/max(SFRP4),type=&quot;l&quot;,col=cols_lines[9],lwd=3)</code></pre>
+<p><img src="figure/VisiumHD.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2263,7 +1963,7 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.4.2 (2024-10-31)
+<pre><code>R version 4.4.3 (2025-02-28)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 20.04.6 LTS
 
@@ -2287,64 +1987,59 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] ggpubr_0.6.0       readxl_1.4.3       bigmemory_4.6.4    KODAMAextra_1.2   
+ [1] ggpubr_0.6.0       readxl_1.4.5       bigmemory_4.6.4    KODAMAextra_1.2   
  [5] e1071_1.7-16       doParallel_1.0.17  iterators_1.0.14   foreach_1.5.2     
- [9] KODAMA_3.0         Matrix_1.7-1       umap_0.2.10.0      Rtsne_0.17        
-[13] minerva_1.5.10     Seurat_5.1.0       SeuratObject_5.0.2 sp_2.1-4          
+ [9] KODAMA_3.0         Matrix_1.7-3       umap_0.2.10.0      Rtsne_0.17        
+[13] minerva_1.5.10     Seurat_5.2.1       SeuratObject_5.0.2 sp_2.2-0          
 [17] dplyr_1.1.4        patchwork_1.3.0    ggplot2_3.5.1      workflowr_1.7.1   
 
 loaded via a namespace (and not attached):
-  [1] RcppAnnoy_0.0.22       splines_4.4.2          later_1.4.0           
+  [1] RcppAnnoy_0.0.22       splines_4.4.3          later_1.4.1           
   [4] tibble_3.2.1           cellranger_1.1.0       polyclip_1.10-7       
-  [7] fastDummies_1.7.4      lifecycle_1.0.4        rstatix_0.7.2         
- [10] tcltk_4.4.2            rprojroot_2.0.4        globals_0.16.3        
- [13] processx_3.8.4         Rnanoflann_0.0.3       lattice_0.22-6        
- [16] hdf5r_1.3.11           MASS_7.3-61            backports_1.5.0       
+  [7] fastDummies_1.7.5      lifecycle_1.0.4        tcltk_4.4.3           
+ [10] rstatix_0.7.2          rprojroot_2.0.4        globals_0.16.3        
+ [13] processx_3.8.6         Rnanoflann_0.0.3       lattice_0.22-7        
+ [16] hdf5r_1.3.12           MASS_7.3-65            backports_1.5.0       
  [19] magrittr_2.0.3         plotly_4.10.4          sass_0.4.9            
  [22] rmarkdown_2.29         jquerylib_0.1.4        yaml_2.3.10           
- [25] httpuv_1.6.15          sctransform_0.4.1      spam_2.11-0           
- [28] askpass_1.2.1          spatstat.sparse_3.1-0  reticulate_1.38.0     
+ [25] httpuv_1.6.15          sctransform_0.4.1      spam_2.11-1           
+ [28] askpass_1.2.1          spatstat.sparse_3.1-0  reticulate_1.42.0     
  [31] cowplot_1.1.3          pbapply_1.7-2          RColorBrewer_1.1-3    
- [34] abind_1.4-8            purrr_1.0.2            BiocGenerics_0.50.0   
- [37] misc3d_0.9-1           git2r_0.33.0           S4Vectors_0.42.1      
- [40] ggrepel_0.9.6          irlba_2.3.5.1          listenv_0.9.1         
- [43] spatstat.utils_3.1-2   goftest_1.2-3          RSpectra_0.16-2       
- [46] spatstat.random_3.3-2  fitdistrplus_1.2-2     parallelly_1.41.0     
- [49] leiden_0.4.3.1         codetools_0.2-20       tidyselect_1.2.1      
- [52] farver_2.1.2           stats4_4.4.2           matrixStats_1.4.1     
- [55] spatstat.explore_3.3-3 jsonlite_1.8.9         BiocNeighbors_1.22.0  
- [58] Formula_1.2-5          progressr_0.14.0       ggridges_0.5.6        
- [61] survival_3.8-3         tools_4.4.2            ica_1.0-3             
- [64] Rcpp_1.0.13-1          glue_1.8.0             gridExtra_2.3         
- [67] xfun_0.49              withr_3.0.1            fastmap_1.2.0         
- [70] bluster_1.14.0         fansi_1.0.6            openssl_2.2.2         
- [73] callr_3.7.6            digest_0.6.37          R6_2.5.1              
- [76] mime_0.12              colorspace_2.1-1       scattermore_1.2       
- [79] tensor_1.5             spatstat.data_3.1-4    utf8_1.2.4            
- [82] tidyr_1.3.1            generics_0.1.3         data.table_1.15.4     
- [85] class_7.3-23           httr_1.4.7             htmlwidgets_1.6.4     
- [88] whisker_0.4.1          uwot_0.2.2             pkgconfig_2.0.3       
- [91] gtable_0.3.5           lmtest_0.9-40          htmltools_0.5.8.1     
- [94] carData_3.0-5          dotCall64_1.2          scales_1.3.0          
- [97] png_0.1-8              spatstat.univar_3.1-1  bigmemory.sri_0.1.8   
-[100] knitr_1.49             rstudioapi_0.17.1      reshape2_1.4.4        
-[103] uuid_1.2-1             nlme_3.1-166           proxy_0.4-27          
-[106] cachem_1.1.0           zoo_1.8-12             stringr_1.5.1         
-[109] KernSmooth_2.23-26     miniUI_0.1.1.1         vipor_0.4.7           
-[112] arrow_16.1.0           ggrastr_1.0.2          pillar_1.9.0          
-[115] grid_4.4.2             vctrs_0.6.5            RANN_2.6.2            
-[118] promises_1.3.2         car_3.1-3              xtable_1.8-4          
-[121] cluster_2.1.8          beeswarm_0.4.0         evaluate_1.0.1        
-[124] cli_3.6.3              compiler_4.4.2         rlang_1.1.4           
-[127] future.apply_1.11.3    ggsignif_0.6.4         labeling_0.4.3        
-[130] ps_1.8.1               getPass_0.2-4          plyr_1.8.9            
-[133] fs_1.6.5               ggbeeswarm_0.7.2       stringi_1.8.4         
-[136] BiocParallel_1.38.0    viridisLite_0.4.2      deldir_2.0-4          
-[139] assertthat_0.2.1       munsell_0.5.1          lazyeval_0.2.2        
-[142] spatstat.geom_3.3-4    RcppHNSW_0.6.0         bit64_4.5.2           
-[145] future_1.34.0          shiny_1.10.0           ROCR_1.0-11           
-[148] broom_1.0.7            igraph_2.0.3           bslib_0.8.0           
-[151] bit_4.5.0.1           </code></pre>
+ [34] abind_1.4-8            purrr_1.0.4            misc3d_0.9-1          
+ [37] git2r_0.33.0           ggrepel_0.9.6          irlba_2.3.5.1         
+ [40] listenv_0.9.1          spatstat.utils_3.1-3   goftest_1.2-3         
+ [43] RSpectra_0.16-2        spatstat.random_3.3-3  fitdistrplus_1.2-2    
+ [46] parallelly_1.43.0      codetools_0.2-20       tidyselect_1.2.1      
+ [49] farver_2.1.2           matrixStats_1.5.0      spatstat.explore_3.4-2
+ [52] jsonlite_2.0.0         Formula_1.2-5          progressr_0.15.1      
+ [55] ggridges_0.5.6         survival_3.8-3         tools_4.4.3           
+ [58] ica_1.0-3              Rcpp_1.0.14            glue_1.8.0            
+ [61] gridExtra_2.3          xfun_0.51              withr_3.0.2           
+ [64] fastmap_1.2.0          openssl_2.3.2          callr_3.7.6           
+ [67] digest_0.6.37          R6_2.6.1               mime_0.13             
+ [70] colorspace_2.1-1       scattermore_1.2        tensor_1.5            
+ [73] spatstat.data_3.1-6    tidyr_1.3.1            generics_0.1.3        
+ [76] data.table_1.17.0      class_7.3-23           httr_1.4.7            
+ [79] htmlwidgets_1.6.4      whisker_0.4.1          uwot_0.2.3            
+ [82] pkgconfig_2.0.3        gtable_0.3.6           lmtest_0.9-40         
+ [85] htmltools_0.5.8.1      carData_3.0-5          dotCall64_1.2         
+ [88] scales_1.3.0           png_0.1-8              spatstat.univar_3.1-2 
+ [91] bigmemory.sri_0.1.8    knitr_1.50             rstudioapi_0.17.1     
+ [94] reshape2_1.4.4         uuid_1.2-1             nlme_3.1-168          
+ [97] proxy_0.4-27           cachem_1.1.0           zoo_1.8-13            
+[100] stringr_1.5.1          KernSmooth_2.23-26     miniUI_0.1.1.1        
+[103] arrow_19.0.1           pillar_1.10.1          grid_4.4.3            
+[106] vctrs_0.6.5            RANN_2.6.2             promises_1.3.2        
+[109] car_3.1-3              xtable_1.8-4           cluster_2.1.8.1       
+[112] evaluate_1.0.3         cli_3.6.4              compiler_4.4.3        
+[115] rlang_1.1.5            future.apply_1.11.3    ggsignif_0.6.4        
+[118] labeling_0.4.3         ps_1.9.0               getPass_0.2-4         
+[121] plyr_1.8.9             fs_1.6.5               stringi_1.8.7         
+[124] viridisLite_0.4.2      deldir_2.0-4           assertthat_0.2.1      
+[127] munsell_0.5.1          lazyeval_0.2.2         spatstat.geom_3.3-6   
+[130] RcppHNSW_0.6.0         bit64_4.6.0-1          future_1.34.0         
+[133] shiny_1.10.0           ROCR_1.0-11            igraph_2.1.4          
+[136] broom_1.0.8            bslib_0.9.0            bit_4.6.0             </code></pre>
 </div>
 </div>
 </div>

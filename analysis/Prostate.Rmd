@@ -92,16 +92,16 @@ To begin the pathology data analysis, load the corresponding pathology data for 
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
-ss <- read.csv("data/Adenocarcinoma.csv")
+ss <- read.csv("data/Annotations/Adenocarcinoma.csv")
 annotation_Adenocarcinoma= ss[,2]
 names(annotation_Adenocarcinoma)=ss[,1]
 annotation_Adenocarcinoma=annotation_Adenocarcinoma[annotation_Adenocarcinoma!=""]
 names(annotation_Adenocarcinoma)=paste(gsub("-1","",names(annotation_Adenocarcinoma)),"Adenocarcinoma",sep="-")
-annotation_Acinar_Cell_Carcinoma=read_annotations("data/spots_classification_Acinar_Cell_Carcinoma.csv")
+annotation_Acinar_Cell_Carcinoma=read_annotations("data/Annotations/spots_classification_Acinar_Cell_Carcinoma.csv")
 names(annotation_Acinar_Cell_Carcinoma)=paste(gsub("-1","",names(annotation_Acinar_Cell_Carcinoma)),"Acinar_Cell_Carcinoma",sep="-")
-annotation_Adjacent_normal_section=read_annotations("data/spots_classification_IF.csv")
+annotation_Adjacent_normal_section=read_annotations("data/Annotations/spots_classification_IF.csv")
 names(annotation_Adjacent_normal_section)=paste(gsub("-1","",names(annotation_Adjacent_normal_section)),"Adjacent_normal_section",sep="-")
-annotation_Normal_Prostate=read_annotations("data/spots_classification_Normal_prostate.csv")
+annotation_Normal_Prostate=read_annotations("data/Annotations/spots_classification_Normal_prostate.csv")
 names(annotation_Normal_Prostate)=paste(gsub("-1","",names(annotation_Normal_Prostate)),"Normal_prostate",sep="-")
 
 annotations = c(annotation_Normal_Prostate,
@@ -211,13 +211,27 @@ After feature selection, principal component analysis (PCA) is performed to expl
 samples=as.factor(colData(spe)$sample_id)
 xy=as.matrix(spatialCoords(spe))
 rownames(xy)=rownames(colData(spe))
-data=t(logcounts(spe))
+data=as.matrix(t(logcounts(spe)))
+gene_names=spe@rowRanges@elementMetadata$gene_name
+gene_ids=names(spe@rowRanges)
+colnames(data)=gene_names
+names(gene_names)=gene_ids
 
+top_genes=gene_names[top[1:2000]]
+```
+
+
+```{r, fig.width=10, fig.height=6, warning=FALSE, message=FALSE}
 library(ggplot2)
 cols_tissue <- c("#0000b6cc", "#81b29acc", "#f2cc8fcc","#e07a5fcc")
 
+
+
+
+
+
 # Run PCA with top selected genes
-spe <- runPCA(spe, subset_row = top[1:3000], scale = TRUE)
+spe <- runPCA(spe, subset_row = top[1:2000], scale = TRUE)
 
 # Run Harmony to adjust for batch effects
 spe <- RunHarmony(spe, group.by.vars = "sample_id", lambda = NULL)
@@ -244,10 +258,10 @@ pca=reducedDim(spe,type = "HARMONY")[,1:50]
 
 plot1
 plot2
-svg("output/prostate1.svg",height = 3)
+svg("output/Figures/Prostate/prostate1.svg",height = 3)
 plot1
 dev.off()
-svg("output/prostate2.svg",height = 3)
+svg("output/Figures/Prostate/prostate2.svg",height = 3)
 plot2
 dev.off()
 
@@ -273,9 +287,10 @@ Assign specific colors to each pathology category and visualize the samples on a
 
 ```{r, fig.width=10, fig.height=6, warning=FALSE, message=FALSE}
 
-cols_pathology <- c("#0000ff", "#e41a1c", "#006400", "#000000", "#ffd700", 
-                    "#00ff00", "#b2dfee","#669bbc", "#81b29a", "#f2cc8f",
-                    "#adc178", "#aa1133", "#1166dc", "#e5989b", "#e07a5f")
+cols_pathology <- c("#0000ffcc", "#e41a1ccc", "#006400cc", "#000000cc", "#ffd700cc", 
+                    "#00ff00cc", "#b2dfeecc","#669bbccc", "#81b29acc", "#f2cc8fcc",
+                    "#adc178cc", "#aa1133cc", "#1166dccc", "#e5989bcc", "#e07a5fcc")
+
 
 df <- data.frame(pca[,1:2], tissue=annotations)
 df=df[!is.na(annotations),]
@@ -285,7 +300,7 @@ plot3=ggplot(df, aes(HARMONY_1, HARMONY_2, color = tissue)) +labs(title="PCA") +
   scale_color_manual("Domain", values = cols_pathology) +
   guides(color = guide_legend(nrow = 2, 
                               override.aes = list(size = 2)))
-svg("output/prostate3.svg",height = 3)
+svg("output/Figures/Prostate/prostate3.svg",height = 3)
 plot3
 dev.off()
 
@@ -316,6 +331,9 @@ config$n_sgd_threads = "auto"
 spe=RunKODAMAvisualization(spe,method="UMAP",config=config)
 
 
+save(spe,file="output/Prostate-KODAMA.RData")
+
+
 df <- data.frame(reducedDim(spe,type = "KODAMA")[,1:2], tissue=as.factor(colData(spe)$sample_id))
 plot4=ggplot(df, aes(Dimension.1, Dimension.2, color = tissue)) +labs(title="KODAMA") +
   geom_point(size = 2) +
@@ -337,22 +355,18 @@ plot5=ggplot(df, aes(Dimension.1, Dimension.2, color = tissue)) +labs(title="KOD
 plot4
 plot5
 
-svg("output/prostate4.svg",height = 4)
+svg("output/Figures/Prostate/prostate4.svg",height = 6,width = 10)
 plot4
 dev.off()
-svg("output/prostate5.svg",height = 4)
+svg("output/Figures/Prostate/prostate5.svg",height = 6,width = 10)
 plot5
 dev.off()
 
 ```
 
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
-save(spe,top,file="output/Prostate.RData")
-```
-
 
 ### Clustering
-```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
 
 
 ko=reducedDim(spe,type = "KODAMA")
@@ -362,32 +376,39 @@ clu = g_walk$membership
 
 table(clu,annotations)
 
-cols_cluster <- c("#0000b6", "#81b29a", "#f2cc8f","#e07a5f",
-          "#cc00b6", "#81ccff", "#00cc8f","#e0aa5f",
-          "#0088dd", "#33b233", "#aa228f","#aa7a6f")
+cols_cluster <- c("#0000b6cc", "#81b29acc", "#f2cc8fcc","#e07a5fcc",
+          "#cc00b6cc", "#81ccffcc", "#00cc8fcc","#e0aa5fcc",
+          "#0088ddcc", "#33b233cc", "#aa228fcc","#aa7a6fcc")
+
+df <- data.frame(reducedDim(spe, type = "KODAMA")[, 1:2], 
+                 cluster = as.factor(clu), 
+                 tissue = annotations,
+                 sample= spe$sample_id)
+
+df$cluster <- as.factor(df$cluster)
+
+plot6 <- ggplot(df, aes(Dimension.1, Dimension.2, color = cluster)) +
+    geom_point(size = 2) +
+    geom_point(data = subset(df, tissue == "normal gland" & sample=="Adenocarcinoma"), 
+               shape = 3, color = "#000000aa", stroke = 1, size = 2) +  # cross on top
+    theme_bw() +
+    theme(legend.position = "bottom") +
+    scale_color_manual("Domain", values = cols_cluster) +
+    guides(color = guide_legend(nrow = 2, override.aes = list(size = 2)))
+
+plot6
 
 
-df <- data.frame(reducedDim(spe,type = "KODAMA")[,1:2], cluster=as.factor(clu))
-df$cluster=as.factor(df$cluster)
-plot6=ggplot(df, aes(Dimension.1, Dimension.2, color = cluster)) +
-  geom_point(size = 2) +
-  theme_bw() +
-  theme(legend.position = "bottom")+
-  
-  scale_color_manual("Domain", values = cols_cluster) +
-  guides(color = guide_legend(nrow = 2, 
-                              override.aes = list(size = 2)))
 
-
-plot7=plot_slide(xy,samples,as.factor(clu),nrow=1,col = cols_cluster)
+plot7=plot_slide(xy,samples,as.factor(clu),nrow=1,col = cols_cluster,size.dot = 1)
 
 plot6
 plot7
 
-svg("output/prostate6.svg",height = 3)
+svg("output/Figures/Prostate/prostate6.svg",height = 8,width = 10)
 plot6
 dev.off()
-svg("output/prostate7.svg",height = 3)
+svg("output/Figures/Prostate/prostate7.svg",height = 3,width = 10)
 plot7
 dev.off()
 ```
@@ -409,7 +430,7 @@ plot(image)
 points(xy_sel,cex=0.5,pch=20,col="#33333333")
 
 data_sub=as.matrix(t(logcounts(spe_sub)))
-
+colnames(data_sub)=gene_names
 
 
 # nn1=new_trajectory (xy_sel,data = data)
@@ -426,7 +447,7 @@ mm3=new_trajectory (xy_sel,data = data_sub,trace=nn3$xy)
 traj=rbind(mm1$trajectory,
            mm2$trajectory,
            mm3$trajectory)
-traj=traj[,top[1:2000]]
+traj=traj[,top_genes]
 y=rep(1:20,3)
 
 ma=multi_analysis(traj,y,FUN="correlation.test",method="spearman")
@@ -439,34 +460,62 @@ vis_gene(spe,"Acinar_Cell_Carcinoma","ENSG00000134339")
 par(opar)
 vis_gene(spe,"Acinar_Cell_Carcinoma","ENSG00000166741")
 
-
 rowData(spe)[c("ENSG00000134339","ENSG00000166741"),]
+
+
+```
+
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+write.csv(ma[1:30,],"output/Prostate-trajectory.csv")
+
+```
+
+
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
 
 samples_sub=as.factor(colData(spe_sub)$sample_id)
 xy_sub=as.matrix(spatialCoords(spe_sub))
-PMdata=passing.message(data_sub,xy_sub/1000)
+PMdata=passing.message(data_sub,xy_sub,number_knn = 7)
 
 par(mfrow=c(1,2))
 
-a=data[,"ENSG00000134339"]
-b=data[,"ENSG00000166741"]
+a=data_sub[,"SAA2"]
+b=data_sub[,"NNMT"]
 cc=cor.test(a,b)
 txt=paste("r=",round(cc$estimate,digits=2))
 plot(a,b,main="Pearson correlation",xlab="SAA2",ylab="NNMT")
 mtext(txt)
 
 
-a=PMdata[,"ENSG00000134339"]
-b=PMdata[,"ENSG00000166741"]
+a=PMdata[,"SAA2"]
+b=PMdata[,"NNMT"]
 cc=cor.test(a,b)
 txt=paste("r=",round(cc$estimate,digits=2))
 plot(a,b,main="APM correlation",xlab="SAA2",ylab="NNMT")
 mtext(txt)
 
-aaa=1
-save(aaa,file="output/a1.RData")
+```
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE,echo="FALSE",results = "hide"}
+svg("output/Figures/Prostate/prostate-correlation.svg",height = 8,width = 14)
+par(mfrow=c(1,2))
+
+a=data_sub[,"SAA2"]
+b=data_sub[,"NNMT"]
+cc=cor.test(a,b)
+txt=paste("r=",round(cc$estimate,digits=2))
+plot(a,b,main="Pearson correlation",xlab="SAA2",ylab="NNMT",pch=20,col="#000000aa")
+mtext(txt)
 
 
+a=PMdata[,"SAA2"]
+b=PMdata[,"NNMT"]
+cc=cor.test(a,b)
+txt=paste("r=",round(cc$estimate,digits=2))
+plot(a,b,main="APM correlation",xlab="SAA2",ylab="NNMT",pch=20,col="#000000aa")
+mtext(txt)
+dev.off()
 ```
 
 This extended analysis includes principal component analysis (PCA), pathology data analysis, and the application of KODAMA for dimensionality reduction and visualization, enhancing the understanding of spatial transcriptomics data in different prostate tissue types.
@@ -488,11 +537,6 @@ We start by loading the necessary packages and preparing our gene data for analy
  geneset=GSA.read.gmt("../Genesets/msigdb_v2023.2.Hs_GMTs/h.all.v2023.2.Hs.symbols.gmt")
  names(geneset$genesets)=geneset$geneset.names
  genesets=geneset$genesets
-
-
-
-# library("gprofiler2")
-# genes=gconvert(rownames(spe),organism="hsapiens",target="GENECARDS",filter_na = F)$target
 
 genes=rowData(spe)[,"gene_name"]
 spot_name=colnames(spe)
@@ -521,19 +565,26 @@ ma=ma[order(as.numeric(ma$`p-value`)),]
 
 ma[1:10,]
 
+```
+
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, echo=FALSE}
+write.csv(ma[1:30,],"output/Prostate-GSEA.csv")
+
+```
 
 
 
 
 
 
+```{r, fig.width=10, fig.height=8, warning=FALSE, message=FALSE}
 
 
 library(ggpubr)
 library(gridExtra)
 par(mai=c(3,3,3,3))
 
-save(aaa,file="output/a2.RData")
 df=data.frame(variable=pathway[,"HALLMARK_MYC_TARGETS_V1"],labels=annotations)
 df=df[!is.na(df$labels) & samples=="Adenocarcinoma",]
 
@@ -547,13 +598,13 @@ Nplot1=ggboxplot(df, x = "labels", y = "variable", width = 0.8,palette = cols_pa
   stat_compare_means(comparisons = my_comparisons,method="wilcox.test")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),legend.position = "none",plot.margin = unit(c(2,1,1,1), "cm"))
 
-save(aaa,file="output/a3.RData")
 
 
-cols=cols_cluster[c(1,2,3,6,11)]
 
 df=data.frame(variable=pathway[,"HALLMARK_MYC_TARGETS_V1"],labels=clu)
 df=df[!is.na(clu2),]
+cols=cols_cluster[as.numeric(names(table(df$labels)))]
+
 my_comparisons=list(c(5,4),c(5,3),c(5,2),c(5,1))
 Nplot2=ggboxplot(df, x = "labels", y = "variable", width = 0.8,palette = cols,
                  fill="labels",add = "jitter", ylim=c(200,1400),                  
@@ -563,16 +614,21 @@ Nplot2=ggboxplot(df, x = "labels", y = "variable", width = 0.8,palette = cols,
   xlab("")+
   stat_compare_means(comparisons = my_comparisons,method="wilcox.test")+
   theme(legend.position = "none",plot.margin = unit(c(2,1,1,1), "cm"))
-save(aaa,file="output/a4.RData")
+
 egg::ggarrange(Nplot1,Nplot2,widths = c(2,1.2),nrow=1,labels = c('A', 'B'))
-save(aaa,file="output/a5.RData")
+```
+
+```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE,echo="FALSE",results = "hide"}
+svg("output/Figures/Prostate/prostate-boxplot.svg",height = 9,width = 20)
+egg::ggarrange(Nplot1,Nplot2,widths = c(2,1.2),nrow=1,labels = c('A', 'B'))
+dev.off()
 ```
 
 
 
 QuPath
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE,results = "hide"}
-save(aaa,file="output/a6.RData")
+
 
 xy=as.matrix(spatialCoords(spe))
 rownames(xy)=rownames(colData(spe))
@@ -596,12 +652,6 @@ clu2[clu %in% names(which(ta["normal gland",]>50 & ta["Invasive carcinoma",]>50)
 
 
 clu3=refine_SVM(xy,clu2,samples,cost=100,tiles=c(5,5),newdata = xy_HR_final,newsamples = newsamples )
-save(aaa,file="output/a7.RData")
-par(opar)
-plot(xy_HR_final[newsamples==levels(newsamples)[3],],col=clu3[newsamples==levels(newsamples)[3]])
-     
-     save(aaa,file="output/a8.RData")
-
 
 library(sf)
 library(concaveman)

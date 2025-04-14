@@ -52,7 +52,7 @@ Apply KODAMA to reduce dimensionality and visualize the results:
 ```{r,fig.width=10,fig.height=4,warning=FALSE,message=FALSE}
 
 brain <- RunKODAMAmatrix(brain, reduction = "pca")
-brain <- RunKODAMAvisualization(brain, method = "UMAP")
+brain <- RunKODAMAvisualization(brain)
 
 ```
 

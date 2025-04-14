@@ -62,7 +62,7 @@ plot(reducedDim(spe, type = "PCA"), bg = colors[as.factor(metaData[,"layer"])], 
 spe = RunKODAMAmatrix(spe, reduction = "PCA")
 
 # Visualizing KODAMA using UMAP method
-spe = RunKODAMAvisualization(spe, method = "UMAP")
+spe = RunKODAMAvisualization(spe)
 ```
 
 ## Visualizing Spatial Coordinates

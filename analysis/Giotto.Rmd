@@ -23,9 +23,14 @@ The data in this tutorial originates from a Visium Spatial Gene Expression slide
 library(KODAMA)
 library(KODAMAextra)
 library(Giotto)
+library(igraph)
 ```
 ## Dataset loading 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+n.cores=16
+# Provide path to Visium data folder
+data_path <- '../Giotto_Mouse_brain/'
+
 
 instrs = createGiottoInstructions(save_dir = '../Temporary',
                                   save_plot = FALSE,
@@ -34,7 +39,7 @@ instrs = createGiottoInstructions(save_dir = '../Temporary',
 
 
 ## directly from visium folder
-visium_brain = createGiottoVisiumObject(visium_dir = "../Giotto_Mouse_brain/",
+visium_brain = createGiottoVisiumObject(visium_dir = data_path,
                                         expr_data = 'raw',
                                         png_name = 'tissue_lowres_image.png',
                                         gene_column_index = 2,
@@ -53,8 +58,6 @@ spatPlot2D(gobject = visium_brain, cell_color = 'in_tissue', point_size = 2,
 ###Loading and Preparing Data
 Create Giotto Visium Object
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-# Provide path to Visium data folder
-data_path <- '../Giotto_Mouse_brain/'
 
 # Create Giotto Visium object
 visium_brain <- createGiottoVisiumObject(visium_dir = data_path,
@@ -102,8 +105,9 @@ visium_brain <- runPCA(gobject = visium_brain, feats_to_use = featgenes)
 ## KODAMA analysis
 
 ```{r, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
-visium_brain=RunKODAMAmatrix(visium_brain, f.par.pls = 50,FUN="PLS",n.cores=4)
-visium_brain=RunKODAMAvisualization(visium_brain,method="UMAP")
+
+visium_brain=RunKODAMAmatrix(visium_brain, n.cores=n.cores)
+visium_brain=RunKODAMAvisualization(visium_brain)
 ```
 
 ## Clustering and visualization
@@ -113,9 +117,8 @@ visium_brain=RunKODAMAvisualization(visium_brain,method="UMAP")
 visium_brain <- createNearestNetwork(gobject = visium_brain,dim_reduction_to_use = "KODAMA", dim_reduction_name="KODAMA",dimensions_to_use = 1:2, k = 15)
 
 ## Leiden clustering
-visium_brain <- doLeidenCluster(gobject = visium_brain, resolution = 0.5, n_iterations = 1000,network_name = "sNN.KODAMA")
+#visium_brain <- doLeidenCluster(gobject = visium_brain, resolution = 0.5, n_iterations = 1000,network_name = "sNN.KODAMA")
 
-dimPlot2D(gobject = visium_brain, dim_reduction_to_use ="KODAMA", dim_reduction_name="KODAMA",cell_color = 'leiden_clus',point_size = 2)
-spatPlot2D(gobject = visium_brain,cell_color = 'leiden_clus',point_size = 2.5)
+#dimPlot2D(gobject = visium_brain, dim_reduction_to_use ="KODAMA", dim_reduction_name="KODAMA",cell_color = 'leiden_clus',point_size = 2)
+#spatPlot2D(gobject = visium_brain,cell_color = 'leiden_clus',point_size = 2.5)
 ```
-
